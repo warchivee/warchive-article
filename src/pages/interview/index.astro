@@ -21,18 +21,18 @@ const posts = (await getCollection('interview')).sort(
 
 		<style>
 			main {
-				width: 960px;
+				/* width: 960px; */
 			}
 			ul {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 2rem;
 				list-style-type: none;
-				margin: 0;
+				margin: 0 auto;
 				padding: 0;
 			}
 			ul li {
-				width: calc(50% - 1rem);
+				margin: 0 auto;
 			}
 			ul li * {
 				text-decoration: none;
