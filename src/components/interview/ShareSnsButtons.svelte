@@ -49,8 +49,7 @@
   }
 
   onMount(() => {
-    console.log(import.meta.env.PUBLIC_KAKAO_KEY);
-    Kakao.init(import.meta.env.PUBLIC_KAKAO_KEY);
+    Kakao.init(import.meta.env.KAKAO_KEY);
 
     return () => {};
   });

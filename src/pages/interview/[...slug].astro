@@ -2,16 +2,13 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import InterviewPost from '../../layouts/InterviewPost.astro';
 
-export async function getStaticPaths() {
-	const posts = await getCollection('interview');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
-}
+// https://github.com/withastro/astro/issues/6012#issuecomment-1407398587
+const posts = await getCollection('interview');
 type Props = CollectionEntry<'interview'>;
 
-const post = Astro.props;
+const { slug } = Astro.params;
+const post = posts.find((page) => page.slug === slug);
+if (!post) return Astro.redirect("/404");
 const { Content } = await post.render();
 ---
 
