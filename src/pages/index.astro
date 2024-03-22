@@ -9,10 +9,125 @@ import InterviewFooter from '../components/interview/InterviewFooter.svelte';
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+		<style>
+			article {
+				flex: 1;
+				margin: 2rem;
+			}
+			header {
+				margin: 5rem 0;
+				font-size: 4em;
+				font-weight: 1000;
+				background-image: linear-gradient(90deg, rgba(108,63,255,1) 0%, rgba(233,201,255,1) 100%);
+				color: transparent;
+				background-clip: text;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				line-height: 1.2;
+			}
+
+			p {
+				font-weight: 500;
+			}
+
+			footer {
+				margin-top: 5rem;
+			}
+
+			footer h5 {
+				text-align: right;
+				font-weight: 300;
+			}
+
+			.about {
+				margin-top: 3rem;
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+
+			.contact {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				margin: 5rem 0;
+				gap: 0.5rem;
+			}
+
+			.contact h5 {
+				text-align: center;
+			}
+
+			.sns-btns {
+				display: flex;
+				justify-content: center;
+				gap: 1rem;
+			}
+
+			.sns-btns i {
+				background-color: var(--color-text);
+				border-radius: 50%;
+				width: 2.5rem;
+				height: 2.5rem;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 2.5rem;
+				font-size: 1.4rem;
+				color: var(--color-white);
+				cursor: pointer;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
+			<article>
+				<header>
+					Warchive: article
+				</header>
+
+				<div class="about">
+					<p>
+						Warchive: article 는 여성서사 아카이브 프로젝트 Warchive에서 운영하는 페미니즘 웹진입니다.
+					</p>
+
+					<p>
+						격주로 여성서사 리뷰가 게재됩니다.
+					</p>
+
+					<p>
+						비정기적으로 다양한 페미니즘 프로젝트와 협업하여 글을 발행합니다.
+					</p>
+
+					<p>
+						게시물의 무단 전재와 복제를 금합니다.
+					</p>
+					
+					<footer>
+						<h5>여성서사 아카이브 프로젝트 Warchive</h5>
+					</footer>
+				</div>
+
+				<div class="contact">
+					<h5>Contact</h5>
+					<div class="sns-btns">
+						<a href={`mailto:team.warchive@gmail.com`} target="_blank">
+							<i class="fa-solid fa-envelope"></i>
+						</a>
+						<a href="https://www.instagram.com/womynarchive" target="_blank">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+						<a href="https://twitter.com/Womynarchive" target="_blank">
+							<i class="fa-brands fa-x-twitter"></i>
+						</a>
+						<a href="https://www.womynarchive.com" target="_blank">
+							<i class="fa-solid fa-globe"></i>
+						</a>
+					</div>
+				</div>
+			</article>
 		</main>
 		<InterviewFooter />
 	</body>

@@ -9,6 +9,10 @@ main {
   margin: auto;
 }
 
+article {
+  width: 100%;
+}
+
 .gradient-background {
   background: linear-gradient(
     180deg,
@@ -42,12 +46,12 @@ section.title {
     color: var(--color-header);
     padding: 1rem;
 
-    h2 {
+    h4 {
       color: var(--color-header);
       font-weight: 300;
     }
 
-    h4 {
+    h5 {
       color: var(--color-header);
     }
 
@@ -55,24 +59,8 @@ section.title {
       font-weight: 900;
     }
 
-    @media (max-width: 900px) {
-      flex-direction: column;
-
-      & > h2,
-      & > h4 {
-        margin: 0;
-      }
-    }
-
-    @media (max-width: 550px) {
-      & > h2 {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      & > h4 {
+    @media (max-width: 600px) {
+      & > h5 {
         display: none;
       }
     }
@@ -203,8 +191,6 @@ section.content {
     & figcaption p {
       font-size: var(--text-caption);
       color: #a8a8a8;
-      margin: 0;
-      padding: 0;
     }
 
     &.float-left {
@@ -231,155 +217,10 @@ section.content {
     & .flex-row > figure > img {
       width: 80%;
       min-width: 300px;
-      margin: 1rem auto;
     }
 
     & .flex-row {
       flex-direction: column;
     }
   }
-}
-
-/**/
-
-.team-infos {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  width: 100%;
-  max-width: 1000px;
-}
-
-.sns-btns div {
-  cursor: pointer;
-}
-
-.team-infos .sns-btns {
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
-  margin-top: 0.3rem;
-  margin-bottom: 0.8rem;
-}
-
-.team-infos * {
-  color: var(--color-text);
-}
-
-.team-infos > div.warchive * {
-  color: var(--color-title);
-}
-
-.team-infos h5 {
-  font-size: 1.15rem;
-  font-weight: 900;
-}
-
-.team-infos {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 1rem;
-}
-
-.team-infos * {
-  text-align: right;
-}
-
-.team-infos .sns-btns a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-
-  background-color: var(--color-text);
-}
-
-.team-infos > div.warchive .sns-btns a {
-  background-color: var(--color-title);
-}
-
-.team-infos .sns-btns i {
-  color: var(--color-white);
-  font-size: 1rem;
-}
-
-.team-infos .team-info {
-  display: flex;
-  align-items: stretch;
-}
-
-.team-infos .team-info::after {
-  content: "";
-  margin: 0.5rem 0 0 1rem;
-  width: 7px;
-  flex-basis: auto;
-  background: url("/assets/zigzag_line_vertical.png") 0 0 repeat-y;
-  background-size: cover;
-}
-
-.team-infos .team-info.warchive::after {
-  content: "";
-  margin: 0.5rem 0 0 1rem;
-  width: 7px;
-  flex-basis: auto;
-  background: url("/assets/zigzag_line_blue_vertical.png") 0 0 repeat-y;
-  background-size: cover;
-}
-
-.share {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 5rem;
-}
-
-.share h5 {
-  color: var(--color-header);
-  font-weight: 400;
-}
-
-.share .sns-btns {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.sns-btns a,
-.sns-btns div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-
-  background-color: var(--color-header);
-}
-
-.sns-btns a i,
-.sns-btns div i {
-  font-size: 1.7rem;
-  color: var(--color-white);
-}
-
-article footer {
-  margin-top: 5rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 5rem;
-}
-
-a {
-  text-decoration-line: none;
-}
-
-a:hover {
-  color: var(--color-title);
 }

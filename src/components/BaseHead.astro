@@ -6,18 +6,16 @@ import '../styles/global.css';
 interface Props {
 	title: string;
 	description: string;
-	image?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
@@ -28,19 +26,54 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 
+<meta name="theme-color" content="#590091" />
+
+<meta property="og:title" content="Warchive - 여성서사 mbti 테스트" />
+
+<meta
+	property="og:description"
+	content={description}
+/>
+
+<meta name="msapplication-TileColor" content="#590091" />
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+<meta name="theme-color" content="#590091" />
+
+<meta property="og:image" content="https://i.ibb.co/5GhLscr/article-title.png" />
+
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
+<link
+	rel="icon"
+	type="image/png"
+	sizes="192x192"
+	href="/android-icon-192x192.png"
+/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content="https://i.ibb.co/5GhLscr/article-title.png" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content="https://i.ibb.co/5GhLscr/article-title.png" />
 
 <script
       src="https://kit.fontawesome.com/57035f1d97.js"
@@ -48,8 +81,8 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
     ></script>
 
 <script
-      is:inline
-			src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
-			integrity="sha384-l+xbElFSnPZ2rOaPrU//2FF5B4LB8FiX5q4fXYTlfcG4PGpMkE1vcL7kNXI6Cci0"
-			crossorigin="anonymous"
-		></script>
+is:inline
+	src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
+	integrity="sha384-l+xbElFSnPZ2rOaPrU//2FF5B4LB8FiX5q4fXYTlfcG4PGpMkE1vcL7kNXI6Cci0"
+	crossorigin="anonymous"
+></script>

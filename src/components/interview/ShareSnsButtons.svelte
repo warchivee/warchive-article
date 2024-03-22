@@ -49,7 +49,7 @@
   }
 
   onMount(() => {
-    Kakao.init(import.meta.env.KAKAO_KEY);
+    Kakao.init(import.meta.env.PUBLIC_KAKAO_KEY);
 
     return () => {};
   });
@@ -72,3 +72,37 @@
     </div>
   </div>
 </div>
+
+<style>
+  .share {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 5rem;
+  }
+
+  h5 {
+    color: var(--color-header);
+    font-weight: 400;
+  }
+
+  .sns-btns {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .sns-btns div i {
+    background-color: var(--color-header);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2.5rem;
+    font-size: 1.7rem;
+    color: var(--color-white);
+    cursor: pointer;
+  }
+</style>

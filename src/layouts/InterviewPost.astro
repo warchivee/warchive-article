@@ -3,9 +3,9 @@ import { getEntry, type CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import InterviewFooter from '../components/interview/InterviewFooter.svelte';
-import ShareSnsButton from '../components/interview/ShareSnsButtons.svelte';
 
 import '../styles/interview.scss';
+import InterviewArticleFooter from '../components/interview/InterviewArticleFooter.svelte';
 
 type Props = CollectionEntry<'interview'>['data'];
 
@@ -18,22 +18,20 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
 		<BaseHead title={`${subject} - ${title}`} description={subject} />
 
         <style is:global>
-            article.interview h2, 
-            article.interview h5, 
-            article.interview h4, 
-            article.interview p,
-            article.interview figure,
-            article.interview ul {
+            article.interview section h2, 
+            article.interview section h4, 
+            article.interview section p,
+            article.interview section figure,
+            article.interview section ul {
                 transition: 1200ms;
                 opacity: 0;
             }
 
-             article.interview h2.fade-in, 
-            article.interview h5.fade-in, 
-            article.interview h4.fade-in,
-            article.interview p.fade-in,
-            article.interview figure.fade-in,
-             article.interview ul.fade-in {
+             article.interview section h2.fade-in, 
+            article.interview section h4.fade-in,
+            article.interview section p.fade-in,
+            article.interview section figure.fade-in,
+             article.interview section ul.fade-in {
                 opacity: 1;
             }
         </style>
@@ -49,7 +47,7 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
                 }
                 });
             },
-                { threshold: 0.05 }
+                { threshold: 0 }
             );
 
             const targetElements = document.querySelectorAll("*");
@@ -67,10 +65,10 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
                     <div class="gradient-background">
                         <section class="title">
                                 <div class="post_title">
-                                    <h2>
+                                    <h4>
                                         <span>{subject}</span> <b>{title}</b>
-                                    </h2>
-                                    <h4>여성서사 아카이브 프로젝트 Warchive</h4>
+                                    </h4>
+                                    <h5>여성서사 아카이브 프로젝트 Warchive</h5>
                                 </div>
 
                                 <div class="border"></div>
@@ -88,94 +86,14 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
                         <slot />
                     </section>
 
-                    
-
-                      <footer>
-                            <div class="team-infos">
-                                {target &&
-                             <div class="team-info">
-                                <div>
-                                <h5>{target.name}</h5>
-                                <div class="sns-btns">
-                                    {target.contacts.email &&
-                                        <a href={`mailto:${target.contacts.email}`} target="_blank">
-                                            <i class="fa-solid fa-envelope"></i>
-                                        </a>
-                                    }
-
-                                    {target.contacts.instagram &&
-                                        <a href={target.contacts.instagram} target="_blank">
-                                            <i class="fa-brands fa-instagram"></i>
-                                        </a>
-                                    }
-
-                                    {target.contacts.twitter &&
-                                        <a href={target.contacts.twitter} target="_blank">
-                                            <i class="fa-brands fa-x-twitter"></i>
-                                        </a>
-                                    }
-
-                                    {target.contacts.site &&
-                                        <a href={target.contacts.site} target="_blank">
-                                            <i class="fa-solid fa-globe"></i>
-                                        </a>
-                                    }
-                                </div>
-                                <p>
-                                    {
-                                        target.about.map((a:any) => {
-                                            return (
-                                                <>
-                                                    <a href={a.url} target="_blank">{a.text}</a>
-                                                    <br />
-                                                </>
-                                            )
-                                        })
-                                    }
-                                </p>
-                                </div>
-                            </div>    
-                            }
-                           
-
-                            <div class="team-info warchive">
-                                <div>
-                                <h5>프로젝트 와카이브</h5>
-                                <div class="sns-btns">
-                                    <a href="mailto:team.warchive@gmail.com" target="_blank">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    </a>
-                                    <a
-                                    href="https://www.instagram.com/womynarchive"
-                                    target="_blank"
-                                    >
-                                    <i class="fa-brands fa-instagram"></i>
-                                    </a>
-                                    <a href="https://twitter.com/Womynarchive" target="_blank">
-                                    <i class="fa-brands fa-x-twitter"></i>
-                                    </a>
-                                    <a href="https://www.womynarchive.com" target="_blank">
-                                    <i class="fa-solid fa-globe"></i>
-                                    </a>
-                                </div>
-                                <p>
-                                    2020년 여성서사 아카이빙 사이트 오픈
-                                    <br />
-                                    '여성에게는 여성의 이야기가 필요합니다' 를 캐치프레이즈로
-                                    <br />
-                                    다양한 여성서사를 발굴, 기록하고 있다.
-                                </p>
-                                </div>
-                            </div>
-                            </div>
-
-                            <ShareSnsButton client:visible shareTitle="인터뷰 공유하기" url={Astro.url}
-                                title={subject}
-                                description={title}
-                                hashtags={`와카이브,${tags?.join(',')}`}
-                                shareImage="https://i.ibb.co/5GhLscr/article-title.png"
-                            />
-                        </footer>
+                    <InterviewArticleFooter
+                        client:load
+                        target={target}
+                        url={Astro.url}
+                        title={subject}
+                        description={title}
+                        hashtags={tags}
+                    />
 				</div>
 			</article>
 		</main>

@@ -13,7 +13,8 @@
 
 <style>
   footer {
-    padding: 1.2em 1em 1.2em 1em;
+    margin: 3rem 0 0 0;
+    padding: 1em 1em 1em 1em;
     border-top: 5px solid var(--color-header);
   }
 
@@ -31,7 +32,10 @@
 
   @media (max-width: 750px) {
     hgroup {
-      flex-direction: column;
+      justify-content: center;
+    }
+    hgroup > h5:first-child {
+      display: none;
     }
   }
 </style>
