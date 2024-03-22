@@ -1,8 +1,10 @@
 <script>
+  import Snackbar from "../Snackbar.svelte";
   import { onMount } from "svelte";
+  import { SITE_TITLE } from "../../consts";
 
   export let shareTitle;
-  let title = "와카이브 아티클";
+  let title = `〈${SITE_TITLE}〉`;
 
   export let url;
   export let description;
@@ -10,8 +12,21 @@
 
   export let shareImage;
 
+  let showSnackbar = false;
+
+  // Set the store to true when the button is clicked
+  function openSnackbar() {
+    showSnackbar = true;
+
+    setTimeout(() => {
+      showSnackbar = false;
+    }, 3000);
+  }
+
   function shareLink() {
     navigator.clipboard.writeText(`${url}`);
+
+    openSnackbar();
   }
 
   function shareFacebook() {
@@ -72,6 +87,10 @@
     </div>
   </div>
 </div>
+
+{#if showSnackbar}
+  <Snackbar message="링크를 복사했습니다." />
+{/if}
 
 <style>
   .share {

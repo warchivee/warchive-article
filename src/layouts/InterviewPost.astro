@@ -6,6 +6,7 @@ import InterviewFooter from '../components/interview/InterviewFooter.svelte';
 
 import '../styles/interview.scss';
 import InterviewArticleFooter from '../components/interview/InterviewArticleFooter.svelte';
+import { SITE_TITLE } from '../consts';
 
 type Props = CollectionEntry<'interview'>['data'];
 
@@ -15,7 +16,7 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
 
 <html lang="en">
 	<head>
-		<BaseHead title={`${subject} - ${title}`} description={subject} image={new URL(thumbnailImage || '', Astro.url)} />
+		<BaseHead title={SITE_TITLE} description={`${subject} - ${title}`} image={new URL(thumbnailImage || '', Astro.url)} />
 
         <style is:global>
             article.interview section h2, 
@@ -90,7 +91,7 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
                         client:load
                         target={target}
                         url={Astro.url}
-                        description={subject + " " + title}
+                        description={subject + " - " + title}
                         image={new URL(thumbnailImage || '', Astro.url)}
                         hashtags={tags}
                     />
