@@ -3,8 +3,8 @@
 
   export let target;
 
+  export let image;
   export let url;
-  export let title;
   export let description;
   export let hashtags;
 </script>
@@ -80,10 +80,9 @@
   <ShareSnsButtons
     shareTitle="인터뷰 공유하기"
     {url}
-    {title}
     {description}
     hashtags={`와카이브,${hashtags?.join(",")}`}
-    shareImage="https://i.ibb.co/5GhLscr/article-title.png"
+    shareImage={image}
   />
 </footer>
 

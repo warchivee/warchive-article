@@ -69,7 +69,7 @@ section.title {
   .border {
     width: 100%;
     height: 15px;
-    background: url("/assets/zigzag_line_blue.png") repeat-x;
+    background: url("/assets/zigzag_line_blue.png") no-repeat;
     fill: var(--color-header);
     background-size: auto 15px;
   }

@@ -15,7 +15,7 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
 
 <html lang="en">
 	<head>
-		<BaseHead title={`${subject} - ${title}`} description={subject} />
+		<BaseHead title={`${subject} - ${title}`} description={subject} image={new URL(thumbnailImage || '', Astro.url)} />
 
         <style is:global>
             article.interview section h2, 
@@ -90,8 +90,8 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
                         client:load
                         target={target}
                         url={Astro.url}
-                        title={subject}
-                        description={title}
+                        description={subject + " " + title}
+                        image={new URL(thumbnailImage || '', Astro.url)}
                         hashtags={tags}
                     />
 				</div>

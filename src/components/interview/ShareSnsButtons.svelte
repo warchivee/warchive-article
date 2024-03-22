@@ -2,9 +2,9 @@
   import { onMount } from "svelte";
 
   export let shareTitle;
+  let title = "와카이브 아티클";
 
   export let url;
-  export let title;
   export let description;
   export let hashtags;
 
@@ -30,7 +30,7 @@
       content: {
         title: title,
         description: description,
-        imageUrl: shareImage,
+        imageUrl: `${shareImage}`,
         link: {
           mobileWebUrl: `${url}`,
           webUrl: `${url}`,
