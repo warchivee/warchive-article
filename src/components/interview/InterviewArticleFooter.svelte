@@ -34,6 +34,12 @@
               </a>
             {/if}
 
+            {#if target.contacts.youtube}
+              <a href={target.contacts.youtube} target="_blank">
+                <i class="fa-brands fa-youtube"></i>
+              </a>
+            {/if}
+
             {#if target.contacts.site}
               <a href={target.contacts.site} target="_blank">
                 <i class="fa-solid fa-globe"></i>

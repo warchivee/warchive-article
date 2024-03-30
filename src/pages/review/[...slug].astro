@@ -1,0 +1,17 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import ReviewPost from '../../layouts/ReviewPost.astro';
+
+// https://github.com/withastro/astro/issues/6012#issuecomment-1407398587
+const posts = await getCollection('review');
+type Props = CollectionEntry<'review'>;
+
+const { slug } = Astro.params;
+const post = posts.find((page) => page.slug === slug);
+if (!post) return Astro.redirect("/404");
+const { Content } = await post.render();
+---
+
+<ReviewPost {...post.data}>
+	<Content />
+</ReviewPost>

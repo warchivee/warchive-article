@@ -5,7 +5,7 @@
  */
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Orbit&family=Song+Myung&family=Sunflower:wght@300&display=swap");
 @import "reset.css";
 
 :root {
@@ -19,8 +19,9 @@
   --box-shadow: 0 2px 6px rgba(var(--gray), 5%),
     0 8px 24px rgba(var(--gray), 8%), 0 16px 32px rgba(var(--gray), 8%);
 
-  --font-title: "Nunito Sans", sans-serif;
+  --font-title: "Nunito Sans KR", sans-serif;
   --font-content: "Noto Sans KR", sans-serif;
+  --font-quote: "Gowun Dodum", sans-serif;
 
   --color-black: #020202;
   --color-background: #ebdbf3;
@@ -28,7 +29,7 @@
   --color-header: #4200d5;
   --color-title: #9339ff;
   --color-white: #fbfbfb;
-
+  /* --color-white: #98ccec93; */
   --text-caption: 0.85rem;
   --text-sm: 1rem;
   --text-md: 1.125rem;

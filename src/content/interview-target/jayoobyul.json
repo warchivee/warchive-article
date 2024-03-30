@@ -1,0 +1,19 @@
+{
+  "name": "자유별",
+  "contacts": {
+    "twitter": "https://twitter.com/JayooByul",
+    "instagram": "https://www.instagram.com/jayoobyul",
+    "youtube": "https://www.youtube.com/@JayooByul",
+    "site": "https://blog.naver.com/jayoobyul"
+  },
+  "about": [
+    {
+      "text": "LOVE PIECE CLUB에서 칼럼 연재중",
+      "url": "https://www.lovepiececlub.com/author/byul.html"
+    },
+    {
+      "text": "저서 〈불효녀로 행복하기〉",
+      "url": "/review/happy-jayoobyul/"
+    }
+  ]
+}

@@ -7,10 +7,11 @@ import InterviewFooter from '../components/interview/InterviewFooter.svelte';
 import '../styles/interview.scss';
 import InterviewArticleFooter from '../components/interview/InterviewArticleFooter.svelte';
 import { SITE_TITLE } from '../consts';
+import ZigzagBorder from '../components/ZigzagBorder.svelte';
 
 type Props = CollectionEntry<'interview'>['data'];
 
-const { subject, title, description, pubDate, updatedDate, thumbnailImage, titleImage, target:t, tags } = Astro.props;
+const { subject, title, description, pubDate, updatedDate, thumbnailImage, titleImage, target:t, tags, descriptionColor, backgroundColor, titleColor } = Astro.props;
 const { data:target } = t ? await getEntry(t) : {data:undefined};
 ---
 
@@ -19,6 +20,8 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
 		<BaseHead title={SITE_TITLE} description={`${subject} - ${title}`} image={new URL(thumbnailImage || '', Astro.url)} />
 
         <style is:global>
+
+            img,
             article.interview section h2, 
             article.interview section h4, 
             article.interview section p,
@@ -28,12 +31,21 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
                 opacity: 0;
             }
 
+            img.fade-in,
              article.interview section h2.fade-in, 
             article.interview section h4.fade-in,
             article.interview section p.fade-in,
             article.interview section figure.fade-in,
              article.interview section ul.fade-in {
                 opacity: 1;
+            }
+
+            .gradient-background {
+                background: linear-gradient(
+                    180deg,
+                    var(--color-background) 0%,
+                    var(--color-white) 100%
+                );
             }
         </style>
         <script>
@@ -63,21 +75,21 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
 		<main>
 			<article class="interview">
 				<div class="prose">
-                    <div class="gradient-background">
+                    <div class="gradient-background" style={`background: linear-gradient(180deg, ${backgroundColor} 0%, var(--color-white) 100%);`}>
                         <section class="title">
                                 <div class="post_title">
-                                    <h4>
+                                    <h4 style={`color: ${titleColor}`}>
                                         <span>{subject}</span> <b>{title}</b>
                                     </h4>
-                                    <h5>여성서사 아카이브 프로젝트 Warchive</h5>
+                                    <h5 style={`color: ${titleColor}`}>여성서사 아카이브 프로젝트 Warchive</h5>
                                 </div>
 
-                                <div class="border"></div>
+                                <ZigzagBorder color={titleColor}/>
 
                                 <div class="article_title">
                                     {titleImage && <img src={titleImage} alt="" />}
                                     <div>
-                                        {description?.split(`\n`)?.map((des) => <p>{des}</p>)}
+                                        {description?.split(`\n`)?.map((des) => <p style={`color: ${descriptionColor}`}>{des}</p>)}
                                     </div>
                                 </div>
                         </section>
