@@ -42,6 +42,7 @@ const review = defineCollection({
     creator: z.string(),
     description: z.string().optional(),
     thumbnailImage: z.string().optional(),
+    thumbnailImageMobile: z.string().optional(),
     titleImage: z.string().optional(),
     tags: z.array(z.string()).optional(),
     // Transform string to Date object
