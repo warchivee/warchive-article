@@ -131,6 +131,7 @@ hr {
 .target_introduce {
   display: flex;
   gap: 1rem;
+  align-items: flex-start;
 
   & > img {
     width: 150px;
@@ -139,6 +140,7 @@ hr {
 
   & p {
     font-size: small;
+    margin-bottom: 0.7rem;
   }
 }
 
