@@ -16,7 +16,6 @@ const {
   pubDate,
   updatedDate,
   thumbnailImage,
-  thumbnailImageMobile,
   titleImage,
   target,
   tags,
@@ -93,9 +92,9 @@ const {
             client:load
             shareTitle="리뷰 공유하기"
             url={Astro.url}
-            description={title + " - " + creator}
+            description={target + " - " + creator}
             hashtags={`와카이브,${tags?.join(",")}`}
-            shareImage={thumbnailImage}
+            shareImage={new URL(thumbnailImage || "", Astro.url)}
           />
         </div>
       </article>
