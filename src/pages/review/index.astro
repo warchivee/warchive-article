@@ -72,10 +72,15 @@ const posts = (await getCollection("review")).sort(
         gap: 1rem;
         justify-content: space-between;
       }
-      .book-info {
+      .book-info > span {
+        font-size: large;
         font-weight: 700;
         /* letter-spacing: 0px; */
         background: linear-gradient(to top, rgba(212, 190, 255, 0.5) 50%, transparent 0%);
+        flex: 1;
+      }
+      .date-info {
+        white-space: nowrap;
       }
       ul li a:hover h4,
       ul li a:hover .target {
@@ -91,7 +96,7 @@ const posts = (await getCollection("review")).sort(
         gap: 10px;
       }
       .content span {
-        font-size: small;
+        /* font-size: small; */
       }
 
       .content h4 {
@@ -101,7 +106,7 @@ const posts = (await getCollection("review")).sort(
       .content p {
         font-size: medium;
       }
-      @media (max-width: 720px) {
+      @media (max-width: 850px) {
         ul {
           grid-template-columns: repeat(1, 1fr);
         }
@@ -136,13 +141,13 @@ const posts = (await getCollection("review")).sort(
                     <div class="content">
                       <div class="info">
                         <div class="book-info">
-                          {`${post?.data?.target} - ${post?.data?.creator}`}
+                          <span>{`${post?.data?.target} - ${post?.data?.creator}`}</span>
                         </div>
                         <div class="date-info">
                           {post?.data?.pubDate && (
-                            <p class="date">
+                            <span class="date">
                               <FormattedDate date={post?.data?.pubDate} />
-                            </p>
+                            </span>
                           )}
                         </div>
                       </div>
