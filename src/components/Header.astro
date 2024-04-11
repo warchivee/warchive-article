@@ -1,77 +1,78 @@
 ---
-import HeaderLink from './HeaderLink.astro';
+import HeaderLink from "./HeaderLink.astro";
 ---
 
 <header>
-	<nav>
-		<h2><a href="/">article</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">about</HeaderLink>
-			<HeaderLink href="/interview">interview</HeaderLink>
-			<HeaderLink href="/review">review</HeaderLink>
-		</div>
-		<div class="social-links">
-			<a href="https://www.womynarchive.com/" target="_blank">
-				<img src="https://i.ibb.co/WtWVG8r/logo.png" width="100" />
-			</a>
-		</div>
-	</nav>
+  <nav>
+    <h2><a href="/">article</a></h2>
+    <div class="internal-links">
+      <HeaderLink href="/">about</HeaderLink>
+      <HeaderLink href="/interview">interview</HeaderLink>
+      <HeaderLink href="/review">review</HeaderLink>
+    </div>
+    <div class="social-links">
+      <a href="https://www.womynarchive.com/" target="_blank">
+        <img src="https://i.ibb.co/WtWVG8r/logo.png" width="100" />
+      </a>
+    </div>
+  </nav>
 </header>
 <style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: var(--color-black);
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 2em;
-		font-weight: 1000;
-		background-image: linear-gradient(90deg, rgba(108,63,255,1) 0%, rgba(233,201,255,1) 100%);
-		color: transparent;
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
+  header {
+    margin: 0;
+    padding: 0 1em;
+    background: var(--color-black);
+    box-shadow: 0 2px 8px rgba(var(--black), 5%);
+  }
+  h2 {
+    margin: 0;
+    font-size: 2em;
+    font-weight: 1000;
+    background-image: linear-gradient(90deg, rgba(108, 63, 255, 1) 0%, rgba(233, 201, 255, 1) 100%);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+  h2 a,
+  h2 a.active {
+    text-decoration: none;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--color-white);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
+  nav a {
+    padding: 1em 0.5em;
+    color: var(--color-white);
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+  }
 
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--color-title);
-	}
+  nav a.active {
+    text-decoration: none;
+    border-bottom-color: var(--color-title);
+  }
 
-	.social-links,
-	.social-links a {
-		display: flex;
-	}
+  .social-links,
+  .social-links a {
+    display: flex;
+  }
 
-	.social-links a > img{
-		object-fit: contain;
-	}
+  .social-links a > img {
+    border-radius: 0;
+    object-fit: contain;
+  }
 
-	@media (max-width: 720px) {
-		h2 {
-			font-size: 1.5rem;
-		}
-		.social-links {
-			display: none;
-		}
-	}
+  @media (max-width: 720px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+    .social-links {
+      display: none;
+    }
+  }
 </style>
