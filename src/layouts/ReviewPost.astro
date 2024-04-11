@@ -1,94 +1,104 @@
 ---
-import { type CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
+import { type CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
 
-import '../styles/review.scss';
-import InterviewFooter from '../components/interview/InterviewFooter.svelte';
-import InterviewArticleFooter from '../components/interview/InterviewArticleFooter.svelte';
-import ShareSnsButtons from '../components/interview/ShareSnsButtons.svelte';
+import "../styles/review.scss";
+import InterviewFooter from "../components/interview/InterviewFooter.svelte";
+import InterviewArticleFooter from "../components/interview/InterviewArticleFooter.svelte";
+import ShareSnsButtons from "../components/interview/ShareSnsButtons.svelte";
 
-type Props = CollectionEntry<'review'>['data'];
+type Props = CollectionEntry<"review">["data"];
 
-const { title, description, pubDate, updatedDate, thumbnailImage, titleImage, target, tags, creator} = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  thumbnailImage,
+  titleImage,
+  target,
+  tags,
+  creator,
+} = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={title + " - " + creator} />
+  <head>
+    <BaseHead title={title} description={title + " - " + creator} />
 
-		<style>
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				width: 100%;
-				max-width: 700px;
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h3 {
-				margin: 0 0 0.5em 0;
-				word-break:break-all;
-                overflow-wrap: break-word;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-			.share {
-				margin-top: 5rem;
-			}
-		</style>
-	</head>
+    <style>
+      .hero-image {
+        width: 100%;
+      }
+      .hero-image img {
+        display: block;
+        margin: 0 auto;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 700px;
+      }
+      .prose {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+      }
+      .title {
+        margin-bottom: 1em;
+        padding: 1em 0;
+        text-align: center;
+        line-height: 1;
+      }
+      .title h3 {
+        margin: 0 0 0.5em 0;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        text-align: center;
+      }
+      .date {
+        margin-bottom: 0.5em;
+        color: rgb(var(--gray));
+      }
+      .last-updated-on {
+        font-style: italic;
+      }
+      .share {
+        margin-top: 5rem;
+      }
+    </style>
+  </head>
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{titleImage && <img width={1020} height={510} src={titleImage} alt="" />}
-				</div>
-				
-				<hr />
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="hero-image">
+          {titleImage && <img width={1020} height={510} src={titleImage} alt="" />}
+        </div>
 
-				<div class="prose">
-					<div class="title">
-						<h3>{title}</h3>
-					</div>
-					<slot />
-				</div>
+        <hr />
 
-				<div class="share">
- 					<ShareSnsButtons
-					 	client:load
-						shareTitle="리뷰 공유하기"
-						url={Astro.url}
-						description={title + " - " + creator}
-						hashtags={`와카이브,${tags?.join(",")}`}
-						shareImage={thumbnailImage}
-					/>
-				</div>
-				
-			</article>
-		</main>
-		<InterviewFooter />
-	</body>
+        <div class="prose">
+          <div class="title">
+            <h3>{title}</h3>
+          </div>
+          <slot />
+        </div>
+
+        <div class="share">
+          <ShareSnsButtons
+            client:load
+            shareTitle="리뷰 공유하기"
+            url={Astro.url}
+            description={target + " - " + creator}
+            hashtags={`와카이브,${tags?.join(",")}`}
+            shareImage={new URL(thumbnailImage || "", Astro.url)}
+          />
+        </div>
+      </article>
+    </main>
+    <InterviewFooter />
+  </body>
 </html>

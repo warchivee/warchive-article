@@ -71,7 +71,7 @@
 </script>
 
 <div class="share">
-  <h5>{shareTitle}</h5>
+  <h6>{shareTitle}</h6>
   <div class="sns-btns">
     <div on:click={shareLink} aria-hidden="true">
       <i class="fa-solid fa-link"></i>
@@ -102,7 +102,7 @@
     margin-bottom: 5rem;
   }
 
-  h5 {
+  h6 {
     color: var(--color-header);
     font-weight: 400;
   }
