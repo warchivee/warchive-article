@@ -30,7 +30,13 @@
     color: var(--color-header);
   }
 
-  @media (max-width: 750px) {
+  @media (max-width: 850px) {
+    footer {
+      margin: 60px 0 0 0;
+      padding: 1em 1em 1em 1em;
+      border-top: 5px solid var(--color-header);
+    }
+
     hgroup {
       justify-content: center;
     }

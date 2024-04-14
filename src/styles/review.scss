@@ -31,6 +31,7 @@ h3 {
 h4 {
   font-size: 1.563em;
 }
+
 .prose h5 {
   font-size: 1.25em;
   text-align: center;
@@ -38,10 +39,12 @@ h4 {
   margin-top: 4rem;
   margin-bottom: 2rem;
 }
+
 footer h5 {
-  margin: 0 0;
-  font-size: 1.25em;
+  margin: 0;
+  line-height: 180%;
 }
+
 strong,
 b {
   font-weight: 700;
