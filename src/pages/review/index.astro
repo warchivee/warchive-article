@@ -95,9 +95,6 @@ const posts = (await getCollection("review")).sort(
         flex-direction: column;
         gap: 10px;
       }
-      .content span {
-        /* font-size: small; */
-      }
 
       .content h4 {
         line-height: 1.4;
@@ -123,6 +120,24 @@ const posts = (await getCollection("review")).sort(
           display: flex;
           flex-direction: column;
           gap: 20px;
+        }
+
+        .content .book-info > span {
+          font-size: medium;
+        }
+        .content .date-info {
+          font-size: 80%;
+        }
+        .content h4 {
+          font-size: large;
+        }
+        .content p {
+          font-size: small;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
         }
       }
     </style>

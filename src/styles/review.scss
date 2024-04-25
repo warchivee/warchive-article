@@ -133,6 +133,65 @@ blockquote > blockquote {
   }
 }
 
+.groups {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px;
+  gap: 20px;
+  
+  & .group-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  & .group-context {
+    height: 100%;
+  }
+
+  & figure img {
+    max-width: 300px;
+    max-height: 600px;
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
+}
+
+.prose > figure {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem;
+  gap: 1px;
+
+  & img {
+    max-width: 300px;
+    max-height: 600px;
+  }
+  &.float-left {
+    float: left;
+  }
+  &.float-right {
+    float: right;
+  }
+  
+  @media (max-width: 700px) {
+    flex-direction: column;
+    &.float-left,
+    &.float-right {
+      float: none;
+      padding: 0;
+    }
+  }
+}
+
 hr {
   border: none;
   border-top: 1px solid rgb(var(--gray-light));
@@ -199,3 +258,4 @@ a:hover {
     }
   }
 }
+
