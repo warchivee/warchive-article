@@ -172,7 +172,6 @@ blockquote > blockquote {
   gap: 1px;
 
   & img {
-    max-width: 300px;
     max-height: 600px;
   }
   &.float-left {
@@ -184,6 +183,11 @@ blockquote > blockquote {
   
   @media (max-width: 700px) {
     flex-direction: column;
+
+    & img {
+      max-width: 150%;
+    }
+
     &.float-left,
     &.float-right {
       float: none;
