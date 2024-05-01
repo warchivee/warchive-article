@@ -45,12 +45,13 @@ section.title {
       font-weight: 900;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 730px) {
       & > h5 {
         display: none;
       }
 
       & h4 {
+        text-align: center;
         margin: 0 auto;
       }
     }
@@ -105,6 +106,8 @@ section.content {
     padding-top: 0.5rem;
 
     @media (max-width: 400px) {
+      font-size: var(--text-md);
+  
       background-position-x: 15px;
       background-position-y: 5px;
       background-size: 1.5rem;
@@ -118,6 +121,10 @@ section.content {
     padding-left: 50px;
     padding-right: 50px;
     color: var(--color-text);
+    
+    @media (max-width: 400px) {
+      font-size: var(--text-sm);
+    }
   }
 
   & > h4 + p,
@@ -127,6 +134,8 @@ section.content {
     padding-left: 50px;
 
     @media (max-width: 400px) {
+      font-size: var(--text-sm);
+
       background-position-x: 15px;
       background-size: 1.5rem;
     }

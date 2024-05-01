@@ -1,0 +1,113 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection, getEntry } from "astro:content";
+
+const posts = (await getCollection("play")).sort(
+  (a, b) => (b?.data?.pubDate?.valueOf() ?? 100) - (a?.data?.pubDate?.valueOf() ?? 100)
+);
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      main {
+        display: flex;
+        justify-content: center;
+      }
+      ul {
+        width: 100%;
+        max-width: 1300px;
+        padding: 1rem;
+        display: grid;
+        column-gap: 20px;
+        row-gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        list-style-type: none;
+      }
+      ul li {
+        max-width: 500px;
+      }
+      ul li * {
+        text-decoration: none;
+        transition: 0.2s ease;
+      }
+      ul li img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 0.5rem;
+        border-radius: 12px;
+      }
+      ul li a {
+        display: block;
+      }
+      .title {
+        margin: 0;
+        color: rgb(var(--black));
+        line-height: 1;
+      }
+      .date {
+        margin: 0.3rem 0;
+        color: rgb(var(--gray));
+        font-size: 1rem;
+      }
+      ul li a:hover h4,
+      ul li a:hover .date,
+      ul li a:hover .target {
+        color: var(--color-header);
+      }
+      ul a:hover img {
+        box-shadow: var(--box-shadow);
+      }
+      @media (max-width: 720px) {
+        ul {
+          grid-template-columns: repeat(1, 1fr);
+        }
+        ul li {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul>
+          {
+            posts.map(async (post) => {
+              return (
+                <li>
+                  {post.data.siteUrl ? (
+                    <a href={`${post.data.siteUrl}`} target="_blank">
+                      <img width={720} height={360} src={post.data.thumbnailImage} alt="" />
+                      <h4 class="title">{post?.data?.title}</h4>
+                    </a>
+                  ) : (
+                    <>
+                      <img width={720} height={360} src={post.data.thumbnailImage} alt="" />
+                      <h4 class="title">{post?.data?.title}</h4>
+                    </>
+                  )}
+                </li>
+              );
+            })
+          }
+        </ul>
+      </section>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>

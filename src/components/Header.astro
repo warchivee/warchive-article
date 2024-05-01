@@ -6,9 +6,9 @@ import HeaderLink from "./HeaderLink.astro";
   <nav>
     <h2><a href="/">article</a></h2>
     <div class="internal-links">
-      <HeaderLink href="/">about</HeaderLink>
       <HeaderLink href="/interview">interview</HeaderLink>
       <HeaderLink href="/review">review</HeaderLink>
+      <HeaderLink href="/play">play</HeaderLink>
     </div>
     <div class="social-links">
       <a href="https://www.womynarchive.com/" target="_blank">
@@ -71,6 +71,23 @@ import HeaderLink from "./HeaderLink.astro";
     h2 {
       font-size: 1.5rem;
     }
+    .social-links {
+      display: none;
+    }
+  }
+
+  @media (max-width: 400px) {
+    nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .internal-links {
+      display: flex;
+      justify-content: center;
+    }
+
     .social-links {
       display: none;
     }
