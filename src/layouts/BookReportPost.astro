@@ -1,0 +1,34 @@
+---
+const {
+  reportTitle,
+  reportContent,
+  pubDate,
+  reader,
+  is_best,
+  is_funny,
+  is_interested,
+  is_empathized,
+  is_amazed,
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <style></style>
+  </head>
+
+  <body>
+    <li>
+      <h5>{reportTitle}</h5>
+      <p>Publication Date: {new Date(pubDate).toLocaleDateString()}</p>
+      <p>Reader: {reader}</p>
+      <p>{reportContent}</p>
+      <hr />
+      <p>Best: {is_best}</p>
+      <p>Funny: {is_funny}</p>
+      <p>Interesting: {is_interested}</p>
+      <p>Empathetic: {is_empathized}</p>
+      <p>Amazing: {is_amazed}</p>
+    </li>
+  </body>
+</html>
