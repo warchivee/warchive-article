@@ -68,9 +68,8 @@ const bookclub = defineCollection({
   // Type-check frontmatter using a schema
   schema: z.object({
     title: z.string(),
-    creator: z.string(),
     thumbnailImage: z.string().optional(),
-    description: z.string().optional(),
+    creator: z.string(),
     participants: z.number(),
     // Transform string to Date object
     startDate: z.coerce.date().optional(),
@@ -79,14 +78,13 @@ const bookclub = defineCollection({
     bookReports: z.array(
       z.object({
         reportTitle: z.string(),
-        reportContent: z.string(),
         pubDate: z.coerce.date(),
         reader: z.string(),
-        is_best: z.number().optional(),
-        is_funny: z.number().optional(),
-        is_interested: z.number().optional(),
-        is_empathized: z.number().optional(),
-        is_amazed: z.number().optional(),
+        is_best: z.boolean().optional(),
+        is_funny: z.boolean().optional(),
+        is_interested: z.boolean().optional(),
+        is_empathized: z.boolean().optional(),
+        is_amazed: z.boolean().optional(),
       })
     ).optional(),
   }),
