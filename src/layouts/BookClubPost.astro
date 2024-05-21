@@ -4,13 +4,11 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 
 import "../styles/review.scss";
-import BookReportPost from "./BookReportPost.astro";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
 
 type Props = CollectionEntry<"bookclub">["data"];
 
-const { title, creator, thumbnailImage, description, startDate, endDate, bookReports } =
-  Astro.props;
+const { title, thumbnailImage, creator, participants, startDate, endDate } = Astro.props;
 ---
 
 <html lang="en">
@@ -31,45 +29,6 @@ const { title, creator, thumbnailImage, description, startDate, endDate, bookRep
         <div class="prose">
           <div class="title">
             <h3>{title}</h3>
-
-            <h4>Book Reports</h4>
-            <ul>
-              {
-                bookReports && bookReports.length > 0 ? (
-                  bookReports.map(
-                    (
-                      report: {
-                        reportTitle: any;
-                        reportContent: any;
-                        pubDate: any;
-                        reader: any;
-                        is_best: any;
-                        is_funny: any;
-                        is_interested: any;
-                        is_empathized: any;
-                        is_amazed: any;
-                      },
-                      index: any
-                    ) => (
-                      <BookReportPost
-                        key={index}
-                        reportTitle={report.reportTitle}
-                        reportContent={report.reportContent}
-                        pubDate={report.pubDate}
-                        reader={report.reader}
-                        is_best={report.is_best}
-                        is_funny={report.is_funny}
-                        is_interested={report.is_interested}
-                        is_empathized={report.is_empathized}
-                        is_amazed={report.is_amazed}
-                      />
-                    )
-                  )
-                ) : (
-                  <p>No book reports available.</p>
-                )
-              }
-            </ul>
           </div>
           <slot />
         </div>

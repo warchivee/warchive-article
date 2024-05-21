@@ -1,11 +1,9 @@
 ---
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
-import Banner from "../../components/bookclub/Banner.astro";
 import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection, getEntry } from "astro:content";
-
 const posts = (await getCollection("bookclub")).sort(
   (a, b) => (b?.data?.startDate?.valueOf() ?? 100) - (a?.data?.endDate?.valueOf() ?? 100)
 );
@@ -150,7 +148,6 @@ const posts = (await getCollection("bookclub")).sort(
   <body>
     <Header />
     <main>
-      <Banner />
       <section>
         <ul>
           {
@@ -164,15 +161,10 @@ const posts = (await getCollection("bookclub")).sort(
                         <div class="book-info">
                           <span>{`${post?.data?.title} - ${post?.data?.creator}`}</span>
                         </div>
-                        {post?.data.bookReports && post?.data.bookReports?.length > 0 ? (
-                          <p>{post.data.bookReports.length}명 참여</p>
-                        ) : (
-                          <p>0명 참여</p>
-                        )}
                         <div class="date-info" />
                       </div>
                       <h4 class="title">{post?.data?.title}</h4>
-                      {post?.data.description}
+                      {post?.data.title}의 독후감을 확인하세요.
                     </div>
                   </a>
                 </li>
