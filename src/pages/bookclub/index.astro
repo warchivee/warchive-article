@@ -1,0 +1,179 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection, getEntry } from "astro:content";
+const posts = (await getCollection("bookclub")).sort(
+  (a, b) => (b?.data?.startDate?.valueOf() ?? 100) - (a?.data?.endDate?.valueOf() ?? 100)
+);
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+      ul {
+        width: 90%;
+        max-width: 1000px;
+        padding: 4rem 1rem;
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+      }
+      ul li {
+        width: 100%;
+        margin-bottom: 4rem;
+      }
+      ul li * {
+        text-decoration: none;
+        transition: 0.2s ease;
+      }
+      ul li img {
+        width: 300px; /* 388 300 */
+        height: 150px; /* 150 194 */
+        margin-bottom: 0.5rem;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+      ul li a {
+        display: flex;
+        gap: 20px;
+      }
+      .title {
+        margin: 0;
+        color: rgb(var(--black));
+        line-height: 1;
+      }
+      .info {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+      }
+      .book-info > span {
+        font-size: large;
+        font-weight: 700;
+        /* letter-spacing: 0px; */
+        background: linear-gradient(to top, rgba(212, 190, 255, 0.5) 50%, transparent 0%);
+        flex: 1;
+      }
+      .date-info {
+        white-space: nowrap;
+      }
+      ul li a:hover h4,
+      ul li a:hover .target {
+        color: var(--color-header);
+      }
+      ul a:hover img {
+        box-shadow: var(--box-shadow);
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .content h4 {
+        line-height: 1.4;
+      }
+
+      .content p {
+        font-size: medium;
+      }
+      @media (max-width: 850px) {
+        ul {
+          grid-template-columns: repeat(1, 1fr);
+        }
+        ul li {
+          width: 100%;
+          text-align: center;
+        }
+
+        ul li img {
+          width: 100%;
+          height: auto;
+        }
+        ul li a {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .content {
+          display: inline-block;
+        }
+        .content .book-info > span {
+          font-size: medium;
+        }
+        .content .date-info {
+          font-size: 80%;
+        }
+        .content h4 {
+          font-size: large;
+        }
+        .content p {
+          font-size: small;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          word-wrap: break-word;
+          word-break: break-all;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul>
+          {
+            posts.map(async (post) => {
+              return (
+                <li>
+                  <a href={`/bookclub/${post.slug}/`}>
+                    <img width={720} height={360} src={post.data.thumbnailImage} alt="" />
+                    <div class="content">
+                      <div class="info">
+                        <div class="book-info">
+                          <span>{`${post?.data?.title} - ${post?.data?.creator}`}</span>
+                        </div>
+                        <div class="date-info" />
+                      </div>
+                      <h4 class="title">{post?.data?.title}</h4>
+                      {post?.data.title}의 독후감을 확인하세요.
+                    </div>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </section>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>
