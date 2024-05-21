@@ -1,0 +1,41 @@
+---
+import { type CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+
+import "../styles/review.scss";
+import InterviewFooter from "../components/interview/InterviewFooter.svelte";
+
+type Props = CollectionEntry<"bookclub">["data"];
+
+const { title, thumbnailImage, creator, participants, startDate, endDate } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={title + " - " + creator} />
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="hero-image">
+          {thumbnailImage && <img width={1020} height={510} src={thumbnailImage} alt="" />}
+        </div>
+
+        <hr />
+
+        <div class="prose">
+          <div class="title">
+            <h3>{title}</h3>
+          </div>
+          <slot />
+        </div>
+
+        <div class="share"></div>
+      </article>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>
