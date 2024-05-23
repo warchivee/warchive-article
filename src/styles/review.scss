@@ -1,8 +1,7 @@
 main {
   width: 100%;
-  max-width: 1300px;
   margin: auto;
-  padding: 3em 1em;
+  padding-bottom: 1em;
 }
 
 article {
@@ -14,6 +13,7 @@ article {
 }
 
 .prose {
+  padding: 1em;
   h1,
   h2,
   h3,
@@ -258,9 +258,6 @@ a:hover {
 @media (max-width: 720px) {
   body {
     font-size: 18px;
-  }
-  main {
-    padding: 1em;
   }
 
   .target_introduce {
