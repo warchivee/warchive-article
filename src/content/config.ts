@@ -92,5 +92,4 @@ const bookclub = defineCollection({
   }),
 });
 
-
 export const collections = { blog, interview, review, play, bookclub };
