@@ -1,0 +1,48 @@
+---
+import BaseHead from "../../../components/BaseHead.astro";
+import Header from "../../../components/Header.astro";
+import InterviewFooter from "../../../components/interview/InterviewFooter.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      section {
+        width: 100%;
+        max-width: 1000px;
+      }
+
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <p>감상문 제출</p>
+      </section>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>
