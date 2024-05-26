@@ -16,18 +16,22 @@
       <h1>{title}</h1>
       <h3>{creator}</h3>
     </div>
-    <a class="a-btn" href="/bookclub/submit/">감상문 공유하기</a>
+    <a class="a-btn" href="/bookclub/submit/">
+      <h5>감상문 공유하기</h5>
+    </a>
   </div>
 </div>
 
 <style>
+  @import '../../styles/bookclub.scss';
+
   .banner {
     width: 100%;
     max-width: 1000px;
     height: fit-content;
     position: relative;
 
-    padding: 3rem 5rem;
+    padding: 3rem 4rem;
     margin-bottom: 2rem;
     border-radius: 10px;
     display: flex;
@@ -82,7 +86,17 @@
     background-color: transparent;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 700px) {
+    .banner {
+      padding: 2rem 2rem;
+    }
 
+    .info-block {  
+      margin-bottom: 0.4rem;
+    }
+
+    .a-btn {
+      margin-top: 0.6rem;
+    }
   }
 </style>
