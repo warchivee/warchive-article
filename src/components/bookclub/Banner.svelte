@@ -1,20 +1,29 @@
 <script>
-  const period = "2024.05.25 ~ 05.30";
-  const title = "방금 떠나온 세계";
-  const creator = "저자 김초엽";
-  const image = "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160406504.jpg";
+  import { bannerData } from "../../content/submit/banner";
+
+  const start = new Date(bannerData.startDate);
+  const end = new Date(bannerData.endDate);
+  
+  const startDateFormatted = formatDate(start);
+  const endDateFormatted = formatDate(end).slice(5);
+  
+  function formatDate(date) {
+      return date.getFullYear() + '.' + 
+          ('0' + (date.getMonth() + 1)).slice(-2) + '.' + 
+          ('0' + date.getDate()).slice(-2);
+  }
 </script>
 
-<div class="banner" style="background-image: url('{image}')">
+<div class="banner" style="background-image: url('{bannerData.image}')">
   <div class="banner-gradient" ></div>
   <div class="banner-info">
     <div class="info-block">
-      <h5>{period}</h5>
+      <h5>{startDateFormatted} ~ {endDateFormatted}</h5>
       <h4>이번주 독서 클럽</h4>
     </div>
     <div class="info-block">
-      <h1>{title}</h1>
-      <h3>{creator}</h3>
+      <h1>{bannerData.title}</h1>
+      <h3>{bannerData.creator}</h3>
     </div>
     <a class="a-btn" href="/bookclub/submit/">
       <h5>감상문 공유하기</h5>

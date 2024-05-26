@@ -1,6 +1,7 @@
 ---
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
+import SubmitPage from "../../components/bookclub/SubmitPage.svelte";
 import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 ---
@@ -40,7 +41,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
     <Header />
     <main>
       <section>
-        <p>감상문 제출</p>
+        <SubmitPage />
       </section>
     </main>
     <InterviewFooter />
