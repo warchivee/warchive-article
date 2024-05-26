@@ -1,11 +1,8 @@
 <script>
-    // import { onMount } from "svelte";
-
     export let url;
     export let title;
     export let creator;
     export let image;
-    export let desc;
     export let startDate;
     export let endDate;
 
@@ -17,77 +14,79 @@
             ('0' + (date.getMonth() + 1)).slice(-2) + '.' + 
             ('0' + date.getDate()).slice(-2);
     }
-
-    let showModal = false;
-    
 </script>
 
 <li>
-    <div class="li-item" on:click={() => { showModal = true; }} aria-hidden="true">
+    <a class="li-item" href={url}>
         <img src={image} alt={`${title} 표지`} />
-    </div>
-</li>
-
-{#if showModal}
-    <div class="modal">
-        <div class="modal-button">
-            <button on:click={() => { showModal = false; }}>X</button>
+        <div class="details">
+            <p>{title}</p>
+            <p>{creator}</p>
+            <h5>북클럽 기간<br />{startDateFormatted} ~ {endDateFormatted}</h5>
         </div>
-        <div class="modal-container">
-            <div class="image">
-                <img src={image} alt={`${title} 표지`} />
-            </div>
-            <div class="vertical-line"></div>
-            <div class="info">
-                <div class="info-header">
-                    <h5>{startDateFormatted}~{endDateFormatted}</h5>
-                    <h2>{title}</h2>
-                    <h4>{creator}</h4>
-                </div>
-                <div class="info-body">
-                    <p>{desc}</p>
-                </div>
-                <div class="info-footer">
-                    <a href={url}>감상문 보러가기</a>
-                </div>
-            </div>    
-        </div>        
-    </div>
-{/if}
+    </a>
+    <div class="li-bar"></div>
+</li>
 
 <style>
     li {
-        flex: 0 1 calc(25% - 10px);
+        width: calc(22% - 20px);
         box-sizing: border-box;
-        margin: 5px;
-        
+        margin: 30px 20px;
     }
 
     .li-item {
+        position: relative;
         cursor: pointer;
     }
-    
+
     img {
-        width: 128px;
-        height: 188px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         display: block;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    }
+  
+    .details {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        transition: opacity 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 10px;
+        opacity: 0;
     }
 
-    .modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 1rem;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+    .details * {
+        text-align: left;
     }
 
-    @media (max-width: 850px) {
+    .li-item:hover .details {
+        opacity: 1;
+    }
+
+    .li-bar {
+        width: 160%;
+        height: 18px;
+        background-color: #D9D9D9;
+        transform: translateX(-15%);
+    }
+
+    @media (max-width: 700px) {
         li {
-            flex: 0 1 calc(50% - 10px);
+            width: calc(35% - 20px);
+        }
+    }
+
+    @media (max-width: 450px) {
+        li {
+            width: calc(50% - 20px);
         }
     }
 </style>
