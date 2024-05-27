@@ -76,20 +76,18 @@ const bookclub = defineCollection({
     startDate: z.coerce.date().optional(),
     endDate: z.coerce.date().optional(),
     // Nested book report information
-    bookReports: z.array(
-      z.object({
-        reportTitle: z.string(),
-        reportContent: z.string(),
-        pubDate: z.coerce.date(),
-        reader: z.string(),
-        is_best: z.number().optional(),
-        is_funny: z.number().optional(),
-        is_interested: z.number().optional(),
-        is_empathized: z.number().optional(),
-        is_amazed: z.number().optional(),
-      })
-    ).optional(),
+    directoryName: z.string(),
   }),
 });
 
-export const collections = { blog, interview, review, play, bookclub };
+const bookreports = defineCollection({
+  type: "content",
+  schema: z.object({
+      reportTitle: z.string(),
+      reportContent: z.string(),
+      pubDate: z.coerce.date(),
+      reader: z.string(),
+  }),
+});
+
+export const collections = { blog, interview, review, play, bookclub, bookreports };

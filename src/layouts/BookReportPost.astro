@@ -1,15 +1,5 @@
 ---
-const {
-  reportTitle,
-  reportContent,
-  pubDate,
-  reader,
-  is_best,
-  is_funny,
-  is_interested,
-  is_empathized,
-  is_amazed,
-} = Astro.props;
+const { reportTitle, reportContent, pubDate, reader } = Astro.props;
 ---
 
 <html lang="en">
@@ -19,16 +9,11 @@ const {
 
   <body>
     <li>
-      <h5>{reportTitle}</h5>
-      <p>Publication Date: {new Date(pubDate).toLocaleDateString()}</p>
-      <p>Reader: {reader}</p>
-      <p>{reportContent}</p>
+      <h5>독후감 제목: {reportTitle}</h5>
+      <p>제출일: {new Date(pubDate).toLocaleDateString()}</p>
+      <p>읽은 사람: {reader}</p>
+      <p>내용: {reportContent}</p>
       <hr />
-      <p>Best: {is_best}</p>
-      <p>Funny: {is_funny}</p>
-      <p>Interesting: {is_interested}</p>
-      <p>Empathetic: {is_empathized}</p>
-      <p>Amazing: {is_amazed}</p>
     </li>
   </body>
 </html>
