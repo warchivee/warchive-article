@@ -1,19 +1,110 @@
 ---
-const { reportTitle, reportContent, pubDate, reader } = Astro.props;
+import FormattedDate from "../components/FormattedDate.astro";
+
+const { thumbnailImage, reportTitle, reportContent, pubDate, reader } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <style></style>
+    <style>
+      li {
+        width: 100%;
+        margin-bottom: 3rem;
+        display: flex;
+        flex-direction: row;
+      }
+      .book-img {
+        width: 300px;
+        height: 150px; 
+        border-radius: 10px;
+        flex-shrink: 0;
+        margin-right: 2rem;
+      }
+      .reader-info {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      .emoji {
+        display: flex;
+      }
+      button {
+        display: flex;
+        width: 40px;
+        height: 20px;
+        border-width: 1px;
+        border-radius: 20px;
+        align-items: center;
+        justify-content: space-around;
+        margin-right: 5px;
+        border-color: #9339FF;
+        background-color: transparent;
+      }
+      button p {
+        color: #9339FF;
+        font-size: small;
+      }
+      button img {
+        width: 12px;
+        height: 12px;
+      }
+      .report {
+        margin-top: 1rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        word-wrap: break-word;
+        word-break: break-all;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+      }
+
+      @media (max-width: 810px) {
+        li {
+          flex-direction: column;
+        }
+        .book-img {
+          width: 100%;
+        }
+        .report-info {
+          margin-top: 1rem;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <li>
-      <h5>독후감 제목: {reportTitle}</h5>
-      <p>제출일: {new Date(pubDate).toLocaleDateString()}</p>
-      <p>읽은 사람: {reader}</p>
-      <p>내용: {reportContent}</p>
-      <hr />
+      <img class="book-img" src={thumbnailImage} />
+      <div class="report-info">
+        <h4>{reportTitle}</h4>
+        <div class="reader-info">
+          <p>{`${reader}  | `} <FormattedDate date={new Date(pubDate)} /></p>
+          <div class="emoji">
+            <button>
+              <img src="/bookclub/best.png" />
+              <p>1</p>
+            </button>
+            <button>
+              <img src="/bookclub/funny.png" />
+              <p>111</p>
+            </button>
+            <button>
+              <img src="/bookclub/interesting.png" />
+              <p>0</p>
+            </button>
+            <button>
+              <img src="/bookclub/empathized.png" />
+              <p>11</p>
+            </button>
+            <button>
+              <img src="/bookclub/amazed.png" />
+              <p>1</p>
+            </button>
+          </div>
+        </div>
+        <p class="report">{reportContent}</p>
+      </div>
     </li>
   </body>
 </html>
