@@ -9,9 +9,12 @@ type Props = CollectionEntry<"bookclub">;
 const { slug } = Astro.params;
 const post = posts.find((page) => page.slug === slug);
 if (!post) return Astro.redirect("/404");
+
+const bookReports = await getCollection(post.data.directoryName);
+
 const { Content } = await post.render();
 ---
 
-<BookClubPost {...post.data}>
+<BookClubPost postData={post.data} bookReports={bookReports}>
   <Content />
 </BookClubPost>
