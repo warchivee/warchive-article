@@ -6,6 +6,7 @@ import Header from "../components/Header.astro";
 import "../styles/bookclub.scss";
 import BookReportPost from "./BookReportPost.astro";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
+import { idText } from "typescript";
 
 interface Props {
   postData: CollectionEntry<"bookclub">["data"];
@@ -13,6 +14,10 @@ interface Props {
 }
 
 const { postData, bookReports } = Astro.props;
+
+const response = await (await fetch('https://script.google.com/macros/s/AKfycbzRZ6OCBdEa0bFn6N5NAr8j942Q-q9pcRSQOTK7e51j3aoLTFLu0MabZqbXZdhN5ZDn/exec?req=get_count')).json()
+const reaction = response.data;
+
 
 const startDateFormatted = formatDate(postData.startDate);
 const endDateFormatted = formatDate(postData.endDate).slice(5);
@@ -153,6 +158,7 @@ function formatDate(date) {
                         reportContent={report.data.reportContent}
                         pubDate={report.data.pubDate}
                         reader={report.data.reader}
+                        reaction={reaction}
                       />
                     )
                   )
