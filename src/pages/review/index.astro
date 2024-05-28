@@ -161,7 +161,10 @@ const posts = (await getCollection("review")).sort(
                     <div class="content">
                       <div class="info">
                         <div class="book-info">
-                          <span>{`${post?.data?.target} - ${post?.data?.creator}`}</span>
+                          <span>
+                            {post?.data?.target}
+                            {post?.data?.creator ? ` - ${post?.data?.creator}` : ``}
+                          </span>
                         </div>
                         <div class="date-info">
                           {post?.data?.pubDate && (

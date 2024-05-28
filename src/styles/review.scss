@@ -198,7 +198,18 @@ blockquote > blockquote {
   &.float-right {
     float: right;
   }
-  
+  &.vertical {
+    flex-direction: column;
+  }
+
+  & figcaption,
+  & figcaption p,
+  & figcaption a {
+    font-size: var(--text-caption);
+    text-decoration: none;
+    color: #a8a8a8;
+  }
+
   @media (max-width: 700px) {
     flex-direction: column;
 

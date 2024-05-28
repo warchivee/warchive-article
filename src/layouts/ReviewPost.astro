@@ -25,7 +25,7 @@ const {
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={title + " - " + creator} />
+    <BaseHead title={title} description={creator ? `${title} - ${creator}` : title} />
 
     <style>
       .hero-image {
