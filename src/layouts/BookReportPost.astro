@@ -1,7 +1,11 @@
 ---
 import FormattedDate from "../components/FormattedDate.astro";
 
-const { thumbnailImage, reportTitle, reportContent, pubDate, reader } = Astro.props;
+const { key, thumbnailImage, reportTitle, reportContent, pubDate, reader, reaction } = Astro.props;
+let cnt;
+function findReactCnt(key) {
+  cnt = reaction.find((e) => e.entry_id === key)
+}
 ---
 
 <html lang="en">
@@ -76,6 +80,7 @@ const { thumbnailImage, reportTitle, reportContent, pubDate, reader } = Astro.pr
 
   <body>
     <li>
+      {findReactCnt(key)}
       <img class="book-img" src={thumbnailImage} />
       <div class="report-info">
         <h4>{reportTitle}</h4>
@@ -84,23 +89,23 @@ const { thumbnailImage, reportTitle, reportContent, pubDate, reader } = Astro.pr
           <div class="emoji">
             <button>
               <img src="/bookclub/best.png" />
-              <p>1</p>
+              <p>{cnt ? cnt.is_best : 0}</p>
             </button>
             <button>
               <img src="/bookclub/funny.png" />
-              <p>111</p>
+              <p>{cnt ? cnt.is_funny : 0}</p>
             </button>
             <button>
               <img src="/bookclub/interesting.png" />
-              <p>0</p>
+              <p>{cnt ? cnt.is_interested : 0}</p>
             </button>
             <button>
               <img src="/bookclub/empathized.png" />
-              <p>11</p>
+              <p>{cnt ? cnt.is_empathized : 0}</p>
             </button>
             <button>
               <img src="/bookclub/amazed.png" />
-              <p>1</p>
+              <p>{cnt ? cnt.is_amazed : 0}</p>
             </button>
           </div>
         </div>
