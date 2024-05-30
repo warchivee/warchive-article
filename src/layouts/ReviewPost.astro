@@ -25,7 +25,7 @@ const {
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={creator ? `${title} - ${creator}` : title} />
+    <BaseHead title={title} description={creator ? `${title} - ${creator}` : title} image={new URL(thumbnailImage || '', Astro.url)} />
 
     <style>
       .hero-image {
