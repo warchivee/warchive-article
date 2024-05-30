@@ -15,6 +15,6 @@ const bookReports = await getCollection(post.data.directoryName);
 const { Content } = await post.render();
 ---
 
-<BookClubPost postData={post.data} bookReports={bookReports}>
+<BookClubPost postData={post.data} bookReports={bookReports} slug={slug}>
   <Content />
 </BookClubPost>
