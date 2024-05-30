@@ -3,19 +3,23 @@
 
   const start = new Date(bannerData.startDate);
   const end = new Date(bannerData.endDate);
-  
+
   const startDateFormatted = formatDate(start);
   const endDateFormatted = formatDate(end).slice(5);
-  
+
   function formatDate(date) {
-      return date.getFullYear() + '.' + 
-          ('0' + (date.getMonth() + 1)).slice(-2) + '.' + 
-          ('0' + date.getDate()).slice(-2);
+    return (
+      date.getFullYear() +
+      "." +
+      ("0" + (date.getMonth() + 1)).slice(-2) +
+      "." +
+      ("0" + date.getDate()).slice(-2)
+    );
   }
 </script>
 
 <div class="banner" style="background-image: url('{bannerData.image}')">
-  <div class="banner-gradient" ></div>
+  <div class="banner-gradient"></div>
   <div class="banner-info">
     <div class="info-block">
       <h5>{startDateFormatted} ~ {endDateFormatted}</h5>
@@ -26,17 +30,17 @@
       <h3>{bannerData.creator}</h3>
     </div>
     <a class="a-btn" href="/bookclub/submit/">
-      <h5>감상문 공유하기</h5>
+      <h5>감상문 제출하기</h5>
     </a>
   </div>
 </div>
 
 <style>
-  @import '../../styles/bookclub.scss';
+  @import "../../styles/bookclub.scss";
 
   .banner {
     width: 100%;
-    max-width: 1000px;
+    max-width: 800px;
     height: fit-content;
     position: relative;
 
@@ -48,7 +52,7 @@
     background-size: cover;
     background-position: center;
   }
-  
+
   .banner-gradient {
     position: absolute;
     top: 0;
@@ -56,7 +60,11 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    background: linear-gradient(to right, rgba(147, 57, 255, 0.8), rgba(147, 57, 255, 0));
+    background: linear-gradient(
+      to right,
+      rgba(147, 57, 255, 0.8),
+      rgba(147, 57, 255, 0)
+    );
   }
 
   .banner-info {
@@ -66,7 +74,8 @@
       color: white;
     }
 
-    & h3, h5 {
+    & h3,
+    h5 {
       font-weight: 400;
     }
   }
@@ -79,7 +88,7 @@
     line-height: 130%;
   }
 
-  .info-block {  
+  .info-block {
     margin-bottom: 1rem;
   }
 
@@ -100,7 +109,7 @@
       padding: 2rem 2rem;
     }
 
-    .info-block {  
+    .info-block {
       margin-bottom: 0.4rem;
     }
 

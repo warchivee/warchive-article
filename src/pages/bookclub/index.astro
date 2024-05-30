@@ -66,12 +66,15 @@ const posts = (await getCollection("bookclub")).sort(
             posts.map(async (post) => {
               return (
                 <BookItem
+                  client:load
                   url={`/bookclub/${post.slug}/`}
                   title={post.data.title}
                   creator={post.data.creator}
                   image={post.data.thumbnailImage}
                   startDate={post.data.startDate}
                   endDate={post.data.endDate}
+                  pubDate={post.data.pubDate}
+                  isPublish={post.data.isPublish}
                 />
               );
             })
