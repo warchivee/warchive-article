@@ -70,12 +70,13 @@ const bookclub = defineCollection({
     title: z.string(),
     creator: z.string(),
     thumbnailImage: z.string().optional(),
-    description: z.string().optional(),
     participants: z.number(),
     // Transform string to Date object
     startDate: z.coerce.date().optional(),
     endDate: z.coerce.date().optional(),
+    pubDate: z.coerce.date().optional(),
     // Nested book report information
+    isPublish: z.boolean().optional(),
     directoryName: z.string(),
   }),
 });
@@ -83,11 +84,18 @@ const bookclub = defineCollection({
 const bookreports = defineCollection({
   type: "content",
   schema: z.object({
-      reportTitle: z.string(),
-      reportContent: z.string(),
-      pubDate: z.coerce.date(),
-      reader: z.string(),
+    reportTitle: z.string(),
+    reportContent: z.string(),
+    pubDate: z.coerce.date(),
+    reader: z.string(),
   }),
 });
 
-export const collections = { blog, interview, review, play, bookclub, bookreports };
+export const collections = {
+  blog,
+  interview,
+  review,
+  play,
+  bookclub,
+  bookreports,
+};

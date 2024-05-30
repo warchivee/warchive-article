@@ -4,9 +4,8 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 
 import "../styles/bookclub.scss";
-import BookReportPost from "./BookReportPost.astro";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
-import { idText } from "typescript";
+import BookReport from "../components/bookclub/BookReport.svelte";
 
 interface Props {
   postData: CollectionEntry<"bookclub">["data"];
@@ -21,6 +20,7 @@ const reaction = response.data;
 
 const startDateFormatted = formatDate(postData.startDate);
 const endDateFormatted = formatDate(postData.endDate).slice(5);
+const pubDateFormatted = formatDate(postData.pubDate);
 
 function formatDate(date) {
         return date.getFullYear() + '.' + 
@@ -151,7 +151,7 @@ function formatDate(date) {
                       },
                       index: any
                     ) => (
-                      <BookReportPost
+                      <BookReport
                         key={index}
                         thumbnailImage={postData.thumbnailImage}
                         reportTitle={report.data.reportTitle}
@@ -163,7 +163,7 @@ function formatDate(date) {
                     )
                   )
                 ) : (
-                  <p>No book reports available.</p>
+                  <p>감상문은 {pubDateFormatted}에 공개됩니다.</p>
                 )
               }
             </ul>

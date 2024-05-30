@@ -29,6 +29,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
       section {
         width: 100%;
         max-width: 1000px;
+        padding: 1rem
       }
 
       section * {
@@ -41,7 +42,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
     <Header />
     <main>
       <section>
-        <SubmitPage />
+        <SubmitPage client:load />
       </section>
     </main>
     <InterviewFooter />
