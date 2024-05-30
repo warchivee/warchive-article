@@ -11,13 +11,13 @@ import { idText } from "typescript";
 interface Props {
   postData: CollectionEntry<"bookclub">["data"];
   bookReports: CollectionEntry<"bookreports">["data"];
+  slug: String;
 }
 
-const { postData, bookReports } = Astro.props;
+const { postData, bookReports, slug } = Astro.props; 
 
-const response = await (await fetch('https://script.google.com/macros/s/AKfycbzRZ6OCBdEa0bFn6N5NAr8j942Q-q9pcRSQOTK7e51j3aoLTFLu0MabZqbXZdhN5ZDn/exec?req=get_count')).json()
+const response = await (await fetch('https://script.google.com/macros/s/AKfycbxGKDVLyBmi3UZGUHdjnJ5WpCJWcQtvTTvUOWkzhwFAGyY5H57Nqy4n1HA4jpTUzHXB/exec?req=get_count')).json()
 const reaction = response.data;
-
 
 const startDateFormatted = formatDate(postData.startDate);
 const endDateFormatted = formatDate(postData.endDate).slice(5);
@@ -158,7 +158,7 @@ function formatDate(date) {
                         reportContent={report.data.reportContent}
                         pubDate={report.data.pubDate}
                         reader={report.data.reader}
-                        reaction={reaction}
+                        reaction={reaction.filter((e) => e.book_id === slug)}
                       />
                     )
                   )
