@@ -1,16 +1,21 @@
 <script>
   import emailjs from "@emailjs/browser";
 
-  import { bannerData as data } from "../../content/submit/banner";
+  export let postTitle;
+  export let creator;
+  export let image;
+  export let startDate;
+  export let endDate;
+  export let pubDate;
 
   import LeftArrow from "../../../public/bookclub/left-arrow.png";
   import PostBox from "../../../public/bookclub/post-box.png";
   import Snackbar from "../Snackbar.svelte";
   import Confirm from "../Confirm.svelte";
 
-  const start = new Date(data.startDate);
-  const end = new Date(data.endDate);
-  const post = new Date(data.postDate);
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const post = new Date(pubDate);
 
   const startDateFormatted = formatDate(start);
   const endDateFormatted = formatDate(end).slice(5);
@@ -68,6 +73,12 @@
       return;
     }
 
+    if (contents.length > 4000) {
+      showModal = false;
+      openSnackbar("글자수는 4000자를 넘을 수 없습니다.");
+      return;
+    }
+
     try {
       loading = true;
 
@@ -88,6 +99,10 @@
       loading = false;
       showModal = false;
 
+      nickname = "";
+      title = "";
+      contents = "";
+
       openSnackbar("감상문을 와카이브로 전송했습니다! 참여 감사합니다.");
     } catch (error) {
       loading = false;
@@ -105,11 +120,11 @@
   </a>
   <div class="submit-header">
     <div class="book-info">
-      <img class="book-img" src={data.image} alt={`${data.title} 표지`} />
+      <img class="book-img" src={image} alt={`${postTitle} 표지`} />
       <div class="book-text">
         <h4>{startDateFormatted} ~ {endDateFormatted}</h4>
-        <h1>{data.title}</h1>
-        <h3>{data.creator}</h3>
+        <h1>{postTitle}</h1>
+        <h3>{creator}</h3>
       </div>
     </div>
     <div class="unerbar"></div>
@@ -120,7 +135,7 @@
     </div>
     <div class="alert-txt">
       {getMonthInfo(start)}월의 와카이브 북클럽에서 읽을 책은
-      <b>‘{data.title}’</b>입니다.<br />
+      <b>‘{postTitle}’</b>입니다.<br />
       책을 읽은 뒤 감상을 자유롭게 적어 우편함에 넣어주세요.<br />
       우편함은
       <b>{getMonthInfo(end)}월 {getDateInfo(end)}일에 마감</b>합니다.<br />
@@ -158,13 +173,14 @@
       <div class="form-item">
         <label for="content">내용</label>
         <textarea
-          placeholder="여기에 내용을 작성해주세요."
+          placeholder="여기에 내용을 작성해주세요. 최대 4000자까지 작성할 수 있습니다."
           id="content"
           name="content"
           rows="15"
           bind:value={contents}
         ></textarea>
       </div>
+      <div class="contents-limit">{contents.length}글자</div>
       <h5>해당 글은 와카이브 게시판에 영구적으로 공개됩니다</h5>
     </div>
   </div>
@@ -176,7 +192,7 @@
 {#if showModal}
   <Confirm
     {loading}
-    message="감상문을 와카이브에 보내시겠습니까?<br/>제출한 후에는 수정하실 수 없습니다."
+    message="감상문을 와카이브에 보내시겠습니까?<br/>제출한 후에는 수정 및 재열람할 수 없습니다."
     onConfirm={handleSendReport}
     onCancel={handleCancel}
   />
@@ -188,6 +204,12 @@
 
 <style>
   @import "../../styles/bookclub.scss";
+
+  .contents-limit {
+    width: 100%;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.56);
+  }
 
   .alert-txt {
     line-height: 200%;

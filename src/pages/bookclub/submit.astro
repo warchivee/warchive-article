@@ -1,9 +1,14 @@
 ---
+import { getCollection } from "astro:content";
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import SubmitPage from "../../components/bookclub/SubmitPage.svelte";
 import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+
+const posts = (await getCollection("bookclub")).sort(
+  (a, b) => (b?.data?.startDate?.valueOf() ?? 100) - (a?.data?.endDate?.valueOf() ?? 100)
+);
 ---
 
 <!doctype html>
@@ -42,7 +47,16 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
     <Header />
     <main>
       <section>
-        <SubmitPage client:load />
+        <SubmitPage
+          client:load
+          postTitle={posts[posts.length -1].data.title}
+          creator={posts[posts.length -1].data.creator}
+          image={posts[posts.length -1].data.thumbnailImage}
+          startDate={posts[posts.length -1].data.startDate}
+          endDate={posts[posts.length -1].data.endDate}
+          pubDate={posts[posts.length -1].data.pubDate}
+          client:load
+        />
       </section>
     </main>
     <InterviewFooter />

@@ -41,7 +41,7 @@
   }
 </script>
 
-<li on:click={handleClick} aria-hidden="true">
+<div class="book-item" on:click={handleClick} aria-hidden="true">
   <div class="li-item">
     <img src={image} alt={`${title} 표지`} />
     <div class="details">
@@ -50,18 +50,16 @@
       <h5>북클럽 기간<br />{startDateFormatted} ~ {endDateFormatted}</h5>
     </div>
   </div>
-  <div class="li-bar"></div>
-</li>
+</div>
 
 {#if showSnackbar}
   <Snackbar message="감상문은 {pubDateFormatted} 에 공개됩니다." />
 {/if}
 
 <style>
-  li {
-    width: calc(20% - 20px);
+  .book-item {
+    width: 100%;
     box-sizing: border-box;
-    margin: 30px 20px;
   }
 
   .li-item {
@@ -98,24 +96,5 @@
 
   .li-item:hover .details {
     opacity: 1;
-  }
-
-  .li-bar {
-    width: 160%;
-    height: 18px;
-    background-color: #d9d9d9;
-    transform: translateX(-15%);
-  }
-
-  @media (max-width: 700px) {
-    li {
-      width: calc(35% - 20px);
-    }
-  }
-
-  @media (max-width: 450px) {
-    li {
-      width: calc(50% - 20px);
-    }
   }
 </style>

@@ -1,11 +1,13 @@
 <script>
-  import { bannerData } from "../../content/submit/banner";
+  export let title;
+  export let creator;
+  export let image;
+  export let startDate;
+  export let endDate;
+  export let pubDate;
 
-  const start = new Date(bannerData.startDate);
-  const end = new Date(bannerData.endDate);
-
-  const startDateFormatted = formatDate(start);
-  const endDateFormatted = formatDate(end).slice(5);
+  const startDateFormatted = formatDate(new Date(startDate));
+  const endDateFormatted = formatDate(new Date(endDate)).slice(5);
 
   function formatDate(date) {
     return (
@@ -18,16 +20,16 @@
   }
 </script>
 
-<div class="banner" style="background-image: url('{bannerData.image}')">
+<div class="banner" style="background-image: url('{image}')">
   <div class="banner-gradient"></div>
   <div class="banner-info">
     <div class="info-block">
       <h5>{startDateFormatted} ~ {endDateFormatted}</h5>
-      <h4>이번주 독서 클럽</h4>
+      <h4>{startDateFormatted.slice(6, 7)}월의 독서 클럽</h4>
     </div>
     <div class="info-block">
-      <h1>{bannerData.title}</h1>
-      <h3>{bannerData.creator}</h3>
+      <h1>{title}</h1>
+      <h3>{creator}</h3>
     </div>
     <a class="a-btn" href="/bookclub/submit/">
       <h5>감상문 제출하기</h5>
@@ -102,6 +104,10 @@
     text-decoration: none;
     border: 1px solid white;
     background-color: transparent;
+  }
+
+  .a-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
   }
 
   @media (max-width: 700px) {
