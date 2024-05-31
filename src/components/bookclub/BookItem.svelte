@@ -38,6 +38,8 @@
     if (!isPublish) {
       openSnackbar();
     }
+
+    location.href = url;
   }
 </script>
 

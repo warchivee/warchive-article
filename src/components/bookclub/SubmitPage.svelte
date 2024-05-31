@@ -330,23 +330,25 @@
       & .form-item {
         width: 100%;
         display: flex;
-        gap: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
 
         & label {
-          width: 35px;
-          display: flex;
-          justify-content: flex-end;
+          font-size: 14px;
+          font-weight: bold;
         }
 
         & input,
         & textarea {
-          flex: 1;
+          appearance: none;
+          border-radius: 0;
           outline: none;
           background: transparent;
           border-top: none;
           border-left: none;
           border-right: none;
           border-bottom: 1px solid #9339ff;
+          resize: none;
         }
       }
     }
