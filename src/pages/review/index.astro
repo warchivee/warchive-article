@@ -3,7 +3,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 
 const posts = (await getCollection("review")).sort(

@@ -69,14 +69,14 @@ const bookclub = defineCollection({
   schema: z.object({
     title: z.string(),
     creator: z.string(),
-    thumbnailImage: z.string().optional(),
+    thumbnailImage: z.string(),
     participants: z.number(),
     // Transform string to Date object
-    startDate: z.coerce.date().optional(),
-    endDate: z.coerce.date().optional(),
-    pubDate: z.coerce.date().optional(),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+    pubDate: z.coerce.date(),
     // Nested book report information
-    isPublish: z.boolean().optional(),
+    isPublish: z.boolean(),
     directoryName: z.string(),
   }),
 });

@@ -5,16 +5,12 @@ import Header from "../components/Header.astro";
 
 import "../styles/review.scss";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
-import InterviewArticleFooter from "../components/interview/InterviewArticleFooter.svelte";
 import ShareSnsButtons from "../components/interview/ShareSnsButtons.svelte";
 
 type Props = CollectionEntry<"review">["data"];
 
 const {
   title,
-  description,
-  pubDate,
-  updatedDate,
   thumbnailImage,
   titleImage,
   target,

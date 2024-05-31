@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 
@@ -7,22 +7,20 @@ import "../styles/bookclub.scss";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
 import BookReport from "../components/bookclub/BookReport.svelte";
 
-interface Props {
-  postData: CollectionEntry<"bookclub">["data"];
-  bookReports: CollectionEntry<"bookreports">["data"];
-  slug: String;
-}
+type Props = CollectionEntry<'bookclub'>['data'];
 
-const { postData, bookReports, slug } = Astro.props; 
+const { title, creator, thumbnailImage, participants, startDate, endDate, pubDate, directoryName } = Astro.props;
+
+const bookReports = await getCollection(directoryName as any);
 
 const response = await (await fetch('https://script.google.com/macros/s/AKfycbxGKDVLyBmi3UZGUHdjnJ5WpCJWcQtvTTvUOWkzhwFAGyY5H57Nqy4n1HA4jpTUzHXB/exec?req=get_count')).json()
 const reaction = response.data;
 
-const startDateFormatted = formatDate(postData.startDate);
-const endDateFormatted = formatDate(postData.endDate).slice(5);
-const pubDateFormatted = formatDate(postData.pubDate);
+const startDateFormatted = formatDate(startDate);
+const endDateFormatted = formatDate(endDate).slice(5);
+const pubDateFormatted = formatDate(pubDate);
 
-function formatDate(date) {
+function formatDate(date:Date) {
         return date.getFullYear() + '.' + 
             ('0' + (date.getMonth() + 1)).slice(-2) + '.' + 
             ('0' + date.getDate()).slice(-2);
@@ -32,7 +30,7 @@ function formatDate(date) {
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={postData.title} description={postData.title + " - " + postData.creator} />
+    <BaseHead title={title} description={title + " - " + creator} />
 
     <style>
       main, section {
@@ -127,12 +125,12 @@ function formatDate(date) {
           </a>
           <div class="report-header">
             <div class="book-info">
-              <img class="book-img" src={postData.thumbnailImage} alt={`${postData.title} 표지`} />
+              <img class="book-img" src={thumbnailImage} alt={`${title} 표지`} />
               <div class="book-text">
                 <h4>{startDateFormatted} ~ {endDateFormatted}</h4>
-                <h2 style="color: #9339FF">{postData.title}</h2>
-                <p style="color: #9339FF">{`저자 ${postData.creator}`}</p>
-                <p style="font-size: medium">{`참여 ${postData.participants}명`}</p>
+                <h2 style="color: #9339FF">{title}</h2>
+                <p style="color: #9339FF">{`저자 ${creator}`}</p>
+                <p style="font-size: medium">{`참여 ${participants}명`}</p>
               </div>
             </div>
             <div class="underbar"></div>
@@ -142,25 +140,15 @@ function formatDate(date) {
               {
                 bookReports && bookReports.length > 0 ? (
                   bookReports.map(
-                    (
-                      report: {
-                        data: {
-                          reportTitle: any;
-                          reportContent: any;
-                          pubDate: any;
-                          reader: any;
-                        };
-                      },
-                      index: any
-                    ) => (
+                    (report: any, index) => (
                       <BookReport
                         key={index}
-                        thumbnailImage={postData.thumbnailImage}
+                        thumbnailImage={thumbnailImage}
                         reportTitle={report.data.reportTitle}
                         reportContent={report.data.reportContent}
                         pubDate={report.data.pubDate}
                         reader={report.data.reader}
-                        reaction={reaction.filter((e) => e.book_id === slug)}
+                        //reaction={reaction.filter((e: any) => e.book_id === 'slug')}
                       />
                     )
                   )

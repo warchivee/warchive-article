@@ -5,7 +5,7 @@ import Banner from "../../components/bookclub/Banner.svelte";
 import BookItem from "../../components/bookclub/BookItem.svelte";
 import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import { getCollection, getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 const posts = (await getCollection("bookclub")).sort(
   (a, b) => (b?.data?.startDate?.valueOf() ?? 100) - (a?.data?.endDate?.valueOf() ?? 100)
