@@ -37,6 +37,7 @@
   function handleClick() {
     if (!isPublish) {
       openSnackbar();
+      return;
     }
 
     location.href = url;
