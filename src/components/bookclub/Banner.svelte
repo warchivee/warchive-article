@@ -25,7 +25,7 @@
   <div class="banner-info">
     <div class="info-block">
       <h5>{startDateFormatted} ~ {endDateFormatted}</h5>
-      <h4>{startDateFormatted.slice(6, 7)}월의 독서 클럽</h4>
+      <h4>{startDateFormatted.slice(6, 7)}월의 북클럽</h4>
     </div>
     <div class="info-block">
       <h1>{title}</h1>
