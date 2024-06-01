@@ -1,0 +1,166 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+
+import "../styles/bookclub.scss";
+import InterviewFooter from "../components/interview/InterviewFooter.svelte";
+import BookReport from "../components/bookclub/BookReport.svelte";
+
+type Props = CollectionEntry<'bookclub'>['data'];
+
+const { title, creator, thumbnailImage, participants, startDate, endDate, pubDate, directoryName } = Astro.props;
+
+const bookReports = await getCollection(directoryName as any);
+
+const response = await (await fetch('https://script.google.com/macros/s/AKfycbxGKDVLyBmi3UZGUHdjnJ5WpCJWcQtvTTvUOWkzhwFAGyY5H57Nqy4n1HA4jpTUzHXB/exec?req=get_count')).json()
+const reaction = response.data;
+
+const startDateFormatted = formatDate(startDate);
+const endDateFormatted = formatDate(endDate).slice(5);
+const pubDateFormatted = formatDate(pubDate);
+
+function formatDate(date:Date) {
+        return date.getFullYear() + '.' + 
+            ('0' + (date.getMonth() + 1)).slice(-2) + '.' + 
+            ('0' + date.getDate()).slice(-2);
+    }
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={title + " - " + creator} />
+
+    <style>
+      main, section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      section {
+        width: 100%;
+        max-width: 1000px;
+      }
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+      .report-page {
+        position: relative;
+        width: 100%;
+        max-width: 1000px;
+        height: fit-content;
+        
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .back-btn {
+        position: absolute;
+        top: 3rem;
+        left: 1rem;
+        width: fit-content;
+        height: fit-content;
+      }
+      .report-header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3rem;
+      }
+      .book-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+      .book-img {
+        width: 240px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+      }
+      .book-text {
+        width: 200%;
+        margin-left: 3rem;
+      }
+      .underbar {
+        width: 90%;
+        max-width: 1000px;
+        height: 24px;
+        border-radius: 20px;
+        background-color: #D9D9D9;
+      }
+      
+      .report-list {
+        margin-top: 3rem;
+        width: 90%;
+      }
+      
+      @media (max-width: 810px) {
+        .book-info {
+          display: flex;
+          flex-direction: column;
+        }
+      
+        .book-text {
+          width: 100%;
+          margin: 1rem 0rem;
+        }
+      }
+    </style>
+    
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <section>
+        <div class="report-page">
+          <a class="back-btn" href="/bookclub/">
+            <img src="/bookclub/left-arrow.png" />
+          </a>
+          <div class="report-header">
+            <div class="book-info">
+              <img class="book-img" src={thumbnailImage} alt={`${title} 표지`} />
+              <div class="book-text">
+                <h4>{startDateFormatted} ~ {endDateFormatted}</h4>
+                <h2 style="color: #9339FF">{title}</h2>
+                <p style="color: #9339FF">{`저자 ${creator}`}</p>
+                <p style="font-size: medium">{`참여 ${participants}명`}</p>
+              </div>
+            </div>
+            <div class="underbar"></div>
+          </div>
+          <div class="report-list">
+            <ul>
+              {
+                bookReports && bookReports.length > 0 ? (
+                  bookReports.map(
+                    (report: any, index) => (
+                      <BookReport
+                        key={index}
+                        thumbnailImage={thumbnailImage}
+                        reportTitle={report.data.reportTitle}
+                        reportContent={report.data.reportContent}
+                        pubDate={report.data.pubDate}
+                        reader={report.data.reader}
+                        reaction={reaction.filter((e: any) => e.book_id === directoryName)}
+                      />
+                    )
+                  )
+                ) : (
+                  <p>감상문은 {pubDateFormatted}에 공개됩니다.</p>
+                )
+              }
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>

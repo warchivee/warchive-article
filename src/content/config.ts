@@ -63,4 +63,39 @@ const play = defineCollection({
   }),
 });
 
-export const collections = { blog, interview, review, play };
+const bookclub = defineCollection({
+  type: "content",
+  // Type-check frontmatter using a schema
+  schema: z.object({
+    title: z.string(),
+    creator: z.string(),
+    thumbnailImage: z.string(),
+    participants: z.number(),
+    // Transform string to Date object
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+    pubDate: z.coerce.date(),
+    // Nested book report information
+    isPublish: z.boolean(),
+    directoryName: z.string(),
+  }),
+});
+
+const bookreports = defineCollection({
+  type: "content",
+  schema: z.object({
+    reportTitle: z.string(),
+    reportContent: z.string(),
+    pubDate: z.coerce.date(),
+    reader: z.string(),
+  }),
+});
+
+export const collections = {
+  blog,
+  interview,
+  review,
+  play,
+  bookclub,
+  bookreports,
+};

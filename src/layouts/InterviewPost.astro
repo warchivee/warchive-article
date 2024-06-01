@@ -11,7 +11,7 @@ import ZigzagBorder from '../components/ZigzagBorder.svelte';
 
 type Props = CollectionEntry<'interview'>['data'];
 
-const { subject, title, description, pubDate, updatedDate, thumbnailImage, titleImage, target:t, tags, descriptionColor, backgroundColor, titleColor } = Astro.props;
+const { subject, title, description, thumbnailImage, titleImage, target:t, tags, descriptionColor, backgroundColor, titleColor } = Astro.props;
 const { data:target } = t ? await getEntry(t) : {data:undefined};
 ---
 
@@ -50,7 +50,7 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
         </style>
         <script>
             const observer = new IntersectionObserver(
-            (entries, observer) => {
+            (entries) => {
                 entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("fade-in");

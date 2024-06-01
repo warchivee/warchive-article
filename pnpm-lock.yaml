@@ -26,6 +26,9 @@ dependencies:
   '@astrojs/svelte':
     specifier: ^5.2.0
     version: 5.2.0(astro@4.5.8)(svelte@4.2.12)(typescript@5.4.3)(vite@5.2.2)
+  '@emailjs/browser':
+    specifier: ^4.3.3
+    version: 4.3.3
   astro:
     specifier: ^4.5.8
     version: 4.5.8(sass@1.72.0)(typescript@5.4.3)
@@ -467,6 +470,11 @@ packages:
     resolution: {integrity: sha512-WKGE+SO0qUGirW8J+xOWkHeCkfFEoPPvHnFkcdMl+MY3kDbAcTwjZCzjg27JCvoD0h8fH47FR7DSIss0/S5lyg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
+    dev: false
+
+  /@emailjs/browser@4.3.3:
+    resolution: {integrity: sha512-ltpt2S/WVREIBXptxYAVYBvXb2O6yTUYiRUWF8OLikMxlmiGsIgKpgHppikNd4Df0uAav7jCsQKcOJ3TJFUx5g==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /@emmetio/abbreviation@2.3.3:

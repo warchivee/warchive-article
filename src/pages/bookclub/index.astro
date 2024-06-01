@@ -1,0 +1,146 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Banner from "../../components/bookclub/Banner.svelte";
+import BookItem from "../../components/bookclub/BookItem.svelte";
+import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("bookclub")).sort(
+  (a, b) => (b?.data?.startDate?.valueOf() ?? 100) - (a?.data?.endDate?.valueOf() ?? 100)
+);
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      section {
+        width: 100%;
+        max-width: 1000px;
+      }
+
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      ul {
+        list-style-type: none;
+        width: 100%;
+        max-width: 800px;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 170px));
+        gap: 80px 100px;
+        justify-content: center;
+        align-content: center; 
+        position: relative;
+      }
+
+      @media (min-width: 740px) {
+          li:nth-child(3n+1)::after {
+            z-index: 1;
+            content: "";
+            position: absolute;
+            width: 100%;
+            left: 0;
+            height: 18px;
+            background-color: #d9d9d9;
+        }
+      }
+
+      @media (max-width: 741px) {
+        li:nth-child(odd)::after {
+          z-index: 1;
+          content: "";
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 18px;
+          background-color: #d9d9d9;
+        }
+      }
+
+      @media (max-width: 471px) {
+        li::after {
+          z-index: 1;
+          content: "";
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 18px;
+          background-color: #d9d9d9;
+        }
+      }
+    </style> 
+  </head>
+  <body>
+    <Header />
+    <main>
+      <Banner
+        title={posts[posts.length -1].data.title}
+        creator={posts[posts.length -1].data.creator}
+        image={posts[posts.length -1].data.thumbnailImage}
+        startDate={posts[posts.length -1].data.startDate}
+        endDate={posts[posts.length -1].data.endDate}
+        pubDate={posts[posts.length -1].data.pubDate}
+      />
+      <section>
+        <ul>
+          {
+            posts.map(async (post) => {
+              return (
+                <li>
+                  <BookItem
+                    client:load
+                    url={`/bookclub/${post.slug}/`}
+                    title={post.data.title}
+                    creator={post.data.creator}
+                    image={post.data.thumbnailImage}
+                    startDate={post.data.startDate}
+                    endDate={post.data.endDate}
+                    pubDate={post.data.pubDate}
+                    isPublish={post.data.isPublish}
+                  />
+                </li>
+              );
+            })
+          }
+        </ul>
+      </section>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>

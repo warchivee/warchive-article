@@ -77,6 +77,7 @@ const { title, description, image="https://i.ibb.co/5GhLscr/article-title.png" }
 <meta property="twitter:image" content={image} />
 
 <script
+	is:inline
       src="https://kit.fontawesome.com/57035f1d97.js"
       crossorigin="anonymous"
     ></script>
@@ -90,8 +91,8 @@ is:inline
 
 <!-- https://www.freecodecamp.org/news/how-to-add-google-analytics-to-your-astro-website/ -->
 <!-- Google tag (gtag.js) -->
-<script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-TXNV60E3JP"></script>
-<script type="text/partytown">
+<script is:inline type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-TXNV60E3JP"></script>
+<script is:inline type="text/partytown">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());

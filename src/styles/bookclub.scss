@@ -1,0 +1,35 @@
+main {
+  width: 100%;
+  margin: auto;
+  padding-bottom: 1em;
+}
+
+a {
+  font-size: initial;
+}
+
+@media (max-width: 700px) {
+  h1 {
+    font-size: var(--title-md);
+  }
+
+  h2 {
+    font-size: var(--title-sm);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+  }
+  
+  h4 {
+    font-size: var(--text-md);
+  }
+  
+  h5 {
+    font-size: var(--text-caption);
+  }
+
+  p {
+    font-size: var(--text-sm);
+  }
+}
