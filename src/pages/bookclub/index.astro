@@ -21,7 +21,11 @@ const posts = (await getCollection("bookclub")).sort(
   data-has-scroll="true|false"
 >
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+      image={new URL("https://i.ibb.co/cyNSVR9/book-club-thumbnail.png")}
+    />
 
     <style>
       @keyframes fade-in {
@@ -39,7 +43,7 @@ const posts = (await getCollection("bookclub")).sort(
         justify-content: center;
         align-items: center;
         width: 100%;
-        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
       }
 
       main {
@@ -65,19 +69,19 @@ const posts = (await getCollection("bookclub")).sort(
         grid-template-columns: repeat(auto-fill, minmax(100px, 170px));
         gap: 80px 100px;
         justify-content: center;
-        align-content: center; 
+        align-content: center;
         position: relative;
       }
 
       @media (min-width: 740px) {
-          li:nth-child(3n+1)::after {
-            z-index: 1;
-            content: "";
-            position: absolute;
-            width: 100%;
-            left: 0;
-            height: 18px;
-            background-color: #d9d9d9;
+        li:nth-child(3n + 1)::after {
+          z-index: 1;
+          content: "";
+          position: absolute;
+          width: 100%;
+          left: 0;
+          height: 18px;
+          background-color: #d9d9d9;
         }
       }
 
@@ -104,18 +108,18 @@ const posts = (await getCollection("bookclub")).sort(
           background-color: #d9d9d9;
         }
       }
-    </style> 
+    </style>
   </head>
   <body>
     <Header />
     <main>
       <Banner
-        title={posts[posts.length -1].data.title}
-        creator={posts[posts.length -1].data.creator}
-        image={posts[posts.length -1].data.thumbnailImage}
-        startDate={posts[posts.length -1].data.startDate}
-        endDate={posts[posts.length -1].data.endDate}
-        pubDate={posts[posts.length -1].data.pubDate}
+        title={posts[posts.length - 1].data.title}
+        creator={posts[posts.length - 1].data.creator}
+        image={posts[posts.length - 1].data.thumbnailImage}
+        startDate={posts[posts.length - 1].data.startDate}
+        endDate={posts[posts.length - 1].data.endDate}
+        pubDate={posts[posts.length - 1].data.pubDate}
       />
       <section>
         <ul>
