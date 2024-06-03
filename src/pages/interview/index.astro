@@ -1,6 +1,7 @@
 ---
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
+import ReviewToggle from "../../components/ReviewToggle.svelte";
 import InterviewFooter from "../../components/interview/InterviewFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
@@ -84,6 +85,7 @@ const posts = (await getCollection("interview")).sort(
   </head>
   <body>
     <Header />
+    <ReviewToggle selected="interview" />
     <main>
       <section>
         <ul>
