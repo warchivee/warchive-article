@@ -7,14 +7,14 @@ import "../styles/bookclub.scss";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
 import BookReport from "../components/bookclub/BookReport.svelte";
 
-type Props = CollectionEntry<'bookclub'>['data'];
+type Props = CollectionEntry<'bookclub'>['data'] & { slug: string };
 
-const { title, creator, thumbnailImage, participants, startDate, endDate, pubDate, directoryName } = Astro.props;
+const { title, creator, thumbnailImage, participants, startDate, endDate, pubDate, slug } = Astro.props;
 
-const bookReports = await getCollection(directoryName as any);
+const bookReports = await getCollection(slug as any);
 
-const response = await (await fetch('https://script.google.com/macros/s/AKfycbxGKDVLyBmi3UZGUHdjnJ5WpCJWcQtvTTvUOWkzhwFAGyY5H57Nqy4n1HA4jpTUzHXB/exec?req=get_count')).json()
-const reaction = response.data;
+const response = await (await fetch('https://script.google.com/macros/s/AKfycbzc2eEZT8yghP_x1OKzT7T40Tj4QvXlz-WmU0LiXP-pQjrWxTJt9xrn2VGGCYYHC5qo/exec?req=get_count')).json()
+const reactions = response.data;
 
 const startDateFormatted = formatDate(startDate);
 const endDateFormatted = formatDate(endDate).slice(5);
@@ -140,15 +140,15 @@ function formatDate(date:Date) {
               {
                 bookReports && bookReports.length > 0 ? (
                   bookReports.map(
-                    (report: any, index) => (
+                    (report: any) => (
                       <BookReport
-                        key={index}
+                        key={report.data.id}
                         thumbnailImage={thumbnailImage}
                         reportTitle={report.data.reportTitle}
                         reportContent={report.data.reportContent}
                         pubDate={report.data.pubDate}
                         reader={report.data.reader}
-                        reaction={reaction.filter((e: any) => e.book_id === directoryName)}
+                        reaction={reactions.find((e: any) =>  e.book_id === +slug && e.entry_id === +report.slug)}
                       />
                     )
                   )

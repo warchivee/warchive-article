@@ -77,7 +77,6 @@ const bookclub = defineCollection({
     pubDate: z.coerce.date(),
     // Nested book report information
     isPublish: z.boolean(),
-    directoryName: z.string(),
   }),
 });
 
