@@ -20,7 +20,11 @@ const posts = (await getCollection("bookclub")).sort(
   data-has-scroll="true|false"
 >
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+      image={new URL("https://i.ibb.co/cyNSVR9/book-club-thumbnail.png")}
+    />
 
     <style>
       main,
@@ -34,7 +38,7 @@ const posts = (await getCollection("bookclub")).sort(
       section {
         width: 100%;
         max-width: 1000px;
-        padding: 1rem
+        padding: 1rem;
       }
 
       section * {
@@ -49,12 +53,12 @@ const posts = (await getCollection("bookclub")).sort(
       <section>
         <SubmitPage
           client:load
-          postTitle={posts[posts.length -1].data.title}
-          creator={posts[posts.length -1].data.creator}
-          image={posts[posts.length -1].data.thumbnailImage}
-          startDate={posts[posts.length -1].data.startDate}
-          endDate={posts[posts.length -1].data.endDate}
-          pubDate={posts[posts.length -1].data.pubDate}
+          postTitle={posts[posts.length - 1].data.title}
+          creator={posts[posts.length - 1].data.creator}
+          image={posts[posts.length - 1].data.thumbnailImage}
+          startDate={posts[posts.length - 1].data.startDate}
+          endDate={posts[posts.length - 1].data.endDate}
+          pubDate={posts[posts.length - 1].data.pubDate}
           client:load
         />
       </section>
