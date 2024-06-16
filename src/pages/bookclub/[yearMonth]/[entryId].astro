@@ -1,0 +1,217 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import InterviewFooter from "../../../components/interview/InterviewFooter.svelte";
+import Header from "../../../components/Header.astro";
+import BaseHead from "../../../components/BaseHead.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../../consts";
+
+const { yearMonth, entryId } = Astro.params;
+const posts = await getCollection('202406');
+type Props = CollectionEntry<"bookreports">;
+
+const post = posts.find((page) => page.slug == entryId);
+if (!post) return Astro.redirect("/404");
+
+const { reportTitle, reportContent, pubDate, reader } = post.data;
+const reaction: {is_best:number, is_funny:number, is_interested:number, is_empathized:number, is_amazed:number } = {
+  is_best: 0,
+  is_funny: 0,
+  is_interested: 0,
+  is_empathized: 0,
+  is_amazed: 0
+};
+const { Content } = await post.render();
+
+function formatDate(date:Date) {
+        return date.getFullYear() + '.' + 
+            ('0' + (date.getMonth() + 1)).slice(-2) + '.' + 
+            ('0' + date.getDate()).slice(-2);
+    }
+---
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      section {
+        width: 100%;
+        max-width: 1000px;
+        padding: 3rem 1rem;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      .review {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2.2rem;
+        align-items: center;
+
+        .title, .reactions {
+          width: 100%;
+          background: #f0e3ff;
+          padding: 2rem;
+        }
+
+         .reactions {
+           padding-top: 1rem;
+           padding-bottom: 1rem;
+         }
+
+        .title {
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+          background-image: url('/bookclub/bookclub-review-title.png');
+          background-repeat: no-repeat; 
+          background-position: right;
+        }
+
+        .reactions {
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+
+          & > img {
+            position: absolute;
+            top: -20px;
+            left: 0;
+          }
+
+          & button {
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            p {
+              font-size: 12px;
+            }
+          }
+        }
+
+        @media (max-width: 450px) {
+          .reactions {
+            gap: 0;
+          }
+        }
+
+        .title h2 {
+          color: black;
+        }
+        .title h6 {
+          font-size: 1rem;
+          color: #848484;
+        }
+
+        .content {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .content > p {
+          font-size: 1rem;
+          color: #848484;
+          width: 100%;
+          max-width: 700px;
+        }
+      }
+
+      .back-btn {
+        width: 100%;
+      }
+
+      a {
+        width: fit-content;
+        display: flex;
+        gap: 1rem;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <div class="back-btn">
+          <a href={`/bookclub/${yearMonth}`}>
+            <img src="/bookclub/left-arrow.png" height="30">
+            <span>다른 감상문 보기</span>
+          </a>
+        </div>
+        <div class="review">
+          <div class="title">
+            <h2>
+              {reportTitle}
+            </h2>
+            <h6>
+              {reader} | {formatDate(pubDate)}
+            </h6>
+          </div>
+
+          <div class="content">
+            <Content /> 
+          </div>
+        
+          <div class="reactions">
+            <img src="/bookclub/bookclub-review-reactions.png" />
+            <button>
+              <img src="/bookclub/best.png" />
+              <p>최고예요</p>
+              <p>{reaction?.is_best ?? 0}</p>
+            </button>
+            <button>
+              <img src="/bookclub/funny.png" />
+              <p>재밌어요</p>
+              <p>{reaction?.is_funny ?? 0}</p>
+            </button>
+            <button>
+              <img src="/bookclub/interesting.png" />
+              <p>흥미로워요</p>
+              <p>{reaction?.is_interested ?? 0}</p>
+            </button>
+            <button>
+              <img src="/bookclub/empathized.png" />
+              <p>공감해요</p>
+              <p>{reaction?.is_empathized ?? 0}</p>
+            </button>
+            <button>
+              <img src="/bookclub/amazed.png" />
+              <p>놀라워요</p>
+              <p>{reaction?.is_amazed ?? 0}</p>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>

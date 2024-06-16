@@ -1,13 +1,11 @@
 <script>
-  export let key;
+  export let id;
   export let thumbnailImage;
   export let reportTitle;
   export let reportContent;
   export let pubDate;
   export let reader;
   export let reaction;
-
-  let cnt = reaction.find((e) => e.entry_id === key);
 
   function getFormattedDate(date) {
     return date.toLocaleDateString("en-us", {
@@ -31,23 +29,23 @@
       <div class="emoji">
         <button>
           <img src="/bookclub/best.png" />
-          <p>{cnt ? cnt.is_best : 0}</p>
+          <p>{reaction?.is_best ?? 0}</p>
         </button>
         <button>
           <img src="/bookclub/funny.png" />
-          <p>{cnt ? cnt.is_funny : 0}</p>
+          <p>{reaction?.is_funny ?? 0}</p>
         </button>
         <button>
           <img src="/bookclub/interesting.png" />
-          <p>{cnt ? cnt.is_interested : 0}</p>
+          <p>{reaction?.is_interested ?? 0}</p>
         </button>
         <button>
           <img src="/bookclub/empathized.png" />
-          <p>{cnt ? cnt.is_empathized : 0}</p>
+          <p>{reaction?.is_empathized ?? 0}</p>
         </button>
         <button>
           <img src="/bookclub/amazed.png" />
-          <p>{cnt ? cnt.is_amazed : 0}</p>
+          <p>{reaction?.is_amazed ?? 0}</p>
         </button>
       </div>
     </div>
@@ -72,8 +70,8 @@
   }
   .reader-info {
     display: flex;
+    flex-direction: column;
     gap: 5px;
-    align-items: center;
   }
   .emoji {
     display: flex;
