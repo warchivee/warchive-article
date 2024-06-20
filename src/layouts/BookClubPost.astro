@@ -140,7 +140,7 @@ function formatDate(date:Date) {
               {
                 bookReports && bookReports.length > 0 ? (
                   bookReports.map(
-                    (report: any, index) => (
+                    (report: any, index: number) => (
                       <BookReport
                         key={index}
                         thumbnailImage={thumbnailImage}

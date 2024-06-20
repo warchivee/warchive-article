@@ -89,7 +89,7 @@ const { data:target } = t ? await getEntry(t) : {data:undefined};
                                 <div class="article_title">
                                     {titleImage && <img src={titleImage} alt="" />}
                                     <div>
-                                        {description?.split(`\n`)?.map((des) => <p style={`color: ${descriptionColor}`}>{des}</p>)}
+                                        {description?.split(`\n`)?.map((des): string => <p style={`color: ${descriptionColor}`}>{des}</p>)}
                                     </div>
                                 </div>
                         </section>
