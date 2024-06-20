@@ -4,22 +4,16 @@ import InterviewFooter from "../../../components/interview/InterviewFooter.svelt
 import Header from "../../../components/Header.astro";
 import BaseHead from "../../../components/BaseHead.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../../consts";
+import ReactionPannel from "../../../components/bookclub/ReactionPannel.svelte";
 
-const { yearMonth, entryId } = Astro.params;
-const posts = await getCollection('202406');
+const { bookId, reportId } = Astro.params;
+const posts = await getCollection(bookId);
 type Props = CollectionEntry<"bookreports">;
 
-const post = posts.find((page) => page.slug == entryId);
+const post = posts.find((page) => page.slug == reportId);
 if (!post) return Astro.redirect("/404");
 
 const { reportTitle, reportContent, pubDate, reader } = post.data;
-const reaction: {is_best:number, is_funny:number, is_interested:number, is_empathized:number, is_amazed:number } = {
-  is_best: 0,
-  is_funny: 0,
-  is_interested: 0,
-  is_empathized: 0,
-  is_amazed: 0
-};
 const { Content } = await post.render();
 
 function formatDate(date:Date) {
@@ -86,7 +80,7 @@ function formatDate(date:Date) {
           border-top-right-radius: 15px;
           background-image: url('/bookclub/bookclub-review-title.png');
           background-repeat: no-repeat; 
-          background-position: right;
+          background-position: top right;
         }
 
         .reactions {
@@ -97,23 +91,12 @@ function formatDate(date:Date) {
           justify-content: center;
           align-items: center;
           gap: 1rem;
+          height: 120px;
 
           & > img {
             position: absolute;
             top: -20px;
             left: 0;
-          }
-
-          & button {
-            background: transparent;
-            border: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            
-            p {
-              font-size: 12px;
-            }
           }
         }
 
@@ -125,12 +108,15 @@ function formatDate(date:Date) {
 
         .title h2 {
           color: black;
+          padding-right: 100px;
         }
         .title h6 {
           font-size: 1rem;
           color: #848484;
+          padding-right: 100px;
         }
 
+      
         .content {
           display: flex;
           flex-direction: column;
@@ -155,6 +141,17 @@ function formatDate(date:Date) {
         gap: 1rem;
         text-decoration: none;
       }
+
+      
+      @media (max-width: 600px) {
+        .title h2 {
+          font-size: 20px;
+        }
+
+        .title h6 {
+          font-size: 14px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -162,7 +159,7 @@ function formatDate(date:Date) {
     <main>
       <section>
         <div class="back-btn">
-          <a href={`/bookclub/${yearMonth}`}>
+          <a href={`/bookclub/${bookId}`}>
             <img src="/bookclub/left-arrow.png" height="30">
             <span>다른 감상문 보기</span>
           </a>
@@ -183,31 +180,7 @@ function formatDate(date:Date) {
         
           <div class="reactions">
             <img src="/bookclub/bookclub-review-reactions.png" />
-            <button>
-              <img src="/bookclub/best.png" />
-              <p>최고예요</p>
-              <p>{reaction?.is_best ?? 0}</p>
-            </button>
-            <button>
-              <img src="/bookclub/funny.png" />
-              <p>재밌어요</p>
-              <p>{reaction?.is_funny ?? 0}</p>
-            </button>
-            <button>
-              <img src="/bookclub/interesting.png" />
-              <p>흥미로워요</p>
-              <p>{reaction?.is_interested ?? 0}</p>
-            </button>
-            <button>
-              <img src="/bookclub/empathized.png" />
-              <p>공감해요</p>
-              <p>{reaction?.is_empathized ?? 0}</p>
-            </button>
-            <button>
-              <img src="/bookclub/amazed.png" />
-              <p>놀라워요</p>
-              <p>{reaction?.is_amazed ?? 0}</p>
-            </button>
+            <ReactionPannel client:load {bookId} {reportId} />
           </div>
         </div>
       </section>
