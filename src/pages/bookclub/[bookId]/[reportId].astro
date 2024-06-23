@@ -13,14 +13,8 @@ type Props = CollectionEntry<"bookreports">;
 const post = posts.find((page) => page.slug == reportId);
 if (!post) return Astro.redirect("/404");
 
-const { reportTitle, reportContent, pubDate, reader } = post.data;
+const { reportTitle, reportContent, reader } = post.data;
 const { Content } = await post.render();
-
-function formatDate(date:Date) {
-        return date.getFullYear() + '.' + 
-            ('0' + (date.getMonth() + 1)).slice(-2) + '.' + 
-            ('0' + date.getDate()).slice(-2);
-    }
 ---
 <!doctype html>
 <html
@@ -170,7 +164,7 @@ function formatDate(date:Date) {
               {reportTitle}
             </h2>
             <h6>
-              {reader} | {formatDate(pubDate)}
+              {reader}
             </h6>
           </div>
 

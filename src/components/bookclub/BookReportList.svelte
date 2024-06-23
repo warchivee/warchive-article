@@ -51,8 +51,7 @@
             {bookId}
             {bookThumbnail}
             reportTitle={report.data.reportTitle}
-            reportContent={report.data.reportContent}
-            pubDate={report.data.pubDate}
+            reportContent={report.body?.substr(0, 200)}
             reader={report.data.reader}
             reactionCount={reactionCount?.find(
               (e) => e.book_id === bookId && e.report_id === +report.slug

@@ -84,8 +84,6 @@ const bookreports = defineCollection({
   type: "content",
   schema: z.object({
     reportTitle: z.string(),
-    reportContent: z.string(),
-    pubDate: z.coerce.date(),
     reader: z.string(),
   }),
 });

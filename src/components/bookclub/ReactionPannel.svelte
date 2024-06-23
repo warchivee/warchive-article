@@ -188,7 +188,7 @@
   }
 
   button.selected {
-    background: #9339ff;
+    background: #9239ff;
     & p {
       color: white;
     }

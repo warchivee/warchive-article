@@ -4,17 +4,22 @@
   export let bookThumbnail;
   export let reportTitle;
   export let reportContent;
-  export let pubDate;
   export let reader;
   export let reactionCount;
   export let myReaction;
 
-  function getFormattedDate(date) {
-    return date.toLocaleDateString("en-us", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+  const colors = [
+    "6420AA",
+    "FF3EA5",
+    "FF7ED4",
+    "FFB5DA",
+    "176B87",
+    "86B6F6",
+    "B4D4FF",
+  ];
+  function getRandomColor() {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
   }
 </script>
 
@@ -22,19 +27,14 @@
   <a href="/bookclub/{bookId}/{id}">
     <div class="book-img">
       <img src="/bookclub/envelope-line.png" alt="편지지 느낌의 꾸밈 요소" />
-      <div
-        class="book-img-filter"
-        style="background-color: {'#' +
-          parseInt(Math.random() * 0xffffff).toString(16)}"
-      />
-      <img src={bookThumbnail} alt="book-img" />
+      <div class="thumbnail" style="background-image: url({bookThumbnail});" />
+      <div class="filter" style="background-color: {'#' + getRandomColor()}" />
     </div>
     <div class="report-info">
       <div>
         <h4>{reportTitle}</h4>
         <p>
-          {`${reader}  | `}
-          {getFormattedDate(new Date(pubDate))}
+          {`${reader}`}
         </p>
       </div>
 
@@ -88,7 +88,7 @@
     overflow: hidden;
   }
 
-  .book-img img:first-child {
+  .book-img img {
     position: absolute;
     z-index: 2;
     top: 40px;
@@ -96,18 +96,24 @@
     opacity: 0.7;
   }
 
-  .book-img img:last-child {
+  .book-img .thumbnail {
+    position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    content: "";
+    filter: saturate(50%);
+    opacity: 0.6;
+    z-index: 1;
   }
 
-  .book-img-filter {
+  .book-img .filter {
     content: "";
     width: 100%;
     height: 100%;
     position: absolute;
-    opacity: 0.7;
   }
 
   .report-info {
