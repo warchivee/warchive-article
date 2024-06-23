@@ -7,14 +7,14 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../../../consts";
 import ReactionPannel from "../../../components/bookclub/ReactionPannel.svelte";
 
 const { bookId, reportId } = Astro.params;
-const posts = await getCollection(bookId);
+const posts = await getCollection(bookId as any);
 type Props = CollectionEntry<"bookreports">;
 
-const post = posts.find((page) => page.slug == reportId);
+const post = posts.find((page: any) => page?.slug == reportId);
 if (!post) return Astro.redirect("/404");
 
-const { reportTitle, reportContent, reader } = post.data;
-const { Content } = await post.render();
+const { reportTitle, reader } = (post as any)?.data;
+const { Content } = await  (post as any)?.render();
 ---
 <!doctype html>
 <html
