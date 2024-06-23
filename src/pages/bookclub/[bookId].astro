@@ -6,13 +6,13 @@ import BookClubPost from "../../layouts/BookClubPost.astro";
 const posts = await getCollection("bookclub");
 type Props = CollectionEntry<"bookclub">;
 
-const { slug } = Astro.params;
-const post = posts.find((page) => page.slug === slug);
+const { bookId } = Astro.params;
+const post = posts.find((page) => page.slug === bookId);
 if (!post) return Astro.redirect("/404");
 
 const { Content } = await post.render();
 ---
 
-<BookClubPost {...post.data}>
+<BookClubPost slug={bookId ?? ''} {...post.data}>
   <Content />
 </BookClubPost>

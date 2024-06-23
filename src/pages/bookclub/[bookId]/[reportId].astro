@@ -1,0 +1,184 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import InterviewFooter from "../../../components/interview/InterviewFooter.svelte";
+import Header from "../../../components/Header.astro";
+import BaseHead from "../../../components/BaseHead.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../../consts";
+import ReactionPannel from "../../../components/bookclub/ReactionPannel.svelte";
+
+const { bookId, reportId } = Astro.params;
+const posts = await getCollection(bookId as any);
+type Props = CollectionEntry<"bookreports">;
+
+const post = posts.find((page: any) => page?.slug == reportId);
+if (!post) return Astro.redirect("/404");
+
+const { reportTitle, reader } = (post as any)?.data;
+const { Content } = await  (post as any)?.render();
+---
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      section {
+        width: 100%;
+        max-width: 1000px;
+        padding: 3rem 1rem;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      .review {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2.2rem;
+        align-items: center;
+
+        .title, .reactions {
+          width: 100%;
+          background: #f0e3ff;
+          padding: 2rem;
+        }
+
+         .reactions {
+           padding-top: 1rem;
+           padding-bottom: 1rem;
+         }
+
+        .title {
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+          background-image: url('/bookclub/bookclub-review-title.png');
+          background-repeat: no-repeat; 
+          background-position: top right;
+        }
+
+        .reactions {
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          height: 120px;
+
+          & > img {
+            position: absolute;
+            top: -20px;
+            left: 0;
+          }
+        }
+
+        @media (max-width: 450px) {
+          .reactions {
+            gap: 0;
+          }
+        }
+
+        .title h2 {
+          color: black;
+          padding-right: 100px;
+        }
+        .title h6 {
+          font-size: 1rem;
+          color: #848484;
+          padding-right: 100px;
+        }
+
+      
+        .content {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .content > p {
+          font-size: 1rem;
+          color: #848484;
+          width: 100%;
+          max-width: 700px;
+        }
+      }
+
+      .back-btn {
+        width: 100%;
+      }
+
+      a {
+        width: fit-content;
+        display: flex;
+        gap: 1rem;
+        text-decoration: none;
+      }
+
+      
+      @media (max-width: 600px) {
+        .title h2 {
+          font-size: 20px;
+        }
+
+        .title h6 {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <div class="back-btn">
+          <a href={`/bookclub/${bookId}`}>
+            <img src="/bookclub/left-arrow.png" height="30">
+            <span>다른 감상문 보기</span>
+          </a>
+        </div>
+        <div class="review">
+          <div class="title">
+            <h2>
+              {reportTitle}
+            </h2>
+            <h6>
+              {reader}
+            </h6>
+          </div>
+
+          <div class="content">
+            <Content /> 
+          </div>
+        
+          <div class="reactions">
+            <img src="/bookclub/bookclub-review-reactions.png" />
+            <ReactionPannel client:load {bookId} {reportId} />
+          </div>
+        </div>
+      </section>
+    </main>
+    <InterviewFooter />
+  </body>
+</html>

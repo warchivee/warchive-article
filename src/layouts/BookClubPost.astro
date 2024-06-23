@@ -5,16 +5,13 @@ import Header from "../components/Header.astro";
 
 import "../styles/bookclub.scss";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
-import BookReport from "../components/bookclub/BookReport.svelte";
+import BookReportList from "../components/bookclub/BookReportList.svelte";
 
-type Props = CollectionEntry<'bookclub'>['data'];
+type Props = CollectionEntry<'bookclub'>['data'] & { slug: string };
 
-const { title, creator, thumbnailImage, participants, startDate, endDate, pubDate, directoryName } = Astro.props;
+const { title, creator, thumbnailImage, participants, startDate, endDate, pubDate, slug } = Astro.props;
 
-const bookReports = await getCollection(directoryName as any);
-
-const response = await (await fetch('https://script.google.com/macros/s/AKfycbxGKDVLyBmi3UZGUHdjnJ5WpCJWcQtvTTvUOWkzhwFAGyY5H57Nqy4n1HA4jpTUzHXB/exec?req=get_count')).json()
-const reaction = response.data;
+const bookReports = await getCollection(slug as any);
 
 const startDateFormatted = formatDate(startDate);
 const endDateFormatted = formatDate(endDate).slice(5);
@@ -95,11 +92,6 @@ function formatDate(date:Date) {
         background-color: #D9D9D9;
       }
       
-      .report-list {
-        margin-top: 3rem;
-        width: 90%;
-      }
-      
       @media (max-width: 810px) {
         .book-info {
           display: flex;
@@ -135,29 +127,7 @@ function formatDate(date:Date) {
             </div>
             <div class="underbar"></div>
           </div>
-          <div class="report-list">
-            <ul>
-              {
-                bookReports && bookReports.length > 0 ? (
-                  bookReports.map(
-                    (report: any, index: number) => (
-                      <BookReport
-                        key={index}
-                        thumbnailImage={thumbnailImage}
-                        reportTitle={report.data.reportTitle}
-                        reportContent={report.data.reportContent}
-                        pubDate={report.data.pubDate}
-                        reader={report.data.reader}
-                        reaction={reaction.filter((e: any) => e.book_id === directoryName)}
-                      />
-                    )
-                  )
-                ) : (
-                  <p>감상문은 {pubDateFormatted}에 공개됩니다.</p>
-                )
-              }
-            </ul>
-          </div>
+          <BookReportList client:load bookId={+slug} reports={bookReports} bookThumbnail={thumbnailImage} pubDate={pubDateFormatted} />
         </div>
       </section>
     </main>

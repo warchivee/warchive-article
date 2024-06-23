@@ -89,7 +89,7 @@
           nickname: nickname,
           title: title,
           contents: contents,
-          bookname: data.title,
+          bookname: postTitle,
         },
         {
           publicKey: import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY,

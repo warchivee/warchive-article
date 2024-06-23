@@ -1,83 +1,135 @@
 <script>
-  export let key;
-  export let thumbnailImage;
+  export let id;
+  export let bookId;
+  export let bookThumbnail;
   export let reportTitle;
   export let reportContent;
-  export let pubDate;
   export let reader;
-  export let reaction;
+  export let reactionCount;
+  export let myReaction;
 
-  let cnt = reaction.find((e) => e.entry_id === key);
-
-  function getFormattedDate(date) {
-    return date.toLocaleDateString("en-us", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+  const colors = [
+    "6420AA",
+    "FF3EA5",
+    "FF7ED4",
+    "FFB5DA",
+    "176B87",
+    "86B6F6",
+    "B4D4FF",
+  ];
+  function getRandomColor() {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
   }
 </script>
 
 <li>
-  <img class="book-img" src={thumbnailImage} alt="book-img" />
-  <div class="report-info">
-    <h4>{reportTitle}</h4>
-    <div class="reader-info">
-      <p>
-        {`${reader}  | `}
+  <a href="/bookclub/{bookId}/{id}">
+    <div class="book-img">
+      <img src="/bookclub/envelope-line.png" alt="편지지 느낌의 꾸밈 요소" />
+      <div class="thumbnail" style="background-image: url({bookThumbnail});" />
+      <div class="filter" style="background-color: {'#' + getRandomColor()}" />
+    </div>
+    <div class="report-info">
+      <div>
+        <h4>{reportTitle}</h4>
+        <p>
+          {`${reader}`}
+        </p>
+      </div>
 
-        {getFormattedDate(new Date(pubDate))}
-      </p>
       <div class="emoji">
-        <button>
-          <img src="/bookclub/best.png" />
-          <p>{cnt ? cnt.is_best : 0}</p>
+        <button class={myReaction?.is_best ? "selected" : ""}>
+          <img src="/bookclub/emoji_best.png" alt="최고예요" />
+          <p>{reactionCount?.is_best ?? 0}</p>
         </button>
-        <button>
-          <img src="/bookclub/funny.png" />
-          <p>{cnt ? cnt.is_funny : 0}</p>
+        <button class={myReaction?.is_funny ? "selected" : ""}>
+          <img src="/bookclub/emoji_funny.png" alt="재밌어요" />
+          <p>{reactionCount?.is_funny ?? 0}</p>
         </button>
-        <button>
-          <img src="/bookclub/interesting.png" />
-          <p>{cnt ? cnt.is_interested : 0}</p>
+        <button class={myReaction?.is_interested ? "selected" : ""}>
+          <img src="/bookclub/emoji_interesting.png" alt="최고예요" />
+          <p>{reactionCount?.is_interested ?? 0}</p>
         </button>
-        <button>
-          <img src="/bookclub/empathized.png" />
-          <p>{cnt ? cnt.is_empathized : 0}</p>
+        <button class={myReaction?.is_empathized ? "selected" : ""}>
+          <img src="/bookclub/emoji_empathized.png" alt="공감해요" />
+          <p>{reactionCount?.is_empathized ?? 0}</p>
         </button>
-        <button>
-          <img src="/bookclub/amazed.png" />
-          <p>{cnt ? cnt.is_amazed : 0}</p>
+        <button class={myReaction?.is_amazed ? "selected" : ""}>
+          <img src="/bookclub/emoji_amazed.png" alt="놀라워요" />
+          <p>{reactionCount?.is_amazed ?? 0}</p>
         </button>
       </div>
+
+      <p class="report">{reportContent}</p>
     </div>
-    <p class="report">{reportContent}</p>
-  </div>
+  </a>
 </li>
 
 <style>
   li {
     width: 100%;
     margin-bottom: 3rem;
+  }
+
+  li > a {
     display: flex;
     flex-direction: row;
+    text-decoration: none;
   }
+
   .book-img {
-    width: 300px;
-    height: 150px;
+    position: relative;
+    width: 430px;
+    height: 220px;
     border-radius: 10px;
     flex-shrink: 0;
     margin-right: 2rem;
-    object-fit: cover;
+    overflow: hidden;
   }
-  .reader-info {
+
+  .book-img img {
+    position: absolute;
+    z-index: 2;
+    top: 40px;
+    width: 100%;
+    opacity: 0.7;
+  }
+
+  .book-img .thumbnail {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    content: "";
+    filter: saturate(50%);
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  .book-img .filter {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  .report-info {
     display: flex;
+    flex-direction: column;
     gap: 5px;
-    align-items: center;
   }
+
+  p {
+    font-size: 15px;
+  }
+
   .emoji {
     display: flex;
   }
+
   button {
     display: flex;
     width: 40px;
@@ -90,6 +142,7 @@
     border-color: #9339ff;
     background-color: transparent;
   }
+
   button p {
     color: #9339ff;
     font-size: small;
@@ -98,6 +151,14 @@
     width: 12px;
     height: 12px;
   }
+
+  button.selected {
+    background-color: #9339ff;
+    & p {
+      color: white;
+    }
+  }
+
   .report {
     margin-top: 1rem;
     text-overflow: ellipsis;
@@ -109,8 +170,16 @@
     -webkit-line-clamp: 3;
   }
 
-  @media (max-width: 810px) {
-    li {
+  .book-img {
+    transition: 0.3s;
+  }
+
+  li:hover .book-img {
+    box-shadow: var(--box-shadow);
+  }
+
+  @media (max-width: 700px) {
+    li > a {
       flex-direction: column;
     }
     .book-img {
