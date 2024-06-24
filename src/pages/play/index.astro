@@ -46,6 +46,8 @@ const posts = (await getCollection("play")).sort(
       ul li img {
         max-width: 100%;
         height: auto;
+        max-height: 250px;
+        object-fit: cover;
         margin-bottom: 0.5rem;
         border-radius: 12px;
       }
