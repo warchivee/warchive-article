@@ -45,9 +45,8 @@ const posts = (await getCollection("play")).sort(
       }
       ul li img {
         max-width: 100%;
-        height: auto;
-        max-height: 250px;
         object-fit: cover;
+        aspect-ratio: 1600 / 900;
         margin-bottom: 0.5rem;
         border-radius: 12px;
       }
@@ -95,12 +94,12 @@ const posts = (await getCollection("play")).sort(
                 <li>
                   {post.data.siteUrl ? (
                     <a href={`${post.data.siteUrl}`} target="_blank">
-                      <img width={720} height={360} src={post.data.thumbnailImage} alt="" />
+                      <img src={post.data.thumbnailImage} alt="" />
                       <h4 class="title">{post?.data?.title}</h4>
                     </a>
                   ) : (
                     <>
-                      <img width={720} height={360} src={post.data.thumbnailImage} alt="" />
+                      <img src={post.data.thumbnailImage} alt="" />
                       <h4 class="title">{post?.data?.title}</h4>
                     </>
                   )}
