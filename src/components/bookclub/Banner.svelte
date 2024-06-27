@@ -31,9 +31,13 @@
       <h1>{title}</h1>
       <h3>{creator}</h3>
     </div>
-    <a class="a-btn" href="/bookclub/submit/">
-      <h5>감상문 제출하기</h5>
-    </a>
+    {#if new Date() > new Date(endDate)}
+      <h5>감상문 제출 기간이 지났습니다.</h5>
+    {:else}
+      <a class="a-btn" href="/bookclub/submit/">
+        <h5>감상문 제출하기</h5>
+      </a>
+    {/if}
   </div>
 </div>
 

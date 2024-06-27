@@ -63,6 +63,12 @@
   }
 
   async function handleSendReport() {
+    if (new Date() > end) {
+      showModal = false;
+      openSnackbar("감상문 제출 기간이 지났습니다.");
+      return;
+    }
+
     if (loading) {
       return;
     }
