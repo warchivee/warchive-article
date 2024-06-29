@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import BookReport from "./BookReport.svelte";
   import Loading from "../Loading.svelte";
 
@@ -14,6 +14,15 @@
   let loading = true;
 
   onMount(async () => {
+    // IOS BFCahe 문제
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
     let uid = localStorage.getItem("user-uid");
     if (!uid) {
       uid = crypto.randomUUID();
@@ -37,12 +46,16 @@
     }
 
     loading = false;
+
+    onDestroy(() => {
+      window.removeEventListener("pageshow", handlePageShow);
+    });
   });
 </script>
 
 <div class="report-list">
   {#if loading}
-    <Loading height='300px' />
+    <Loading height="300px" />
   {:else}
     <ul>
       {#if reports && reports.length > 0}
