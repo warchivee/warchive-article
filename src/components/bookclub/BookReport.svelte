@@ -61,7 +61,7 @@
         </button>
       </div>
 
-      <p class="report">{reportContent}</p>
+      <p class="report"><span>{@html reportContent}</span></p>
     </div>
   </a>
 </li>
