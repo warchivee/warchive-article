@@ -173,9 +173,10 @@
   }
 
   @media (max-width: 700px) {
-    .book-img {
-      width: 100%;
+    a {
+      flex-direction: column;
     }
+    
     .report-info {
       margin-top: 1rem;
     }
