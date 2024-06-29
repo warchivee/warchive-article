@@ -116,12 +116,6 @@
     position: absolute;
   }
 
-  .report-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
   p {
     font-size: 15px;
   }
@@ -129,6 +123,7 @@
   .emoji {
     display: flex;
     gap: 10px;
+    margin: 5px 0;
   }
 
   button {
@@ -169,6 +164,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     text-rendering: optimizeLegibility;
+    line-height: 1.8;
   }
 
   .book-img {
