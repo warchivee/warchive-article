@@ -23,67 +23,63 @@
   }
 </script>
 
-<li>
-  <a href="/bookclub/{bookId}/{id}">
-    <div class="book-img">
-      <img src="/bookclub/envelope-line.png" alt="편지지 느낌의 꾸밈 요소" />
-      <div class="thumbnail" style="background-image: url({bookThumbnail});" />
-      <div class="filter" style="background-color: {'#' + getRandomColor()}" />
-    </div>
-    <div class="report-info">
-      <div>
-        <h4>{reportTitle}</h4>
-        <p>
-          {`${reader}`}
-        </p>
-      </div>
+<a href="/bookclub/{bookId}/{id}">
+  <div class="book-img">
+    <img src="/bookclub/envelope-line.png" alt="편지지 느낌의 꾸밈 요소" />
+    <div class="thumbnail" style="background-image: url({bookThumbnail});" />
+    <div class="filter" style="background-color: {'#' + getRandomColor()}" />
+  </div>
 
-      <div class="emoji">
-        <button class={myReaction?.is_best ? "selected" : ""}>
-          <img src="/bookclub/emoji_best.png" alt="최고예요" />
-          <p>{reactionCount?.is_best ?? 0}</p>
-        </button>
-        <button class={myReaction?.is_funny ? "selected" : ""}>
-          <img src="/bookclub/emoji_funny.png" alt="재밌어요" />
-          <p>{reactionCount?.is_funny ?? 0}</p>
-        </button>
-        <button class={myReaction?.is_interested ? "selected" : ""}>
-          <img src="/bookclub/emoji_interesting.png" alt="최고예요" />
-          <p>{reactionCount?.is_interested ?? 0}</p>
-        </button>
-        <button class={myReaction?.is_empathized ? "selected" : ""}>
-          <img src="/bookclub/emoji_empathized.png" alt="공감해요" />
-          <p>{reactionCount?.is_empathized ?? 0}</p>
-        </button>
-        <button class={myReaction?.is_amazed ? "selected" : ""}>
-          <img src="/bookclub/emoji_amazed.png" alt="놀라워요" />
-          <p>{reactionCount?.is_amazed ?? 0}</p>
-        </button>
-      </div>
-
-      <p class="report">{@html reportContent}</p>
+  <div class="report-info">
+    <div>
+      <h4>{reportTitle}</h4>
+      <p>
+        {`${reader}`}
+      </p>
     </div>
-  </a>
-</li>
+
+    <div class="emoji">
+      <button class={myReaction?.is_best ? "selected" : ""}>
+        <img src="/bookclub/emoji_best.png" alt="최고예요" />
+        <p>{reactionCount?.is_best ?? 0}</p>
+      </button>
+      <button class={myReaction?.is_funny ? "selected" : ""}>
+        <img src="/bookclub/emoji_funny.png" alt="재밌어요" />
+        <p>{reactionCount?.is_funny ?? 0}</p>
+      </button>
+      <button class={myReaction?.is_interested ? "selected" : ""}>
+        <img src="/bookclub/emoji_interesting.png" alt="최고예요" />
+        <p>{reactionCount?.is_interested ?? 0}</p>
+      </button>
+      <button class={myReaction?.is_empathized ? "selected" : ""}>
+        <img src="/bookclub/emoji_empathized.png" alt="공감해요" />
+        <p>{reactionCount?.is_empathized ?? 0}</p>
+      </button>
+      <button class={myReaction?.is_amazed ? "selected" : ""}>
+        <img src="/bookclub/emoji_amazed.png" alt="놀라워요" />
+        <p>{reactionCount?.is_amazed ?? 0}</p>
+      </button>
+    </div>
+
+    <p class="report">{@html reportContent}</p>
+  </div>
+</a>
 
 <style>
-  li {
+
+ a {
+    display: flex;
     width: 100%;
     margin-bottom: 3rem;
-  }
-
-  li > a {
-    display: flex;
-    flex-direction: row;
     text-decoration: none;
   }
 
   .book-img {
+    flex-shrink: 0;
     position: relative;
     width: 430px;
     height: 220px;
     border-radius: 10px;
-    flex-shrink: 0;
     margin-right: 2rem;
     overflow: hidden;
   }
@@ -172,14 +168,11 @@
     transition: 0.3s;
   }
 
-  li:hover .book-img {
+  a:hover .book-img {
     box-shadow: var(--box-shadow);
   }
 
   @media (max-width: 700px) {
-    li > a {
-      flex-direction: column;
-    }
     .book-img {
       width: 100%;
     }

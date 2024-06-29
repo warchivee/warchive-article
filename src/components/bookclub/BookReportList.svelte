@@ -61,7 +61,6 @@
   {#if loading}
     <Loading height="300px" />
   {:else}
-    <ul>
       {#if reports && reports.length > 0}
         {#each reports as report (report.slug)}
           <BookReport
@@ -82,7 +81,6 @@
       {:else}
         <p>감상문은 {pubDate}에 공개됩니다.</p>
       {/if}
-    </ul>
   {/if}
 </div>
 
