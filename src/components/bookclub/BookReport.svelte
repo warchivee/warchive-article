@@ -161,6 +161,7 @@
   }
 
   .report {
+    height: 81px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -168,7 +169,6 @@
     word-break: break-all;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    -webkit-text-size-adjust: 100%;
   }
 
   .book-img {
