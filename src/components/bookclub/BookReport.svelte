@@ -161,7 +161,6 @@
   }
 
   .report {
-    margin-top: 1rem;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -169,6 +168,8 @@
     word-break: break-all;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    line-height: 1.5; /* line-height 조정 */
+    padding-right: 1em; /* padding 조정 */
   }
 
   .book-img {
