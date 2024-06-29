@@ -61,7 +61,7 @@
         </button>
       </div>
 
-      <p class="report"><span>{@html reportContent}</span></p>
+      <p class="report">{@html reportContent}</p>
     </div>
   </a>
 </li>
@@ -168,6 +168,7 @@
     word-break: break-all;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    -webkit-text-size-adjust: 100%;
   }
 
   .book-img {
