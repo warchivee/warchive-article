@@ -165,6 +165,7 @@
     -webkit-line-clamp: 3;
     text-rendering: optimizeLegibility;
     line-height: 1.8;
+    white-space: normal;
   }
 
   .book-img {
