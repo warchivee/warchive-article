@@ -69,7 +69,7 @@
 
  a {
     display: flex;
-    width: 100%;
+    width: auto;
     margin-bottom: 3rem;
     text-decoration: none;
   }
@@ -175,6 +175,10 @@
   @media (max-width: 700px) {
     a {
       flex-direction: column;
+    }
+    
+    .book-img {
+      width: 100%;
     }
     
     .report-info {
