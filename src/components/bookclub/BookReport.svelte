@@ -164,6 +164,8 @@
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
+    word-wrap: break-word;
+    word-break: break-all;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }

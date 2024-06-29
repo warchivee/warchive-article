@@ -13,16 +13,7 @@
 
   let loading = true;
 
-  onMount(async () => {
-    // IOS BFCahe 문제
-    const handlePageShow = (event) => {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    };
-
-    window.addEventListener("pageshow", handlePageShow);
-
+  async function dataUpdate() {
     let uid = localStorage.getItem("user-uid");
     if (!uid) {
       uid = crypto.randomUUID();
@@ -46,6 +37,19 @@
     }
 
     loading = false;
+  }
+
+  onMount(async () => {
+    // IOS BFCahe 문제
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        dataUpdate();
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
+    dataUpdate();
 
     onDestroy(() => {
       window.removeEventListener("pageshow", handlePageShow);
