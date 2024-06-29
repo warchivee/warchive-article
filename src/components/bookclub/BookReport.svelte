@@ -165,10 +165,10 @@
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
-    word-wrap: break-word;
-    word-break: break-all;
+    word-break: break-word;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+    text-rendering: optimizeLegibility;
   }
 
   .book-img {
