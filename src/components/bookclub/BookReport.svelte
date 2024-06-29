@@ -128,17 +128,18 @@
 
   .emoji {
     display: flex;
+    gap: 10px;
   }
 
   button {
     display: flex;
+    gap: 3px;
     width: 40px;
     height: 20px;
     border-width: 1px;
     border-radius: 20px;
     align-items: center;
     justify-content: space-around;
-    margin-right: 5px;
     border-color: #9339ff;
     background-color: transparent;
   }
