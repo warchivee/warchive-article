@@ -82,14 +82,10 @@
     let newMyReactions = myReactions;
     let newReactionCount = reactionCount;
 
-    console.log(newMyReactions, newMyReactions[myReactionIndex])
-
     newMyReactions[myReactionIndex] = {
       ...newMyReactions[myReactionIndex],
       [action]: !(newMyReactions[myReactionIndex]?.[action]),
     };
-
-    console.log(newMyReactions);
 
     if (newMyReactions[myReactionIndex][action]) {
       newReactionCount[reactionCountIndex] = {
