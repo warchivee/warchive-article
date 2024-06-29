@@ -40,8 +40,7 @@
       (e) => e.book_id === +bookId && e.report_id === +reportId
     );
     if (reactionCountIndex == -1) {
-      reactionCountIndex = 0;
-      reactionCount = [
+      reactionCount.push(
         {
           book_id: +bookId,
           report_id: +reportId,
@@ -51,7 +50,9 @@
           is_empathized: 0,
           is_amazed: 0,
         },
-      ];
+      );
+
+      reactionCountIndex = reactionCount.length - 1;
     }
 
     myReactionIndex = myReactions?.findIndex(
@@ -59,9 +60,7 @@
     );
 
     if (myReactionIndex == -1) {
-      myReactionIndex = 0;
-      myReactions = [
-        {
+      myReactions.push({
           book_id: +bookId,
           report_id: +reportId,
           uuid: uid,
@@ -70,8 +69,10 @@
           is_interested: false,
           is_empathized: false,
           is_amazed: false,
-        },
-      ];
+        });
+
+        
+      myReactionIndex = myReactions?.length - 1;
     }
 
     loading = false;
@@ -81,10 +82,14 @@
     let newMyReactions = myReactions;
     let newReactionCount = reactionCount;
 
+    console.log(newMyReactions, newMyReactions[myReactionIndex])
+
     newMyReactions[myReactionIndex] = {
-      ...myReactions[myReactionIndex],
-      [action]: !myReactions[myReactionIndex]?.[action],
+      ...newMyReactions[myReactionIndex],
+      [action]: !(newMyReactions[myReactionIndex]?.[action]),
     };
+
+    console.log(newMyReactions);
 
     if (newMyReactions[myReactionIndex][action]) {
       newReactionCount[reactionCountIndex] = {
