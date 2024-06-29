@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import Loading from "../Loading.svelte";
 
   export let bookId;
   export let reportId;
@@ -123,7 +124,7 @@
 </script>
 
 {#if loading}
-  <p>반응을 불러오고 있어요</p>
+  <Loading />
 {:else}
   <button
     class={myReactions[myReactionIndex]?.is_best ? "selected" : ""}

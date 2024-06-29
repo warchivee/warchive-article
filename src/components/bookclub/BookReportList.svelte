@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import BookReport from "./BookReport.svelte";
+  import Loading from "../Loading.svelte";
 
   export let reports;
   export let bookId;
@@ -41,7 +42,7 @@
 
 <div class="report-list">
   {#if loading}
-    <p>감상문을 불러오고 있어요!</p>
+    <Loading height='300px' />
   {:else}
     <ul>
       {#if reports && reports.length > 0}
