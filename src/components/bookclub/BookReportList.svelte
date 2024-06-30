@@ -1,6 +1,7 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import BookReport from "./BookReport.svelte";
+  import Loading from "../Loading.svelte";
 
   export let reports;
   export let bookId;
@@ -12,7 +13,7 @@
 
   let loading = true;
 
-  onMount(async () => {
+  async function dataUpdate() {
     let uid = localStorage.getItem("user-uid");
     if (!uid) {
       uid = crypto.randomUUID();
@@ -36,14 +37,30 @@
     }
 
     loading = false;
+  }
+
+  onMount(async () => {
+    // IOS BFCahe 문제
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        dataUpdate();
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
+    dataUpdate();
+
+    onDestroy(() => {
+      window.removeEventListener("pageshow", handlePageShow);
+    });
   });
 </script>
 
 <div class="report-list">
   {#if loading}
-    <p>감상문을 불러오고 있어요!</p>
+    <Loading height="300px" />
   {:else}
-    <ul>
       {#if reports && reports.length > 0}
         {#each reports as report (report.slug)}
           <BookReport
@@ -64,7 +81,6 @@
       {:else}
         <p>감상문은 {pubDate}에 공개됩니다.</p>
       {/if}
-    </ul>
   {/if}
 </div>
 

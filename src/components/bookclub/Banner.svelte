@@ -4,7 +4,7 @@
   export let image;
   export let startDate;
   export let endDate;
-  export let pubDate;
+  export let isPublish;
 
   const startDateFormatted = formatDate(new Date(startDate));
   const endDateFormatted = formatDate(new Date(endDate)).slice(5);
@@ -31,7 +31,9 @@
       <h1>{title}</h1>
       <h3>{creator}</h3>
     </div>
-    {#if new Date() > new Date(endDate)}
+    {#if isPublish}
+      <h5>감상문 공개 중!</h5>
+    {:else if new Date() > new Date(endDate)}
       <h5>감상문 제출 기간이 지났습니다.</h5>
     {:else}
       <a class="a-btn" href="/bookclub/submit/">

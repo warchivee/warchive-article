@@ -119,7 +119,7 @@ const posts = (await getCollection("bookclub")).sort(
         image={posts[posts.length - 1].data.thumbnailImage}
         startDate={posts[posts.length - 1].data.startDate}
         endDate={posts[posts.length - 1].data.endDate}
-        pubDate={posts[posts.length - 1].data.pubDate}
+        isPublish={posts[posts.length - 1].data.isPublish}
       />
       <section>
         <ul>

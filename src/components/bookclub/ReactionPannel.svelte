@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import Loading from "../Loading.svelte";
 
   export let bookId;
   export let reportId;
@@ -40,18 +41,17 @@
       (e) => e.book_id === +bookId && e.report_id === +reportId
     );
     if (reactionCountIndex == -1) {
-      reactionCountIndex = 0;
-      reactionCount = [
-        {
-          book_id: +bookId,
-          report_id: +reportId,
-          is_best: 0,
-          is_funny: 0,
-          is_interested: 0,
-          is_empathized: 0,
-          is_amazed: 0,
-        },
-      ];
+      reactionCount.push({
+        book_id: +bookId,
+        report_id: +reportId,
+        is_best: 0,
+        is_funny: 0,
+        is_interested: 0,
+        is_empathized: 0,
+        is_amazed: 0,
+      });
+
+      reactionCountIndex = reactionCount.length - 1;
     }
 
     myReactionIndex = myReactions?.findIndex(
@@ -59,19 +59,18 @@
     );
 
     if (myReactionIndex == -1) {
-      myReactionIndex = 0;
-      myReactions = [
-        {
-          book_id: +bookId,
-          report_id: +reportId,
-          uuid: uid,
-          is_best: false,
-          is_funny: false,
-          is_interested: false,
-          is_empathized: false,
-          is_amazed: false,
-        },
-      ];
+      myReactions.push({
+        book_id: +bookId,
+        report_id: +reportId,
+        uuid: uid,
+        is_best: false,
+        is_funny: false,
+        is_interested: false,
+        is_empathized: false,
+        is_amazed: false,
+      });
+
+      myReactionIndex = myReactions?.length - 1;
     }
 
     loading = false;
@@ -82,8 +81,8 @@
     let newReactionCount = reactionCount;
 
     newMyReactions[myReactionIndex] = {
-      ...myReactions[myReactionIndex],
-      [action]: !myReactions[myReactionIndex]?.[action],
+      ...newMyReactions[myReactionIndex],
+      [action]: !newMyReactions[myReactionIndex]?.[action],
     };
 
     if (newMyReactions[myReactionIndex][action]) {
@@ -122,7 +121,7 @@
 </script>
 
 {#if loading}
-  <p>반응을 불러오고 있어요</p>
+  <Loading />
 {:else}
   <button
     class={myReactions[myReactionIndex]?.is_best ? "selected" : ""}
@@ -185,6 +184,7 @@
     height: 95px;
     z-index: 1;
     border-radius: 15px;
+    margin: 0 3px;
   }
 
   button.selected {
@@ -217,6 +217,14 @@
   }
 
   @media (max-width: 450px) {
+    button {
+      width: 55px;
+    }
+
+    button img {
+      width: 25px;
+    }
+
     button:hover img {
       width: 30px;
     }
