@@ -114,12 +114,12 @@ const posts = (await getCollection("bookclub")).sort(
     <Header />
     <main>
       <Banner
-        title={posts[posts.length - 1].data.title}
-        creator={posts[posts.length - 1].data.creator}
-        image={posts[posts.length - 1].data.thumbnailImage}
-        startDate={posts[posts.length - 1].data.startDate}
-        endDate={posts[posts.length - 1].data.endDate}
-        isPublish={posts[posts.length - 1].data.isPublish}
+        title={posts[0].data.title}
+        creator={posts[0].data.creator}
+        image={posts[0].data.thumbnailImage}
+        startDate={posts[0].data.startDate}
+        endDate={posts[0].data.endDate}
+        isPublish={posts[0].data.isPublish}
       />
       <section>
         <ul>

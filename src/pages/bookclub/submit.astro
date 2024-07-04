@@ -53,12 +53,12 @@ const posts = (await getCollection("bookclub")).sort(
       <section>
         <SubmitPage
           client:load
-          postTitle={posts[posts.length - 1].data.title}
-          creator={posts[posts.length - 1].data.creator}
-          image={posts[posts.length - 1].data.thumbnailImage}
-          startDate={posts[posts.length - 1].data.startDate}
-          endDate={posts[posts.length - 1].data.endDate}
-          pubDate={posts[posts.length - 1].data.pubDate}
+          postTitle={posts[0].data.title}
+          creator={posts[0].data.creator}
+          image={posts[0].data.thumbnailImage}
+          startDate={posts[0].data.startDate}
+          endDate={posts[0].data.endDate}
+          pubDate={posts[0].data.pubDate}
           client:load
         />
       </section>
