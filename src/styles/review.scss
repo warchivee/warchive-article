@@ -163,7 +163,8 @@ blockquote > blockquote {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 80px;
+  // margin-bottom: 80px;
+  margin: 20px 0;
   gap: 20px;
   
   & .group-image {
