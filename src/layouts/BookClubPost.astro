@@ -6,6 +6,7 @@ import Header from "../components/Header.astro";
 import "../styles/bookclub.scss";
 import InterviewFooter from "../components/interview/InterviewFooter.svelte";
 import BookReportList from "../components/bookclub/BookReportList.svelte";
+import { SITE_TITLE } from "../consts";
 
 type Props = CollectionEntry<'bookclub'>['data'] & { slug: string };
 
@@ -27,7 +28,7 @@ function formatDate(date:Date) {
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={title + " - " + creator} />
+    <BaseHead title={`${SITE_TITLE} - 북클럽`} description={title + " - " + creator} />
 
     <style>
       main, section {
