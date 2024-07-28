@@ -33,7 +33,7 @@
     </div>
     {#if isPublish}
       <h5>감상문 공개 중!</h5>
-    {:else if new Date() > new Date(endDate)}
+    {:else if new Date().setHours(0, 0, 0, 0) > new Date(endDate).setHours(0, 0, 0, 0)}
       <h5>감상문 제출 기간이 지났습니다.</h5>
     {:else}
       <a class="a-btn" href="/bookclub/submit/">

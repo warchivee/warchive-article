@@ -63,7 +63,7 @@
   }
 
   async function handleSendReport() {
-    if (new Date() > end) {
+    if (new Date().setHours(0, 0, 0, 0) > end.setHours(0, 0, 0, 0)) {
       showModal = false;
       openSnackbar("감상문 제출 기간이 지났습니다.");
       return;
