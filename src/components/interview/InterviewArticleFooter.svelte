@@ -48,7 +48,11 @@
           </div>
           <p>
             {#each target.about as a}
-              <a href={a.url} target="_blank">{a.text}</a>
+              {#if a.url}
+                <a href={a.url} target="_blank">{a.text}</a>
+              {:else}
+                <p>{a.text}</p>
+              {/if}
               <br />
             {/each}
           </p>
