@@ -4,10 +4,6 @@ main {
   padding-bottom: 1em;
 }
 
-a {
-  font-size: initial;
-}
-
 @media (max-width: 700px) {
   h1 {
     font-size: var(--title-md);
