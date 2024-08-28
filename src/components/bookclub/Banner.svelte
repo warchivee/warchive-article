@@ -18,6 +18,10 @@
       ("0" + date.getDate()).slice(-2)
     );
   }
+
+  function getKoreanDate(date) {
+    return new Date(new Intl.DateTimeFormat('ko-KR', { timeZone: 'Asia/Seoul' }).format(date));
+  }
 </script>
 
 <div class="banner" style="background-image: url('{image}')">
@@ -33,7 +37,7 @@
     </div>
     {#if isPublish}
       <h5>감상문 공개 중!</h5>
-    {:else if new Date().setHours(0, 0, 0, 0) > new Date(endDate).setHours(0, 0, 0, 0)}
+    {:else if getKoreanDate(new Date()).setHours(0, 0, 0, 0) > new Date(endDate).setHours(0, 0, 0, 0)}
       <h5>감상문 제출 기간이 지났습니다.</h5>
     {:else}
       <a class="a-btn" href="/bookclub/submit/">
