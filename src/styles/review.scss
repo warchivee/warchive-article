@@ -36,7 +36,14 @@ article {
   }
   h4 {
     font-size: 1.563em;
-  } 
+  }
+  h4 {
+    font-size: 1em;
+    text-align: center;
+    font-family: var(--font-quote);
+    color: #ff1100;
+    margin-bottom: 4rem;
+  }
   h5 {
     font-size: 1.25em;
     text-align: center;
@@ -208,6 +215,9 @@ blockquote > blockquote {
     width: 100%;
     flex-direction: column;
   }
+  &.full-width {
+    margin-bottom: 2rem;
+  }
 
   & figcaption,
   & figcaption p,
@@ -225,6 +235,9 @@ blockquote > blockquote {
 
     & img {
       max-width: 130%;
+    }
+    &.full-width {
+      margin-bottom: 1rem;
     }
 
     &.float-left,
