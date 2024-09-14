@@ -71,8 +71,7 @@
   }
 
   img {
-    width: 100%;
-    height: 100%;
+    height: 250px;
     object-fit: cover;
     display: block;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
