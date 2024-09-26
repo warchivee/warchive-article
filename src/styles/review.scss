@@ -219,20 +219,28 @@ blockquote > blockquote {
     flex-direction: column;
     margin-bottom: 2rem;
   }
-  
-  .twin {
+  &.full-width > img {
     width: 100%;
-    flex-direction: column;
   }
-  & .twin img {
+
+  .twin,
+  .double {
+    width: 100%;
+    flex-direction: row;
+  }
+  .twin img,
+  .double img {
     width: 100%;
     max-width: calc(50% - 0.5rem);
     height: auto;
     object-fit: cover;
-    aspect-ratio: 3/4;
-    display: inline-block;
+    // display: inline-block;
   }
-  & .twin img:first-child {
+  .twin img {
+    aspect-ratio: 3/4;
+  }
+  .twin img:first-child,
+  .double img:first-child {
     margin-right: 1rem;
   }
 
@@ -263,6 +271,17 @@ blockquote > blockquote {
     }
     &.full-width {
       margin-bottom: 1rem;
+    }
+    .double {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .double img {
+      max-width: 100%;
+    }
+    .double img:first-child {
+      margin-right: 0;
     }
   }
 }
