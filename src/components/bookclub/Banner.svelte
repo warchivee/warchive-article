@@ -24,26 +24,17 @@
   }
 </script>
 
-<div class="banner" style="background-image: url('{image}')">
+<div class="banner">
   <div class="banner-gradient"></div>
   <div class="banner-info">
-    <div class="info-block">
-      <h5>{startDateFormatted} ~ {endDateFormatted}</h5>
-      <h4>{startDateFormatted.slice(6, 7)}월의 북클럽</h4>
-    </div>
-    <div class="info-block">
-      <h1>{title}</h1>
-      <h3>{creator}</h3>
-    </div>
-    {#if isPublish}
-      <h5>감상문 공개 중!</h5>
-    {:else if getKoreanDate(new Date()).setHours(0, 0, 0, 0) > new Date(endDate).setHours(0, 0, 0, 0)}
-      <h5>감상문 제출 기간이 지났습니다.</h5>
-    {:else}
-      <a class="a-btn" href="/bookclub/submit/">
-        <h5>감상문 제출하기</h5>
-      </a>
-    {/if}
+    <h2>
+      와카이브 북클럽은 재정비 중입니다!
+    </h2>
+    <h5>
+      좀더 나은 모습으로 찾아뵙겠습니다.
+      <br />
+      기존 북클럽 감상문은 언제든지 열람 가능합니다.
+    </h5>
   </div>
 </div>
 
@@ -89,6 +80,7 @@
     & h3,
     h5 {
       font-weight: 400;
+      line-height: 20px;
     }
   }
 
