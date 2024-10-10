@@ -223,23 +223,34 @@ blockquote > blockquote {
     width: 100%;
   }
 
-  .twin,
+  .horizontal,
   .double {
     width: 100%;
+    display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
-  .twin img,
+  .horizontal img,
   .double img {
-    width: 100%;
     max-width: calc(50% - 0.5rem);
-    height: auto;
     object-fit: cover;
-    // display: inline-block;
   }
-  .twin img {
+  .horizontal img {
+    width: 100%;
+    height: auto;
+  }
+  .double img {
+    width: auto;
+    height: 100%;
+  }
+  .double img.height-180-px {
+    height: 180px;
+  }
+  .fixed-ratio-img {
     aspect-ratio: 3/4;
   }
-  .twin img:first-child,
+  .horizontal img:first-child,
   .double img:first-child {
     margin-right: 1rem;
   }
@@ -278,7 +289,11 @@ blockquote > blockquote {
       gap: 1rem;
     }
     .double img {
+      width: 100%;
       max-width: 100%;
+    }
+    .double img.height-180-px {
+      height: auto;
     }
     .double img:first-child {
       margin-right: 0;
