@@ -228,13 +228,6 @@ const paginatedPosts = posts.slice(
         </ul>
         <div class="pagination">
           <a 
-            href={currentPage === 1 ? undefined : "?page=1"}
-            class={currentPage !== 1 ? 'active' : 'disabled'}
-            aria-disabled={currentPage === 1}
-          >
-            《
-          </a>
-          <a 
             href={currentPage > 1 ? `?page=${currentPage - 1}` : undefined}
             class={currentPage > 1 ? 'active' : 'disabled'}
             aria-disabled={currentPage === 1}
@@ -263,13 +256,6 @@ const paginatedPosts = posts.slice(
             aria-disabled={currentPage === 1}
           >
             〉
-          </a>
-          <a 
-            href={currentPage === totalPages ? undefined : `?page=${totalPages}`}
-            class={currentPage !== totalPages ? 'active' : 'disabled'}
-            aria-disabled={currentPage === totalPages}
-          >
-            》
           </a>
         </div>
       </section>
