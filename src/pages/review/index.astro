@@ -10,6 +10,17 @@ import FormattedDate from "../../components/FormattedDate.astro";
 const posts = (await getCollection("review")).sort(
   (a, b) => (b?.data?.pubDate?.valueOf() ?? 100) - (a?.data?.pubDate?.valueOf() ?? 100)
 );
+
+const postsPerPage = 10;
+const totalPages = Math.ceil(posts.length / postsPerPage);
+let currentPage = Number(Astro.url.searchParams.get('page')) || 1;
+if(isNaN(currentPage) || currentPage < 1 || currentPage > totalPages) {
+  return Astro.redirect(`${Astro.url.pathname}?page=1`);
+}
+const paginatedPosts = posts.slice(
+  (currentPage - 1) * postsPerPage,
+  currentPage * postsPerPage
+);
 ---
 
 <!doctype html>
@@ -31,7 +42,9 @@ const posts = (await getCollection("review")).sort(
         align-items: center;
         width: 100%;
       }
-
+      section {
+        flex-direction: column;
+      }
       section * {
         word-break: break-all;
         overflow-wrap: break-word;
@@ -96,14 +109,43 @@ const posts = (await getCollection("review")).sort(
         flex-direction: column;
         gap: 10px;
       }
-
       .content h4 {
         line-height: 1.4;
       }
-
       .content p {
         font-size: medium;
       }
+
+      .pagination,
+      .pages {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .pages {
+        margin: 0 1.2rem;
+      }
+      .pagination a {
+        text-decoration: none;
+        padding: 0 0.6rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .pagination a.active {
+        color: black;
+        cursor: pointer;
+      }
+      .pagination a.disabled {
+        color: gray;
+        cursor: default;
+      }
+      .pagination a.selected {
+        font-weight: bold;
+        border-radius: 8px;
+        background-color: var(--color-background);
+      }
+
       @media (max-width: 850px) {
         ul {
           grid-template-columns: repeat(1, 1fr);
@@ -112,7 +154,6 @@ const posts = (await getCollection("review")).sort(
           width: 100%;
           text-align: center;
         }
-
         ul li img {
           width: 100%;
           height: auto;
@@ -155,8 +196,8 @@ const posts = (await getCollection("review")).sort(
       <section>
         <ul>
           {
-            posts.map(async (post) => {
-              return (
+            paginatedPosts.map(async (post) => {
+              return  (
                 <li>
                   <a href={`/review/${post.slug}/`}>
                     <img width={720} height={360} src={post.data.thumbnailImage} alt="" />
@@ -181,10 +222,56 @@ const posts = (await getCollection("review")).sort(
                     </div>
                   </a>
                 </li>
-              );
+              )
             })
           }
         </ul>
+        <div class="pagination">
+          <a 
+            href={currentPage === 1 ? undefined : "?page=1"}
+            class={currentPage !== 1 ? 'active' : 'disabled'}
+            aria-disabled={currentPage === 1}
+          >
+            《
+          </a>
+          <a 
+            href={currentPage > 1 ? `?page=${currentPage - 1}` : undefined}
+            class={currentPage > 1 ? 'active' : 'disabled'}
+            aria-disabled={currentPage === 1}
+          >
+            〈
+          </a>
+          <div class="pages">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let pageNum;
+              if (totalPages < 6) {
+                pageNum = i + 1;
+              } else {
+                const startPage = Math.max(1, Math.min(currentPage - 2, totalPages - 4));
+                pageNum = startPage + i;
+              }
+              return (
+                <a href={`?page=${pageNum}`} class={currentPage === pageNum ? 'selected' : ''}>
+                  {pageNum}
+                </a>
+              );
+            })}
+          </div>
+          <a 
+            href={currentPage < totalPages ? `?page=${currentPage + 1}` : undefined}
+            class={currentPage < totalPages ? 'active' : 'disabled'}
+            aria-disabled={currentPage === 1}
+          >
+            〉
+          </a>
+          <a 
+            href={currentPage === totalPages ? undefined : `?page=${totalPages}`}
+            class={currentPage !== totalPages ? 'active' : 'disabled'}
+            aria-disabled={currentPage === totalPages}
+          >
+            》
+          </a>
+        </div>
       </section>
     </main>
     <InterviewFooter />
