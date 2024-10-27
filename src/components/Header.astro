@@ -1,14 +1,22 @@
 ---
+import BlankLink from "./BlankLink.astro";
 import HeaderLink from "./HeaderLink.astro";
+import HeaderHover from "./HeaderHover.astro";
+import ToggleMenu from "./ToggleMenu.svelte";
 ---
 
 <header>
   <nav>
+    <ToggleMenu client:load />
     <h2><a href="/">article</a></h2>
     <div class="internal-links">
       <HeaderLink href="/review">review</HeaderLink>
       <HeaderLink href="/play">play</HeaderLink>
       <HeaderLink href="/bookclub">bookclub</HeaderLink>
+      <HeaderHover title="project">
+        <BlankLink href="https://nomore-corset.womynarchive.com/">no more corset</BlankLink>
+        <BlankLink href="/Radicals-in-University">Radicals in University</BlankLink>
+      </HeaderHover>
     </div>
     <div class="social-links">
       <a href="https://www.womynarchive.com/" target="_blank">
@@ -17,6 +25,7 @@ import HeaderLink from "./HeaderLink.astro";
     </div>
   </nav>
 </header>
+
 <style>
   header {
     margin: 0;
@@ -34,24 +43,22 @@ import HeaderLink from "./HeaderLink.astro";
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-
   h2 a,
   h2 a.active {
     text-decoration: none;
   }
+
   nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-
   nav a {
     padding: 1em 0.5em;
     color: var(--color-white);
     border-bottom: 4px solid transparent;
     text-decoration: none;
   }
-
   nav a.active {
     text-decoration: none;
     border-bottom-color: var(--color-title);
@@ -61,7 +68,6 @@ import HeaderLink from "./HeaderLink.astro";
   .social-links a {
     display: flex;
   }
-
   .social-links a > img {
     border-radius: 0;
     object-fit: contain;
@@ -71,18 +77,7 @@ import HeaderLink from "./HeaderLink.astro";
     h2 {
       font-size: 1.5rem;
     }
-    .social-links {
-      display: none;
-    }
-  }
-
-  @media (max-width: 400px) {
-    nav {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
+    .internal-links,
     .social-links {
       display: none;
     }
