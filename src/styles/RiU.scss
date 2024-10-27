@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap');
+
+:root {
+    --font-riu: "Noto Serif KR", serif;
+    
+    --color-riu-black: #3F3751;
+    --color-riu-white: #f2f2f2;
+}
+
+* {
+
+}
+
+.text-style-title,
+.text-style-project,
+.text-style-university,
+.text-style-club,
+.text-style-year,
+.text-style-act-name,
+.text-style-act-cont {
+    font-family: var(--font-riu);
+}
+
+.text-style-title {
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0%;
+}
+
+.text-style-project {
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: 0%;
+    line-height: 180%;
+}
+
+.text-style-university {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0%;
+}
+
+.text-style-club {
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 0%;
+}
+
+.text-style-year {
+    font-weight: 300;
+    font-size: 24px;
+    letter-spacing: -5%;
+}
+
+.text-style-act-name {
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -5%;
+}
+
+.text-style-act-cont {
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -5%;
+}
+
+@media (max-width: 750px) {
+    .text-style-title {
+        font-size: 16px;
+    }
+
+    .text-style-project {
+        font-size: 14px;
+    }
+
+    .text-style-university {
+        font-size: 10px;
+    }
+
+    .text-style-year {
+        font-size: 16px;
+    }
+
+    .text-style-act-name {
+        font-size: 16px;
+    }
+
+    .text-style-act-cont {
+        font-size: 12px;
+    }
+}
