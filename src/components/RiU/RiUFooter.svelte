@@ -48,8 +48,8 @@
     .footer-sns a i {
         font-size: 16px;
         border-radius: 4px;
-        padding: 2px 4px 2px 2px;
-        transition: all 0.3s ease;
+        padding: 2px 3px 2px 2px;
+        transition: all 0.3s ease;        
     }
     .footer-copyright {
         text-align: center;

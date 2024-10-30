@@ -21,16 +21,21 @@ const { title, class: className, ...props } = Astro.props;
     .hover-container {
         position: relative;
         display: inline-block;
+        margin: 0;
+        padding: 0;
     }
 
     .hover-title {
+        height: 100%;
         cursor: pointer;
         color: white;
+        padding: 1em 0.5em;
+        margin-bottom: 6px;
     }
 
     .hover-bridge {
         position: absolute;
-        top: 110%; 
+        top: 90%; 
         left: -10px;
         width: calc(100% + 20px);
         height: 20px;
@@ -39,17 +44,19 @@ const { title, class: className, ...props } = Astro.props;
 
     .hover-content {
         display: none;
-        position: fixed;
-        width: 100vh;
-        height: 56px;
-        top: 56px;
-        left: 0;
-        background: var(--color-black);
+        position: absolute;
+        width: 160px;
+        height: fit-content;
+        top: 60px;
+        left: -40px;
+        background-color: #080808AA;
         z-index: 100;
+        text-align: center;
     }
 
     .hover-container:hover .hover-content {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }

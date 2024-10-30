@@ -78,6 +78,12 @@ import InterviewFooter from '../components/interview/InterviewFooter.svelte';
 				color: var(--color-white);
 				cursor: pointer;
 			}
+			.sns-btns i.biased {
+				padding-right: 1px;
+			}
+			.sns-btns i.less-biased {
+				padding-right: 0.5px;
+			}
 		</style>
 	</head>
 	<body>
@@ -114,16 +120,16 @@ import InterviewFooter from '../components/interview/InterviewFooter.svelte';
 					<h5>Contact</h5>
 					<div class="sns-btns">
 						<a href={`mailto:team.warchive@gmail.com`} target="_blank">
-							<i class="fa-solid fa-envelope"></i>
+							<i class="fa-solid fa-envelope less-biased"></i>
 						</a>
 						<a href="https://www.instagram.com/womynarchive" target="_blank">
-							<i class="fa-brands fa-instagram"></i>
+							<i class="fa-brands fa-instagram biased"></i>
 						</a>
 						<a href="https://twitter.com/Womynarchive" target="_blank">
-							<i class="fa-brands fa-x-twitter"></i>
+							<i class="fa-brands fa-x-twitter biased"></i>
 						</a>
 						<a href="https://www.womynarchive.com" target="_blank">
-							<i class="fa-solid fa-globe"></i>
+							<i class="fa-solid fa-globe less-biased"></i>
 						</a>
 					</div>
 				</div>
