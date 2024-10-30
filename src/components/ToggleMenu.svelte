@@ -35,13 +35,12 @@
             <button class="menu-close-btn" on:click={toggleMenu} aria-hidden="true">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <a href="https://www.womynarchive.com/" target="_blank">
-                <img src="https://i.ibb.co/WtWVG8r/logo.png" width="100" alt="와카이브 로고"/>
-            </a>
-            <p>여성서사 아카이브 프로젝트 와카이브</p>
+            <div class="menu-info">
+                <h2><a href="/">article</a></h2>
+                <p>와카이브 : 아티클</p>    
+            </div>
         </div>
         <div class="menu-content">
-            <a href="/" class="menu-item">home</a>
             <a href="/review" class="menu-item">review</a>
             <a href="/play" class="menu-item">play</a>
             <a href="/bookclub" class="menu-item">bookclub</a>
@@ -49,6 +48,11 @@
             <p>project</p>
             <a class="sub" href="https://nomore-corset.womynarchive.com/" target="_blank">no more corset</a>
             <a class="sub" href="/Radicals-in-University" target="_blank">Radicals in University</a>            
+            <hr class="menu-hr" />
+            <a href="https://www.womynarchive.com/" target="_blank">
+                <img src="../../public/android-icon-36x36.png" alt="와카이브 로고">
+                여성서사 아카이빙 프로젝트 와카이브
+            </a>
         </div>
     </div>
 </div>
@@ -97,15 +101,29 @@
     .menu-header {
         width: 100%;
         height: 150px;
-        /* background-color: var(--color-header); */
-        /* background-color: var(--accent); */
-        background-color: rgb(144, 35, 213);
+        background-image: linear-gradient(90deg, rgba(108, 63, 255, 1) 0%, rgba(233, 201, 255, 1) 100%);
         position: relative;
     }
-    .menu-header p {
+    .menu-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .menu-info h2 {
+        margin: 0;
+        font-size: 3em;
+        font-weight: 1000;
+        line-height: 1em;
+    }
+    .menu-info a,
+    .menu-info p {
         color: var(--color-white);
-        font-size: var(--text-caption);
-        font-weight: bold;
+        text-decoration: none;
+    }
+    .menu-info p {
+        letter-spacing: 0.34rem;
+        font-size: 14px;
     }
     .menu-close-btn {
         position: absolute;
@@ -123,9 +141,7 @@
     .menu-content {
         width: 100%;
         height: calc(100% - 150px);
-        /* background-color: var(--accent-dark); */
-        /* background-color: var(--color-black); */
-        background-color: rgb(23, 12, 30);
+        background-color: var(--color-black);
         color: var(--color-white);
         padding: 1rem;
         display: flex;
@@ -141,6 +157,9 @@
     }
     .menu-content a {
         cursor: pointer;
+        display: flex;
+        gap: 4px;
+        align-items: center;
     }
     .menu-content a.sub {
         margin-left: 1rem;
@@ -151,6 +170,10 @@
     .menu-hr {
         width: 100%;
         height: 2px;
+    }
+    .menu-content img {
+        width: 24px;
+        height: 24px;
     }
 
     @media (max-width: 720px) {
