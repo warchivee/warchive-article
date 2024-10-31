@@ -154,8 +154,10 @@
     }
     .menu-content p {
         color: var(--color-background);
+        font-weight: 800;
     }
     .menu-content a {
+        font-weight: 300;
         cursor: pointer;
         display: flex;
         gap: 4px;
@@ -165,7 +167,7 @@
         margin-left: 1rem;
     }
     .menu-item.bold {
-        font-weight: bold;
+        font-weight: 1000;
     }
     .menu-hr {
         width: 100%;

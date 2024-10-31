@@ -1,0 +1,198 @@
+---
+import '../../styles/RiU.scss';
+
+import BaseHead from "../../components/BaseHead.astro";
+import RiUFooter from "../../components/RiU/RiUFooter.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import HyperButton from '../../components/RiU/HyperButton.astro';
+
+const posts = (await getCollection("RiU"));
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+    />
+
+    <style>
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      main {
+        height: 100vh;
+        background-image: url('/RiU/background_web.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      section {
+        width: 100%;
+        height: 100%;
+      }
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        height: 100%;
+        max-width: 1000px;
+      }
+      .title-img {
+        max-width: 75%;
+        height: auto;
+        margin-top: 40px;
+      }
+
+      .about {
+        width: 100%;
+        aspect-ratio: 1072 / 714; /* 3 / 2 */
+        background-image: url('/RiU/paper_web.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6%;
+      }
+      .about-title {
+        color: var(--color-riu-black);
+        margin-bottom: 0;
+      }
+
+      .about-content {
+        color: var(--color-riu-black);
+        text-align: center;
+      }
+      .about-content span {
+        display: inline-block;
+      }
+      .about-content span a.warchive {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0 5px;
+        cursor: pointer;
+      }
+      .about-content span a.warchive i {
+        margin-left: 5px;
+      }
+      .about-content span a.warchive:after {
+        display: block;
+        content: "";
+        border-bottom: 1px solid var(--color-riu-black);
+        transform: scaleX(0);
+        transform-origin: top left;
+        transition: transform 250ms ease-in-out;
+      }
+      .about-content span a.warchive:hover:after {
+        transform: scaleX(1);
+      }
+      .about-content hr {
+        border: none;
+        margin: 0.8rem;
+      }
+
+      .about-footer {
+        text-align: center;
+        font-size: 12px;
+        color: var(--color-riu-black);
+      }
+      .about-footer hr {
+        border: none;
+        margin: 0.2rem;
+      }
+
+
+      @media (max-width: 950px) {
+        .about {
+          padding: 4%;
+        }
+        .about-content hr {
+            margin: 0.4rem;
+        }
+      }
+      @media (max-width: 870px) {
+        .about {
+          padding: 2%;
+        }
+      }
+
+      /* mobile */
+      @media (max-width: 750px) {
+        main {
+          background-image: url('/RiU/background_mobile.png');
+        }
+      }
+    </style>
+
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="container">
+          <img src="/RiU/title.png" alt="Radicals in University" class="title-img">
+          <div class="about">
+            <div class="about-title text-style-title">
+                Radicals in University 대학 내 래디컬 계보 기록 프로젝트는...
+            </div>
+            <div class="about-content text-style-project">
+                대학은 한국 청소년들이 입시에서 벗어나 처음으로 접하는 작은 사회이자 자유이다.<br />
+                젊은 청년들이 재미도, 스펙도 아닌 여성주의라는 가치를 주체적으로 선택하여,<br />
+                동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한 노력은<br />
+                한국 여성주의 역사에서 큰 의미를 지니며 반드시 기록되어야 할 역사이다.<br />
+                그러나 많은 동아리가 수년 내에 사라지며 그들의 활동 역시 잊혀지고 있다.<br />
+                <hr />
+                이에
+                <span>
+                    <a
+                        class="warchive"
+                            href="https://www.womynarchive.com/"
+                            target="_blank"
+                    >
+                        <span>여성서사 아카이브 프로젝트 Warchive
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </a>
+                </span>
+                는 각 동아리와 협력하여<br />
+                그들의 활동 기록을 수집・보존하고 이를 웹사이트를 통해 공유하여<br />
+                한국 여성주의 운동의 중요한 순간들을 역사에 남기고자 한다.<br />
+            </div>
+            <div class="about-footer">
+                문의 및 제보  |  현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.<br />
+                래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은 연락 바랍니다.<br />
+                <hr />
+                Mail: team.warchive@gmail.com<br />
+                X(twitter): @womynarchive<br />
+                Instagram: @womynarchive<br />
+            </div>
+            <HyperButton imgSrc='button_list.png' href="" />
+          </div>
+          <RiUFooter />
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
