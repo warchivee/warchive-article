@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'> & {
+    imgSrc: string;
+    href: string;
+};
+
+const { imgSrc, href, ...props } = Astro.props;
+
+---
+
+<a href=`/Radicals-in-University/${href}` {...props}>
+    <img src=`../../../../public/RiU/${imgSrc}` alt="이미지" />
+</a>
+
+<style>
+	a {
+        right: -10%;
+        bottom: -2%;
+        position: absolute;
+        display: inline-block;
+        text-decoration: none;
+    }
+    img {
+        width: 200px;
+        height: 200px;
+        display: block;
+        object-fit: cover;
+    }
+</style>

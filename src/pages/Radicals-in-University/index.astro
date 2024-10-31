@@ -7,6 +7,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
 import HyperButton from '../../components/RiU/HyperButton.astro';
 
+const posts = (await getCollection("RiU"));
 ---
 
 <!doctype html>
@@ -67,6 +68,7 @@ import HyperButton from '../../components/RiU/HyperButton.astro';
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -181,7 +183,7 @@ import HyperButton from '../../components/RiU/HyperButton.astro';
                 <div class="club-list text-style-title">RAD-E</div>
               </div>
             </div>
-            <!-- <HyperButton /> -->
+            <HyperButton imgSrc='button_intro.png' href="about" />
           </div>
           <RiUFooter />
         </div>
