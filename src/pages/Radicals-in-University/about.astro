@@ -25,6 +25,13 @@ const posts = (await getCollection("RiU"));
     />
 
     <style>
+      .pc {
+          display: block;
+      }
+      .mobile {
+          display: none;
+      }
+      
       main,
       section {
         display: flex;
@@ -47,6 +54,7 @@ const posts = (await getCollection("RiU"));
         word-break: break-all;
         overflow-wrap: break-word;
       }
+
       .container {
         display: flex;
         justify-content: space-between;
@@ -64,7 +72,7 @@ const posts = (await getCollection("RiU"));
 
       .about {
         width: 100%;
-        aspect-ratio: 1072 / 714; /* 3 / 2 */
+        aspect-ratio: 1072 / 714;
         background-image: url('/RiU/paper_web.png');
         background-size: cover;
         background-position: center;
@@ -125,7 +133,6 @@ const posts = (await getCollection("RiU"));
         margin: 0.2rem;
       }
 
-
       @media (max-width: 950px) {
         .about {
           padding: 4%;
@@ -142,8 +149,33 @@ const posts = (await getCollection("RiU"));
 
       /* mobile */
       @media (max-width: 750px) {
+        .pc {
+          display: none;
+        }
+        .mobile {
+          display: block;
+        }
+
         main {
           background-image: url('/RiU/background_mobile.png');
+        }
+        
+        .about {
+          width: 420px;
+          padding: 8% 6%;
+          aspect-ratio: 341 / 511;
+          background-image: url('/RiU/paper_mobile.png');
+        }
+        .about-content {
+          text-align: left;
+        }
+      }
+      @media (max-width: 460px) {
+        .about {
+          width: 100%;
+        }
+        .about-footer {
+          font-size: 10px;
         }
       }
     </style>
@@ -155,10 +187,13 @@ const posts = (await getCollection("RiU"));
         <div class="container">
           <img src="/RiU/title.png" alt="Radicals in University" class="title-img">
           <div class="about">
-            <div class="about-title text-style-title">
+            <div class="about-title text-style-title pc">
                 Radicals in University 대학 내 래디컬 계보 기록 프로젝트는...
             </div>
-            <div class="about-content text-style-project">
+            <div class="about-title text-style-title mobile">
+              프로젝트 소개
+          </div>
+            <div class="about-content text-style-project pc">
                 대학은 한국 청소년들이 입시에서 벗어나 처음으로 접하는 작은 사회이자 자유이다.<br />
                 젊은 청년들이 재미도, 스펙도 아닌 여성주의라는 가치를 주체적으로 선택하여,<br />
                 동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한 노력은<br />
@@ -178,9 +213,31 @@ const posts = (await getCollection("RiU"));
                 </span>
                 는 각 동아리와 협력하여<br />
                 그들의 활동 기록을 수집・보존하고 이를 웹사이트를 통해 공유하여<br />
-                한국 여성주의 운동의 중요한 순간들을 역사에 남기고자 한다.<br />
+                한국 여성주의 운동의 중요한 순간들을 역사에 남기고자 한다.
             </div>
-            <div class="about-footer">
+            <div class="about-content text-style-project mobile">
+              대학은 한국 청소년들이 입시에서 벗어나 처음으로 접하는 작은 사회이자 자유이다.
+              젊은 청년들이 재미도, 스펙도 아닌 여성주의라는 가치를 주체적으로 선택하여,
+              동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한 노력은
+              한국 여성주의 역사에서 큰 의미를 지니며 반드시 기록되어야 할 역사이다.
+              그러나 많은 동아리가 수년 내에 사라지며 그들의 활동 역시 잊혀지고 있다.
+              <hr /><hr />
+              이에
+              <span>
+                  <a
+                      class="warchive"
+                          href="https://www.womynarchive.com/"
+                          target="_blank"
+                  >
+                      <span>여성서사 아카이브 프로젝트 Warchive
+                      <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                  </a>
+              </span>
+              는 각 동아리와 협력하여
+              그들의 활동 기록을 수집・보존하고 이를 웹사이트를 통해 공유하여
+              한국 여성주의 운동의 중요한 순간들을 역사에 남기고자 한다.
+          </div>
+            <div class="about-footer pc">
                 문의 및 제보  |  현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.<br />
                 래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은 연락 바랍니다.<br />
                 <hr />
@@ -188,7 +245,15 @@ const posts = (await getCollection("RiU"));
                 X(twitter): @womynarchive<br />
                 Instagram: @womynarchive<br />
             </div>
-            <HyperButton imgSrc='button_list.png' href="" />
+            <div class="about-footer mobile">
+              문의 및 제보  |  현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.
+              래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은 연락 바랍니다.
+              <hr />
+              Mail: team.warchive@gmail.com<br />
+              X(twitter): @womynarchive<br />
+              Instagram: @womynarchive<br />
+            </div>
+            <HyperButton imgSrc='button_list.png' href="" cling={true} />
           </div>
           <RiUFooter />
         </div>

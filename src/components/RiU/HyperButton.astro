@@ -4,28 +4,62 @@ import type { HTMLAttributes } from 'astro/types';
 type Props = HTMLAttributes<'a'> & {
     imgSrc: string;
     href: string;
+    cling: boolean;
 };
 
-const { imgSrc, href, ...props } = Astro.props;
+const { imgSrc, href, cling, ...props } = Astro.props;
 
 ---
 
-<a href=`/Radicals-in-University/${href}` {...props}>
+<a href=`/Radicals-in-University/${href}` {...props} class={cling ? 'cling' : 'away'} >
     <img src=`../../../../public/RiU/${imgSrc}` alt="이미지" />
 </a>
 
 <style>
-	a {
-        right: -10%;
-        bottom: -2%;
+    a{
         position: absolute;
         display: inline-block;
         text-decoration: none;
+    }
+	a.cling {
+        right: -10%;
+        bottom: -2%;
+    }
+    a.away {
+        right: 1rem;
+        bottom: 4rem;
     }
     img {
         width: 200px;
         height: 200px;
         display: block;
         object-fit: cover;
+    }
+    
+    @media (max-width: 1100px) {
+        a.cling {
+            right: -6%;
+            bottom: -2%;
+        }
+        img {
+            width: 150px;
+            height: 150px;
+        }
+    }
+
+    /* mobile */
+    @media (max-width: 750px) {
+        a {
+            right: -8%;
+            bottom: -8%;
+        }
+        a.away {
+            right: -6%;
+            bottom: -8%;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
     }
 </style>

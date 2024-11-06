@@ -25,6 +25,13 @@ const posts = (await getCollection("RiU"));
     />
 
     <style>
+      .pc {
+          display: block;
+      }
+      .mobile {
+          display: none;
+      }
+
       main,
       section {
         display: flex;
@@ -47,6 +54,7 @@ const posts = (await getCollection("RiU"));
         word-break: break-all;
         overflow-wrap: break-word;
       }
+
       .container {
         display: flex;
         justify-content: space-between;
@@ -63,7 +71,7 @@ const posts = (await getCollection("RiU"));
       }
       .list {
         width: 100%;
-        aspect-ratio: 1072 / 714; /* 3 / 2 */
+        aspect-ratio: 1072 / 714;
         background-image: url('/RiU/paper_web.png');
         background-size: cover;
         background-position: center;
@@ -78,6 +86,7 @@ const posts = (await getCollection("RiU"));
       .list-title {
         color: var(--color-riu-black);
         margin-bottom: 2rem;
+        text-align: center;
       }
       .list-content {
         width: fit-content;
@@ -90,18 +99,10 @@ const posts = (await getCollection("RiU"));
         max-width: 150px;
         height: fit-content;
       }
-      .univ-name {
-        width: fit-content;
-        color: var(--color-riu-white);
-        background-color: var(--color-riu-black);
-        border-radius: 10px;
-        padding: 5px 12px;
-        margin-top: 10px;
-        white-space: nowrap;
-      }
       .club-list {
+        text-decoration: none;
         color: var(--color-riu-black);
-        font-size: 20px; /* fixed font size */
+        font-size: 20px;
       }
 
       @media (max-width: 950px) {
@@ -123,10 +124,48 @@ const posts = (await getCollection("RiU"));
 
       /* mobile */
       @media (max-width: 750px) {
+        .pc {
+          display: none;
+        }
+        .mobile {
+          display: block;
+        }
+        
         main {
           background-image: url('/RiU/background_mobile.png');
         }
+
+        .list {
+          width: fit-content;
+          padding: 8% 6%;
+          aspect-ratio: 341 / 511;
+          background-image: url('/RiU/paper_mobile.png');
+        }
+        .list-content {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .univ-group {
+          max-width: 115px;
+        }
+        .club-list {
+          font-size: 16px;
+        }
       }
+
+      @media (max-width: 450px) {
+        .list {
+          padding: 4%;
+        }
+        .list-title {
+          margin-bottom: 0;
+        }
+        .univ-group {
+          max-width: 95px;
+        }
+        .club-list {
+          font-size: 14px;
+        }
+      }      
     </style>
 
   </head>
@@ -136,37 +175,40 @@ const posts = (await getCollection("RiU"));
         <div class="container">
           <img src="/RiU/title.png" alt="Radicals in University" class="title-img">
           <div class="list">
-            <div class="list-title text-style-title">
+            <div class="list-title text-style-title pc">
               동아리 이름을 클릭하여 연도별 활동 기록을 볼 수 있습니다.
+            </div>
+            <div class="list-title text-style-title mobile">
+              동아리 목록
             </div>
             <div class="list-content">
               <div class="univ-group">
-                <div class="univ-name text-style-university">광주여자대학교</div>
-                <div class="club-list text-style-title">D_GROUND</div>
+                <div class="style-university text-style-university">광주여자대학교</div>
+                <a class="club-list text-style-title" href="/Radicals-in-University/d_ground">D_GROUND</a>
               </div>
               <div class="univ-group">
-                <div class="univ-name text-style-university">덕성여자대학교</div>
+                <div class="style-university text-style-university">덕성여자대학교</div>
                 <div class="club-list text-style-title">래디어스</div>
                 <div class="club-list text-style-title">TNT</div>
               </div>
               <div class="univ-group">
-                <div class="univ-name text-style-university">동덕여자대학교</div>
+                <div class="style-university text-style-university">동덕여자대학교</div>
                 <div class="club-list text-style-title">싹둑</div>
                 <div class="club-list text-style-title">SIREN</div>
               </div>
               <div class="univ-group">
-                <div class="univ-name text-style-university">서울대학교</div>
+                <div class="style-university text-style-university">서울대학교</div>
                 <div class="club-list text-style-title">SHAF</div>
               </div>
               <div class="univ-group">
-                <div class="univ-name text-style-university">서울여자대학교</div>
+                <div class="style-university text-style-university">서울여자대학교</div>
                 <div class="club-list text-style-title">무소의 뿔</div>
                 <br />
-                <div class="univ-name text-style-university">한양여자대학교</div>
+                <div class="style-university text-style-university">한양여자대학교</div>
                 <div class="club-list text-style-title">한여름</div>
               </div>
               <div class="univ-group">
-                <div class="univ-name text-style-university">성신여자대학교</div>
+                <div class="style-university text-style-university">성신여자대학교</div>
                 <div class="club-list text-style-title">디어시스터즈</div>
                 <div class="club-list text-style-title">시너지</div>
                 <div class="club-list text-style-title">해방</div>
@@ -175,15 +217,15 @@ const posts = (await getCollection("RiU"));
                 <div class="club-list text-style-title">SLATE</div>
               </div>
               <div class="univ-group">
-                <div class="univ-name text-style-university">숙명여자대학교</div>
+                <div class="style-university text-style-university">숙명여자대학교</div>
                 <div class="club-list text-style-title">FEMI-POWER PROJECT</div>
               </div>
               <div class="univ-group">
-                <div class="univ-name text-style-university">이화여자대학교</div>
+                <div class="style-university text-style-university">이화여자대학교</div>
                 <div class="club-list text-style-title">RAD-E</div>
               </div>
             </div>
-            <HyperButton imgSrc='button_intro.png' href="about" />
+            <HyperButton imgSrc='button_intro.png' href="about" cling={true} />
           </div>
           <RiUFooter />
         </div>
