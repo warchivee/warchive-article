@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 
 import "../styles/RiU.scss";
@@ -7,7 +7,7 @@ import HyperButton from "../components/RiU/HyperButton.astro";
 import RiUFooter from "../components/RiU/RiUFooter.svelte";
 import ClubInfo from "../components/RiU/ClubInfo.svelte";
 type Props = CollectionEntry<'RiU'>['data'];
-const { university, officialName, shortenedName } = Astro.props;
+const { universityName, universityCode, clubName, clubCode } = Astro.props;
 
 ---
 
@@ -21,8 +21,8 @@ const { university, officialName, shortenedName } = Astro.props;
 >
   <head>
     <BaseHead
-      title={`${university} ${officialName}`}
-      description={`Radicals in University: ${university} ${officialName}`}
+      title={`${universityName} ${clubName}`}
+      description={`Radicals in University: ${universityName} ${clubName}`}
     />
 
     <style>
@@ -60,7 +60,7 @@ const { university, officialName, shortenedName } = Astro.props;
       .container {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         width: 90%;
         height: 100%;
@@ -148,7 +148,7 @@ const { university, officialName, shortenedName } = Astro.props;
             <div class="club-logo">
               <img src="https://picsum.photos/id/237/200/300" alt="동아리 로고"/>
             </div>
-            <ClubInfo university={university} officialName={officialName} client:load />
+            <ClubInfo client:load />
             <HyperButton imgSrc='button_back.png' href="" cling={false} />
           </div>
           <div class="mobile">
