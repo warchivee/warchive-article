@@ -91,9 +91,10 @@ const bookreports = defineCollection({
 const RiU = defineCollection({
   type: "content",
   schema: z.object({
-    university: z.string(),
-    officialName: z.string(),
-    shortenedName: z.string()
+    universityName: z.string(),
+    universityCode: z.string(),
+    clubName: z.string(),
+    clubCode: z.string()
   }),
 });
 

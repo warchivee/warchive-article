@@ -118,7 +118,7 @@
       <img class="club-logo" src="{false ? data.info["동아리 로고"] : '동아리 로고.jpg'}" alt="{data.info["동아리 정식 명칭"]} 로고"/>
       <div class="club-info">
         <div class="text-style-university style-university">{data.info["학교명"]}</div>
-        <div class="club-name text-style-club">{data.info["동아리 정식 명칭"]}</div>
+        <div class="club-name text-style-title">{data.info["동아리 정식 명칭"]}</div>
       </div>
     </div>
     <button class="time-container" on:click={handleTimeMenu}>
@@ -321,6 +321,7 @@
     height: 44px;
     border-radius: 5px;
     object-fit: cover;
+    background-color: var(--color-riu-black);
   }
   .club-info > :first-child {
     margin-top: 0;
@@ -339,6 +340,7 @@
   }
   .time-container * {
     width: fit-content;
+    color: var(--color-riu-black);
   }
   .time-year {
     font-family: var(--font-riu);
@@ -375,6 +377,7 @@
     word-break: break-all;
     overflow-wrap: break-word;
     white-space: normal;
+    color: var(--color-riu-black);
   }
   .act-detail > :first-child {
     width: 86%;
