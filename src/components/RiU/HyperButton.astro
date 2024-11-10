@@ -12,7 +12,7 @@ const { imgSrc, href, cling, ...props } = Astro.props;
 ---
 
 <a href=`/Radicals-in-University/${href}` {...props} class={cling ? 'cling' : 'away'} >
-    <img src=`../../../../public/RiU/${imgSrc}` alt="이미지" />
+    <img src=`../../../../public/RiU/${imgSrc}` alt="이미지" class={imgSrc === 'button_intro.png' ? 'bigger' : ''} />
 </a>
 
 <style>
@@ -27,13 +27,17 @@ const { imgSrc, href, cling, ...props } = Astro.props;
     }
     a.away {
         right: 1rem;
-        bottom: 4rem;
+        bottom: 2rem;
     }
     img {
         width: 200px;
         height: 200px;
         display: block;
         object-fit: cover;
+    }
+    img.bigger {
+        width: 230px;
+        height: 230px;
     }
     
     @media (max-width: 1100px) {
@@ -45,6 +49,10 @@ const { imgSrc, href, cling, ...props } = Astro.props;
             width: 150px;
             height: 150px;
         }
+        img.bigger {
+            width: 180px;
+            height: 180px;
+        }
     }
 
     /* mobile */
@@ -55,11 +63,15 @@ const { imgSrc, href, cling, ...props } = Astro.props;
         }
         a.away {
             right: -6%;
-            bottom: -8%;
+            bottom: -2%;
         }
         img {
             width: 100px;
             height: 100px;
+        }
+        img.bigger {
+            width: 130px;
+            height: 130px;
         }
     }
 </style>

@@ -1,15 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap");
 
 :root {
-    --font-riu: "Noto Serif KR", serif;
-    
-    --color-riu-black: #3F3751;
-    --color-riu-white: #f2f2f2;
+  --font-riu: "Noto Serif KR", serif;
+
+  --color-riu-black: #3f3751;
+  --color-riu-white: #f2f2f2;
+  --color-riu-gray: #3f375188;
 }
 
 section {
-    overflow-x: auto;
-    overflow-y: auto;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .text-style-title,
@@ -19,106 +20,106 @@ section {
 .text-style-year,
 .text-style-act-name,
 .text-style-act-cont {
-    font-family: var(--font-riu);
+  font-family: var(--font-riu);
 }
 
 .text-style-title {
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: 0%;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0%;
 }
 
 .text-style-project {
-    font-weight: 500;
-    font-size: 18px; /* 24px */
-    letter-spacing: 0%;
-    line-height: 180%;
+  font-weight: 500;
+  font-size: 18px; /* 24px */
+  letter-spacing: 0%;
+  line-height: 180%;
 }
 
 .text-style-university {
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0%;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0%;
 }
 
 .text-style-club {
-    font-weight: 700;
-    font-size: 40px;
-    letter-spacing: 0%;
+  font-weight: 700;
+  font-size: 40px;
+  letter-spacing: 0%;
 }
 
 .text-style-year {
-    font-weight: 300;
-    font-size: 24px;
-    letter-spacing: -5%;
+  font-weight: 300;
+  font-size: 24px;
+  letter-spacing: -5%;
 }
 
 .text-style-act-name {
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: -5%;
+  font-weight: 700;
+  font-size: 22px; /* 24px */
+  letter-spacing: -5%;
 }
 
 .text-style-act-cont {
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: -5%;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -5%;
 }
 
 .style-university {
-    width: fit-content;
-    color: var(--color-riu-white);
-    background-color: var(--color-riu-black);
-    border-radius: 10px;
-    padding: 5px 12px;
-    margin-top: 10px;
-    white-space: nowrap;
+  width: fit-content;
+  color: var(--color-riu-white);
+  background-color: var(--color-riu-black);
+  border-radius: 10px;
+  padding: 5px 12px;
+  margin-top: 10px;
+  white-space: nowrap;
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: transparent;
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--color-riu-black);
-    border-radius: 10px;
+  background-color: var(--color-riu-black);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-corner {
-	background: transparent;
+  background: transparent;
 }
 
 // mobile
 @media (max-width: 750px) {
-    .text-style-title {
-        font-size: 16px;
-    }
+  .text-style-title {
+    font-size: 16px;
+  }
 
-    .text-style-project {
-        font-size: 14px;
-    }
+  .text-style-project {
+    font-size: 14px;
+  }
 
-    .text-style-university {
-        font-size: 10px;
-    }
+  .text-style-university {
+    font-size: 10px;
+  }
 
-    .text-style-year {
-        font-size: 16px;
-    }
+  .text-style-year {
+    font-size: 16px;
+  }
 
-    .text-style-act-name {
-        font-size: 16px;
-    }
+  .text-style-act-name {
+    font-size: 16px;
+  }
 
-    .text-style-act-cont {
-        font-size: 12px;
-    }
+  .text-style-act-cont {
+    font-size: 12px;
+  }
 
-    .style-university {
-        border-radius: 5px;
-        padding: 3px 6px;
-        margin-top: 0;
-    }
+  .style-university {
+    border-radius: 5px;
+    padding: 3px 6px;
+    margin-top: 0;
+  }
 }
