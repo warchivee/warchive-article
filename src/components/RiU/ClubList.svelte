@@ -2,7 +2,20 @@
   import { onMount } from "svelte";
   import Loading from "../Loading.svelte";
   
-import posts from '../../../public/RiU/result.json';
+  import posts from '../../../public/RiU/result.json';
+  
+  function sortPostsByName(data) {
+    const sortedUniversities = Object.entries(data)
+      .sort(([, aValue], [, bValue]) => aValue.name.localeCompare(bValue.name, 'ko'))
+      .map(([schoolCode, schoolValue]) => {
+        const sortedGroups = Object.entries(schoolValue.groups)
+          .sort(([, aValue], [, bValue]) => aValue.name.localeCompare(bValue.name, 'ko'));
+        return [schoolCode, { ...schoolValue, groups: Object.fromEntries(sortedGroups) }];
+      });
+
+    return Object.fromEntries(sortedUniversities);
+  }
+  const sortedPosts = sortPostsByName(posts);
 
   // Load Data by SpreadSheet
   // let RiU = "";
@@ -24,11 +37,14 @@ import posts from '../../../public/RiU/result.json';
     <Loading />
 {:else}
   <div class="list-content">
-    {#each Object.entries(posts) as [schoolCode, schoolValue]}
+    {#each Object.entries(sortedPosts) as [schoolCode, schoolValue]}
       <div class="univ-group">
         <div class="style-university text-style-university">{schoolValue.name}</div>
+        
         {#each Object.entries(schoolValue.groups) as [groupCode, groupValue] }
-          <a class="club-list text-style-title" href="/Radicals-in-University/{schoolCode}/{groupCode}">{groupValue.name}</a>
+        <div>          
+          <a class="club-list text-style-title" href="/Radicals-in-University/{schoolCode}/{groupCode}">{groupValue.name}</a>          
+        </div>
         {/each}
       </div>
     {/each}
@@ -47,27 +63,50 @@ import posts from '../../../public/RiU/result.json';
       max-width: 150px;
       height: fit-content;
     }
+
     .club-list {
       display: block;
       text-decoration: none;
       color: var(--color-riu-black);
-      font-size: 20px;
+      font-size: 18px;
       width: fit-content;
     }
-    .club-list:hover {
-      background-color: var(--color-riu-gray);
+
+    .club-list {
+      cursor: pointer;
+      text-decoration: none;
+      display: inline;
+      padding-bottom: 2px;
+      transition: all 0.35s linear;
+
+      background: linear-gradient(
+        to bottom,
+        var(--color-riu-black) 0%,
+        var(--color-riu-black) 98%
+      );
+      background-size: 0 2px;
+      background-repeat: no-repeat;
+      background-position: left 100%;
     }
 
+    .club-list:hover {
+        background-size: 100% 2px;
+    }
+   
     @media (max-width: 870px) {
       .list-content {
         gap: 10px;
+      }
+
+      .club-list {
+        font-size: 14px;
       }
     }
 
     /* mobile */
     @media (max-width: 750px) {
       .list-content {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         margin-left: 1rem;
       }
       .univ-group {

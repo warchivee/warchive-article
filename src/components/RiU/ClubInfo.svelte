@@ -43,14 +43,13 @@
   let selectedYear = Number(activities[0].year);
   let selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
 
-  let tabletop;
+  let tableElement;
   function selectYear(year) {
     selectedYear = year;
     selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
-    tabletop?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    if (tableElement) {
+      tableElement.scrollTop = 0;
+    }
   }
   function getYearValue(y) {
     return y.slice(-2);
@@ -109,20 +108,33 @@
         {/each}
         <div class="nav-block text-style-act-cont">{dissolvedAt}</div>
       </div>
-      <div class="paper-table" bind:this={tabletop}>
-        {#each selectedActivities as activity}
+      <div class="paper-table" bind:this={tableElement}>
+        {#each selectedActivities as activity, index}
           <div class="act">
             <div class="act-time">
-              <div class="text-style-club">{activity.season}</div>
-              <div class="text-style-act-name">
-                {#if activity.period}{getYearValue(activity.year)}.{activity.period}{/if}
+              <div class="text-style-club">
+                {#if activity.period}
+                  {getYearValue(activity.year)}.{activity.period}
+                {:else}
+                  {activity.season}
+                {/if}
               </div>
+              {#if activity.period}
+                <div class="text-style-act-name">
+                  {activity.season}
+                </div>
+              {/if}
             </div>
             <div class="act-title">
-              <div class="text-style-act-name">{activity.title}</div>
-              {#if activity.extraLink}
-                <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
-              {/if}
+              <div class="text-style-act-name">
+                {activity.title}
+                {#if activity.extraLink}
+                  <!-- <a class="act-link-text" href={activity.extraLink} target="_blank">
+                    Link
+                  </a> -->
+                  <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
+                {/if}
+              </div>
             </div>
             <div class="act-detail">
               <img 
@@ -161,13 +173,15 @@
             {#if activity.period}{getYearValue(activity.year)}.{activity.period}{/if} {activity.season}
           </div>
         </div>
-        <img 
-          class="act-image {activity.image? '' : 'none'}"
-          src="{activity.image ? imgPath + activity.image: logo}"
-          alt="{activity.title} 이미지" />
-        {#if activity.extraLink}
-          <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
-        {/if}
+        <div class="act-image-container">
+          <img 
+            class="act-image {activity.image? '' : 'none'}"
+            src="{activity.image ? imgPath + activity.image: logo}"
+            alt="{activity.title} 이미지" />
+          {#if activity.extraLink}
+            <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
+          {/if}
+        </div>
         <div class="act-detail">
         <div class="text-style-act-name">{activity.title}</div>
         <div class="text-style-act-cont">{activity.details}</div>
@@ -247,7 +261,8 @@
   color: var(--color-riu-black);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  white-space: nowrap;
 }
 .sns-link {
   color: var(--color-riu-black);
@@ -289,12 +304,13 @@
 
 .paper-table {
   width: 100%;
-  height: calc(100% - 264px);
+  height: calc(100% - 240px);
   overflow-x: hidden;
   overflow-y: auto;
   margin: 2rem 0;
   padding-right: 0.2rem;
   color: var(--color-riu-black);
+  scroll-behavior: smooth;
 }
 
 .act {
@@ -316,7 +332,16 @@
 }
 .act-link {
   color: var(--color-riu-black);
-  font-size: 24px;
+  font-size: 20px;
+}
+.act-link-text {
+  width: fit-content;
+  font-size: 14px;
+  padding: 2px 4px;
+  background-color: var(--color-riu-gray);
+  border-radius: 6px;
+  display: inline-block;
+  text-decoration: none;
 }
 .act-detail {
   width: 60%;
@@ -342,7 +367,10 @@
   opacity: 0.1;
 }
 .act-intro {
-  padding: 20px 30px;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  white-space: pre-line;
 }
 
 /* mobile */
@@ -385,15 +413,17 @@
   }
   .club-info > :nth-child(2) {
     line-height: 22px;
+    gap: 6px;
   }
   .sns-link {
     font-size: 10px;
     margin-top: 0;
   }
   .time-container {
+    width: fit-content;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     border: none;
     background: none;
     cursor: pointer;
@@ -408,17 +438,17 @@
     font-size: 10px;
     font-weight: 500;
     line-height: 15px;
+    text-align: right;
     letter-spacing: 0px;
   }
 
   .act-container {
     width: 100%;
     height: 50vh;
-    margin-top: 5px;
+    margin: 0.8rem 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    padding-right: 0.2rem;
   }
   .act {
     width: 100%;
@@ -431,8 +461,16 @@
   .act-time {
     width: 100%;
     height: fit-content;
-    margin: 0.4rem 0;
+    margin: 0.6rem;
+    padding-left: 0.4rem;
     color: var(--color-riu-black);
+  }
+  .act-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 0.8rem 0 1.6rem 0;
   }
   .act-image {
     width: 68%;
@@ -440,7 +478,11 @@
   .act-link {
     position: absolute;
     bottom: 0;
-    right: 4%;
+    right: 6%;
+    font-size: 16px;
+    background-color: var(--color-riu-gray);
+    padding: 0px 3px;
+    border-radius: 5px;
   }
   .act-detail {
     width: 100%;
@@ -462,12 +504,13 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
   }
   .act-detail > :nth-child(2) {
     text-align: left;
     height: fit-content;
-    max-height: 150px;
-    overflow: scroll;
+    margin: 1rem 0;
+    white-space: pre-line;
   }
 
   .time-menu {

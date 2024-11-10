@@ -7,11 +7,13 @@
             <i class="fa-brands fa-instagram"></i>
         </a>    
     </div>
-    <div class="footer-copyright">
-        여성서사 아카이브 프로젝트 와카이브
-    </div>
-    <div class="footer-copyright">
-        Copyright © 2024 Warchive. All rights reserved.
+    <div>
+         <div class="footer-copyright">
+            여성서사 아카이브 프로젝트 와카이브
+        </div>
+        <div class="footer-copyright">
+            Copyright © 2024 Warchive. All rights reserved.
+        </div>
     </div>
 </footer>
   
@@ -19,9 +21,10 @@
     footer {
         display: flex;
         flex-direction: column;
+        gap: 10px;
         align-items: center;
         margin-bottom: 1rem;
-        margin-top: 10px;
+        margin-top: 3rem;
     }
     footer * {
         color: var(--color-riu-black);
@@ -34,16 +37,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 20px;
-        height: 20px;
         text-decoration: none;
+        height: 25px;
+        width: 25px;  
+        border-radius: 5px;
+        background-color: var(--color-riu-black); 
     }
     .footer-sns a i {
-        font-size: 16px;
-        border-radius: 4px;
-        padding: 2px 3.8px 2px 2.8px;
-        color: var(--color-riu-white);
-        background-color: var(--color-riu-black);      
+        font-size: 14px;
+        color: var(--color-riu-white);   
     }
     .footer-copyright {
         text-align: center;
