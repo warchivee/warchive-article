@@ -1,17 +1,27 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-import RiUPost from "../../layouts/RiUPost.astro";
+import posts from '../../../public/RiU/result.json';
+import RiUPost from '../../layouts/RiUPost.astro';
 
-// https://github.com/withastro/astro/issues/6012#issuecomment-1407398587
-const posts = await getCollection("RiU");
-type Props = CollectionEntry<"RiU">;
+const pathParts = Astro.url.pathname.split("/");
+const universityName = pathParts[2];
+const clubName = pathParts[3];
 
-const { slug } = Astro.params;
-const post = posts.find((page) => page.slug === slug);
-if (!post) return Astro.redirect("/404");
-const { Content } = await post.render();
+if (!universityName || !clubName) {
+  return Astro.redirect("/404");
+}
+
+const universityData = posts[universityName as keyof typeof posts];
+if (!universityData) {
+  return Astro.redirect("/404");
+}
+
+const clubData = universityData.groups[clubName as keyof typeof universityData.groups];
+if (!clubData) {
+  return Astro.redirect("/404");
+}
+
 ---
-
-<RiUPost {...post.data}>
-  <Content />
-</RiUPost>
+<RiUPost
+  universityName={universityData.name}
+  clubData={clubData}
+/>

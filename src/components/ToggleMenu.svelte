@@ -47,7 +47,7 @@
             <hr class="menu-hr" />
             <p>project</p>
             <a class="sub" href="https://nomore-corset.womynarchive.com/" target="_blank">no more corset</a>
-            <a class="sub" href="/Radicals-in-University" target="_blank">Radicals in University</a>            
+            <a class="sub menu-item" href="/Radicals-in-University" target="_self">Radicals in University</a>            
             <hr class="menu-hr" />
             <a href="https://www.womynarchive.com/" target="_blank">
                 <img src="../../public/android-icon-36x36.png" alt="와카이브 로고">

@@ -1,156 +1,182 @@
 <script>
+  import { onMount } from "svelte";
+  import Loading from "../Loading.svelte";
   
-  // TEST DATA
-  const data = {
-      "info": {
-        "학교명": "00대학교",
-        "동아리 정식 명칭": "동아리이름",
-        "창설일": "2022-03-29T15:00:00.000Z",
-        "대표 SNS 링크\n(계정 url)": "https://www.instagram.com/",
-        "동아리 로고\r\n(정사각형 로고 우선)": {
-          "valueType": "IMAGE"
-        }
-      },
-      "contents": [
-        {
-          "* 연도": 2022,
-          "* 시기": "하반기",
-          "활동기간": 9,
-          "* 활동명": "활동 1",
-          "활동 상세 내용": "활동 1 상세 내용",
-          "외부 링크": "",
-          "활동 대표 이미지": {
-            "valueType": "IMAGE"
-          }
-        },
-        {
-          "* 연도": 2023,
-          "* 시기": "하반기",
-          "활동기간": 9,
-          "* 활동명": "활동 2",
-          "활동 상세 내용": "활동 2 상세 내용",
-          "외부 링크": "",
-          "활동 대표 이미지": {
-            "valueType": "IMAGE"
-          }
-        },
-        {
-          "* 연도": 2024,
-          "* 시기": "하반기",
-          "활동기간": 9,
-          "* 활동명": "활동 3",
-          "활동 상세 내용": "활동 3 상세 내용",
-          "외부 링크": "",
-          "활동 대표 이미지": {
-            "valueType": "IMAGE"
-          }
-        },
-      ]
-    };
+  // Load Data by SpreadSheet
+  // let RiU = "";
+  export let loading = false;
+  // onMount(async () => {
+  //   RiU = JSON.parse(localStorage.getItem("RiU")) || null;
+  //   if (!RiU) {
+  //     const response = await fetch(
+  //       `https://script.googleusercontent.com/macros/echo?user_content_key=yeIm6d_vYSQkB-LBixcQCtcs3qoYrhEsvffzQxe7vfJ5wpasn567ucWOImMThhNbdXAWLqHR-CKyU5FYpLj40lFfkqCZyTJCm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnFszXHwdNPh7A8LRZ04rFSTekjaryld1a_gHmyWNFAjD8uC1ZaDsL3zW1I7AY0B_icvlC4iCj0pyqY1jVCmDyQE-ruQP9FUOctz9Jw9Md8uu&lib=MYeHjeNCxJDCX6Uh50YN2LPmD-q0OsFkm`
+  //     );
+  //     const responseJson = await response.json();
+  //     localStorage.setItem("RiU", JSON.stringify(responseJson.data));
+  //   }
+  //   loading = false;
+  // });
+
+  export let universityName;
+  export let clubData;
+  const imgPath = "../../../public/RiU/";
+
+  const name = clubData.name;
+  const snsLink = clubData.snsLink;
+  const logo = imgPath + clubData.logo;
+  const activities = clubData.activities;
   
-  const years = [...new Set(data.contents.map(content => content["* 연도"]))];
-  let selectedYear = new Date(data.info.창설일).getFullYear();
-  function selectYear(year) {
-    selectedYear = year;
+  const establishedAt = clubData.establishedAt.replace(/-/g, ".");
+  const lastActivity = activities[activities.length - 1];
+  let dissolvedAt = "활동중";
+  if (lastActivity.title.includes("해체")) {
+    const dateMatch = lastActivity.title.match(/(\d{1,2})월 (\d{1,2})일/);
+    if (dateMatch) {
+      let [, month, day] = dateMatch;
+      month = month.padStart(2, '0');
+      day = day.padStart(2, '0');
+      dissolvedAt = `${lastActivity.year}.${month}.${day}`;
+    }
   }
 
-  // Mobile Time Menu Funciton
+  const years = [...new Set(activities.map(activity => Number(activity.year)))].sort((a, b) => a - b);
+  let selectedYear = Number(activities[0].year);
+  let selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
+
+  let tabletop;
+  function selectYear(year) {
+    selectedYear = year;
+    selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
+    tabletop?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+  function getYearValue(y) {
+    return y.slice(-2);
+  }
+  
+  // Functions for Mobile UI
+  onMount(() => {
+    activities.forEach((activity) => {
+      if (!activityRefs[activity.year]) {
+        activityRefs[activity.year] = document.getElementById(`activity-${activity.year}`);
+      }
+    });
+  });
+
   let openMenu = false;
   function handleTimeMenu() {
     openMenu = !openMenu;
   }
-
-  // Pagination Functions
-  function pagePrev() {
-    // console.log("prev");
-  }
-  function pageNext() {
-    // console.log("next");
+  let activityRefs = {};
+  function selectYearMobile(year) {
+    selectedYear = year;
+    handleTimeMenu();
+    activityRefs[year]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 </script>
 
-
-<div class="paper-content pc">
-    <div class="paper-header">
-      <div class="club-info">
-        <div class="text-style-university style-university">{data.info.학교명}</div>
-        <div class="club-name text-style-club">{data.info["동아리 정식 명칭"]}</div>
+{#if loading}
+  <Loading />
+{:else}
+  <div class="club-logo">
+    <img src={logo} alt="{name} 로고"/>
+  </div>
+  <div class="paper-content pc">
+      <div class="paper-header">
+        <div class="club-info">
+          <div class="text-style-university style-university">{universityName}</div>
+          <div class="club-name text-style-club">
+            {name}
+            <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-link"></i></a>
+          </div>
+        </div>
+        <img src="/RiU/title.png" alt="Radicals in University" class="title-img pc">
       </div>
-      <img src="/RiU/title.png" alt="Radicals in University" class="title-img pc">
-    </div>
-    <div class="paper-nav">
-      <div class="nav-block text-style-act-cont">시작일</div>
-      {#each years as year}
-      <button
-        class="nav-year text-style-act-name {selectedYear === year ? 'selected' : ''}"
-        on:click={() => selectYear(year)}
-        >
+      <div class="paper-nav">
+        <div class="nav-block text-style-act-cont">{establishedAt}</div>
+        {#each years as year}
+        <button
+          class="nav-year text-style-act-name {selectedYear === year ? 'selected' : ''}"
+          on:click={() => selectYear(year)}
+          >
             {year}
-        </button>
-      {/each}
-      <div class="nav-block text-style-act-cont">종료일</div>
-    </div>
-    <div class="paper-table">
-      <div class="act">
-        <div class="act-time">
-          <div class="text-style-club">{data.contents["* 시기"]}</div>
-          <div class="text-style-act-name">17.01 - 17.01 (혹은 01월 - 01월)</div>
-        </div>
-        <div class="act-title">
-          <div class="text-style-act-name">{data.contents["* 활동명"]}</div>
-          <a class="act-link" href="https://www.womynarchive.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
-        </div>
-        <div class="act-detail">
-          <img 
-            class="act-image {false? '' : 'none'}"
-            src="{false ? data.contents["활동 애표 이미지"]: '동아리 로고.jpg'}"
-            alt="{data.contents["* 활동명"]} 로고" />
-          <div class="act-intro text-style-act-cont">
-            {data.contents["활동 상세 내용"]}
+          </button>
+        {/each}
+        <div class="nav-block text-style-act-cont">{dissolvedAt}</div>
+      </div>
+      <div class="paper-table" bind:this={tabletop}>
+        {#each selectedActivities as activity}
+          <div class="act">
+            <div class="act-time">
+              <div class="text-style-club">{activity.season}</div>
+              <div class="text-style-act-name">
+                {#if activity.period}{getYearValue(activity.year)}.{activity.period}{/if}
+              </div>
+            </div>
+            <div class="act-title">
+              <div class="text-style-act-name">{activity.title}</div>
+              {#if activity.extraLink}
+                <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
+              {/if}
+            </div>
+            <div class="act-detail">
+              <img 
+                class="act-image {activity.image? '' : 'none'}"
+                src="{activity.image ? imgPath+activity.image: logo}"
+                alt="{activity.title} 이미지" />
+              <div class="act-intro text-style-act-cont">
+                {activity.details}
+              </div>
+            </div>
+          </div>
+        {/each}
+      </div>
+  </div>
+  <div class="paper-content mobile">
+    <div class="paper-header">
+      <div class="club-info-container">
+        <img class="club-logo-moibile" src={logo} alt="{name} 로고"/>
+        <div class="club-info">
+          <div class="text-style-university style-university">{universityName}</div>
+          <div class="club-name text-style-title">
+            {name}
+            <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-link"></i></a>
           </div>
         </div>
       </div>
+      <button class="time-container" on:click={handleTimeMenu}>
+        <div class="time-year">{establishedAt} - {dissolvedAt}</div>
+      </button>
     </div>
-</div>
-<div class="paper-content mobile">
-  <div class="paper-header">
-    <div class="club-info-container">
-      <img class="club-logo" src="{false ? data.info["동아리 로고"] : '동아리 로고.jpg'}" alt="{data.info["동아리 정식 명칭"]} 로고"/>
-      <div class="club-info">
-        <div class="text-style-university style-university">{data.info["학교명"]}</div>
-        <div class="club-name text-style-title">{data.info["동아리 정식 명칭"]}</div>
+    <div class="act-container">
+      {#each activities as activity}
+      <div class="act" id={`activity-${activity.year}`} >
+        <div class="act-time">
+          <div class="text-style-act-name">
+            {#if activity.period}{getYearValue(activity.year)}.{activity.period}{/if} {activity.season}
+          </div>
+        </div>
+        <img 
+          class="act-image {activity.image? '' : 'none'}"
+          src="{activity.image ? imgPath + activity.image: logo}"
+          alt="{activity.title} 이미지" />
+        {#if activity.extraLink}
+          <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
+        {/if}
+        <div class="act-detail">
+        <div class="text-style-act-name">{activity.title}</div>
+        <div class="text-style-act-cont">{activity.details}</div>
+        </div>
       </div>
-    </div>
-    <button class="time-container" on:click={handleTimeMenu}>
-      <div class="time-year">{years[0]} - 0</div>
-      <div class="text-style-act-name">y.m-m 상</div>
-    </button>
-  </div>
-  <div class="act">
-    <img 
-      class="act-image {false? '' : 'none'}"
-      src="{false ? data.contents["활동 애표 이미지"]: '동아리 로고.jpg'}"
-      alt="{data.contents["* 활동명"]} 로고" />
-    <a class="act-link" href="https://www.womynarchive.com/" target="_blank"><i class="fa-solid fa-link"></i></a>
-  </div>
-  <div class="act-detail">
-    <div class="text-style-act-name">{data.contents["* 활동명"]}</div>
-    <div class="text-style-act-cont">
-      {data.contents["활동 상세 내용"]}
+      {/each}
     </div>
   </div>
-</div>
-<div class="pagination mobile">
-  <button on:click={pagePrev}>
-    <i class="fa-solid fa-angle-left"></i>
-  </button>
-  <div class="text-style-act-cont">
-    13 of 16
-  </div>
-  <button on:click={pageNext}>
-    <i class="fa-solid fa-angle-right"></i>
-  </button>
-</div>
+{/if}
 
 {#if openMenu}
   <div class="time-menu">
@@ -158,29 +184,48 @@
       <i class="fa-solid fa-xmark"></i>
     </button>
     <div class="text-style-title">연도 선택</div>
-      <div class="nav-block text-style-act-cont">시작일</div>
+      <div class="nav-block text-style-act-cont">{establishedAt}</div>
       {#each years as year}
         <button
           class="nav-year text-style-act-name {selectedYear === year ? 'selected' : ''}"
-          on:click={() => selectYear(year)}
+          on:click={() => {selectYearMobile(year); console.log(selectedYear, year)}}
         >
           {year}
         </button>
       {/each}
-      <div class="nav-block text-style-act-cont">종료일</div>
+      <div class="nav-block text-style-act-cont">{dissolvedAt}</div>
   </div>
 {/if}
 
 <style>
-.paper-content {
-    position: absolute;
-    right: 20%;
-    width: 60%;
-    height: 100%;
+.club-logo {
+  position: absolute;
+  left: 1.4rem;
+  top: 26%;
+  width: auto;
+  height: 16%;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  display: flex;
+  overflow: hidden;
+}
+.club-logo img {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: var(--color-riu-black);
+  object-fit: cover;
+}
 
-    display: flex;
-    flex-direction: column;
-    margin-top: 2%;
+.paper-content {
+  position: absolute;
+  right: 18%;
+  width: 62%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
 }
 .pc {
   display: block;
@@ -199,7 +244,15 @@
     flex-direction: column;
 }
 .club-name {
-    color: var(--color-riu-black);
+  color: var(--color-riu-black);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sns-link {
+  color: var(--color-riu-black);
+  font-size: 24px;
+  margin-top: 10px;
 }
 .title-img {
     width: auto;
@@ -211,6 +264,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 20px 0;
 }
 .nav-block {
     width: fit-content;
@@ -235,37 +289,34 @@
 
 .paper-table {
   width: 100%;
-  height: fit-content;
+  height: calc(100% - 264px);
   overflow-x: hidden;
   overflow-y: auto;
   margin: 2rem 0;
+  padding-right: 0.2rem;
   color: var(--color-riu-black);
 }
+
 .act {
   display: flex;
-  align-items: center;
+}
+.act-time,
+.act-title {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 1rem 0 0;
 }
 .act-time {
   width: 16%;
-  margin-right: 1rem;
-  padding-top: 20px;
 }
 .act-title {
   width: 24%;
-  margin-right: 1rem;
-  padding: 20px 30px;
-  word-break: break-all;
-  overflow-wrap: break-word;
-  white-space: normal;
+  word-break: keep-all;
 }
 .act-link {
-  background-color: var(--color-riu-black);
-  color: var(--color-riu-white);
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-  padding: 2.5px 5.5px 3px 5.5px;
-  text-align: center;
+  color: var(--color-riu-black);
+  font-size: 24px;
 }
 .act-detail {
   width: 60%;
@@ -273,6 +324,8 @@
   flex-direction: row;
 }
 .act-detail * {
+  text-align: justify;
+  word-break: keep-all;
   width: 50%;
 }
 .act:nth-child(even) .act-detail {
@@ -290,18 +343,21 @@
 }
 .act-intro {
   padding: 20px 30px;
-  word-break: break-all;
-  overflow-wrap: break-word;
-  white-space: normal;
 }
 
 /* mobile */
 @media (max-width: 750px) {
+  .paper-header {
+    align-items: flex-start;
+  }
+  .club-logo {
+    display: none;
+  }
   .paper-content {
     position: relative;
     right: 0;
     width: 100%;
-    height: fit-content;
+    height: 100%;
     margin-top: 0;
   }
   .pc {
@@ -316,7 +372,7 @@
     height: fit-content;
     gap: 6px;
   }
-  .club-logo {
+  .club-logo-moibile {
     width: 44px;
     height: 44px;
     border-radius: 5px;
@@ -330,10 +386,14 @@
   .club-info > :nth-child(2) {
     line-height: 22px;
   }
+  .sns-link {
+    font-size: 10px;
+    margin-top: 0;
+  }
   .time-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     border: none;
     background: none;
     cursor: pointer;
@@ -351,13 +411,28 @@
     letter-spacing: 0px;
   }
 
+  .act-container {
+    width: 100%;
+    height: 50vh;
+    margin-top: 5px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding-right: 0.2rem;
+  }
   .act {
     width: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem auto;
     position: relative;
+  }
+  .act-time {
+    width: 100%;
+    height: fit-content;
+    margin: 0.4rem 0;
+    color: var(--color-riu-black);
   }
   .act-image {
     width: 68%;
@@ -379,6 +454,9 @@
     white-space: normal;
     color: var(--color-riu-black);
   }
+  .act:nth-child(even) .act-detail {
+    flex-direction: column;
+  }
   .act-detail > :first-child {
     width: 86%;
     white-space: nowrap;
@@ -390,30 +468,6 @@
     height: fit-content;
     max-height: 150px;
     overflow: scroll;
-  }
-
-  .pagination {
-    position: absolute;
-    bottom: 1.6rem;
-    left: 0;
-    width: 100%;
-    height: fit-content;
-    color: var(--color-riu-black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-  }
-  .pagination button {
-    background: none;
-    width: 30px;
-    height: 30px;
-    border: 1px #3F375180 solid;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
   }
 
   .time-menu {

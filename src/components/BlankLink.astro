@@ -1,16 +1,18 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-type Props = HTMLAttributes<'a'>;
+type Props = HTMLAttributes<'a'> & {
+  target?: '_blank' | '_self';
+};
 
-const { href, class: className, ...props } = Astro.props;
+const { href, class: className, target = '_self', ...props } = Astro.props;
 
 const { pathname } = Astro.url;
 const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === '/' + subpath?.[0];
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props} target="_blank">
+<a href={href} class:list={[className, { active: isActive }]} {...props} target={target} >
 	<slot />
 </a>
 <style>

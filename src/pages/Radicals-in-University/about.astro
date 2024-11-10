@@ -4,10 +4,8 @@ import '../../styles/RiU.scss';
 import BaseHead from "../../components/BaseHead.astro";
 import RiUFooter from "../../components/RiU/RiUFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import { getCollection } from "astro:content";
 import HyperButton from '../../components/RiU/HyperButton.astro';
-
-const posts = (await getCollection("RiU"));
+import Header from '../../components/Header.astro';
 ---
 
 <!doctype html>
@@ -40,7 +38,7 @@ const posts = (await getCollection("RiU"));
         width: 100%;
       }
       main {
-        height: 100vh;
+        height: calc(100vh - 66px);
         background-image: url('/RiU/background_web.png');
         background-size: cover;
         background-position: center;
@@ -83,7 +81,7 @@ const posts = (await getCollection("RiU"));
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 6%;
+        padding: 8%;
       }
       .about-title {
         color: var(--color-riu-black);
@@ -129,6 +127,9 @@ const posts = (await getCollection("RiU"));
         font-size: 12px;
         color: var(--color-riu-black);
       }
+      .about-footer b {
+        font-weight: bold;
+      }
       .about-footer hr {
         border: none;
         margin: 0.2rem;
@@ -139,7 +140,7 @@ const posts = (await getCollection("RiU"));
           padding: 4%;
         }
         .about-content hr {
-            margin: 0.4rem;
+          margin: 0.4rem;
         }
       }
       @media (max-width: 870px) {
@@ -160,6 +161,10 @@ const posts = (await getCollection("RiU"));
         main {
           background-image: url('/RiU/background_mobile.png');
         }
+        section * {
+          text-align: justify;
+          word-break: keep-all;
+        }
         
         .about {
           width: 420px;
@@ -170,19 +175,49 @@ const posts = (await getCollection("RiU"));
         .about-content {
           text-align: left;
         }
+        .about-footer {
+          text-align: left;
+        }
       }
+      @media (max-width: 720px) {
+        main {
+          height: calc(100vh - 43px);
+        }
+      }
+
       @media (max-width: 460px) {
         .about {
           width: 100%;
+          padding: 10% 8%;
+        }
+        .about-content hr {
+          margin: 0.6rem;
         }
         .about-footer {
           font-size: 10px;
+        }
+      }
+      @media (max-width: 420px) {
+        .about {
+          padding: 6% 8%;
+        }
+        .about-content hr {
+          margin: 0.4rem;
+        }
+      }
+      @media (max-width: 390px) {
+        .about {
+          padding: 6%;
+        }
+        .about-content hr {
+          margin: 0rem;
         }
       }
     </style>
 
   </head>
   <body>
+    <Header />
     <main>
       <section>
         <div class="container">
@@ -222,7 +257,7 @@ const posts = (await getCollection("RiU"));
               동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한 노력은
               한국 여성주의 역사에서 큰 의미를 지니며 반드시 기록되어야 할 역사이다.
               그러나 많은 동아리가 수년 내에 사라지며 그들의 활동 역시 잊혀지고 있다.
-              <hr /><hr />
+              <hr />
               이에
               <span>
                   <a
@@ -239,20 +274,20 @@ const posts = (await getCollection("RiU"));
               한국 여성주의 운동의 중요한 순간들을 역사에 남기고자 한다.
           </div>
             <div class="about-footer pc">
-                문의 및 제보  |  현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.<br />
+                <b>문의 및 제보 |</b> 현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.<br />
                 래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은 연락 바랍니다.<br />
                 <hr />
-                Mail: team.warchive@gmail.com<br />
-                X(twitter): @womynarchive<br />
-                Instagram: @womynarchive<br />
+                <b>e-mail |</b> team.warchive@gmail.com<br />
+                <b>X(twitter) |</b> @womynarchive<br />
+                <b>Instagram |</b> @womynarchive<br />
             </div>
             <div class="about-footer mobile">
-              문의 및 제보  |  현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.
+              <b>문의 및 제보 |</b> 현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.
               래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은 연락 바랍니다.
               <hr />
-              Mail: team.warchive@gmail.com<br />
-              X(twitter): @womynarchive<br />
-              Instagram: @womynarchive<br />
+              <b>e-mail |</b> team.warchive@gmail.com<br />
+              <b>X(twitter) |</b> @womynarchive<br />
+              <b>Instagram |</b> @womynarchive<br />
             </div>
             <HyperButton imgSrc='button_list.png' href="" cling={true} />
           </div>

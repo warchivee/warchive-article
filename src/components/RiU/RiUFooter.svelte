@@ -37,19 +37,13 @@
         width: 20px;
         height: 20px;
         text-decoration: none;
-
-        transition-property: all;
-        transition-duration: 0.3s;
-    }
-    .footer-sns a:hover i {
-        color: var(--color-riu-white);
-        background-color: var(--color-riu-black);
     }
     .footer-sns a i {
         font-size: 16px;
         border-radius: 4px;
-        padding: 2px 3px 2px 2px;
-        transition: all 0.3s ease;        
+        padding: 2px 3.8px 2px 2.8px;
+        color: var(--color-riu-white);
+        background-color: var(--color-riu-black);      
     }
     .footer-copyright {
         text-align: center;

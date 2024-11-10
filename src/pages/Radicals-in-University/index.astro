@@ -6,9 +6,8 @@ import ClubList from '../../components/RiU/ClubList.svelte';
 import HyperButton from '../../components/RiU/HyperButton.astro';
 import RiUFooter from "../../components/RiU/RiUFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import { getCollection } from "astro:content";
+import Header from '../../components/Header.astro';
 
-const posts = (await getCollection("RiU"));
 ---
 
 <!doctype html>
@@ -41,7 +40,7 @@ const posts = (await getCollection("RiU"));
         width: 100%;
       }
       main {
-        height: 100vh;
+        height: calc(100vh - 66px);
         background-image: url('/RiU/background_web.png');
         background-size: cover;
         background-position: center;
@@ -67,9 +66,9 @@ const posts = (await getCollection("RiU"));
         max-width: 1000px;
       }
       .title-img {
-        max-width: 75%;
+        max-width: 50%;
         height: auto;
-        margin-top: 40px;
+        margin: 50px 0 40px 0;
       }
       .list {
         width: 100%;
@@ -87,8 +86,10 @@ const posts = (await getCollection("RiU"));
       }
       .list-title {
         color: var(--color-riu-black);
+        opacity: 0.6;
         margin-bottom: 2rem;
         text-align: center;
+        font-size: 18px;
       }
 
       @media (max-width: 950px) {
@@ -125,9 +126,16 @@ const posts = (await getCollection("RiU"));
           background-image: url('/RiU/paper_mobile.png');
         }
         .list-title {
-            margin: 1rem;
+          margin: 1rem;
+          font-size: 14px;
         }
-      }      
+      }
+
+      @media (max-width: 720px) {
+        main {
+          height: calc(100vh - 43px);
+        }
+      }
 
       @media (max-width: 460px) {
         .list {
@@ -146,6 +154,7 @@ const posts = (await getCollection("RiU"));
 
   </head>
   <body>
+    <Header />
     <main>
       <section>
         <div class="container">

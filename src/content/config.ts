@@ -88,16 +88,6 @@ const bookreports = defineCollection({
   }),
 });
 
-const RiU = defineCollection({
-  type: "content",
-  schema: z.object({
-    universityName: z.string(),
-    universityCode: z.string(),
-    clubName: z.string(),
-    clubCode: z.string()
-  }),
-});
-
 export const collections = {
   blog,
   interview,
@@ -105,5 +95,4 @@ export const collections = {
   play,
   bookclub,
   bookreports,
-  RiU,
 };
