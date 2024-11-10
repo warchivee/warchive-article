@@ -1,13 +1,12 @@
 ---
-import '../../styles/RiU.scss';
+import "../../styles/RiU.scss";
 
 import BaseHead from "../../components/BaseHead.astro";
-import ClubList from '../../components/RiU/ClubList.svelte';
-import HyperButton from '../../components/RiU/HyperButton.astro';
+import ClubList from "../../components/RiU/ClubList.svelte";
+import HyperButton from "../../components/RiU/HyperButton.svelte";
 import RiUFooter from "../../components/RiU/RiUFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import Header from '../../components/Header.astro';
-
+import Header from "../../components/Header.astro";
 ---
 
 <!doctype html>
@@ -19,17 +18,14 @@ import Header from '../../components/Header.astro';
   data-has-scroll="true|false"
 >
   <head>
-    <BaseHead
-      title={SITE_TITLE}
-      description={SITE_DESCRIPTION}
-    />
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 
     <style>
       .pc {
-          display: block;
+        display: block;
       }
       .mobile {
-          display: none;
+        display: none;
       }
 
       main,
@@ -41,7 +37,7 @@ import Header from '../../components/Header.astro';
       }
       main {
         height: 100vh;
-        background-image: url('/RiU/background_web.png');
+        background-image: url("/RiU/background_web.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -73,7 +69,7 @@ import Header from '../../components/Header.astro';
       .list {
         width: 100%;
         aspect-ratio: 1072 / 714;
-        background-image: url('/RiU/paper_web.png');
+        background-image: url("/RiU/paper_web.png");
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -116,14 +112,14 @@ import Header from '../../components/Header.astro';
         }
 
         main {
-          background-image: url('/RiU/background_mobile.png');
+          background-image: url("/RiU/background_mobile.png");
         }
 
         .list {
           width: 420px;
           padding: 8% 6%;
           aspect-ratio: 341 / 511;
-          background-image: url('/RiU/paper_mobile.png');
+          background-image: url("/RiU/paper_mobile.png");
         }
         .list-title {
           margin: 1rem;
@@ -150,24 +146,25 @@ import Header from '../../components/Header.astro';
           margin: 0.6rem;
         }
       }
-</style>
-
+    </style>
   </head>
   <body>
     <Header />
     <main>
       <section>
         <div class="container">
-          <img src="/RiU/title.png" alt="Radicals in University" class="title-img">
+          <img
+            src="/RiU/title.png"
+            alt="Radicals in University"
+            class="title-img"
+          />
           <div class="list">
             <div class="list-title text-style-title pc">
               동아리 이름을 클릭하여 연도별 활동 기록을 볼 수 있습니다.
             </div>
-            <div class="list-title text-style-title mobile">
-              동아리 목록
-            </div>
+            <div class="list-title text-style-title mobile">동아리 목록</div>
             <ClubList client:load />
-            <HyperButton imgSrc='button_intro.png' href="about" cling={true} />
+            <HyperButton imgSrc="button_intro.png" href="about" cling={true} />
           </div>
           <RiUFooter />
         </div>

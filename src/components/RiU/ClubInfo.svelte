@@ -1,7 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import Loading from "../Loading.svelte";
-  
+import HyperButton from "./HyperButton.svelte";
+
   // Load Data by SpreadSheet
   // let RiU = "";
   export let loading = false;
@@ -51,8 +52,14 @@
       tableElement.scrollTop = 0;
     }
   }
-  function getYearValue(y) {
-    return y.slice(-2);
+  function getPeriodValue(period) {
+    if (period.includes(" - ")) {
+      const [startMonth, endMonth] = period.split(" - ");
+      return `${startMonth}월 - ${endMonth}월`;
+    }
+    else {
+      return `${period}월`;
+    }
   }
   
   // Functions for Mobile UI
@@ -86,70 +93,76 @@
     <img src={logo} alt="{name} 로고"/>
   </div>
   <div class="paper-content pc">
+   <HyperButton imgSrc="button_back.png" href="" cling={false} />
+
       <div class="paper-header">
-        <div class="club-info">
-          <div class="text-style-university style-university">{universityName}</div>
-          <div class="club-name text-style-club">
-            {name}
-            <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-link"></i></a>
+        <div class="club-info-container">
+          <img class="club-logo-second" src={logo} alt="{name} 로고"/>
+          <div class="club-info">
+            <div class="text-style-university style-university club-uni-name">{universityName}</div>
+            <div class="club-name text-style-club">
+              {name}
+              <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
+            </div>
           </div>
         </div>
         <img src="/RiU/title.png" alt="Radicals in University" class="title-img pc">
       </div>
       <div class="paper-nav">
         <div class="nav-block text-style-act-cont">{establishedAt}</div>
-        {#each years as year}
-        <button
-          class="nav-year text-style-act-name {selectedYear === year ? 'selected' : ''}"
-          on:click={() => selectYear(year)}
-          >
-            {year}
-          </button>
-        {/each}
+        <div class="papter-nav__list">
+          {#each years as year}
+          <button
+            class="nav-year text-style-act-name {selectedYear === year ? 'selected' : ''}"
+            on:click={() => selectYear(year)}
+            >
+              {year}
+            </button>
+          {/each}
+        </div>
+    
         <div class="nav-block text-style-act-cont">{dissolvedAt}</div>
       </div>
       <div class="paper-table" bind:this={tableElement}>
         {#each selectedActivities as activity, index}
           <div class="act">
             <div class="act-time">
-              <div class="text-style-club">
-                {#if activity.period}
-                  {getYearValue(activity.year)}.{activity.period}
-                {:else}
-                  {activity.season}
-                {/if}
-              </div>
               {#if activity.period}
-                <div class="text-style-act-name">
-                  {activity.season}
-                </div>
+                {getPeriodValue(activity.period)}
+              {:else}
+                {activity.season}
               {/if}
             </div>
             <div class="act-title">
-              <div class="text-style-act-name">
-                {activity.title}
-                {#if activity.extraLink}
-                  <!-- <a class="act-link-text" href={activity.extraLink} target="_blank">
-                    Link
-                  </a> -->
-                  <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
-                {/if}
-              </div>
+              <span>{activity.title}</span>
+              {#if activity.extraLink}
+                <a class="act-link" href={activity.extraLink} target="_blank">
+                  <i class="fa-solid fa-paperclip"></i>
+                </a>
+              {/if}
             </div>
             <div class="act-detail">
               <img 
                 class="act-image {activity.image? '' : 'none'}"
                 src="{activity.image ? imgPath+activity.image: logo}"
                 alt="{activity.title} 이미지" />
-              <div class="act-intro text-style-act-cont">
-                {activity.details}
-              </div>
+              <ul class="act-intro text-style-act-cont">
+                {#each activity.details?.split('\n') as item}
+                  {#if item?.startsWith('- ')}
+                     <li class="mark">{item?.substring(2)}</li>
+                  {:else}
+                     <li>{item}</li>
+                  {/if}
+                {/each}
+              </ul>
             </div>
           </div>
         {/each}
       </div>
   </div>
   <div class="paper-content mobile">
+   <HyperButton imgSrc="button_back.png" href="" cling={false} />
+
     <div class="paper-header">
       <div class="club-info-container">
         <img class="club-logo-moibile" src={logo} alt="{name} 로고"/>
@@ -157,34 +170,48 @@
           <div class="text-style-university style-university">{universityName}</div>
           <div class="club-name text-style-title">
             {name}
-            <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-link"></i></a>
+            <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
           </div>
         </div>
       </div>
-      <button class="time-container" on:click={handleTimeMenu}>
-        <div class="time-year">{establishedAt} - {dissolvedAt}</div>
-      </button>
+      <button class="time-container" on:click={handleTimeMenu}>연도 선택</button>
     </div>
     <div class="act-container">
       {#each activities as activity}
       <div class="act" id={`activity-${activity.year}`} >
-        <div class="act-time">
-          <div class="text-style-act-name">
-            {#if activity.period}{getYearValue(activity.year)}.{activity.period}{/if} {activity.season}
-          </div>
-        </div>
         <div class="act-image-container">
           <img 
             class="act-image {activity.image? '' : 'none'}"
             src="{activity.image ? imgPath + activity.image: logo}"
             alt="{activity.title} 이미지" />
-          {#if activity.extraLink}
-            <a class="act-link" href={activity.extraLink} target="_blank"><i class="fa-solid fa-link"></i></a>
-          {/if}
         </div>
-        <div class="act-detail">
-        <div class="text-style-act-name">{activity.title}</div>
-        <div class="text-style-act-cont">{activity.details}</div>
+         
+        <div class="act-detail"> 
+          <div class="text-style-act-name highlight">
+            <span>
+              {#if activity.period}
+                {getPeriodValue(activity.period)}
+              {:else}
+                {activity.season}
+              {/if}, {activity.title}
+            </span>
+          
+              {#if activity.extraLink}
+                <a class="act-link" href={activity.extraLink} target="_blank">
+                  <i class="fa-solid fa-paperclip"></i>
+                </a>
+              {/if}
+          </div>
+
+          <ul class="text-style-act-cont">
+            {#each activity.details?.split('\n') as item}
+              {#if item?.startsWith('- ')}
+                  <li class="mark">{item?.substring(2)}</li>
+              {:else}
+                  <li>{item}</li>
+              {/if}
+            {/each}
+          </ul>
         </div>
       </div>
       {/each}
@@ -193,7 +220,7 @@
 {/if}
 
 {#if openMenu}
-  <div class="time-menu">
+  <div class="time-menu mobile">
     <button class="menu-close-btn" on:click={handleTimeMenu} aria-hidden="true">
       <i class="fa-solid fa-xmark"></i>
     </button>
@@ -251,23 +278,41 @@
 .paper-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+    margin: 30px 0;
+}
+.club-info-container {
+  display: flex;
+  height: fit-content;
+  gap: 6px;
+}
+.club-logo-second {
+  display: none;
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
 }
 .club-info {
     display: flex;
     flex-direction: column;
 }
 .club-name {
+  line-height: 1;
   color: var(--color-riu-black);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 7px;
   white-space: nowrap;
 }
 .sns-link {
   color: var(--color-riu-black);
-  font-size: 24px;
+  font-size: 30px;
   margin-top: 10px;
+  opacity: 0.6;
+  transition: 0.2s;
+}
+.sns-link:hover {
+  opacity: 1;
 }
 .title-img {
     width: auto;
@@ -279,7 +324,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 20px 0;
+    background: #3f375113;
+    padding: 20px 20px;
+    border-radius: 10px;
+    margin: 10px 0;
+    gap: 50px;
+}
+.papter-nav__list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 50px;
+    overflow-x: scroll;
 }
 .nav-block {
     width: fit-content;
@@ -294,23 +351,40 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-weight: 300;
-    text-decoration: none;
-}
-.nav-year.selected {
     font-weight: 700;
-    text-decoration: underline;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding: 0;
+}
+.nav-year::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-riu-black);
+  transition: width 0.3s ease;
+}
+
+.nav-year:hover::after {
+  width: 100%;
+}
+.nav-year.selected::after  {
+  width: 100%;
 }
 
 .paper-table {
   width: 100%;
-  height: calc(100% - 240px);
+  height: calc(100% - 282px);
   overflow-x: hidden;
   overflow-y: auto;
   margin: 2rem 0;
   padding-right: 0.2rem;
   color: var(--color-riu-black);
   scroll-behavior: smooth;
+  padding-bottom: 20px;
 }
 
 .act {
@@ -318,26 +392,39 @@
 }
 .act-time,
 .act-title {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 1rem 0 0;
+  height: fit-content;
+  font-weight: 800;
+  font-family: var(--font-riu);
+  color: var(--color-riu-black);
 }
 .act-time {
-  width: 16%;
+  font-size: 35px;
+  width: 13%;
+  line-height: 1.4;
+  padding: 5px;
 }
 .act-title {
-  width: 24%;
+  font-size: 18px;
   word-break: keep-all;
+  width: 24%;
+  padding: 10px 20px;  
+}
+.act-title span, .highlight span {
+  background:linear-gradient(180deg, transparent 60%, #835ed12c 60%);
 }
 .act-link {
   color: var(--color-riu-black);
   font-size: 20px;
+  opacity: 0.6;
+  transition: 0.2s;
+}
+.act-link:hover {
+  opacity: 1;
 }
 .act-link-text {
   width: fit-content;
   font-size: 14px;
-  padding: 2px 4px;
+  padding: 15px;
   background-color: var(--color-riu-gray);
   border-radius: 6px;
   display: inline-block;
@@ -349,34 +436,57 @@
   flex-direction: row;
 }
 .act-detail * {
-  text-align: justify;
-  word-break: keep-all;
+  font-family: var(--font-riu);
+  color: var(--color-riu-black);
+}
+.act-detail > * {
   width: 50%;
 }
 .act:nth-child(even) .act-detail {
   flex-direction: row-reverse;
 }
-.act-image{
+.act-image {
   height: fit-content;
   object-fit: contain;
   aspect-ratio: 1 / 1;
   background-color: var(--color-riu-black);
   opacity: 1;
 }
+.act-image:not(.none) {
+  border: 10px solid #E5E4E6;
+}
 .act-image.none {
   opacity: 0.1;
 }
 .act-intro {
-  padding: 20px;
+  aspect-ratio: 1 / 1;
+  text-align: justify;
+  word-break: keep-all;
+  padding: 10px 15px;
   overflow-x: hidden;
   overflow-y: scroll;
   white-space: pre-line;
 }
+ul li {
+  text-indent : 12px;
+  margin-bottom: 10px;
+}
+ul li.mark {
+  list-style-type: '- ';
+  padding-inline-start: 1ch;
+  text-indent: 0;
+}
 
+@media (max-width: 1000px) {
+  .club-logo-second {
+    display: block;
+  }
+}
 /* mobile */
 @media (max-width: 750px) {
   .paper-header {
-    align-items: flex-start;
+    margin: 10px 0;
+    align-items: flex-end;
   }
   .club-logo {
     display: none;
@@ -395,11 +505,6 @@
     display: block;
   }
 
-  .club-info-container {
-    display: flex;
-    height: fit-content;
-    gap: 6px;
-  }
   .club-logo-moibile {
     width: 44px;
     height: 44px;
@@ -416,7 +521,7 @@
     gap: 6px;
   }
   .sns-link {
-    font-size: 10px;
+    font-size: 18px;
     margin-top: 0;
   }
   .time-container {
@@ -427,15 +532,15 @@
     border: none;
     background: none;
     cursor: pointer;
-  }
-  .time-container * {
     width: fit-content;
+    font-family: var(--font-riu);
     color: var(--color-riu-black);
+    white-space: nowrap;
   }
   .time-year {
     font-family: var(--font-riu);
     color: var(--color-riu-black);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 15px;
     text-align: right;
@@ -445,7 +550,7 @@
   .act-container {
     width: 100%;
     height: 50vh;
-    margin: 0.8rem 0;
+    margin: 2rem 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -458,11 +563,20 @@
     align-items: center;
     position: relative;
   }
+  .act::after {
+    content: "";
+    bottom: -1rem;
+    left: 50%;
+    width: 1px;
+    height: 6rem;
+    margin: 0.2rem;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, transparent, var(--color-riu-gray), transparent);
+  }
+
   .act-time {
     width: 100%;
     height: fit-content;
-    margin: 0.6rem;
-    padding-left: 0.4rem;
     color: var(--color-riu-black);
   }
   .act-image-container {
@@ -470,19 +584,15 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    margin: 0.8rem 0 1.6rem 0;
+    margin: 0.2rem 0 0.6rem 0;
   }
   .act-image {
     width: 68%;
   }
-  .act-link {
-    position: absolute;
-    bottom: 0;
-    right: 6%;
+  .act-link,
+  .act-link i {
+    width: fit-content;
     font-size: 16px;
-    background-color: var(--color-riu-gray);
-    padding: 0px 3px;
-    border-radius: 5px;
   }
   .act-detail {
     width: 100%;
@@ -491,7 +601,7 @@
   }
   .act-detail > * {
     width: 90%;
-    word-break: break-all;
+    word-break: keep-all;
     overflow-wrap: break-word;
     white-space: normal;
     color: var(--color-riu-black);
@@ -501,23 +611,21 @@
   }
   .act-detail > :first-child {
     width: 86%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     text-align: center;
+    margin-bottom: 10px;
   }
   .act-detail > :nth-child(2) {
     text-align: left;
     height: fit-content;
-    margin: 1rem 0;
+    text-align: justify;
     white-space: pre-line;
   }
 
   .time-menu {
     position: fixed;
-    top: 14%;
+    top: 16%;
     right: 0;
-    height: 74%;
+    height: 68%;
     aspect-ratio: 132 / 511;
     background-image: url('/RiU/paper_menu_mobile.png');
     background-size: cover;

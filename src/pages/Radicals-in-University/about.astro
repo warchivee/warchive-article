@@ -1,11 +1,11 @@
 ---
-import '../../styles/RiU.scss';
+import "../../styles/RiU.scss";
 
 import BaseHead from "../../components/BaseHead.astro";
 import RiUFooter from "../../components/RiU/RiUFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import HyperButton from '../../components/RiU/HyperButton.astro';
-import Header from '../../components/Header.astro';
+import HyperButton from "../../components/RiU/HyperButton.svelte";
+import Header from "../../components/Header.astro";
 ---
 
 <!doctype html>
@@ -17,19 +17,16 @@ import Header from '../../components/Header.astro';
   data-has-scroll="true|false"
 >
   <head>
-    <BaseHead
-      title={SITE_TITLE}
-      description={SITE_DESCRIPTION}
-    />
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 
     <style>
       .pc {
-          display: block;
+        display: block;
       }
       .mobile {
-          display: none;
+        display: none;
       }
-      
+
       main,
       section {
         display: flex;
@@ -39,7 +36,7 @@ import Header from '../../components/Header.astro';
       }
       main {
         height: calc(100vh - 66px);
-        background-image: url('/RiU/background_web.png');
+        background-image: url("/RiU/background_web.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -73,7 +70,7 @@ import Header from '../../components/Header.astro';
       .about {
         width: 100%;
         aspect-ratio: 1072 / 714;
-        background-image: url('/RiU/paper_web.png');
+        background-image: url("/RiU/paper_web.png");
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -84,7 +81,6 @@ import Header from '../../components/Header.astro';
         gap: 20px;
         align-items: center;
         padding: 20px 10px;
-
       }
       .about-title {
         color: var(--color-riu-black);
@@ -96,7 +92,7 @@ import Header from '../../components/Header.astro';
       .about-content {
         color: var(--color-riu-black);
         text-align: center;
-        font-size: 1.10rem;
+        font-size: 1.1rem;
       }
       .about-content span {
         display: inline-block;
@@ -135,7 +131,7 @@ import Header from '../../components/Header.astro';
         font-size: 12px;
         color: var(--color-riu-black);
       }
-  
+
       .sns {
         display: flex;
         flex-wrap: wrap;
@@ -182,18 +178,18 @@ import Header from '../../components/Header.astro';
         }
 
         main {
-          background-image: url('/RiU/background_mobile.png');
+          background-image: url("/RiU/background_mobile.png");
         }
         section * {
           text-align: justify;
           word-break: keep-all;
         }
-        
+
         .about {
           width: 420px;
           padding: 8% 6%;
           aspect-ratio: 341 / 511;
-          background-image: url('/RiU/paper_mobile.png');
+          background-image: url("/RiU/paper_mobile.png");
         }
         .about-content {
           text-align: left;
@@ -237,88 +233,108 @@ import Header from '../../components/Header.astro';
         }
       }
     </style>
-
   </head>
   <body>
     <Header />
     <main>
       <section>
         <div class="container">
-          <img src="/RiU/title.png" alt="Radicals in University" class="title-img">
+          <img
+            src="/RiU/title.png"
+            alt="Radicals in University"
+            class="title-img"
+          />
           <div class="about">
             <div>
               <div class="about-title text-style-title pc">
-                   대학 내 래디컬 계보 기록 프로젝트는...
+                대학 내 래디컬 계보 기록 프로젝트는...
               </div>
               <div class="about-title text-style-title mobile">
-                  프로젝트 소개
+                프로젝트 소개
               </div>
               <div class="about-content text-style-project pc">
-                대학은 청소년들이 입시에서 벗어나 처음으로 접하는 작은 사회이자 자유이다.<br />
-                젊은 청년들이 재미도, 스펙도 아닌 여성주의라는 가치를 주체적으로 선택하여,<br />
-                동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한 노력은<br />
-                한국 여성주의 역사에서 큰 의미를 지니며 <u>반드시 기록되어야 할 역사</u>이다.<br />
-                그러나 많은 동아리가 수년 내에 사라지며 그들의 활동 역시 잊혀지고 있다.<br />
+                대학은 청소년들이 입시에서 벗어나 처음으로 접하는 작은 사회이자
+                자유이다.<br />
+                젊은 청년들이 재미도, 스펙도 아닌 여성주의라는 가치를 주체적으로
+                선택하여,<br />
+                동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한
+                노력은<br />
+                한국 여성주의 역사에서 큰 의미를 지니며 <u
+                  >반드시 기록되어야 할 역사</u
+                >이다.<br />
+                그러나 많은 동아리가 수년 내에 사라지며 그들의 활동 역시 잊혀지고
+                있다.<br />
                 <hr />
                 <span>
-                    <a
-                        class="warchive"
-                            href="https://www.womynarchive.com/"
-                            target="_blank"
-                    >
-                        <span>여성서사 아카이브 프로젝트 Warchive
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
-                </span>
-                는 각 동아리와 협력하여<br />
-                그들의 활동 기록을 수집・보존하고 이를 웹사이트를 통해 공유함으로써<br />
-                한국 여성주의 운동의 중요한 순간들을 역사에 남기고자 한다.
-              </div>
-                
-              <div class="about-content text-style-project mobile">
-                대학은 청소년들이 입시에서 벗어나 처음으로 접하는 작은 사회이자 자유이다.
-                젊은 청년들이 재미도, 스펙도 아닌 여성주의라는 가치를 주체적으로 선택하여,
-                동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한 노력은
-                한국 여성주의 역사에서 큰 의미를 지니며 <u>반드시 기록되어야 할 역사</u>이다.
-                그러나 많은 동아리가 수년 내에 사라지며 그들의 활동 역시 잊혀지고 있다.
-                <hr />
-                <span>
-                    <a 
+                  <a
                     class="warchive"
                     href="https://www.womynarchive.com/"
-                    target="_blank">
-                      <span>여성서사 아카이브 프로젝트 Warchive
-                      <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-                    </a>
+                    target="_blank"
+                  >
+                    <span
+                      >여성서사 아카이브 프로젝트 Warchive
+                      <i class="fa-solid fa-arrow-up-right-from-square"
+                      ></i></span
+                    >
+                  </a>
                 </span>
-                는 각 동아리와 협력하여
-                그들의 활동 기록을 수집・보존하고 이를 웹사이트를 통해 공유함으로써
+                는 각 동아리와 협력하여<br />
+                그들의 활동 기록을 수집・보존하고 이를 웹사이트를 통해 공유함으로써<br
+                />
                 한국 여성주의 운동의 중요한 순간들을 역사에 남기고자 한다.
               </div>
-            </div>
-          
-            <div class="about-footer pc">
-                현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.<br />
-                래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은 연락 바랍니다.<br />
+
+              <div class="about-content text-style-project mobile">
+                대학은 청소년들이 입시에서 벗어나 처음으로 접하는 작은 사회이자
+                자유이다. 젊은 청년들이 재미도, 스펙도 아닌 여성주의라는 가치를
+                주체적으로 선택하여, 동아리라는 형태로 많은 이들에게 여성주의를
+                전파하고 탐구하고자 한 노력은 한국 여성주의 역사에서 큰 의미를
+                지니며 <u>반드시 기록되어야 할 역사</u>이다. 그러나 많은
+                동아리가 수년 내에 사라지며 그들의 활동 역시 잊혀지고 있다.
                 <hr />
-                <div class="sns">
-                  <div><b>e-mail |</b> team.warchive@gmail.com</div>
-                  <div><b>X(twitter) |</b> @womynarchive</div>
-                  <div><b>Instagram |</b> @womynarchive</div>
-                </div>
-                
-            </div>
-            <div class="about-footer mobile">
-             현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지 제보받고 있습니다.
-              래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은 연락 바랍니다.
-              <hr />
-              <div class="sns">
-                  <div><b>e-mail |</b> team.warchive@gmail.com</div>
-                  <div><b>X(twitter) |</b> @womynarchive</div>
-                  <div><b>Instagram |</b> @womynarchive</div>
+                <span>
+                  <a
+                    class="warchive"
+                    href="https://www.womynarchive.com/"
+                    target="_blank"
+                  >
+                    <span
+                      >여성서사 아카이브 프로젝트 Warchive
+                      <i class="fa-solid fa-arrow-up-right-from-square"
+                      ></i></span
+                    >
+                  </a>
+                </span>
+                는 각 동아리와 협력하여 그들의 활동 기록을 수집・보존하고 이를 웹사이트를
+                통해 공유함으로써 한국 여성주의 운동의 중요한 순간들을 역사에 남기고자
+                한다.
               </div>
             </div>
-            <HyperButton imgSrc='button_list.png' href="" cling={true} />
+
+            <div class="about-footer pc">
+              현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지
+              제보받고 있습니다.<br />
+              래디컬 계보 기록 프로젝트에 참여를 원하는 동아리 관련자분들의 많은
+              연락 바랍니다.<br />
+              <hr />
+              <div class="sns">
+                <div><b>e-mail |</b> team.warchive@gmail.com</div>
+                <div><b>X(twitter) |</b> @womynarchive</div>
+                <div><b>Instagram |</b> @womynarchive</div>
+              </div>
+            </div>
+            <div class="about-footer mobile">
+              현재 활동 여부와 상관없이, 래디컬 여성주의 동아리라면 어디든지
+              제보받고 있습니다. 래디컬 계보 기록 프로젝트에 참여를 원하는
+              동아리 관련자분들의 많은 연락 바랍니다.
+              <hr />
+              <div class="sns">
+                <div><b>e-mail |</b> team.warchive@gmail.com</div>
+                <div><b>X(twitter) |</b> @womynarchive</div>
+                <div><b>Instagram |</b> @womynarchive</div>
+              </div>
+            </div>
+            <HyperButton imgSrc="button_list.png" href="" cling={true} />
           </div>
           <RiUFooter />
         </div>
