@@ -100,7 +100,7 @@ import HyperButton from "./HyperButton.svelte";
           <img class="club-logo-second" src={logo} alt="{name} 로고"/>
           <div class="club-info">
             <div class="text-style-university style-university club-uni-name">{universityName}</div>
-            <div class="club-name text-style-club">
+            <div class="club-name text-style-club {name.length > 15 ? 'smaller' : ''}">
               {name}
               <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
             </div>
@@ -110,7 +110,7 @@ import HyperButton from "./HyperButton.svelte";
       </div>
       <div class="paper-nav">
         <div class="nav-block text-style-act-cont">{establishedAt}</div>
-        <div class="papter-nav__list">
+        <div class="paper-nav__list">
           {#each years as year}
           <button
             class="nav-year text-style-act-name {selectedYear === year ? 'selected' : ''}"
@@ -263,10 +263,8 @@ import HyperButton from "./HyperButton.svelte";
   right: 18%;
   width: 62%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
-  margin-top: 2%;
 }
 .pc {
   display: block;
@@ -284,13 +282,14 @@ import HyperButton from "./HyperButton.svelte";
 .club-info-container {
   display: flex;
   height: fit-content;
+  align-items: center;
   gap: 6px;
 }
 .club-logo-second {
   display: none;
-  width: 100px;
-  height: 100px;
-  border-radius: 5px;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
 }
 .club-info {
     display: flex;
@@ -301,8 +300,9 @@ import HyperButton from "./HyperButton.svelte";
   color: var(--color-riu-black);
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 14px;
   white-space: nowrap;
+  margin-top: 10px;
 }
 .sns-link {
   color: var(--color-riu-black);
@@ -330,12 +330,13 @@ import HyperButton from "./HyperButton.svelte";
     margin: 10px 0;
     gap: 50px;
 }
-.papter-nav__list {
+.paper-nav__list {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
     gap: 50px;
+    margin-top: 6px;
     overflow-x: scroll;
 }
 .nav-block {
@@ -404,7 +405,7 @@ import HyperButton from "./HyperButton.svelte";
   padding: 5px;
 }
 .act-title {
-  font-size: 18px;
+  font-size: 16px;
   word-break: keep-all;
   width: 24%;
   padding: 10px 20px;  
@@ -414,21 +415,13 @@ import HyperButton from "./HyperButton.svelte";
 }
 .act-link {
   color: var(--color-riu-black);
-  font-size: 20px;
+  font-size: 14px;
   opacity: 0.6;
   transition: 0.2s;
+  margin-left: 2px;
 }
 .act-link:hover {
   opacity: 1;
-}
-.act-link-text {
-  width: fit-content;
-  font-size: 14px;
-  padding: 15px;
-  background-color: var(--color-riu-gray);
-  border-radius: 6px;
-  display: inline-block;
-  text-decoration: none;
 }
 .act-detail {
   width: 60%;
@@ -468,7 +461,6 @@ import HyperButton from "./HyperButton.svelte";
   white-space: pre-line;
 }
 ul li {
-  text-indent : 12px;
   margin-bottom: 10px;
 }
 ul li.mark {
@@ -478,10 +470,22 @@ ul li.mark {
 }
 
 @media (max-width: 1000px) {
+  .paper-nav__list {
+    padding-bottom: 4px;
+  }
+  .paper-content {
+    position: fixed;
+    width: 100vw;
+    height: calc(100% - 66px);
+    top: 66px;
+    left: 0;
+    padding: 0 5em 0 4em;
+  }
   .club-logo-second {
     display: block;
   }
 }
+
 /* mobile */
 @media (max-width: 750px) {
   .paper-header {
@@ -497,6 +501,7 @@ ul li.mark {
     width: 100%;
     height: 100%;
     margin-top: 0;
+    padding: 0;
   }
   .pc {
     display: none;
@@ -521,7 +526,7 @@ ul li.mark {
     gap: 6px;
   }
   .sns-link {
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 0;
   }
   .time-container {
@@ -549,7 +554,7 @@ ul li.mark {
 
   .act-container {
     width: 100%;
-    height: 50vh;
+    height: 40vh;
     margin: 2rem 0;
     overflow-y: auto;
     display: flex;

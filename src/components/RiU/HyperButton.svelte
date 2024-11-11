@@ -14,17 +14,28 @@
 
 <style>
   a {
-    position: absolute;
-    right: -1rem;
-    bottom: -1rem;
     display: inline-block;
     text-decoration: none;
     transition: 0.3s ease-in-out; /* 마우스 오버 시 애니메이션 */
     z-index: 999;
   }
 
-  a:hover {
+  a.cling {
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+  }
+  a.cling:hover {
     transform: scale(1.1);
+  }
+
+  a.away {
+    position: fixed;
+    right: -1rem;
+    bottom: 3rem;
+  }
+  a.away:hover {
+    transform: translateX(-2rem);
   }
 
   img {
@@ -40,6 +51,15 @@
   }
 
   @media (max-width: 1100px) {
+    a.away {
+      position: fixed;
+      right: -4rem;
+      bottom: 3rem;
+    }
+    a.away:hover {
+      transform: translateX(0rem);
+      transform: scale(1.1);
+    }
     img {
       width: 150px;
       height: 150px;
@@ -57,9 +77,15 @@
       right: -8%;
       bottom: -8%;
     }
+
     a.away {
-      right: -6%;
-      bottom: -2%;
+      position: absolute;
+      right: -8%;
+      bottom: -8%;
+    }
+    a.away:hover {
+      transform: translateX(0);
+      transform: scale(1.1);
     }
     img {
       width: 100px;

@@ -8,6 +8,10 @@
   --color-riu-gray: #3f375188;
 }
 
+html {
+  overflow: hidden;
+}
+
 section {
   overflow-x: auto;
   overflow-y: auto;
@@ -91,6 +95,11 @@ section {
   background: transparent;
 }
 
+@media (max-width: 1000px) {
+  .text-style-club.smaller {
+    font-size: 30px;
+  }
+}
 // mobile
 @media (max-width: 750px) {
   .text-style-title {
