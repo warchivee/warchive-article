@@ -41,7 +41,7 @@
             "season": "상반기",
             "period": "02",
             "title": "영화 감상 '프라미싱 영 우먼'",
-            "details": " '",
+            "details": "\n",
             "extraLink": ""
           },
           {
@@ -173,7 +173,7 @@
             "season": "하반기",
             "period": "08",
             "title": "북토크 '커리어 그리고 가정'",
-            "details": "여성전용바 '안' 에서 노벨경제학상 수상자 클라우디아 콜딘의 '커리어 그리고 가정' 북토크 진행",
+            "details": "여성전용바 '안'에서 노벨경제학상 수상자 클라우디아 콜딘의 '커리어 그리고 가정' 북토크 진행",
             "extraLink": "",
             "image": "riu\\images\\SEOUL\\SHAF\\image_15.jpg"
           },
@@ -318,7 +318,7 @@
         "name": "FEMI-POWER PROJECT",
         "code": "FEMI_POWER_PROJECT",
         "establishedAt": "2017-08-18",
-        "snsLink": "계정",
+        "snsLink": "https://www.instagram.com/femipower_project/",
         "logo": "riu\\images\\SOOKMYUNG_W\\FEMI_POWER_PROJECT\\image_0.jpg",
         "activities": [
           {
@@ -1613,8 +1613,8 @@
             "year": "2019",
             "season": "하반기",
             "period": "07",
-            "title": "TF 프로젝트 : ‘라그나로크:마인의 손녀들’ 진행 with GPS",
-            "details": "합동 전시회 '라그나로크:마인의 손녀들' 성신여대 GPS와 공동 주최 ",
+            "title": "TF 프로젝트 : ‘라그나로크: 마인의 손녀들’ 진행 with GPS",
+            "details": "합동 전시회 '라그나로크: 마인의 손녀들' 성신여대 GPS와 공동 주최 ",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\DEAR_SISTERS\\image_10.jpg"
           },
@@ -1900,7 +1900,7 @@
             "season": "상반기",
             "period": "03",
             "title": "책 '지속가능한 영혼의 이용' 소개 카드뉴스 게시",
-            "details": "일본 사회가 여성에게 가하는 차별과 억압을 비판하고 폭로한\n서적 '지속가능한 영혼의 이용' 소개 카드뉴스 게시",
+            "details": "일본 사회가 여성에게 가하는 차별과 억압을 비판하고 폭로한 서적 '지속가능한 영혼의 이용' 소개 카드뉴스 게시",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\DEAR_SISTERS\\image_40.jpg"
           },
@@ -1999,7 +1999,7 @@
             "season": "하반기",
             "period": "09",
             "title": "2022 인권 주간 부스 운영 ‘울려라! 페미벨’",
-            "details": "2022 인권주간 '물듦'에서 다양한 페미니즘 질문에 대해 답해보는 ‘울려라! 페미벨‘ 부스 운영",
+            "details": "2022 인권주간 '물듦'에서 다양한 페미니즘 질문에 대해 답해보는 ‘울려라! 페미벨’ 부스 운영",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\DEAR_SISTERS\\image_51.jpg"
           },
@@ -2089,7 +2089,7 @@
             "season": "상반기",
             "period": "05",
             "title": "책 '백래시' 감상 및 독서토론 카드뉴스",
-            "details": "\"페미니즘에 대한 공격이 심해지고 있는 요즘. 우리 사회가, 여성이 백래시를 경계하기 위해 어떻게 해야 될까?\"\n라는 질문과  백래시는 결코 '평등'과 '존엄'을 추구하고자 하는 여성들을 가로막을 수 없다는 카드뉴스 게시",
+            "details": "\"페미니즘에 대한 공격이 심해지고 있는 요즘. 우리 사회가, 여성이 백래시를 경계하기 위해 어떻게 해야 될까?\" 라는 질문과  백래시는 결코 '평등'과 '존엄'을 추구하고자 하는 여성들을 가로막을 수 없다는 카드뉴스 게시",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\DEAR_SISTERS\\image_61.jpg"
           },
@@ -2134,7 +2134,7 @@
             "season": "하반기",
             "period": "12",
             "title": "책 '성노동, 성매매가 아니라 성착취' 독서토론 및 카드뉴스 게시",
-            "details": "성노동,성매매가 아닌 성착취라는 용어를 사용해야 하는 이유를 담아 카드뉴스 게시",
+            "details": "성노동, 성매매가 아닌 성착취라는 용어를 사용해야 하는 이유를 담아 카드뉴스 게시",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\DEAR_SISTERS\\image_66.jpg"
           },
@@ -2206,7 +2206,7 @@
             "season": "하반기",
             "period": "07",
             "title": "2024 여대 여성주의 동아리 연합 MT 참여",
-            "details": "동덕여대 SIREN, 서울여대 무소의 뿔, 덕성여대 RADIUS 성신여대 GPS, Radsbos, 이화여대 RAD-E와 함께 여성주의 동아리 연합 MT 참여",
+            "details": "동덕여대 SIREN, 서울여대 무소의 뿔, 덕성여대 RADIUS, 성신여대 GPS, Radsbos, 이화여대 RAD-E와 함께 여성주의 동아리 연합 MT 참여",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\DEAR_SISTERS\\image_74.jpg"
           },
@@ -2313,7 +2313,7 @@
             "year": "2019",
             "season": "하반기",
             "period": "07",
-            "title": "교내 강연회 ‘연애하지 않을 권리' with Dear.Sisters",
+            "title": "교내 강연회 ‘연애하지 않을 권리’ with Dear.Sisters",
             "details": "성신여자대학교 페미니즘 동아리 Dear.Sisters와 책 '연애하지 않을 권리' 저자 초청 강연회 공동 주최",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\GPS\\image_8.jpg"
@@ -2322,7 +2322,7 @@
             "year": "2019",
             "season": "하반기",
             "period": "07",
-            "title": "TF 프로젝트 : ‘라그나로크:마인의 손녀들’ 진행 with Dear.Sisters",
+            "title": "TF 프로젝트 : ‘라그나로크: 마인의 손녀들’ 진행 with Dear.Sisters",
             "details": "성신여자대학교 페미니즘 동아리 Dear.Sisters와 라그나로크를 현대 사회에 맞춰 녹여낸 주제로 전시회 공동 주최",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\GPS\\image_9.jpg"
@@ -2332,7 +2332,7 @@
             "season": "하반기",
             "period": "09",
             "title": "대자보 '성욕인가, 생존인가'",
-            "details": "강간 인형 수입 허용 판결을 규탄하고, 9월 28일 예정된 강간 인형 수입 허용 판결 규탄 시위의 참여를 독려 관련 대자보 게시",
+            "details": "강간 인형 수입 허용 판결을 규탄하고, 9월 28일 예정된 강간 인형 수입 허용 판결 규탄 시위의 참여 독려 관련 대자보 게시",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\GPS\\image_10.jpg"
           },
@@ -2394,8 +2394,8 @@
             "year": "2020",
             "season": "하반기",
             "period": "11",
-            "title": "낙태죄 폐지 촉구 손 글씨 릴레이 참여",
-            "details": "낙태죄 폐지 전국 대학생 공동행동에 연대하여 손 글씨 릴레이 참여",
+            "title": "낙태죄 폐지 촉구 손글씨 릴레이 참여",
+            "details": "낙태죄 폐지 전국 대학생 공동행동에 연대하여 손글씨 릴레이 참여",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\GPS\\image_17.jpg"
           },
@@ -2422,7 +2422,7 @@
             "season": "상반기",
             "period": "06",
             "title": "카드뉴스 '백래시에 맞서다'",
-            "details": "백래시의 정의, 불매, 탈코르셋 쇼핑몰을 소개 관련 카드뉴스 게시",
+            "details": "백래시의 정의, 불매, 탈코르셋 쇼핑몰 소개 관련 카드뉴스 게시",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\GPS\\image_20.jpg"
           },
@@ -2538,7 +2538,7 @@
             "year": "2024",
             "season": "상반기",
             "period": "05",
-            "title": "대자보 '여성을 다 죽여놓고 '결혼할 여성이 없어요'",
+            "title": "대자보 ‘여성을 다 죽여놓고 ‘결혼할 여성이 없어요’’",
             "details": "여성의 죽음과 여성혐오 범죄에 대해 방관하는 국가, 재판부, 언론에 대해 문제점을 지적하고 여성연대로써 여성의 생명과 안전을 지켜야 한다는 메시지를 담은 대자보 게시",
             "extraLink": "",
             "image": "riu\\images\\SUNGSHIN_W\\GPS\\image_33.jpg"
@@ -2588,7 +2588,7 @@
           {
             "year": "2019",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "포스트잇 프로젝트",
             "details": "포스트잇 부착 형식으로 여성혐오 단어 알리기, 여성 서사 미디어, 책 등 알리기 등의 활동 진행",
             "extraLink": "",
@@ -2597,7 +2597,7 @@
           {
             "year": "2019",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "대자보 '탈코르셋, 2등 시민에서 벗어나기 위한 출발점'",
             "details": "탈코르셋 운동 대자보 게시",
             "extraLink": "",
@@ -2606,7 +2606,7 @@
           {
             "year": "2019",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "대자보 '남교수들이여, 조신하게 있어라 우리는 더이상 가만히 있지 않는다.'",
             "details": "장경철 남교수 성희롱 발언 규탄 대자보 게시",
             "extraLink": "",
@@ -2615,7 +2615,7 @@
           {
             "year": "2019",
             "season": "하반기",
-            "period": "10",
+            "period": "",
             "title": "청년여성 공론장 참여",
             "details": "다양한 페미니스트들과 여성의 일자리, 살 자리, 놀 자리, 설 자리에 관해 다루는 공론장이었던 청년여성공론장: '청년여성, 서울에서 살아내기'에 여성의 놀 자리 테이블로 참여",
             "extraLink": "",
@@ -2624,7 +2624,7 @@
           {
             "year": "2019",
             "season": "하반기",
-            "period": "11",
+            "period": "",
             "title": "하말넘많 토크콘서트 주최",
             "details": "여성에게 강요되는 완벽주의를 극복하고 야망을 되살리기 위해 인기 여성주의 유튜버 '하말넘많'을 초청하여 토크콘서트 진행",
             "extraLink": "",
@@ -2649,7 +2649,7 @@
           {
             "year": "2020",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "대자보 '우리는 당신을 교육자로서 대우하지 않을 것이다.'",
             "details": "조영현 교수 성희롱 발언과 학교의 미온적 대처 비판 대자보 게시",
             "extraLink": "",
@@ -2658,7 +2658,7 @@
           {
             "year": "2020",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "여대 언론 연합 기사 참여",
             "details": "여대 언론 연합에서 기획한 '여대의 반란, 변화의 불꽃을 일으키다' 기사 작성 참여",
             "extraLink": "http://swupress.swu.ac.kr/news/articleView.html?idxno=10059",
@@ -2683,7 +2683,7 @@
           {
             "year": "2020",
             "season": "하반기",
-            "period": "10",
+            "period": "",
             "title": "교내 권리주간 '일상 속의 성차별 A to Z' 부스 참여",
             "details": "성차별이 여성의 삶에 어떤 영향을 끼치는지, 우리가 당연하다고 느껴왔거나 혹은 인식조차 하지 못한 부분이 얼마나 여성 혐오적인지 되짚어 보는 계기를 제공하고자 권리 주간 부스 기획, 진행",
             "extraLink": "",
@@ -2692,24 +2692,24 @@
           {
             "year": "2020",
             "season": "하반기",
-            "period": "10",
+            "period": "",
             "title": "교내에 낙태죄 폐지를 촉구하는 대자보와 현수막 게시",
-            "details": "160만인의 선언 : 낙태죄폐지전국대학생공동행동 연대 활동 대자보 및 현수막 게시",
+            "details": "160만인의 선언 : 낙태죄 폐지 전국 대학생 공동 행동 연대 활동 대자보 및 현수막 게시",
             "extraLink": "",
             "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_9.jpg"
           },
           {
             "year": "2020",
             "season": "하반기",
-            "period": "11",
-            "title": "160만인의 선언 : 낙태죄폐지전국대학생공동행동 주최 낙태죄 마침표 시위 참여",
+            "period": "",
+            "title": "160만인의 선언 : 낙태죄 폐지 전국 대학생 공동 행동 주최 낙태죄 마침표 시위 참여",
             "details": "낙태죄 완전 폐지를 요구하는 기자회견 진행",
             "extraLink": ""
           },
           {
             "year": "2022",
             "season": "상반기",
-            "period": "03",
+            "period": "",
             "title": "대자보 '무너진 공정과 상식을 바로잡을 힘은 우리에게 있다.'",
             "details": "여성의 날 기념 20대 대선 관련 투표 독려 대자보 게시",
             "extraLink": "",
@@ -2718,7 +2718,7 @@
           {
             "year": "2022",
             "season": "상반기",
-            "period": "05",
+            "period": "",
             "title": "카드뉴스 '여성주의 시위 정리'",
             "details": "2016~2022년 개최된 여성주의 시위 카드뉴스 작성 및 게시",
             "extraLink": "",
@@ -2727,7 +2727,7 @@
           {
             "year": "2022",
             "season": "상반기",
-            "period": "06",
+            "period": "",
             "title": "대자보 '서울여자대학교의 수치, 승현우 남총장은 보아라'",
             "details": "이사회의 독단적인 남총장 부당 선출 규탄 대자보 게시",
             "extraLink": "",
@@ -2736,7 +2736,7 @@
           {
             "year": "2022",
             "season": "상반기",
-            "period": "06",
+            "period": "",
             "title": "남총장 부당 선출 규탄 시위 주최",
             "details": "",
             "extraLink": "",
@@ -2745,7 +2745,7 @@
           {
             "year": "2022",
             "season": "하반기",
-            "period": "08",
+            "period": "",
             "title": "ReSET 주최 더함+ 캠페인 참여",
             "details": "ReSET의 세 번째 여름 캠페인 '더함+캠페인'에 참여해 교내 스티커 비치",
             "extraLink": "",
@@ -2754,7 +2754,7 @@
           {
             "year": "2022",
             "season": "하반기",
-            "period": "09",
+            "period": "",
             "title": "네트워킹 파티 및 토크 콘서트 주최",
             "details": "서울여대 학우 대상 네트워킹 파티와 페미니즘을 주제로 하는 토크콘서트 'nn년생 우리들의 이어달리기' 주최",
             "extraLink": "",
@@ -2763,7 +2763,7 @@
           {
             "year": "2022",
             "season": "하반기",
-            "period": "09",
+            "period": "",
             "title": "대자보 '신당역 살인사건은 여성혐오 사회가 낳은 여성혐오 범죄이다'",
             "details": "신당역 여성혐오 살인 사건 규탄 대자보 게시",
             "extraLink": "",
@@ -2772,7 +2772,7 @@
           {
             "year": "2022",
             "season": "하반기",
-            "period": "11",
+            "period": "",
             "title": "소리내어 아니 에르노 읽기",
             "details": "서울여대 학우를 대상으로 여성들의 임파워링을 목적으로 하는 LMG어학원 이민경 작가님의 '소리내어 읽기' 아니 에르노 편 진행",
             "extraLink": ""
@@ -2780,7 +2780,7 @@
           {
             "year": "2022",
             "season": "하반기",
-            "period": "11",
+            "period": "",
             "title": "숙명여대 SFA 여성주간 연합학술제 발제 참여",
             "details": "여성, 범죄를 주제로 '언론의 여성 피해자 재현' 발제 참여",
             "extraLink": ""
@@ -2788,16 +2788,16 @@
           {
             "year": "2023",
             "season": "상반기",
-            "period": "02",
+            "period": "",
             "title": "세계 여성의 날 기념 호신술 원데이 클래스 진행",
-            "details": "세계 여성의 날을 기념하여 동덕여대 SIREN과\n연합해 호신술 원데이 클래스 진행 ",
+            "details": "세계 여성의 날을 기념하여 동덕여대 SIREN과 연합해 호신술 원데이 클래스 진행",
             "extraLink": "",
             "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_17.jpg"
           },
           {
             "year": "2023",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "레즈비언 가시화의 날 이벤트",
             "details": "레즈비언 가시화의 날을 맞아 학우들이 레즈비언 가시화에 동참할 수 있는 포스터 교내 부착",
             "extraLink": "",
@@ -2806,7 +2806,7 @@
           {
             "year": "2023",
             "season": "상반기",
-            "period": "\n05",
+            "period": "",
             "title": "여대 연합 체육대회",
             "details": "성신대 GPS, 덕성대 TNT, 동덕대 SIREN과 연합한 체육대회 공동 주최 및 기획",
             "extraLink": "",
@@ -2823,7 +2823,7 @@
           {
             "year": "2023",
             "season": "하반기",
-            "period": "09",
+            "period": "",
             "title": "여성 안전 교내 캠페인",
             "details": " 여성 안전에 대한 인식 제고를 위해 설문조사, 여성 안전 정책 현황 소개, 호신용품 경품 추첨 이벤트 진행",
             "extraLink": "",
@@ -2832,7 +2832,7 @@
           {
             "year": "2023",
             "season": "하반기",
-            "period": "10",
+            "period": "",
             "title": "무소의 뿔 가을 소풍 with 여성서사",
             "details": "서울여대 학우들과 여성 서사 콘텐츠를 주제로 한 네트워킹 행사 진행",
             "extraLink": "",
@@ -2841,7 +2841,7 @@
           {
             "year": "2023",
             "season": "하반기",
-            "period": "11",
+            "period": "",
             "title": "페미니즘 공개 스터디",
             "details": "서울여대 학우를 대상으로 2회에 걸쳐 페미니즘의 역사와 갈래, 래디컬 페미니즘에 관한 논의를 주제로 공개 스터디 진행",
             "extraLink": "",
@@ -2850,7 +2850,7 @@
           {
             "year": "2023",
             "season": "하반기",
-            "period": "11",
+            "period": "",
             "title": "대자보 '피보다 진한 시대를 나눈 자매들에게 - 숏컷 여성 폭행사건에 분노하며'",
             "details": "진주 편의점 여성혐오 폭행 사건 규탄 대자보 게시",
             "extraLink": "",
@@ -2859,7 +2859,7 @@
           {
             "year": "2023",
             "season": "하반기",
-            "period": "11",
+            "period": "",
             "title": "여성혐오폭력 규탄 공동행동 주최 교내 릴레이 시위",
             "details": "진주 편의점 여성혐오 폭행 사건 규탄 시위 참여",
             "extraLink": "",
@@ -2876,7 +2876,7 @@
           {
             "year": "2024",
             "season": "상반기",
-            "period": "03",
+            "period": "",
             "title": "여성의 날 교내 캠페인",
             "details": "여성의 날을 기념하는 교내 이벤트 진행",
             "extraLink": "",
@@ -2885,7 +2885,7 @@
           {
             "year": "2024",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "왹래시 퇴치 교내 캠페인",
             "details": "페미니즘 백래시를 지구를 침공한 외계인에 빗대어 '왹래시'(외계인+백래시) 퇴치 캠페인 진행",
             "extraLink": "",
@@ -2894,7 +2894,7 @@
           {
             "year": "2024",
             "season": "상반기",
-            "period": "04",
+            "period": "",
             "title": "야망 가득 인생 로드맵 발표회",
             "details": "여성 혐오 사회에서 살아남기 위한 인생 로드맵과 야망, 계획 공유를 통한 임파워링 활동",
             "extraLink": "",
@@ -2903,7 +2903,7 @@
           {
             "year": "2024",
             "season": "상반기",
-            "period": "05",
+            "period": "",
             "title": "성신여대 Radsbos 주최 2024 여대 여성주의 연합 체육대회",
             "details": "성신여대 Radsbos, 이화여대 RAD-E, 덕성여대 RADIUS, 숙명여대 SFA, 동덕여대 SIREN과 함께 여성주의 연합 체육대회 참여",
             "extraLink": "",
@@ -2912,7 +2912,7 @@
           {
             "year": "2024",
             "season": "상반기",
-            "period": "05",
+            "period": "",
             "title": "여성서사 연극 관람회 '무소나이트' 주최",
             "details": "비혼 여성 대상 여성서사 연극 관람회 주최",
             "extraLink": ""
@@ -2920,7 +2920,7 @@
           {
             "year": "2024",
             "season": "상반기",
-            "period": "05",
+            "period": "",
             "title": "2024 여대 연합 스터디",
             "details": "이화여대 RAD-E, 덕성여대 RADIUS와 여성논제 스터디 공동기획 및 참여",
             "extraLink": ""
@@ -2936,7 +2936,7 @@
           {
             "year": "2024",
             "season": "하반기",
-            "period": "07",
+            "period": "",
             "title": "2024 여대 여성주의 동아리 연합 MT 참여",
             "details": "동덕여대 SIREN, 덕성여대 RADIUS 성신여대 Dear.Sisters, GPS, Radsbos, 이화여대 RAD-E와 함께 여성주의 동아리 연합 MT 참여",
             "extraLink": "",
@@ -2998,7 +2998,7 @@
             "season": "하반기",
             "period": "10",
             "title": "호주 여자 축구의 MTF 트랜스젠더 선수 이슈에 관한 외신 뉴스 기사 번역",
-            "details": "Womens Football Team with\nFIVE Trans-Idendified Males Won Grand Final 기사 번역",
+            "details": "Womens Football Team with FIVE Trans-Idendified Males Won Grand Final 기사 번역",
             "extraLink": "https://reduxx.info/australia-womens-football-team-with-five-trans-identified-males-win-grand-final-amid-high-security-camera-bans/",
             "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_5.jpg"
           },
@@ -3033,7 +3033,7 @@
             "year": "2024",
             "season": "하반기",
             "period": "10",
-            "title": "ReSET X 여성혐오폭력 규탄 공동행동 주최 딥페이크 성착취 엄벌 촉구 온라인 시위 연대체 참여",
+            "title": "ReSET ✕ 여성혐오폭력 규탄 공동행동 주최 딥페이크 성착취 엄벌 촉구 온라인 시위 연대체 참여",
             "details": "딥페이크 성착취 엄벌 촉구를 위해 연대체로 참여",
             "extraLink": "",
             "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_9.jpg"
@@ -3129,7 +3129,7 @@
             "season": "상반기",
             "period": "03",
             "title": "세계 여성의 날 기념 호신술 원데이 클래스 진행",
-            "details": "세계 여성의 날을 기념해 서울여대 무소의 뿔과\n연합해 호신술 원데이 클래스 진행 ",
+            "details": "세계 여성의 날을 기념해 서울여대 무소의 뿔과 연합해 호신술 원데이 클래스 진행 ",
             "extraLink": "",
             "image": "riu\\images\\DONGDUK_W\\SIREN\\image_8.jpg"
           },
@@ -3225,7 +3225,7 @@
             "season": "하반기",
             "period": "11",
             "title": "숙명여대 SFA 여성주간 연합학술제 발제 참여",
-            "details": "여성의 초상(肖像) 혹은 초상(初喪)' 발제 참여",
+            "details": "‘여성의 초상(肖像) 혹은 초상(初喪)’ 발제 참여",
             "extraLink": ""
           },
           {
@@ -3418,7 +3418,7 @@
             "season": "하반기",
             "period": "07",
             "title": "영문 페미니즘 텍스트 스터디",
-            "details": "SCUM Manifesto by Valerie Solanas \nThe Women Identified Women by the Radicalesbians in 1970\n텍스트를 주제로 영문 페미니즘 텍스트 스터디 진행",
+            "details": "SCUM Manifesto by Valerie Solanas  - The Women Identified Women by the Radicalesbians in 1970 텍스트를 주제로 영문 페미니즘 텍스트 스터디 진행",
             "extraLink": ""
           },
           {
@@ -3426,7 +3426,7 @@
             "season": "하반기",
             "period": "10",
             "title": "세미나 '여자들의 은밀한 파이 찾기' 진행",
-            "details": "- 여성 경제권 인식 확산 프로젝트 \n청년 여성 정책(주거,교육,취업, 경제 등)의 현재와 미래를 주제로 토론 및 세미나 진행",
+            "details": "- 여성 경제권 인식 확산 프로젝트 \n- 청년 여성 정책(주거, 교육, 취업, 경제 등)의 현재와 미래를 주제로 토론 및 세미나 진행",
             "extraLink": "",
             "image": "riu\\images\\DONGDUK_W\\SSAKDUK\\image_10.jpg"
           },
@@ -3462,7 +3462,7 @@
             "season": "하반기",
             "period": "09",
             "title": "대자보 '신당역 살인사건에 분노하며' 연서명 참여",
-            "details": "숙명여대 중앙여성학동아리 SFA의\n신당역 여성혐오 살인사건 규탄 대자보 연서명 참여 ",
+            "details": "숙명여대 중앙여성학동아리 SFA의 '신당역 여성혐오 살인사건 규탄 대자보 연서명' 참여 ",
             "extraLink": "",
             "image": "riu\\images\\DONGDUK_W\\SSAKDUK\\image_14.jpg"
           },
@@ -3471,7 +3471,7 @@
             "season": "하반기",
             "period": "11",
             "title": "숙명여자대학교 중앙여성학동아리 SFA 주최 2022 여성주간 연합학술제 발제팀 참여",
-            "details": "여성 범죄자에 대한 명시적이고 차별적인 가중처별 경향, 그리고 어떤 가설”을 주제로 발제팀 참여",
+            "details": "'여성 범죄자에 대한 명시적이고 차별적인 가중처별 경향, 그리고 어떤 가설'을 주제로 발제팀 참여",
             "extraLink": "",
             "image": "riu\\images\\DONGDUK_W\\SSAKDUK\\image_15.jpg"
           },
@@ -3847,7 +3847,7 @@
             "season": "상반기",
             "period": "06",
             "title": "<전쟁과여성영화제> 전시 및 '경성학교: 사라진 소녀들' 리뷰",
-            "details": "프로젝트 38에서 주최한 '전쟁과여성영화제' 전시를 감상하고 '경성학교'를 감상하며\n식민지배에 대한 저항과 여성 퀴어를 담아낸 긍정적인 면과 남성의 시선으로 여성을 그려낸 부분 관련 토론",
+            "details": "프로젝트 38에서 주최한 '전쟁과여성영화제' 전시와 '경성학교'를 감상하며 식민지배에 대한 저항과 여성 퀴어를 담아낸 긍정적인 면과 남성의 시선으로 여성을 그려낸 부분 관련 토론",
             "extraLink": "",
             "image": "riu\\images\\DUKSUNG_W\\RADIUS\\image_5.jpg"
           },
@@ -4151,7 +4151,7 @@
             "year": "2023",
             "season": "하반기",
             "period": "07",
-            "title": "정혈대 후원광고, 그 안의 여성혐오' 카드뉴스 게시",
+            "title": "‘정혈대 후원광고, 그 안의 여성혐오’ 카드뉴스 게시",
             "details": "여성 청소년을 위한 정혈대 후원 광고 속 여성 혐오적 맥락 지적 및 개선 방향성 관련 카드뉴스 게시",
             "extraLink": "",
             "image": "riu\\images\\EHWA_W\\RAD_E\\image_14.jpg"
@@ -4160,7 +4160,7 @@
             "year": "2023",
             "season": "하반기",
             "period": "07",
-            "title": "2022 교육과정 개편안이 미칠 영향' 카드뉴스 게시",
+            "title": "‘2022 교육과정 개편안이 미칠 영향’ 카드뉴스 게시",
             "details": "교육과정에서 일본군 ‘위안부’, 성평등, 성소수자, 재생산 등의 단어가 삭제됨에 따른 성평등 의식 퇴화 및 차별 심화 등의 영향 관련 카드뉴스 게시",
             "extraLink": "",
             "image": "riu\\images\\EHWA_W\\RAD_E\\image_15.jpg"
@@ -4169,7 +4169,7 @@
             "year": "2023",
             "season": "하반기",
             "period": "08",
-            "title": "한국에서 비혼여성으로 산다는 것' 카드뉴스 게시",
+            "title": "‘한국에서 비혼여성으로 산다는 것’ 카드뉴스 게시",
             "details": "1인가구 정책의 미비 및 주거, 건강, 경제 문제에서의 비혼 여성 소외 문제 고찰 관련 카드뉴스 게시",
             "extraLink": "",
             "image": "riu\\images\\EHWA_W\\RAD_E\\image_16.jpg"
@@ -4222,7 +4222,7 @@
             "year": "2024",
             "season": "상반기",
             "period": "05",
-            "title": "대자보 '페미사이드'는 여성 개인의 죽음이 아닌 모든 여성의 죽음이다.'",
+            "title": "‘대자보 ‘페미사이드’는 여성 개인의 죽음이 아닌 모든 여성의 죽음이다.’’",
             "details": "2024년 강남역 여성혐오 살해사건 규탄 위한 ‘페미사이드’ 릴레이 대자보 게시",
             "extraLink": "",
             "image": "riu\\images\\EHWA_W\\RAD_E\\image_21.jpg"
@@ -4232,7 +4232,7 @@
             "season": "하반기",
             "period": "07",
             "title": "2024 여대 여성주의 동아리 연합 MT 기획 및 참여",
-            "details": "동덕여대 SIREN, 서울여대 무소의 뿔, 덕성여대 RADIUS 성신여대 Dear.Sisters, GPS, Radsbos와 함께 여성주의 동아리 연합 MT 참여",
+            "details": "동덕여대 SIREN, 서울여대 무소의 뿔, 덕성여대 RADIUS, 성신여대 Dear.Sisters, GPS, Radsbos와 함께 여성주의 동아리 연합 MT 참여",
             "extraLink": ""
           },
           {

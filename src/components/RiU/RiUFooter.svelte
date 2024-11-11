@@ -9,7 +9,7 @@
     </div>
     <div>
          <div class="footer-copyright">
-            여성서사 아카이브 프로젝트 와카이브
+            여성서사 아카이브 프로젝트 Warchive
         </div>
         <div class="footer-copyright">
             Copyright © 2024 Warchive. All rights reserved.
@@ -19,12 +19,13 @@
   
 <style>
     footer {
+        height: fit-content;
         display: flex;
         flex-direction: column;
         gap: 10px;
         align-items: center;
-        margin-bottom: 1rem;
         margin-top: 3rem;
+        padding-bottom: 3rem;
     }
     footer * {
         color: var(--color-riu-black);

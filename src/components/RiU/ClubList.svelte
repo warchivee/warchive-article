@@ -57,7 +57,7 @@
       height: fit-content;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0 30px;
+      gap: 4px 30px;
     }
     .univ-group {
       max-width: 150px;
