@@ -75,11 +75,11 @@ import HyperButton from "./HyperButton.svelte";
   function handleTimeMenu() {
     openMenu = !openMenu;
   }
-  let activityRefs = {};
+  let yearRefs = {};
   function selectYearMobile(year) {
     selectedYear = year;
     handleTimeMenu();
-    activityRefs[year]?.scrollIntoView({
+    yearRefs[year]?.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
     });
@@ -102,7 +102,7 @@ import HyperButton from "./HyperButton.svelte";
             <div class="text-style-university style-university club-uni-name">{universityName}</div>
             <div class="club-name text-style-club {name.length > 15 ? 'smaller' : ''}">
               {name}
-              <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
+              <a class="sns-link {name.length > 15 ? 'smaller' : ''}" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@ import HyperButton from "./HyperButton.svelte";
         <div class="nav-block text-style-act-cont">{dissolvedAt}</div>
       </div>
       <div class="paper-table" bind:this={tableElement}>
-        {#each selectedActivities as activity, index}
+        {#each selectedActivities as activity}
           <div class="act">
             <div class="act-time">
               {#if activity.period}
@@ -165,20 +165,24 @@ import HyperButton from "./HyperButton.svelte";
 
     <div class="paper-header">
       <div class="club-info-container">
-        <img class="club-logo-moibile" src={logo} alt="{name} 로고"/>
+        <img class="club-logo-mobile" src={logo} alt="{name} 로고"/>
         <div class="club-info">
           <div class="text-style-university style-university">{universityName}</div>
-          <div class="club-name text-style-title">
+          <div class="club-name text-style-title {name.length > 15 ? 'smaller' : ''}">
             {name}
-            <a class="sns-link" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
+            <a class="sns-link {name.length > 15 ? 'smaller' : ''}" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
           </div>
         </div>
       </div>
       <button class="time-container" on:click={handleTimeMenu}>연도 선택</button>
     </div>
     <div class="act-container">
-      {#each activities as activity}
-      <div class="act" id={`activity-${activity.year}`} >
+      {#each activities as activity, index}
+      {#if index === 0 || activities[index - 1].year !== activity.year}
+        <div class="year-divider" bind:this={yearRefs[activity.year]}>{activity.year}년</div>
+      {/if}
+
+      <div class="act">
         <div class="act-image-container">
           <img 
             class="act-image {activity.image? '' : 'none'}"
@@ -274,10 +278,10 @@ import HyperButton from "./HyperButton.svelte";
 }
 
 .paper-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 30px 0;
 }
 .club-info-container {
   display: flex;
@@ -290,6 +294,8 @@ import HyperButton from "./HyperButton.svelte";
   width: 80px;
   height: 80px;
   border-radius: 10px;
+  margin: 4px 4px 0 0;
+  object-fit: contain;
 }
 .club-info {
     display: flex;
@@ -473,7 +479,7 @@ ul li.mark {
   .paper-nav__list {
     padding-bottom: 4px;
   }
-  .paper-content {
+  .paper-content.pc {
     position: fixed;
     width: 100vw;
     height: calc(100% - 66px);
@@ -484,13 +490,27 @@ ul li.mark {
   .club-logo-second {
     display: block;
   }
+  .pc .club-name {
+    font-size: 30px;
+  }
+  .pc .sns-link {
+    font-size: 24px;
+  }
+  .club-name.smaller {
+    font-size: 20px;
+    gap: 10px;
+  }
+  .sns-link.smaller {
+    font-size: 18px;
+    margin-top: 2px;
+  }
 }
 
 /* mobile */
 @media (max-width: 750px) {
   .paper-header {
     margin: 10px 0;
-    align-items: flex-end;
+    align-items: flex-start;
   }
   .club-logo {
     display: none;
@@ -510,9 +530,9 @@ ul li.mark {
     display: block;
   }
 
-  .club-logo-moibile {
-    width: 44px;
-    height: 44px;
+  .club-logo-mobile {
+    width: 60px;
+    height: 60px;
     border-radius: 5px;
     object-fit: cover;
     background-color: var(--color-riu-black);
@@ -524,6 +544,11 @@ ul li.mark {
   .club-info > :nth-child(2) {
     line-height: 22px;
     gap: 6px;
+    margin-top: 8px;
+  }
+  .club-info > :nth-child(2).smaller,
+  .club-info > :nth-child(2) .smaller {
+    font-size: 16px;
   }
   .sns-link {
     font-size: 16px;
@@ -534,22 +559,21 @@ ul li.mark {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    border: none;
     background: none;
     cursor: pointer;
     width: fit-content;
-    font-family: var(--font-riu);
-    color: var(--color-riu-black);
     white-space: nowrap;
-  }
-  .time-year {
     font-family: var(--font-riu);
     color: var(--color-riu-black);
     font-size: 14px;
-    font-weight: 500;
-    line-height: 15px;
-    text-align: right;
-    letter-spacing: 0px;
+    border: 1px var(--color-riu-gray) solid;
+    border-radius: 5px;
+    padding: 0 8px 0 6px;
+    transition: 0.1s ease-in-out;
+  }
+  .time-container:hover {
+    background-color: var(--color-riu-black);
+    color: var(--color-riu-white);
   }
 
   .act-container {
@@ -559,6 +583,14 @@ ul li.mark {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+  }
+  .year-divider {
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-riu);
+    color: var(--color-riu-black);
+    font-size: 24px;
+    font-weight: 600;
   }
   .act {
     width: 100%;
@@ -619,6 +651,9 @@ ul li.mark {
     text-align: center;
     margin-bottom: 10px;
   }
+  .act-detail a i {
+    font-family: "Font Awesome 6 Free";
+  }
   .act-detail > :nth-child(2) {
     text-align: left;
     height: fit-content;
@@ -634,7 +669,7 @@ ul li.mark {
     aspect-ratio: 132 / 511;
     background-image: url('/RiU/paper_menu_mobile.png');
     background-size: cover;
-    z-index: 10;
+    z-index: 20;
     padding: 3rem 1rem 4rem 1rem;
     display: flex;
     flex-direction: column;

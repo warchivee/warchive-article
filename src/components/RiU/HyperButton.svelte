@@ -17,7 +17,7 @@
     display: inline-block;
     text-decoration: none;
     transition: 0.3s ease-in-out; /* 마우스 오버 시 애니메이션 */
-    z-index: 999;
+    z-index: 10;
   }
 
   a.cling {
