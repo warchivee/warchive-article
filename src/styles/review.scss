@@ -54,7 +54,7 @@ article {
 
   p {
     font-size: var(--text-md);
-    
+
     @media (max-width: 400px) {
       font-size: var(--text-sm);
     }
@@ -151,6 +151,8 @@ blockquote {
 blockquote > blockquote {
   width: 100%;
   align-items: flex-end;
+  margin-bottom: 0;
+
   & p {
     text-align: right;
     font-size: small;
@@ -173,7 +175,7 @@ blockquote > blockquote {
   // margin-bottom: 80px;
   margin: 20px 0;
   gap: 20px;
-  
+
   & .group-image {
     display: flex;
     justify-content: center;
@@ -364,4 +366,3 @@ a:hover {
     }
   }
 }
-
