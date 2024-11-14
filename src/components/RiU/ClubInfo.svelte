@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Loading from "../Loading.svelte";
-import HyperButton from "./HyperButton.svelte";
+  import HyperButton from "./HyperButton.svelte";
 
   // Load Data by SpreadSheet
   // let RiU = "";
@@ -63,14 +63,6 @@ import HyperButton from "./HyperButton.svelte";
   }
   
   // Functions for Mobile UI
-  onMount(() => {
-    activities.forEach((activity) => {
-      if (!activityRefs[activity.year]) {
-        activityRefs[activity.year] = document.getElementById(`activity-${activity.year}`);
-      }
-    });
-  });
-
   let openMenu = false;
   function handleTimeMenu() {
     openMenu = !openMenu;
@@ -84,6 +76,30 @@ import HyperButton from "./HyperButton.svelte";
       block: 'start'
     });
   }
+
+  let activityContainer;
+  const offsetMargin = 150;
+  let currentYear = activities[0]?.year || "";
+  function updateYear() {
+    const scrollPosition = activityContainer.scrollTop;
+    const yearPositions = Object.keys(yearRefs).map(year => ({
+      year,
+      offsetTop: yearRefs[year]?.offsetTop
+    }));
+    const currentYearData = yearPositions.find(
+      (pos, i) =>
+        pos.offsetTop - offsetMargin <= scrollPosition && 
+        (!yearPositions[i + 1] || yearPositions[i + 1].offsetTop - offsetMargin > scrollPosition)
+    );
+    if (currentYearData) {
+      currentYear = currentYearData.year;
+      selectedYear = Number(currentYear);
+    }
+  }
+  onMount(() => {
+    activityContainer.addEventListener("scroll", updateYear);
+  });
+
 </script>
 
 {#if loading}
@@ -176,10 +192,11 @@ import HyperButton from "./HyperButton.svelte";
       </div>
       <button class="time-container" on:click={handleTimeMenu}>연도 선택</button>
     </div>
-    <div class="act-container">
+    <div class="year-display">{currentYear}년</div>
+    <div class="act-container" bind:this={activityContainer}>
       {#each activities as activity, index}
       {#if index === 0 || activities[index - 1].year !== activity.year}
-        <div class="year-divider" bind:this={yearRefs[activity.year]}>{activity.year}년</div>
+        <div class="year-divider" bind:this={yearRefs[activity.year]}></div>
       {/if}
 
       <div class="act">
@@ -551,8 +568,8 @@ ul li.mark {
     font-size: 16px;
   }
   .sns-link {
-    font-size: 16px;
-    margin-top: 0;
+    font-size: 15px;
+    margin-top: 1px;
   }
   .time-container {
     width: fit-content;
@@ -565,10 +582,11 @@ ul li.mark {
     white-space: nowrap;
     font-family: var(--font-riu);
     color: var(--color-riu-black);
-    font-size: 14px;
+    font-size: 12px;
     border: 1px var(--color-riu-gray) solid;
     border-radius: 5px;
-    padding: 0 8px 0 6px;
+    padding: 1.5px 6px 1.5px 4px;
+    margin-top: 2px;
     transition: 0.1s ease-in-out;
   }
   .time-container:hover {
@@ -576,21 +594,27 @@ ul li.mark {
     color: var(--color-riu-white);
   }
 
+  .year-display {
+    width: 100%;
+    text-align: center;
+    text-align: center;
+    font-family: var(--font-riu);
+    color: var(--color-riu-black);
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 600;
+  }
   .act-container {
     width: 100%;
-    height: 40vh;
-    margin: 2rem 0;
+    height: 42vh;
+    margin-top: 15px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
   }
   .year-divider {
     width: 100%;
-    text-align: center;
-    font-family: var(--font-riu);
-    color: var(--color-riu-black);
-    font-size: 24px;
-    font-weight: 600;
+    height: 0%;
   }
   .act {
     width: 100%;
