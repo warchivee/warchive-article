@@ -52,7 +52,7 @@ article {
     margin-bottom: 2rem;
   }
 
-  p {
+  &p {
     font-size: var(--text-md);
 
     @media (max-width: 400px) {
@@ -155,7 +155,7 @@ blockquote > blockquote {
 
   & p {
     text-align: right;
-    font-size: small;
+    font-size: var(--text-sm);
     font-style: italic;
   }
 
