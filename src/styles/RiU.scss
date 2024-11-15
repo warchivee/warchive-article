@@ -43,13 +43,13 @@ section {
 
 .text-style-university {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 0.9rem;
   letter-spacing: 0%;
 }
 
 .text-style-club {
   font-weight: 700;
-  font-size: 40px;
+  font-size: 2rem;
   letter-spacing: 0%;
 }
 
@@ -67,7 +67,7 @@ section {
 
 .text-style-act-cont {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 0.9rem;
   letter-spacing: -5%;
 }
 
@@ -95,14 +95,8 @@ section {
   background: transparent;
 }
 
-@media (max-width: 1000px) {
-  .text-style-university {
-    font-size: 14px;
-  }
-}
-
 // mobile
-@media (max-width: 750px) {
+@media (max-width: 950px) {
   .text-style-title {
     font-size: 20px;
   }
@@ -124,7 +118,7 @@ section {
   }
 
   .text-style-act-cont {
-    font-size: 14px;
+    font-size: 0.8rem;
   }
 
   .style-university {

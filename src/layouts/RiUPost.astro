@@ -95,15 +95,18 @@ const { universityName, clubData } = Astro.props;
           max-width: 75%;
           height: auto;
           margin-top: 40px;
+          min-width: 300px;
         }
 
         .paper {
-          width: 420px;
+          width: 80%;
           height: auto;
           padding: 2% 6%;
           margin: 1rem 0;
           aspect-ratio: 341 / 511;
           background-image: url("/RiU/paper_mobile.png");
+
+          background-size: cover;
           display: flex;
           flex-direction: column;
         }

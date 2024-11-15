@@ -160,9 +160,9 @@
               <ul class="act-intro text-style-act-cont">
                 {#each activity.details?.split('\n') as item}
                   {#if item?.startsWith('- ')}
-                     <li class="mark">{item?.substring(2)}</li>
+                     <li class="mark text-style-act-cont">{item?.substring(2)}</li>
                   {:else}
-                     <li>{item}</li>
+                     <li class="text-style-act-cont">{item}</li>
                   {/if}
                 {/each}
               </ul>
@@ -187,9 +187,9 @@
           </div>
         </div>
       </div>
-      <button class="time-container" on:click={handleTimeMenu}>연도 선택</button>
+      <!-- <button class="time-container" on:click={handleTimeMenu}>연도 선택</button> -->
     </div>
-    <div class="year-display">{currentYear}년</div>
+    <div class="year-display" on:click={handleTimeMenu}><span style="margin-left: 10px;">{currentYear}년</span> <span style="margin-left:5px;">〉</span></div>
     <div class="act-container" bind:this={activityContainer}>
       {#each activities as activity, index}
       {#if index === 0 || activities[index - 1].year !== activity.year}
@@ -224,9 +224,9 @@
           <ul class="text-style-act-cont">
             {#each activity.details?.split('\n') as item}
               {#if item?.startsWith('- ')}
-                  <li class="mark">{item?.substring(2)}</li>
+                  <li class="mark text-style-act-cont">{item?.substring(2)}</li>
               {:else}
-                  <li>{item}</li>
+                  <li class="text-style-act-cont">{item}</li>
               {/if}
             {/each}
           </ul>
@@ -259,11 +259,12 @@
 <style>
 .about-btn {
     width: 100%;
-    padding-top: 20px;
+    padding: 10px 0;
     text-align: left;
     text-underline-offset: 5px;
     font-family: var(--font-riu);
     font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .paper-content {
@@ -285,13 +286,13 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin: 20px 0 30px 0;
+  margin: 20px 0 15px 0;
 }
 .club-info-container {
   display: flex;
   height: fit-content;
   align-items: center;
-  gap: 6px;
+  gap: 1rem;
 }
 .club-logo-second {
   width: 84px;
@@ -313,10 +314,9 @@
   line-height: 1;
   color: var(--color-riu-black);
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: baseline;
+  gap: 0.5rem;
   white-space: nowrap;
-  margin-top: 4px;
 }
 .sns-link {
   color: var(--color-riu-black);
@@ -414,13 +414,13 @@
   color: var(--color-riu-black);
 }
 .act-time {
-  font-size: 35px;
+  font-size: 1.7rem;
   width: 13%;
   line-height: 1.4;
-  padding: 5px;
+  padding: 7px 5px;
 }
 .act-title {
-  font-size: 16px;
+  font-size: 1rem;
   word-break: keep-all;
   width: 24%;
   padding: 10px 20px;  
@@ -491,9 +491,6 @@ ul li.mark {
   .club-uni-name {
     margin-bottom: 7px;
   }
-  .act-time {
-    font-size: 28px;
-  }
   .paper-nav__list {
     padding-bottom: 4px;
   }
@@ -506,7 +503,7 @@ ul li.mark {
     padding: 0 5em 0 4em;
   }
   .pc .club-name {
-    font-size: 30px;
+    font-size: 1.7rem;
   }
   .pc .sns-link {
     font-size: 24px;
@@ -557,7 +554,6 @@ ul li.mark {
   .club-info > :nth-child(2) {
     line-height: 22px;
     gap: 6px;
-    margin-top: 8px;
   }
   .club-info > :nth-child(2).smaller,
   .club-info > :nth-child(2) .smaller {
@@ -594,13 +590,17 @@ ul li.mark {
   }
 
   .year-display {
+    cursor: pointer;
     width: 100%;
     text-align: center;
     font-family: var(--font-riu);
     color: var(--color-riu-black);
-    font-size: 20px;
+    font-size: 0.9rem;
     line-height: 26px;
     font-weight: 700;
+    background: #3f375113;
+    padding: 5px 0;
+    border-radius: 10px;
   }
   .act-container {
     width: 100%;

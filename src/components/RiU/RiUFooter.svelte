@@ -24,7 +24,7 @@
         flex-direction: column;
         gap: 10px;
         align-items: center;
-        margin-top: 3rem;
+        margin-top: 2rem;
         padding-bottom: 3rem;
     }
     footer * {

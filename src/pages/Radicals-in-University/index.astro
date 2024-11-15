@@ -3,7 +3,6 @@ import "../../styles/RiU.scss";
 
 import BaseHead from "../../components/BaseHead.astro";
 import ClubList from "../../components/RiU/ClubList.svelte";
-import HyperButton from "../../components/RiU/HyperButton.svelte";
 import RiUFooter from "../../components/RiU/RiUFooter.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Header from "../../components/Header.astro";
@@ -18,7 +17,10 @@ import Header from "../../components/Header.astro";
   data-has-scroll="true|false"
 >
   <head>
-    <BaseHead title={`${SITE_TITLE} - 계보 기록 프로젝트`} description={SITE_DESCRIPTION} />
+    <BaseHead
+      title={`${SITE_TITLE} - 계보 기록 프로젝트`}
+      description={SITE_DESCRIPTION}
+    />
 
     <style>
       .pc {
@@ -77,25 +79,26 @@ import Header from "../../components/Header.astro";
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
-        padding: 6%;
+        padding: 30px 80px;
       }
       .list-title {
         color: var(--color-riu-black);
         opacity: 0.6;
         margin-bottom: 2rem;
         text-align: center;
-        font-size: 20px;
+        font-size: 1rem;
       }
 
       .about-btn {
         width: 100%;
-        padding: 10px;
+        padding: 10px 20px;
         text-align: right;
         text-underline-offset: 5px;
         font-family: var(--font-riu);
         font-weight: 500;
+        font-size: 0.9rem;
       }
 
       @media (max-width: 950px) {
@@ -129,7 +132,8 @@ import Header from "../../components/Header.astro";
 
         .list {
           width: 420px;
-          padding: 8% 6%;
+          justify-content: center;
+          gap: 20px;
           aspect-ratio: 341 / 511;
           background-image: url("/RiU/paper_mobile.png");
         }
