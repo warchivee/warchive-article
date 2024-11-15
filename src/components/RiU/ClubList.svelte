@@ -92,7 +92,6 @@
     @media (max-width: 950px) {
       .list-content {
         grid-template-columns: repeat(3, 1fr);
-        margin-left: 1rem;
         gap: 10px;
       }
       .univ-group {

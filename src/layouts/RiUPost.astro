@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE } from "../consts";
 
 import "../styles/RiU.scss";
 
@@ -20,8 +21,8 @@ const { universityName, clubData } = Astro.props;
 >
   <head>
     <BaseHead
-      title={`${universityName} ${clubData.name}`}
-      description={`Radicals in University: ${universityName} ${clubData.name}`}
+      title={`${SITE_TITLE} - 계보 기록 프로젝트`}
+      description={`계보 기록 프로젝트: ${universityName} ${clubData.name}`}
     />
 
     <style>
@@ -48,9 +49,9 @@ const { universityName, clubData } = Astro.props;
       }
       section {
         width: 100%;
-        height: 100%;
+        height: fit-content;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: scroll;
       }
       section * {
         word-break: break-all;

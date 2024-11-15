@@ -30,11 +30,21 @@
   let selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
 
   let tableElement;
+  let sectionElement;
   function selectYear(year) {
     selectedYear = year;
     selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
     if (tableElement) {
       tableElement.scrollTop = 0;
+      
+      const sectionElement = document.querySelector('section');
+      if (sectionElement) {
+        sectionElement.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }
     }
   }
   function getPeriodValue(period) {
@@ -166,7 +176,7 @@
       <div class="club-info-container">
         <img class="club-logo-mobile" src={logo} alt="{name} 로고"/>
         <div class="club-info">
-          <div class="text-style-university style-university">{universityName}</div>
+          <div class="text-style-university style-university club-uni-name">{universityName}</div>
           <div class="club-name text-style-title {name.length > 15 ? 'smaller' : ''}">
             {name}
             <a class="sns-link {name.length > 15 ? 'smaller' : ''}" href={snsLink} target="_blank"><i class="fa-solid fa-paperclip"></i></a>
@@ -280,27 +290,29 @@
   gap: 6px;
 }
 .club-logo-second {
-  width: 80px;
-  height: 80px;
+  width: 84px;
+  height: 84px;
   border-radius: 10px;
-  margin: 4px 4px 0 0;
   object-fit: contain;
 }
 .club-info {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .club-uni-name {
-  margin-top: 4px;
+  margin-bottom: 1px;
 }
 .club-name {
+  height: fit-content;
   line-height: 1;
   color: var(--color-riu-black);
   display: flex;
   align-items: center;
   gap: 14px;
   white-space: nowrap;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 .sns-link {
   color: var(--color-riu-black);
@@ -380,11 +392,10 @@
   height: calc(100% - 282px);
   overflow-x: hidden;
   overflow-y: auto;
-  margin: 2rem 0;
+  margin: 20px 0;
   padding-right: 0.2rem;
   color: var(--color-riu-black);
   scroll-behavior: smooth;
-  padding-bottom: 20px;
 }
 
 .act {
@@ -431,6 +442,10 @@
   font-family: var(--font-riu);
   color: var(--color-riu-black);
   line-height: 160%;
+  text-align: left;
+  word-break: keep-all;
+  white-space: normal;
+  letter-spacing: -0.5px;
 }
 .act-detail > * {
   width: 50%;
@@ -453,8 +468,6 @@
 }
 .act-intro {
   aspect-ratio: 1 / 1;
-  text-align: justify;
-  word-break: keep-all;
   padding: 10px 15px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -470,6 +483,9 @@ ul li.mark {
 }
 
 @media (max-width: 1050px) {
+  .club-uni-name {
+    margin-bottom: 7px;
+  }
   .act-time {
     font-size: 28px;
   }
@@ -506,9 +522,6 @@ ul li.mark {
     margin: 10px 0;
     align-items: flex-start;
   }
-  .club-logo {
-    display: none;
-  }
   .paper-content {
     position: relative;
     right: 0;
@@ -533,6 +546,7 @@ ul li.mark {
   }
   .club-info > :first-child {
     margin-top: 0;
+    margin-bottom: 2px;
     border-radius: 5px;
   }
   .club-info > :nth-child(2) {
@@ -577,16 +591,15 @@ ul li.mark {
   .year-display {
     width: 100%;
     text-align: center;
-    text-align: center;
     font-family: var(--font-riu);
     color: var(--color-riu-black);
-    font-size: 24px;
+    font-size: 20px;
     line-height: 26px;
-    font-weight: 600;
+    font-weight: 700;
   }
   .act-container {
     width: 100%;
-    height: 38vh;
+    height: calc(100vh - 500px);
     margin-top: 15px;
     overflow-y: auto;
     display: flex;
@@ -661,7 +674,6 @@ ul li.mark {
   .act-detail > :nth-child(2) {
     text-align: left;
     height: fit-content;
-    text-align: justify;
     white-space: pre-line;
   }
 
