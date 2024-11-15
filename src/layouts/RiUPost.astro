@@ -60,8 +60,8 @@ const { universityName, clubData } = Astro.props;
 
       .container {
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
+        flex-direction: column;
         align-items: center;
         width: 90%;
         height: 100%;
@@ -92,17 +92,15 @@ const { universityName, clubData } = Astro.props;
         }
 
         .title-img {
-          max-width: 75%;
-          height: auto;
-          margin-top: 40px;
           min-width: 300px;
+          max-width: 50%;
+          height: auto;
+          margin: 50px 0 40px 0;
         }
 
         .paper {
-          width: 80%;
-          height: auto;
-          padding: 2% 6%;
-          margin: 1rem 0;
+          width: 420px;
+          padding: 8% 6%;
           aspect-ratio: 341 / 511;
           background-image: url("/RiU/paper_mobile.png");
 
@@ -117,12 +115,20 @@ const { universityName, clubData } = Astro.props;
           height: calc(100vh - 43px);
         }
       }
-
       @media (max-width: 460px) {
         .paper {
           width: 100%;
-          height: auto;
-          padding: auto;
+          padding: 10% 8%;
+        }
+      }
+      @media (max-width: 420px) {
+        .about {
+          padding: 6% 8%;
+        }
+      }
+      @media (max-width: 390px) {
+        .about {
+          padding: 6%;
         }
       }
     </style>
@@ -145,7 +151,7 @@ const { universityName, clubData } = Astro.props;
               clubData={clubData}
             />
           </div>
-          <div class="">
+          <div class="mobile">
             <RiUFooter />
           </div>
         </div>

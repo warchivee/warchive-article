@@ -127,6 +127,7 @@ import Header from "../../components/Header.astro";
         }
 
         main {
+          height: calc(100vh - 43px);
           background-image: url("/RiU/background_mobile.png");
         }
 
@@ -140,12 +141,6 @@ import Header from "../../components/Header.astro";
         .list-title {
           margin: 1rem;
           font-size: 14px;
-        }
-      }
-
-      @media (max-width: 950px) {
-        main {
-          height: calc(100vh - 43px);
         }
       }
 

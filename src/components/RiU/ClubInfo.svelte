@@ -565,31 +565,6 @@ ul li.mark {
     font-size: 15px;
     margin-top: 1px;
   }
-  .time-container {
-    position: absolute;
-    top: 55px;
-    right: 0;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    background: none;
-    cursor: pointer;
-    width: fit-content;
-    white-space: nowrap;
-    font-family: var(--font-riu);
-    color: var(--color-riu-black);
-    font-size: 12px;
-    border: 1px var(--color-riu-gray) solid;
-    border-radius: 5px;
-    padding: 1.5px 6px 1.5px 4px;
-    margin-top: 2px;
-    transition: 0.1s ease-in-out;
-  }
-  .time-container:hover {
-    background-color: var(--color-riu-black);
-    color: var(--color-riu-white);
-  }
 
   .year-display {
     cursor: pointer;
@@ -606,7 +581,7 @@ ul li.mark {
   }
   .act-container {
     width: 100%;
-    height: 40vh;
+    height: 30vh;
     margin-top: 15px;
     overflow-y: auto;
     display: flex;
@@ -714,6 +689,13 @@ ul li.mark {
     top: 16px;
     left: 20px;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 600px) {
+  
+  .act-container {
+    aspect-ratio: 1 / 1;
   }
 }
 </style>
