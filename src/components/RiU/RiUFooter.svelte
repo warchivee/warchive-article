@@ -26,6 +26,7 @@
         align-items: center;
         margin-top: 2rem;
         padding-bottom: 8rem;
+        transform: translateZ(0);
     }
     footer * {
         color: var(--color-riu-black);

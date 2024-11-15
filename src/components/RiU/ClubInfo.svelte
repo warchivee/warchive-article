@@ -193,7 +193,7 @@
     <div class="act-container" bind:this={activityContainer}>
       {#each activities as activity, index}
       {#if index === 0 || activities[index - 1].year !== activity.year}
-        <div class="year-divider" bind:this={yearRefs[activity.year]}>{activity.year}</div>
+        <div class="year-divider" bind:this={yearRefs[activity.year]}></div>
       {/if}
       <div class="act">
         <div class="act-image-container">
@@ -229,7 +229,7 @@
             {/each}
           </ul>
           {#if index === 0 || activities[index - 1].year !== activity.year}
-            <div class="year-divider" bind:this={yearHyper[activity.year]}>{activity.year}</div>
+            <div class="year-divider" bind:this={yearHyper[activity.year]}></div>
           {/if}
         </div>
       </div>
