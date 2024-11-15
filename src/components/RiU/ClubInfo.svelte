@@ -30,21 +30,12 @@
   let selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
 
   let tableElement;
-  let sectionElement;
   function selectYear(year) {
     selectedYear = year;
     selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
     if (tableElement) {
       tableElement.scrollTop = 0;
-      
-      const sectionElement = document.querySelector('section');
-      if (sectionElement) {
-        sectionElement.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        });
-      }
+      resetScreenPosition();
     }
   }
   function getPeriodValue(period) {
@@ -57,6 +48,18 @@
     }
   }
   
+  let sectionElement;
+  function resetScreenPosition() {
+    const sectionElement = document.querySelector('section');
+    if (sectionElement) {
+      sectionElement.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
+  }
+
   // Functions for Mobile UI
   let openMenu = false;
   function handleTimeMenu() {
@@ -66,6 +69,7 @@
   function selectYearMobile(year) {
     selectedYear = year;
     handleTimeMenu();
+    resetScreenPosition();
     yearRefs[year]?.scrollIntoView({
       behavior: 'smooth',
       block: 'start'
@@ -389,11 +393,12 @@
 
 .paper-table {
   width: 100%;
-  height: calc(100% - 282px);
+  height: calc(100% - 300px);
   overflow-x: hidden;
   overflow-y: auto;
   margin: 20px 0;
   padding-right: 0.2rem;
+  padding-bottom: 1rem;
   color: var(--color-riu-black);
   scroll-behavior: smooth;
 }
@@ -599,7 +604,7 @@ ul li.mark {
   }
   .act-container {
     width: 100%;
-    height: calc(100vh - 500px);
+    height: 40vh;
     margin-top: 15px;
     overflow-y: auto;
     display: flex;
@@ -675,6 +680,9 @@ ul li.mark {
     text-align: left;
     height: fit-content;
     white-space: pre-line;
+  }
+  .act-detail > ul > li {
+    font-size: 14px;
   }
 
   .time-menu {
