@@ -48,7 +48,6 @@
     }
   }
   
-  let sectionElement;
   function resetScreenPosition() {
     const sectionElement = document.querySelector('section');
     if (sectionElement) {
@@ -65,30 +64,31 @@
   function handleTimeMenu() {
     openMenu = !openMenu;
   }
-  let yearRefs = {};
+  let yearHyper = {};
   function selectYearMobile(year) {
     selectedYear = year;
+    selectedActivities = activities.filter(activity => Number(activity.year) === selectedYear);
     handleTimeMenu();
-    resetScreenPosition();
-    yearRefs[year]?.scrollIntoView({
+    yearHyper[year]?.scrollIntoView({
       behavior: 'smooth',
-      block: 'start'
+      block: 'end'
     });
   }
 
+  let yearRefs = {};
   let activityContainer;
-  const offsetMargin = 190;
+  const offsetMargin = 300;
   let currentYear = activities[0]?.year || "";
   function updateYear() {
-    const scrollPosition = activityContainer.scrollTop;
+    const scrollPosition = activityContainer.scrollTop + offsetMargin;
     const yearPositions = Object.keys(yearRefs).map(year => ({
       year,
       offsetTop: yearRefs[year]?.offsetTop
     }));
     const currentYearData = yearPositions.find(
       (pos, i) =>
-        pos.offsetTop - offsetMargin <= scrollPosition && 
-        (!yearPositions[i + 1] || yearPositions[i + 1].offsetTop - offsetMargin > scrollPosition)
+        scrollPosition >= pos.offsetTop &&
+        (i === yearPositions.length - 1 || scrollPosition < yearPositions[i + 1].offsetTop)
     );
     if (currentYearData) {
       currentYear = currentYearData.year;
@@ -193,9 +193,8 @@
     <div class="act-container" bind:this={activityContainer}>
       {#each activities as activity, index}
       {#if index === 0 || activities[index - 1].year !== activity.year}
-        <div class="year-divider" bind:this={yearRefs[activity.year]}></div>
+        <div class="year-divider" bind:this={yearRefs[activity.year]}>{activity.year}</div>
       {/if}
-
       <div class="act">
         <div class="act-image-container">
           <img 
@@ -203,7 +202,6 @@
             src="{activity.image ? imgPath + activity.image: logo}"
             alt="{activity.title} 이미지" />
         </div>
-         
         <div class="act-detail"> 
           <div class="text-style-act-name highlight">
             <span>
@@ -230,8 +228,12 @@
               {/if}
             {/each}
           </ul>
+          {#if index === 0 || activities[index - 1].year !== activity.year}
+            <div class="year-divider" bind:this={yearHyper[activity.year]}>{activity.year}</div>
+          {/if}
         </div>
       </div>
+      
       {/each}
     </div>
   </div>
@@ -247,7 +249,7 @@
       {#each years as year}
         <button
           class="nav-year text-style-act-name {selectedYear === year ? 'selected' : ''}"
-          on:click={() => {selectYearMobile(year); console.log(selectedYear, year)}}
+          on:click={() => selectYearMobile(year)}
         >
           {year}
         </button>
@@ -393,12 +395,12 @@
 
 .paper-table {
   width: 100%;
-  height: calc(100% - 300px);
+  height: calc(100% - 350px);
   overflow-x: hidden;
   overflow-y: auto;
-  margin: 20px 0;
+  margin: 20px 0 50px 0;
   padding-right: 0.2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 6rem;
   color: var(--color-riu-black);
   scroll-behavior: smooth;
 }

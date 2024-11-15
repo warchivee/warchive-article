@@ -33,7 +33,6 @@
   </button>
 </div>
 
-
 <div class={`menu${isMenuOpen ? ' open' : ''}`} on:click={toggleMenu}>
     <div class="menu-container" on:click={stopPropagation} aria-hidden="true">
         <div class="menu-header">
@@ -127,7 +126,7 @@
     justify-content: center;
     align-items: center;
   }
-  .menu-info h2 {
+  .menu-info a {
     margin: 0;
     font-size: 3em;
     font-weight: 1000;

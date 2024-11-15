@@ -25,7 +25,7 @@
         gap: 10px;
         align-items: center;
         margin-top: 2rem;
-        padding-bottom: 3rem;
+        padding-bottom: 8rem;
     }
     footer * {
         color: var(--color-riu-black);
