@@ -99,8 +99,10 @@ const { universityName, clubData } = Astro.props;
         }
 
         .paper {
-          width: 420px;
-          padding: 8% 6%;
+          width: 80%;
+          height: auto;
+          padding: 2% 6%;
+          margin: 1rem 0;
           aspect-ratio: 341 / 511;
           background-image: url("/RiU/paper_mobile.png");
 
@@ -118,17 +120,8 @@ const { universityName, clubData } = Astro.props;
       @media (max-width: 460px) {
         .paper {
           width: 100%;
-          padding: 10% 8%;
-        }
-      }
-      @media (max-width: 420px) {
-        .about {
-          padding: 6% 8%;
-        }
-      }
-      @media (max-width: 390px) {
-        .about {
-          padding: 6%;
+          height: auto;
+          padding: auto;
         }
       }
     </style>

@@ -581,7 +581,7 @@ ul li.mark {
   }
   .act-container {
     width: 100%;
-    height: 30vh;
+    height: 70vw;
     margin-top: 15px;
     overflow-y: auto;
     display: flex;
@@ -689,13 +689,6 @@ ul li.mark {
     top: 16px;
     left: 20px;
     cursor: pointer;
-  }
-}
-
-@media (max-width: 600px) {
-  
-  .act-container {
-    aspect-ratio: 1 / 1;
   }
 }
 </style>
