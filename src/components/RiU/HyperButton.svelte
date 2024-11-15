@@ -51,6 +51,9 @@
   }
 
   @media (max-width: 1100px) {
+    a.cling {
+      right: -2rem;
+    }
     a.away {
       position: fixed;
       right: -4rem;
@@ -77,7 +80,7 @@
       right: -8%;
       bottom: -8%;
     }
-
+    
     a.away {
       position: absolute;
       right: -8%;

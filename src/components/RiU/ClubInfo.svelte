@@ -300,6 +300,9 @@
     display: flex;
     flex-direction: column;
 }
+.club-uni-name {
+  margin-top: 4px;
+}
 .club-name {
   line-height: 1;
   color: var(--color-riu-black);
@@ -350,7 +353,8 @@
     color: var(--color-riu-white);
     background-color: var(--color-riu-black);
     border-radius: 10px;
-    padding: 2px 12px;
+    padding: 1px 12px 2px 12px;
+    line-height: 28px;
 }
 .nav-year {
     color: var(--color-riu-black);
@@ -408,6 +412,7 @@
   width: 13%;
   line-height: 1.4;
   padding: 5px;
+  white-space: nowrap;
 }
 .act-title {
   font-size: 16px;
@@ -436,6 +441,7 @@
 .act-detail * {
   font-family: var(--font-riu);
   color: var(--color-riu-black);
+  line-height: 160%;
 }
 .act-detail > * {
   width: 50%;
@@ -475,6 +481,9 @@ ul li.mark {
 }
 
 @media (max-width: 1000px) {
+  .act-time {
+    font-size: 28px;
+  }
   .paper-nav__list {
     padding-bottom: 4px;
   }
@@ -496,12 +505,12 @@ ul li.mark {
     font-size: 24px;
   }
   .club-name.smaller {
-    font-size: 20px;
-    gap: 10px;
+    font-size: 18px;
+    gap: 6px;
   }
   .sns-link.smaller {
-    font-size: 18px;
-    margin-top: 2px;
+    font-size: 14px;
+    margin-top: 3px;
   }
 }
 

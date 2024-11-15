@@ -6,6 +6,7 @@
   --color-riu-black: #3f3751;
   --color-riu-white: #f2f2f2;
   --color-riu-gray: #3f375188;
+  --color-riu-light-gray: #3f375144;
 }
 
 html {
@@ -76,23 +77,28 @@ section {
   background-color: var(--color-riu-black);
   border-radius: 10px;
   padding: 5px 12px;
-  margin-top: 10px;
   white-space: nowrap;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-riu-black);
+  background-color: var(--color-riu-light-gray);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+@media (max-width: 1000px) {
+  .text-style-university {
+    font-size: 14px;
+  }
 }
 
 // mobile

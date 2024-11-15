@@ -38,7 +38,8 @@
       height: fit-content;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 4px 30px;
+      gap: 12px 30px;
+      margin-top: 10px;
     }
     .univ-group {
       max-width: 150px;
@@ -76,9 +77,12 @@
    
     @media (max-width: 870px) {
       .list-content {
-        gap: 10px;
+        gap: 6px 12px;
+        margin-top: 0;
       }
-
+      .univ-group {
+        max-width: 130px;
+      }
       .club-list {
         font-size: 14px;
       }
@@ -89,6 +93,7 @@
       .list-content {
         grid-template-columns: repeat(3, 1fr);
         margin-left: 1rem;
+        gap: 10px;
       }
       .univ-group {
         max-width: 110px;
