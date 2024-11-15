@@ -75,7 +75,7 @@
         background-size: 100% 2px;
     }
    
-    @media (max-width: 870px) {
+    @media (max-width: 950px) {
       .list-content {
         gap: 6px 12px;
         margin-top: 0;
@@ -89,7 +89,7 @@
     }
 
     /* mobile */
-    @media (max-width: 750px) {
+    @media (max-width: 950px) {
       .list-content {
         grid-template-columns: repeat(3, 1fr);
         margin-left: 1rem;

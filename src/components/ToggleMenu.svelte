@@ -50,7 +50,7 @@
             <a class="sub menu-item" href="/Radicals-in-University" target="_self">Radicals in University</a>            
             <hr class="menu-hr" />
             <a href="https://www.womynarchive.com/" target="_blank">
-                <img src="../../public/android-icon-36x36.png" alt="와카이브 로고">
+                <img src="/android-icon-36x36.png" alt="와카이브 로고">
                 여성서사 아카이빙 프로젝트 와카이브
             </a>
         </div>

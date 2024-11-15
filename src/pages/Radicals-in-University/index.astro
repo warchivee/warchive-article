@@ -89,6 +89,15 @@ import Header from "../../components/Header.astro";
         font-size: 20px;
       }
 
+      .about-btn {
+        width: 100%;
+        padding: 10px;
+        text-align: right;
+        text-underline-offset: 5px;
+        font-family: var(--font-riu);
+        font-weight: 500;
+      }
+
       @media (max-width: 950px) {
         .list {
           padding: 4%;
@@ -97,7 +106,8 @@ import Header from "../../components/Header.astro";
           margin-bottom: 1rem;
         }
       }
-      @media (max-width: 870px) {
+
+      @media (max-width: 950px) {
         .list-title {
           font-size: 18px;
           margin-bottom: 0.6rem;
@@ -105,7 +115,7 @@ import Header from "../../components/Header.astro";
       }
 
       /* mobile */
-      @media (max-width: 750px) {
+      @media (max-width: 950px) {
         .pc {
           display: none;
         }
@@ -129,7 +139,7 @@ import Header from "../../components/Header.astro";
         }
       }
 
-      @media (max-width: 720px) {
+      @media (max-width: 950px) {
         main {
           height: calc(100vh - 43px);
         }
@@ -164,9 +174,13 @@ import Header from "../../components/Header.astro";
             <div class="list-title text-style-title pc">
               동아리 이름을 클릭하여 연도별 활동 기록을 볼 수 있습니다.
             </div>
-            <div class="list-title text-style-title mobile">동아리 목록</div>
+            <div class="list-title text-style-title mobile">
+              동아리 이름을 클릭하여<br />연도별 활동 기록을 볼 수 있습니다.
+            </div>
             <ClubList client:load />
-            <HyperButton imgSrc="button_intro.png" href="about" cling={true} />
+            <div class="about-btn">
+              <a href={`/Radicals-in-University/about`}>프로젝트 소개 →</a>
+            </div>
           </div>
           <RiUFooter />
         </div>

@@ -63,7 +63,7 @@
   }
 
   let activityContainer;
-  const offsetMargin = 150;
+  const offsetMargin = 190;
   let currentYear = activities[0]?.year || "";
   function updateYear() {
     const scrollPosition = activityContainer.scrollTop;
@@ -87,12 +87,11 @@
 
 </script>
 
-  <div class="club-logo">
-    <img src={logo} alt="{name} 로고"/>
-  </div>
-  <div class="paper-content pc">
-   <HyperButton imgSrc="button_back.png" href="" cling={false} />
-
+<div class="paper-content pc">
+   <!-- <HyperButton imgSrc="button_back.png" href="" cling={false} /> -->
+      <div class="about-btn">
+        <a href={`/Radicals-in-University/`}>← 돌아가기</a>
+      </div>
       <div class="paper-header">
         <div class="club-info-container">
           <img class="club-logo-second" src={logo} alt="{name} 로고"/>
@@ -159,8 +158,10 @@
       </div>
   </div>
   <div class="paper-content mobile">
-   <HyperButton imgSrc="button_back.png" href="" cling={false} />
-
+    <!-- <HyperButton imgSrc="button_back.png" href="" cling={false} /> -->
+    <div class="about-btn">
+        <a href={`/Radicals-in-University/`}>← 돌아가기</a>
+      </div>
     <div class="paper-header">
       <div class="club-info-container">
         <img class="club-logo-mobile" src={logo} alt="{name} 로고"/>
@@ -242,23 +243,13 @@
 {/if}
 
 <style>
-.club-logo {
-  position: absolute;
-  left: 1.4rem;
-  top: 26%;
-  width: auto;
-  height: 16%;
-  aspect-ratio: 1 / 1;
-  border-radius: 100%;
-  display: flex;
-  overflow: hidden;
-}
-.club-logo img {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  background-color: var(--color-riu-black);
-  object-fit: cover;
+.about-btn {
+    width: 100%;
+    padding-top: 20px;
+    text-align: left;
+    text-underline-offset: 5px;
+    font-family: var(--font-riu);
+    font-weight: 600;
 }
 
 .paper-content {
@@ -280,7 +271,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin: 30px 0;
+  margin: 20px 0 30px 0;
 }
 .club-info-container {
   display: flex;
@@ -289,7 +280,6 @@
   gap: 6px;
 }
 .club-logo-second {
-  display: none;
   width: 80px;
   height: 80px;
   border-radius: 10px;
@@ -412,7 +402,6 @@
   width: 13%;
   line-height: 1.4;
   padding: 5px;
-  white-space: nowrap;
 }
 .act-title {
   font-size: 16px;
@@ -480,7 +469,7 @@ ul li.mark {
   text-indent: 0;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
   .act-time {
     font-size: 28px;
   }
@@ -494,9 +483,6 @@ ul li.mark {
     top: 66px;
     left: 0;
     padding: 0 5em 0 4em;
-  }
-  .club-logo-second {
-    display: block;
   }
   .pc .club-name {
     font-size: 30px;
@@ -515,7 +501,7 @@ ul li.mark {
 }
 
 /* mobile */
-@media (max-width: 750px) {
+@media (max-width: 900px) {
   .paper-header {
     margin: 10px 0;
     align-items: flex-start;
@@ -563,6 +549,9 @@ ul li.mark {
     margin-top: 1px;
   }
   .time-container {
+    position: absolute;
+    top: 55px;
+    right: 0;
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -597,7 +586,7 @@ ul li.mark {
   }
   .act-container {
     width: 100%;
-    height: 42vh;
+    height: 38vh;
     margin-top: 15px;
     overflow-y: auto;
     display: flex;

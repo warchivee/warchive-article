@@ -50,7 +50,7 @@ const { universityName, clubData } = Astro.props;
         width: 100%;
         height: 100%;
         overflow-x: hidden;
-        overflow-y: hidden;
+        overflow-y: auto;
       }
       section * {
         word-break: break-all;
@@ -70,7 +70,7 @@ const { universityName, clubData } = Astro.props;
       .paper {
         height: 100%;
         aspect-ratio: 1920 / 1050; /* 1920 / 1080 */
-        background-image: url("/RiU/paper_big_web.png");
+        background-image: url("/RiU/web.png");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -78,7 +78,7 @@ const { universityName, clubData } = Astro.props;
       }
 
       /* mobile */
-      @media (max-width: 750px) {
+      @media (max-width: 900px) {
         .pc {
           display: none;
         }
@@ -99,7 +99,7 @@ const { universityName, clubData } = Astro.props;
         .paper {
           width: 420px;
           height: auto;
-          padding: 6% 6% 0 6%;
+          padding: 2% 6%;
           margin: 1rem 0;
           aspect-ratio: 341 / 511;
           background-image: url("/RiU/paper_mobile.png");
@@ -118,7 +118,7 @@ const { universityName, clubData } = Astro.props;
         .paper {
           width: 100%;
           height: auto;
-          padding: 4% 6% 0 6%;
+          padding: auto;
         }
       }
     </style>
