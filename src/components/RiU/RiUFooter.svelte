@@ -42,6 +42,7 @@
         height: 25px;
         width: 25px;  
         border-radius: 5px;
+        padding: 1px 1px 0 0;
         background-color: var(--color-riu-black); 
     }
     .footer-sns a i {

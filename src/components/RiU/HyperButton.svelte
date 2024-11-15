@@ -6,7 +6,7 @@
 
 <a href={`/Radicals-in-University/${href}`} class={cling ? "cling" : "away"}>
   <img
-    src={`../../../../public/RiU/${imgSrc}`}
+    src={`/RiU/${imgSrc}`}
     alt="이미지"
     class={imgSrc === "button_intro.png" ? "bigger" : ""}
   />
