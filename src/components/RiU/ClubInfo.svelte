@@ -546,7 +546,6 @@ ul li.mark {
     height: 60px;
     border-radius: 5px;
     object-fit: cover;
-    background-color: var(--color-riu-black);
   }
   .club-info > :first-child {
     margin-top: 0;
