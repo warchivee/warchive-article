@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import Loading from "../Loading.svelte";
 
-  import posts from "../../../public/RiU/result.json";
+  import posts from "../../../public/RiU/riu/output/results.json";
 
   function sortPostsByName(data) {
     const sortedUniversities = Object.entries(data)
