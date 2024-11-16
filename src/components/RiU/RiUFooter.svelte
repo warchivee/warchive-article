@@ -25,7 +25,7 @@
         gap: 10px;
         align-items: center;
         margin-top: 2rem;
-        padding-bottom: calc(1vh + 10vw);
+        padding-bottom: calc(2vh + 8vw);
         transform: translateZ(0);
     }
     footer * {
