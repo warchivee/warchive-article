@@ -395,7 +395,7 @@
 
 .paper-table {
   width: 100%;
-  height: calc(100% - 350px);
+  height: calc(100% - 300px);
   overflow-x: hidden;
   overflow-y: auto;
   margin: 20px 0 50px 0;
