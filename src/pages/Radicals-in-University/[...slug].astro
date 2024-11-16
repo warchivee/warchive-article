@@ -1,0 +1,27 @@
+---
+import posts from '../../../public/RiU/result.json';
+import RiUPost from '../../layouts/RiUPost.astro';
+
+const pathParts = Astro.url.pathname.split("/");
+const universityName = pathParts[2];
+const clubName = pathParts[3];
+
+if (!universityName || !clubName) {
+  return Astro.redirect("/404");
+}
+
+const universityData = posts[universityName as keyof typeof posts];
+if (!universityData) {
+  return Astro.redirect("/404");
+}
+
+const clubData = universityData.groups[clubName as keyof typeof universityData.groups];
+if (!clubData) {
+  return Astro.redirect("/404");
+}
+
+---
+<RiUPost
+  universityName={universityData.name}
+  clubData={clubData}
+/>

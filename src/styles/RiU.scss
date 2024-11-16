@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&display=swap");
+
+:root {
+  --font-riu: "Noto Serif KR", serif;
+
+  --color-riu-black: #3f3751;
+  --color-riu-white: #f2f2f2;
+  --color-riu-gray: #3f375188;
+  --color-riu-light-gray: #3f375144;
+}
+
+html {
+  overflow: hidden;
+}
+
+section {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.text-style-title,
+.text-style-project,
+.text-style-university,
+.text-style-club,
+.text-style-year,
+.text-style-act-name,
+.text-style-act-cont {
+  font-family: var(--font-riu);
+}
+
+.text-style-title {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0%;
+}
+
+.text-style-project {
+  font-weight: 500;
+  font-size: 18px; /* 24px */
+  letter-spacing: 0%;
+  line-height: 180%;
+}
+
+.text-style-university {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0%;
+}
+
+.text-style-club {
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0%;
+}
+
+.text-style-year {
+  font-weight: 300;
+  font-size: 24px;
+  letter-spacing: -5%;
+}
+
+.text-style-act-name {
+  font-weight: 700;
+  font-size: 18px; /* 24px */
+  letter-spacing: -5%;
+}
+
+.text-style-act-cont {
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: -5%;
+}
+
+.style-university {
+  width: fit-content;
+  color: var(--color-riu-white);
+  background-color: var(--color-riu-black);
+  border-radius: 10px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-riu-light-gray);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+// mobile
+@media (max-width: 950px) {
+  .text-style-title {
+    font-size: 20px;
+  }
+
+  .text-style-project {
+    font-size: 14px;
+  }
+
+  .text-style-university {
+    font-size: 12px;
+  }
+
+  .text-style-year {
+    font-size: 16px;
+  }
+
+  .text-style-act-name {
+    font-size: 16px;
+  }
+
+  .text-style-act-cont {
+    font-size: 0.8rem;
+  }
+
+  .style-university {
+    border-radius: 5px;
+    padding: 3px 6px;
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,154 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE } from "../consts";
+
+import "../styles/RiU.scss";
+
+import RiUFooter from "../components/RiU/RiUFooter.svelte";
+import ClubInfo from "../components/RiU/ClubInfo.svelte";
+import Header from "../components/Header.astro";
+
+const { universityName, clubData } = Astro.props;
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead
+      title={`${SITE_TITLE} - 계보 기록 프로젝트`}
+      description={`계보 기록 프로젝트: ${universityName} ${clubData.name}`}
+    />
+
+    <style>
+      .pc {
+        display: block;
+      }
+      .mobile {
+        display: none;
+      }
+
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      main {
+        height: calc(100vh - 66px);
+        background-image: url("/RiU/background_web.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      section {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+      }
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        height: 100%;
+        max-width: 1000px;
+      }
+
+      .paper {
+        height: 100%;
+        aspect-ratio: 1920 / 1050; /* 1920 / 1080 */
+        background-image: url("/RiU/web.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+      }
+
+      /* mobile */
+      @media (max-width: 900px) {
+        .pc {
+          display: none;
+        }
+        .mobile {
+          display: block;
+        }
+
+        main {
+          background-image: url("/RiU/background_mobile.png");
+        }
+
+        .title-img {
+          min-width: 300px;
+          max-width: 50%;
+          height: auto;
+          margin: 50px 0 40px 0;
+        }
+
+        .paper {
+          width: 80%;
+          height: auto;
+          padding: 2% 6%;
+          margin: 1rem 0;
+          aspect-ratio: 341 / 511;
+          background-image: url("/RiU/paper_mobile.png");
+
+          background-size: cover;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 720px) {
+        main {
+          height: calc(100vh - 43px);
+        }
+      }
+      @media (max-width: 460px) {
+        .paper {
+          width: 100%;
+          height: auto;
+          padding: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <section>
+        <div class="container">
+          <img
+            src="/RiU/title.png"
+            alt="Radicals in University"
+            class="title-img mobile"
+          />
+          <div class="paper">
+            <ClubInfo
+              client:load
+              universityName={universityName}
+              clubData={clubData}
+            />
+          </div>
+          <div class="mobile">
+            <RiUFooter />
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

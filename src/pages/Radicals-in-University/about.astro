@@ -1,0 +1,368 @@
+---
+import "../../styles/RiU.scss";
+
+import BaseHead from "../../components/BaseHead.astro";
+import RiUFooter from "../../components/RiU/RiUFooter.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import HyperButton from "../../components/RiU/HyperButton.svelte";
+import Header from "../../components/Header.astro";
+---
+
+<!doctype html>
+<html
+  lang="en"
+  data-is-scrolling-up="true|false"
+  data-is-bottom="true|false"
+  data-is-top="true|false"
+  data-has-scroll="true|false"
+>
+  <head>
+    <BaseHead
+      title={`${SITE_TITLE} - 계보 기록 프로젝트`}
+      description={SITE_DESCRIPTION}
+    />
+
+    <style>
+      .pc {
+        display: block;
+      }
+      .mobile {
+        display: none;
+      }
+
+      main,
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      main {
+        height: calc(100vh - 66px);
+        background-image: url("/RiU/background_web.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      section {
+        width: 100%;
+        height: fit-content;
+        overflow-x: hidden;
+      }
+      section * {
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        height: 100%;
+        max-width: 1000px;
+      }
+      .title-img {
+        min-width: 300px;
+        max-width: 50%;
+        height: auto;
+        margin: 50px 0 40px 0;
+      }
+      .about {
+        width: 100%;
+        aspect-ratio: 1072 / 714;
+        background-image: url("/RiU/paper_web.png");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px 100px;
+      }
+      .about-title {
+        color: var(--color-riu-black);
+        margin: 10px 0;
+        font-weight: 800;
+        text-align: center;
+        font-size: 20px;
+      }
+
+      .about-content {
+        color: var(--color-riu-black);
+        text-align: center;
+        font-size: 16px;
+      }
+      .about-content span {
+        display: inline-block;
+      }
+      .about-content span a.warchive {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0 5px;
+        cursor: pointer;
+      }
+      .about-content span a.warchive i {
+        margin-left: 5px;
+      }
+      .about-content span a.warchive:after {
+        display: block;
+        content: "";
+        border-bottom: 1px solid var(--color-riu-black);
+        transform: scaleX(0);
+        transform-origin: top left;
+        transition: transform 250ms ease-in-out;
+      }
+      .about-content span a.warchive:hover:after {
+        transform: scaleX(1);
+      }
+      .about-content hr {
+        border: none;
+        margin: 0.8rem;
+      }
+
+      .about-footer {
+        background: #3f375128;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--color-riu-black);
+      }
+
+      .sns {
+        display: flex;
+        flex-wrap: wrap;
+        text-decoration: none;
+      }
+
+      .sns div:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      .about-footer b {
+        font-weight: bold;
+      }
+      .about-footer hr {
+        border: none;
+        margin: 0.2rem;
+      }
+
+      .about-btn {
+        width: 100%;
+        padding: 10px;
+        text-align: right;
+        text-underline-offset: 5px;
+        font-family: var(--font-riu);
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      /* mobile */
+      @media (max-width: 950px) {
+        .pc {
+          display: none;
+        }
+        .mobile {
+          display: block;
+        }
+
+        main {
+          background-image: url("/RiU/background_mobile.png");
+        }
+        section * {
+          word-break: keep-all;
+        }
+
+        .about {
+          width: 420px;
+          padding: 8% 6%;
+          aspect-ratio: 341 / 511;
+          background-image: url("/RiU/paper_mobile.png");
+        }
+        .about > div:first-child > :nth-child(4) {
+          text-align: justify;
+        }
+        .about-title {
+          margin-bottom: 20px;
+        }
+        .about-content {
+          text-align: left;
+          font-size: 0.8rem;
+        }
+        .about-content hr {
+          margin: 0.4rem;
+        }
+        .about-footer {
+          text-align: left;
+          text-align: justify;
+          margin-top: 10px;
+        }
+        .sns {
+          display: block;
+        }
+      }
+      @media (max-width: 720px) {
+        main {
+          height: calc(100vh - 43px);
+        }
+      }
+
+      @media (max-width: 460px) {
+        .about {
+          width: 100%;
+          padding: 10% 8%;
+        }
+        .about-content hr {
+          margin: 0.6rem;
+        }
+        .about-footer {
+          font-size: 10px;
+        }
+      }
+      @media (max-width: 420px) {
+        .about {
+          padding: 6% 8%;
+        }
+        .about-content {
+          font-size: 3vw;
+        }
+        .about-content hr {
+          margin: 0.4rem;
+        }
+        .about-footer {
+          font-size: 2.5vw;
+        }
+      }
+      @media (max-width: 390px) {
+        .about {
+          padding: 6%;
+        }
+        .about-content hr {
+          margin: 0rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <div class="container">
+          <img
+            src="/RiU/title.png"
+            alt="Radicals in University"
+            class="title-img"
+          />
+          <div class="about">
+            <div>
+              <div class="about-title text-style-title pc">
+                대학 내 래디컬 계보 기록 프로젝트는...
+              </div>
+              <div class="about-title text-style-title mobile">
+                프로젝트 소개
+              </div>
+              <div class="about-content text-style-project pc">
+                대학은 많은 청년들이 입시에서 벗어나 처음으로 접하는 작은
+                사회이다.<br />
+                그들이 재미도 스펙도 아닌, 여성주의라는 가치를 주체적으로 선택하여<br
+                />
+                동아리라는 형태로 많은 이들에게 여성주의를 전파하고 탐구하고자 한
+                노력은 <br />
+                한국 여성주의 역사에서 큰 의미를 지니며 반드시 기록되어야 할 역사이다.<br
+                />
+                그러나 많은 동아리가 수년 내에 사라지며 그들의 활동 역시 잊히고 있다.<br
+                />
+                <hr />
+                이에 <span>
+                  <a
+                    class="warchive"
+                    href="https://www.womynarchive.com/"
+                    target="_blank"
+                  >
+                    <span
+                      >여성서사 아카이브 프로젝트 Warchive
+                      <i class="fa-solid fa-arrow-up-right-from-square"
+                      ></i></span
+                    >
+                  </a>
+                </span>
+                는 각 동아리와 협력하여<br />
+                그들의 활동 기록을 수집・보존하고, 이를 웹사이트를 통해 공유함으로써<br
+                />
+                한국 여성주의 운동의 중요한 순간들을 남기고자 한다.
+              </div>
+
+              <div class="about-content text-style-project mobile">
+                대학은 많은 청년들이 입시에서 벗어나 처음으로 접하는 작은
+                사회이다. 그들이 재미도 스펙도 아닌, 여성주의라는 가치를
+                주체적으로 선택하여 동아리라는 형태로 많은 이들에게 여성주의를
+                전파하고 탐구하고자 한 노력은 한국 여성주의 역사에서 큰 의미를
+                지니며 반드시 기록되어야 할 역사이다. 그러나 많은 동아리가 수년
+                내에 사라지며 그들의 활동 역시 잊히고 있다.
+                <hr />
+                이에 <span>
+                  <a
+                    class="warchive"
+                    href="https://www.womynarchive.com/"
+                    target="_blank"
+                  >
+                    <span
+                      >여성서사 아카이브 프로젝트 Warchive
+                      <i class="fa-solid fa-arrow-up-right-from-square"
+                      ></i></span
+                    >
+                  </a>
+                </span>
+                는 각 동아리와 협력하여 그들의 활동 기록을 수집・보존하고, 이를 웹사이트를
+                통해 공유함으로써 한국 여성주의 운동의 중요한 순간들을 남기고자 한다.
+              </div>
+            </div>
+
+            <div class="about-footer pc">
+              현재 동아리 존폐 여부와 관계없이<br />
+              래디컬 여성주의 활동을 하는 동아리(학회, 소모임, 준동아리 등)에 대한
+              제보를 기다립니다.<br />
+
+              특히 활동을 종료한 동아리의 경우, 관계자분들과 연락이 닿기 어려워<br
+              />
+              연락처를 알고 계시거나 관계자이신 분들의 연락을 간절히 기다리고 있습니다.<br
+              />
+
+              래디컬 계보 기록 프로젝트에 함께하고자 하는 많은 분들의 참여를
+              부탁드립니다.<br />
+              <hr />
+              <div class="sns">
+                <div><b>e-mail |</b> team.warchive@gmail.com</div>
+                <div><b>X(twitter) |</b> @womynarchive</div>
+                <div><b>Instagram |</b> @womynarchive</div>
+              </div>
+            </div>
+            <div class="about-footer mobile">
+              현재 동아리 존폐 여부와 관계없이 래디컬 여성주의 활동을 하는
+              동아리(학회, 소모임, 준동아리 등)에 대한 제보를 기다립니다. 특히
+              활동을 종료한 동아리의 경우, 관계자분들과 연락이 닿기 어려워
+              연락처를 알고 계시거나 관계자이신 분들의 연락을 간절히 기다리고
+              있습니다. 래디컬 계보 기록 프로젝트에 함께하고자 하는 많은 분들의
+              참여를 부탁드립니다.
+              <hr />
+              <div class="sns">
+                <div><b>e-mail |</b> team.warchive@gmail.com</div>
+                <div><b>X(twitter) |</b> @womynarchive</div>
+                <div><b>Instagram |</b> @womynarchive</div>
+              </div>
+            </div>
+            <div class="about-btn">
+              <a href={`/Radicals-in-University/`}>동아리 목록 →</a>
+            </div>
+          </div>
+          <RiUFooter />
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
