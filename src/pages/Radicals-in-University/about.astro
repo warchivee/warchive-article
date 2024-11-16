@@ -17,6 +17,7 @@ import Header from "../../components/Header.astro";
   data-has-scroll="true|false"
 >
   <head>
+    <meta name="format-detection" content="telephone=no, email=no, address=no">
     <BaseHead
       title={`${SITE_TITLE} - 계보 기록 프로젝트`}
       description={SITE_DESCRIPTION}
@@ -137,7 +138,10 @@ import Header from "../../components/Header.astro";
       .sns {
         display: flex;
         flex-wrap: wrap;
+      }
+      .sns * {
         text-decoration: none;
+        -webkit-text-decoration: none;
       }
 
       .sns div:not(:last-child) {
