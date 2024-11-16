@@ -193,7 +193,7 @@ import Header from "../../components/Header.astro";
           text-align: justify;
         }
         .about-title {
-          margin-bottom: 20px;
+          margin-bottom: 1vh;
         }
         .about-content {
           text-align: left;
@@ -220,33 +220,24 @@ import Header from "../../components/Header.astro";
       @media (max-width: 460px) {
         .about {
           width: 100%;
-          padding: 10% 8%;
-        }
-        .about-content hr {
-          margin: 0.6rem;
-        }
-        .about-footer {
-          font-size: 10px;
-        }
-      }
-      @media (max-width: 420px) {
-        .about {
-          padding: 6% 8%;
+          padding: 6%;
         }
         .about-content {
           font-size: 3vw;
         }
         .about-content hr {
-          margin: 0.4rem;
+          margin: 0.6rem;
         }
         .about-footer {
           font-size: 2.5vw;
         }
       }
-      @media (max-width: 390px) {
-        .about {
-          padding: 6%;
+      @media (max-width: 420px) {
+        .about-content hr {
+          margin: 0.4rem;
         }
+      }
+      @media (max-width: 390px) {
         .about-content hr {
           margin: 0rem;
         }
