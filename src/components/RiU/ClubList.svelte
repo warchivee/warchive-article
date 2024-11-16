@@ -49,11 +49,11 @@
     height: fit-content;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px 30px;
+    gap: 12px 50px;
     margin-top: 10px;
   }
   .univ-group {
-    max-width: 150px;
+    max-width: 120px;
     height: fit-content;
 
     font-size: 0.9rem;
@@ -91,13 +91,12 @@
   /* mobile */
   @media (max-width: 950px) {
     .list-content {
-      gap: 6px 12px;
       margin-top: 0;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 6px 12px;
     }
     .univ-group {
-      max-width: 110px;
+      max-width: 88px;
     }
     .club-list {
       font-size: 0.9rem;

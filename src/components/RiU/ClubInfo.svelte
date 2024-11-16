@@ -13,17 +13,7 @@
   const activities = clubData.activities;
   
   const establishedAt = clubData.establishedAt.replace(/-/g, ".");
-  const lastActivity = activities[activities.length - 1];
-  let dissolvedAt = "활동중";
-  if (lastActivity.title.includes("해체")) {
-    const dateMatch = lastActivity.title.match(/(\d{1,2})월 (\d{1,2})일/);
-    if (dateMatch) {
-      let [, month, day] = dateMatch;
-      month = month.padStart(2, '0');
-      day = day.padStart(2, '0');
-      dissolvedAt = `${lastActivity.year}.${month}.${day}`;
-    }
-  }
+  const disbandedAt = clubData.disbandedAt ? clubData.disbandedAt.replace(/-/g, ".") : "활동중";
 
   const years = [...new Set(activities.map(activity => Number(activity.year)))].sort((a, b) => a - b);
   let selectedYear = Number(activities[0].year);
@@ -132,7 +122,7 @@
           {/each}
         </div>
     
-        <div class="nav-block text-style-act-cont">{dissolvedAt}</div>
+        <div class="nav-block text-style-act-cont">{disbandedAt}</div>
       </div>
       <div class="paper-table" bind:this={tableElement}>
         {#each selectedActivities as activity}
@@ -254,7 +244,7 @@
           {year}
         </button>
       {/each}
-      <div class="nav-block text-style-act-cont">{dissolvedAt}</div>
+      <div class="nav-block text-style-act-cont">{disbandedAt}</div>
   </div>
 {/if}
 
@@ -395,12 +385,13 @@
 
 .paper-table {
   width: 100%;
-  height: calc(100% - 300px);
+  height: calc(100% - 340px);
   overflow-x: hidden;
   overflow-y: auto;
-  margin: 20px 0 50px 0;
+  margin-top: 20px;
   padding-right: 0.2rem;
-  padding-bottom: 6rem;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
   color: var(--color-riu-black);
   scroll-behavior: smooth;
 }
