@@ -25,7 +25,7 @@
         gap: 10px;
         align-items: center;
         margin-top: 2rem;
-        padding-bottom: calc(8vh);
+        padding-bottom: calc(6vh + 6vw);
         transform: translateZ(0);
     }
     footer * {
@@ -60,13 +60,13 @@
 
     @media (max-width: 1200px) {
         footer {
-            padding-bottom: calc(8vh + 4vw);
+            padding-bottom: calc(6vh + 4vw);
         }
     }
 
     @media (max-width: 900px) {
         footer {
-            padding-bottom: calc(4vh + 8vw);
+            padding-bottom: calc(12vh + 6vw);
         }
     }
 </style>  
