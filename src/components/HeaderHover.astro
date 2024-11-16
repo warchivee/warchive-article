@@ -6,8 +6,25 @@ type Props = HTMLAttributes<"a">;
 const { title, class: className, ...props } = Astro.props;
 ---
 
+<script>
+  document.addEventListener("mouseover", (event) => {
+  const target = event.target as HTMLElement;
+  if (target && target.classList.contains("touch-force-click")) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const clickEvent = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    });
+    target.dispatchEvent(clickEvent);
+  }
+});
+
+</script>
 <div class="hover-container">
-  <div class="hover-title" {...props}>
+  <div class="hover-title touch-force-click" {...props}>
     {title}
   </div>
   <div class="hover-bridge"></div>
@@ -65,7 +82,12 @@ const { title, class: className, ...props } = Astro.props;
       transform 0.3s ease;
   }
 
-  .hover-container:hover .hover-content {
+  .touch-force-click {
+    cursor: pointer;
+  }
+
+  .hover-container:hover .hover-content,
+  .touch-force-click:hover .hover-content {
     /* 호버 상태 */
     height: fit-content;
     overflow: visible;

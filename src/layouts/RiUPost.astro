@@ -20,6 +20,7 @@ const { universityName, clubData } = Astro.props;
   data-has-scroll="true|false"
 >
   <head>
+    <meta name='viewport' content='initial-scale=1, viewport-fit=cover'>
     <BaseHead
       title={`${SITE_TITLE} - 계보 기록 프로젝트`}
       description={`계보 기록 프로젝트: ${universityName} ${clubData.name}`}
