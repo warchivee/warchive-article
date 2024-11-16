@@ -25,8 +25,16 @@
         gap: 10px;
         align-items: center;
         margin-top: 2rem;
-        padding-bottom: calc(8vh);
+        padding-bottom: calc(6vh + 6vw);
         transform: translateZ(0);
+        
+        padding-bottom: calc(constant(safe-area-inset-bottom) + 6vh + 6vw);
+        padding-left: constant(safe-area-inset-left);
+        padding-right: constant(safe-area-inset-right);
+
+        padding-bottom: calc(env(safe-area-inset-bottom) + 6vh + 6vw);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
     }
     footer * {
         color: var(--color-riu-black);
@@ -60,13 +68,13 @@
 
     @media (max-width: 1200px) {
         footer {
-            padding-bottom: calc(8vh + 4vw);
+            padding-bottom: calc(6vh + 4vw);
         }
     }
 
     @media (max-width: 900px) {
         footer {
-            padding-bottom: calc(4vh + 8vw);
+            padding-bottom: calc(12vh + 6vw);
         }
     }
 </style>  
