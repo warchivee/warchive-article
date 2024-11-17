@@ -390,7 +390,6 @@
   overflow-y: auto;
   margin-top: 20px;
   padding-right: 0.2rem;
-  padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
   color: var(--color-riu-black);
   scroll-behavior: smooth;
