@@ -1,0 +1,37 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Content from "../../components/type-her-story/Content.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      body {
+        background: #fdfcf9;
+      }
+
+      main {
+        margin: 0 auto;
+        padding: 2rem;
+        max-width: 1200px;
+      }
+
+      @media (max-width: 420px) {
+        main {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <Content client:load />
+    </main>
+  </body>
+</html>

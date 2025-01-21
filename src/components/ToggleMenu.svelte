@@ -13,7 +13,7 @@
   }
 
   function stopPropagation(e) {
-    e.stopPropagation()
+    e.stopPropagation();
   }
 
   onMount(() => {
@@ -28,39 +28,51 @@
 </script>
 
 <div class="hamburger-menu-button">
-  <button class="menu-button" on:click="{toggleMenu}" aria-label="menu button">
+  <button class="menu-button" on:click={toggleMenu} aria-label="menu button">
     <i class="fa fa-bars"></i>
   </button>
 </div>
 
-<div class={`menu${isMenuOpen ? ' open' : ''}`} on:click={toggleMenu}>
-    <div class="menu-container" on:click={stopPropagation} aria-hidden="true">
-        <div class="menu-header">
-            <button class="menu-close-btn" on:click={toggleMenu} aria-hidden="true">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="menu-info">
-                <a href="/">article</a>
-                <p>와카이브 : 아티클</p>    
-            </div>
-        </div>
-        <div class="menu-content">
-            <a href="/review" class="menu-item">review</a>
-            <a href="/play" class="menu-item">play</a>
-            <a href="/bookclub" class="menu-item">bookclub</a>
-            <hr class="menu-hr" />
-            <p>project</p>
-            <a class="sub" href="https://nomore-corset.womynarchive.com/" target="_blank">no more corset</a>
-            <a class="sub menu-item" href="/Radicals-in-University" target="_self">Radicals in University</a>            
-            <hr class="menu-hr" />
-            <a href="https://www.womynarchive.com/" target="_blank">
-                <img src="/android-icon-36x36.png" alt="와카이브 로고">
-                여성서사 아카이빙 프로젝트 와카이브
-            </a>
-        </div>
+<div
+  class={`menu${isMenuOpen ? " open" : ""}`}
+  on:click={toggleMenu}
+  aria-hidden="true"
+>
+  <div class="menu-container" on:click={stopPropagation} aria-hidden="true">
+    <div class="menu-header">
+      <button class="menu-close-btn" on:click={toggleMenu} aria-hidden="true">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="menu-info">
+        <a href="/">article</a>
+        <p>와카이브 : 아티클</p>
+      </div>
     </div>
+    <div class="menu-content">
+      <a href="/review" class="menu-item">review</a>
+      <a href="/play" class="menu-item">play</a>
+      <a href="/bookclub" class="menu-item">bookclub</a>
+      <hr class="menu-hr" />
+      <p>project</p>
+      <a
+        class="sub"
+        href="https://nomore-corset.womynarchive.com/"
+        target="_blank">no more corset</a
+      >
+      <a class="sub menu-item" href="/Radicals-in-University" target="_self"
+        >Radicals in University</a
+      >
+      <a class="sub menu-item" href="/type-her-story" target="_self"
+        >Type Her Story</a
+      >
+      <hr class="menu-hr" />
+      <a href="https://www.womynarchive.com/" target="_blank">
+        <img src="/android-icon-36x36.png" alt="와카이브 로고" />
+        여성서사 아카이빙 프로젝트 와카이브
+      </a>
+    </div>
+  </div>
 </div>
-
 
 <style>
   .hamburger-menu-button {
@@ -78,7 +90,9 @@
     opacity: 0; /* 투명 상태 */
     max-height: 0; /* 콘텐츠 크기를 0으로 */
     overflow: hidden; /* 콘텐츠 넘침 방지 */
-    transition: opacity 0.5s ease, max-height 0.5s ease; /* 애니메이션 */
+    transition:
+      opacity 0.5s ease,
+      max-height 0.5s ease; /* 애니메이션 */
 
     position: absolute;
     z-index: 101;
@@ -94,7 +108,7 @@
     display: block;
 
     opacity: 1; /* 불투명 상태 */
-    max-height: 100%; 
+    max-height: 100%;
   }
 
   .menu-container {

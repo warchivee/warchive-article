@@ -6,6 +6,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Orbit&family=Song+Myung&family=Sunflower:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap');
+
 @import "reset.css";
 
 :root {
@@ -21,6 +24,7 @@
 
   --font-title: "Nunito Sans KR", sans-serif;
   --font-content: "Noto Sans KR", sans-serif;
+  --font-highlight: "Montserrat", serif;
   --font-quote: "Gowun Dodum", sans-serif;
 
   --color-black: #020202;
