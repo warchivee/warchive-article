@@ -267,7 +267,7 @@
 </div>
 
 {#if showSnackbar}
-  <Snackbar message={snackbarMessage} />
+  <Snackbar message={snackbarMessage} position="center" />
 {/if}
 
 <style>
@@ -328,6 +328,10 @@
     font-size: 1.25rem;
   }
 
+  .side-content-header i {
+    padding: 10px;
+  }
+
   .title h3 {
     word-break: break-all;
   }
@@ -373,7 +377,7 @@
     min-width: 350px;
     flex: 1;
     padding: 20px 10px;
-    min-height: 50vh;
+    min-height: calc(100vh - 250px);
 
     border-bottom: 2px solid black;
   }

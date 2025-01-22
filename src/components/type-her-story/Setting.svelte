@@ -8,10 +8,10 @@
     settings,
   } from "../../utils/type-her-story/setting.ts";
 
-  let fontSize = loadFromLocalStorage<number>("fontSize", 30); // 폰트 사이즈
+  let fontSize = loadFromLocalStorage<number>("fontSize", 16); // 폰트 사이즈
   let fontWeight = loadFromLocalStorage<number>("fontWeight", 1); // 폰트 굵기
   let fontStyle = loadFromLocalStorage<string>("fontStyle", "Sanserif"); // 폰트 모양
-  let lineHeight = loadFromLocalStorage<number>("lineHeight", 140); // 행간 너비
+  let lineHeight = loadFromLocalStorage<number>("lineHeight", 160); // 행간 너비
   let bgColor = loadFromLocalStorage<string>("bgColor", "#FDFCF9"); // 배경 컬러
   let keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
   let contentType = loadFromLocalStorage<string>("contentType", "all");
@@ -36,12 +36,28 @@
   <div class="control">
     <label>폰트 사이즈</label>
     <div class="control-box">
-      <button on:click={() => (fontSize = Math.max(10, fontSize - 2))}
-        >－</button
+      <button
+        on:click={() => {
+          if (fontSize - 2 < 14) {
+            fontSize = 40;
+          } else if (fontSize - 2 > 40) {
+            fontSize = 14;
+          } else {
+            fontSize -= 2;
+          }
+        }}>－</button
       >
       <div>{fontSize}px</div>
-      <button on:click={() => (fontSize = Math.min(100, fontSize + 2))}
-        >＋</button
+      <button
+        on:click={() => {
+          if (fontSize + 2 < 14) {
+            fontSize = 40;
+          } else if (fontSize + 2 > 40) {
+            fontSize = 14;
+          } else {
+            fontSize += 2;
+          }
+        }}>＋</button
       >
     </div>
   </div>
@@ -50,17 +66,29 @@
   <div class="control">
     <label>폰트 굵기</label>
     <div class="control-box">
-      <button on:click={() => (fontWeight = Math.max(0, fontWeight - 1))}
-        >－</button
+      <button
+        on:click={() => {
+          if (fontWeight - 1 < 0) {
+            fontWeight = settings.fontWeights.length - 1;
+          } else if (fontWeight - 1 > settings.fontWeights.length - 1) {
+            fontWeight = 0;
+          } else {
+            fontWeight -= 1;
+          }
+        }}>－</button
       >
 
       <div>{settings.fontWeights[fontWeight]}</div>
       <button
-        on:click={() =>
-          (fontWeight = Math.min(
-            settings.fontWeights.length - 1,
-            fontWeight + 1
-          ))}>＋</button
+        on:click={() => {
+          if (fontWeight + 1 < 0) {
+            fontWeight = settings.fontWeights.length - 1;
+          } else if (fontWeight + 1 > settings.fontWeights.length - 1) {
+            fontWeight = 0;
+          } else {
+            fontWeight += 1;
+          }
+        }}>＋</button
       >
     </div>
   </div>
@@ -95,12 +123,28 @@
   <div class="control">
     <label>행간 너비</label>
     <div class="control-box">
-      <button on:click={() => (lineHeight = Math.max(50, lineHeight - 10))}
-        >－</button
+      <button
+        on:click={() => {
+          if (lineHeight - 10 < 100) {
+            lineHeight = 200;
+          } else if (lineHeight - 10 > 200) {
+            lineHeight = 100;
+          } else {
+            lineHeight -= 10;
+          }
+        }}>－</button
       >
       <div>{lineHeight}%</div>
-      <button on:click={() => (lineHeight = Math.min(200, lineHeight + 10))}
-        >＋</button
+      <button
+        on:click={() => {
+          if (lineHeight + 10 < 100) {
+            lineHeight = 200;
+          } else if (lineHeight + 10 > 200) {
+            lineHeight = 100;
+          } else {
+            lineHeight += 10;
+          }
+        }}>＋</button
       >
     </div>
   </div>
@@ -142,17 +186,30 @@
   <div class="control">
     <label>타이핑 소리</label>
     <div class="control-box">
-      <button on:click={() => (keyboardSound = Math.max(0, keyboardSound - 1))}
+      <button
+        on:click={() => {
+          if (keyboardSound - 1 < 0) {
+            keyboardSound = settings.keyboardSounds.length - 1;
+          } else if (keyboardSound - 1 > settings.keyboardSounds.length - 1) {
+            keyboardSound = 0;
+          } else {
+            keyboardSound -= 1;
+          }
+        }}
         >＜
       </button>
 
       <div>{settings.keyboardSounds[keyboardSound]}</div>
       <button
-        on:click={() =>
-          (keyboardSound = Math.min(
-            settings.keyboardSounds.length - 1,
-            keyboardSound + 1
-          ))}
+        on:click={() => {
+          if (keyboardSound + 1 < 0) {
+            keyboardSound = settings.keyboardSounds.length - 1;
+          } else if (keyboardSound + 1 > settings.keyboardSounds.length - 1) {
+            keyboardSound = 0;
+          } else {
+            keyboardSound += 1;
+          }
+        }}
       >
         ＞</button
       >
@@ -222,7 +279,7 @@
   }
 
   .control-box button {
-    flex: 2;
+    width: 60px;
     height: 100%;
     font-size: 25px;
     font-weight: 300;
@@ -233,6 +290,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    touch-action: manipulation;
   }
 
   .control-box > div {

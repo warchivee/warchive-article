@@ -21,6 +21,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
         max-width: 1200px;
       }
 
+      footer {
+        font-weight: 500;
+        font-size: 14px;
+        margin: 10px 0;
+        color: gray;
+      }
+
       @media (max-width: 420px) {
         main {
           padding: 10px;
@@ -32,6 +39,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
     <Header />
     <main>
       <Content client:load />
+
+      <footer>Copyright © 2025 Warchive. All rights reserved.</footer>
     </main>
   </body>
 </html>

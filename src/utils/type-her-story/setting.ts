@@ -7,10 +7,10 @@ export const settings = {
 };
 
 export function updateStyles() {
-  let fontSize = loadFromLocalStorage<number>("fontSize", 30); // 폰트 사이즈
+  let fontSize = loadFromLocalStorage<number>("fontSize", 16); // 폰트 사이즈
   let fontWeight = loadFromLocalStorage<number>("fontWeight", 1); // 폰트 굵기
   let fontStyle = loadFromLocalStorage<string>("fontStyle", "Sanserif"); // 폰트 모양
-  let lineHeight = loadFromLocalStorage<number>("lineHeight", 140); // 행간 너비
+  let lineHeight = loadFromLocalStorage<number>("lineHeight", 160); // 행간 너비
   let bgColor = loadFromLocalStorage<string>("bgColor", settings.bgColors[2]); // 배경 컬러
   let keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
   let contentType = loadFromLocalStorage<string>("contentType", "kor");

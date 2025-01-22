@@ -11,7 +11,6 @@
   let audio: HTMLAudioElement | null = null;
 
   let lastPlayedTime = 0; // 마지막 재생 시간
-  const playInterval = 50; // 최소 간격 (밀리초)
 
   function handleFocus() {
     hasFocus = true;
@@ -23,11 +22,9 @@
 
   function handleKeydown(event: KeyboardEvent) {
     const now = Date.now();
-    if (audio && now - lastPlayedTime >= playInterval) {
+    if (audio) {
       audio.currentTime = 0; // 오디오를 처음부터 재생
-      audio.volume = 0.3;
       audio.play();
-      lastPlayedTime = now; // 재생 시간 갱신
     }
 
     if (event.key === "Enter") {
@@ -108,8 +105,8 @@
   .highlighted-text {
     position: relative;
     width: 100%;
-    font-size: 1.875rem;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.6;
     white-space: pre-wrap; /* 줄바꿈 지원 */
     word-wrap: break-word; /* 긴 단어도 줄바꿈 */
     z-index: 1;
@@ -123,6 +120,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    word-spacing: 100%;
   }
 
   .char {
