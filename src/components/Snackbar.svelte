@@ -18,6 +18,8 @@
     padding: 10px 20px;
     border-radius: 5px;
     z-index: 999;
+    min-width: 250px;
+    text-align: center;
   }
 
   .snackbar.bottom {

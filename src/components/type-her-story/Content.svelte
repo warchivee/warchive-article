@@ -81,7 +81,7 @@
   function handleComplete(id: number) {
     completed(id);
 
-    openSnackbar(`${data.title} 타이핑 완료`);
+    openSnackbar(`《${data.title}》 타이핑 완료`);
 
     datas = datas.map((d) => {
       if (id === d.id) {
@@ -263,7 +263,10 @@
     </div>
 
     {#if openList || openSetting}
-      <div></div>
+      <div class="caption">
+        인터넷 캐시, 쿠키 초기화 시 환경설정과 필사한 이력, 북마크 내역이
+        초기화됩니다.
+      </div>
     {/if}
   </div>
 </div>
@@ -273,6 +276,11 @@
 {/if}
 
 <style>
+  .caption {
+    color: gray;
+    font-size: 14px;
+  }
+
   .container {
     display: flex;
     position: relative;
@@ -331,7 +339,7 @@
   }
 
   .side-content-header i {
-    padding: 10px;
+    padding: 12px;
   }
 
   .title h3 {
@@ -379,7 +387,7 @@
     min-width: 350px;
     flex: 1;
     padding: 20px 10px;
-    min-height: calc(100vh - 250px);
+    min-height: calc(100vh - 400px);
 
     border-bottom: 2px solid black;
   }
@@ -453,12 +461,14 @@
   }
 
   @media (max-width: 784px) {
-    .header {
+    .header,
+    .footer {
       position: relative;
     }
 
     .side-content-header,
-    .content-body div:last-child:not(:only-child) {
+    .content-body div:last-child:not(:only-child),
+    .caption {
       position: absolute;
       height: 100%;
       width: 100%;
