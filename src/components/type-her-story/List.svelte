@@ -1,12 +1,20 @@
 <script lang="ts">
   export let datas;
   export let handleBookmark;
+  export let changeData;
+  export let selectedDataId;
 </script>
 
 <ul class="content">
   {#each datas as d, i}
-    <li>
-      <div class="left">
+    <li class={selectedDataId === d.id ? "selected" : ""}>
+      <div
+        class="left"
+        on:click={() => {
+          changeData(d);
+        }}
+        aria-hidden="true"
+      >
         <div class="number">{i + 1}</div>
         <div class="info">
           <h3 class="title">{d.title}</h3>
@@ -50,6 +58,7 @@
     display: grid;
     grid-template-columns: 50px 1fr;
     column-gap: 10px;
+    cursor: pointer;
   }
 
   li:only-child {
@@ -70,6 +79,11 @@
     font-size: 1.5rem;
     color: black;
     text-align: left;
+  }
+
+  li.selected .title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .title {

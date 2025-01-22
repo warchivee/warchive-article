@@ -236,6 +236,8 @@
           <List
             datas={filterBookmarks ? getFilteredData(datas) : datas}
             {handleBookmark}
+            changeData={(d) => (data = d)}
+            selectedDataId={data?.id}
           />
         </div>
       {:else if openSetting}
