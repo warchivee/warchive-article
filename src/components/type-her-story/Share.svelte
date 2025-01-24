@@ -38,8 +38,64 @@
     isLoading = true; // 로딩 시작
 
     try {
+      // 이미지 데이터를 캡처
       let imageDataUrl = await toPng(element);
-      return imageDataUrl;
+
+      // 이미지 생성
+      const img = new Image();
+      img.src = imageDataUrl;
+
+      return new Promise((resolve, reject) => {
+        img.onload = function () {
+          // 캡처된 이미지의 원본 크기
+          const originalWidth = img.width;
+          const originalHeight = img.height;
+
+          // 비율에 맞춰서 크기 변경
+          let newWidth, newHeight;
+
+          if (ratio === "1/1") {
+            // 1:1 비율 (정사각형)
+            newWidth = 800;
+            newHeight = 800;
+          } else if (ratio === "3/4") {
+            // 3:4 비율
+            newWidth = 800;
+            newHeight = (800 * 4) / 3;
+          } else {
+            // 비율이 잘못된 경우, 원본 크기 그대로 사용
+            newWidth = originalWidth;
+            newHeight = originalHeight;
+          }
+
+          // 크기 변경된 이미지 생성
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+
+          // 캔버스에 이미지를 그리기
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            originalWidth,
+            originalHeight,
+            0,
+            0,
+            newWidth,
+            newHeight
+          );
+
+          // 변경된 이미지의 DataURL 반환
+          resolve(canvas.toDataURL());
+        };
+
+        img.onerror = function (error) {
+          reject("Error loading the image.");
+        };
+      });
     } catch (error) {
       console.error("Error capturing the preview:", error);
     } finally {
@@ -207,9 +263,13 @@
         {data?.content}
       </p>
       <p class="info">
-        <strong class="title">「{data?.title}」</strong><br /><span
-          class="publish"
-        >
+        <strong class="title">
+          「{data?.title && data?.creator
+            ? data?.title
+            : !data?.title && data?.creator
+              ? data?.creator
+              : ""}」</strong
+        ><br /><span class="publish">
           {data?.creator ? `${data?.creator}` : ""}
           {data?.translator ? `, ${data?.translator} 옮김` : ""}
           {data?.publisher ? `, ${data?.publisher}` : ""}</span
@@ -237,7 +297,7 @@
               />
               <span
                 class="color-option"
-                style="background-image: url(/typing/bg/gradients/{index}.png);"
+                style="background-image: url(/typing/bg/gradients/{index}.png); background-size: cover;"
               ></span>
             </label>
           {/each}

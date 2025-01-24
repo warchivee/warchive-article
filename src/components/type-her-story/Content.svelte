@@ -90,7 +90,15 @@
   function handleComplete(id: number) {
     completed(id);
 
-    openSnackbar(`《${data.title}》 타이핑 완료`);
+    openSnackbar(
+      `《${
+        data?.title && data?.creator
+          ? data?.title
+          : !data?.title && data?.creator
+            ? data?.creator
+            : ""
+      }》 필사 완료`
+    );
 
     datas = datas.map((d) => {
       if (id === d.id) {
@@ -190,19 +198,26 @@
         <div class="content-header">
           <div class="info">
             <div class="title">
-              <a
-                href="https://www.womynarchive.com?s={data?.title}"
-                target="_blank"
-              >
-                <i class="fa-solid fa-arrow-up-right-from-square no-border"></i>
-              </a>
+              {#if data?.type === "KOR"}
+                <a
+                  href="https://www.womynarchive.com?s={data?.title}"
+                  target="_blank"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square no-border"
+                  ></i>
+                </a>
+              {/if}
 
               <h3 class="title-text">
-                「{data?.title}」
+                「{data?.title && data?.creator
+                  ? data?.title
+                  : !data?.title && data?.creator
+                    ? data?.creator
+                    : ""}」
               </h3>
             </div>
 
-            <div class="creator">
+            <div class="creator {data?.type === 'ENG' ? 'no-pad' : ''}">
               {data?.creator}
               {data?.translator ? `, ${data?.translator} 옮김` : ""}
               {data?.publisher ? `, ${data?.publisher}` : ""}
@@ -314,7 +329,6 @@
     <div>
       <img src="/typing/logo.svg" alt="필사 로고" />
       <div>
-        <i class="fa-solid fa-link shadow"></i>
         <i
           class="fa-{data?.isBookmark ? 'solid' : 'regular'} fa-bookmark shadow"
           on:click={() => handleBookmark(data.id)}
@@ -456,6 +470,10 @@
     color: black;
     font-size: 0.938rem;
     padding-left: 1.8rem;
+  }
+
+  .creator.no-pad {
+    padding-left: 1rem;
   }
 
   .content {
