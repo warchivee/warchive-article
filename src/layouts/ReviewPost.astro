@@ -9,19 +9,17 @@ import ShareSnsButtons from "../components/interview/ShareSnsButtons.svelte";
 
 type Props = CollectionEntry<"review">["data"];
 
-const {
-  title,
-  thumbnailImage,
-  titleImage,
-  target,
-  tags,
-  creator,
-} = Astro.props;
+const { title, thumbnailImage, titleImage, target, tags, creator } =
+  Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={creator ? `${title} - ${creator}` : title} image={new URL(thumbnailImage || '', Astro.url)} />
+    <BaseHead
+      title={title}
+      description={creator ? `${title} - ${creator}` : title}
+      image={new URL(thumbnailImage || "", Astro.url)}
+    />
 
     <style>
       .hero-image {
@@ -72,7 +70,11 @@ const {
     <main>
       <article>
         <div class="hero-image">
-          {titleImage && <img width={1020} height={510} src={titleImage} alt="" />}
+          {
+            titleImage && (
+              <img width={1020} height={510} src={titleImage} alt="" />
+            )
+          }
         </div>
 
         <div class="prose">

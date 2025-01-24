@@ -14,8 +14,9 @@
   let lineHeight = loadFromLocalStorage<number>("lineHeight", 160); // 행간 너비
   let bgColor = loadFromLocalStorage<string>("bgColor", "#FDFCF9"); // 배경 컬러
   let keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
-  let contentType = loadFromLocalStorage<string>("contentType", "all");
+  let contentType = loadFromLocalStorage<string>("contentType", "ALL");
 
+  export let changeContentType;
   export let changeKeyboardSound;
 
   $: {
@@ -26,6 +27,8 @@
     saveToLocalStorage("bgColor", bgColor);
     saveToLocalStorage("keyboardSound", keyboardSound);
     saveToLocalStorage("contentType", contentType);
+
+    changeContentType(contentType);
     changeKeyboardSound(keyboardSound);
     updateStyles();
   }
@@ -34,7 +37,7 @@
 <div class="control-panel">
   <!-- 폰트 사이즈 -->
   <div class="control">
-    <label>폰트 사이즈</label>
+    <label>글자 크기</label>
     <div class="control-box">
       <button
         on:click={() => {
@@ -64,7 +67,7 @@
 
   <!-- 폰트 굵기 -->
   <div class="control">
-    <label>폰트 굵기</label>
+    <label>글자 굵기</label>
     <div class="control-box">
       <button
         on:click={() => {
@@ -95,7 +98,7 @@
 
   <!-- 폰트 모양 -->
   <div class="control">
-    <label>폰트 모양</label>
+    <label>글꼴</label>
     <div class="toggle-group">
       <input
         type="radio"
@@ -149,36 +152,36 @@
     </div>
   </div>
 
-  <!-- 유형형 -->
+  <!-- 문장설정 -->
   <div class="control">
     <label>문장 설정</label>
     <div class="toggle-group">
       <input
         type="radio"
         name="contentType"
-        id="kor"
-        value="kor"
+        id="KOR"
+        value="KOR"
         bind:group={contentType}
       />
-      <label for="kor" class:active={contentType === "kor"}>KOR</label>
+      <label for="KOR" class:active={contentType === "KOR"}>KOR</label>
 
       <input
         type="radio"
         name="contentType"
-        id="eng"
-        value="eng"
+        id="ENG"
+        value="ENG"
         bind:group={contentType}
       />
-      <label for="eng" class:active={contentType === "eng"}>ENG</label>
+      <label for="ENG" class:active={contentType === "ENG"}>ENG</label>
 
       <input
         type="radio"
         name="contentType"
-        id="all"
-        value="all"
+        id="ALL"
+        value="ALL"
         bind:group={contentType}
       />
-      <label for="all" class:active={contentType === "all"}>ALL</label>
+      <label for="ALL" class:active={contentType === "ALL"}>ALL</label>
     </div>
   </div>
 
@@ -216,9 +219,9 @@
     </div>
   </div>
 
-  <!-- 배경컬러 -->
+  <!-- 배경색 -->
   <div class="control">
-    <label>배경컬러</label>
+    <label>배경색</label>
     <div class="color-group">
       {#each settings.bgColors as color}
         <label>

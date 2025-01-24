@@ -17,8 +17,7 @@
       >
         <div class="number">{i + 1}</div>
         <div class="info">
-          <h3 class="title">{d.title}</h3>
-          <div class="creator">{d.creator} | {d.publisher}</div>
+          <h3 class="title">{d.content}</h3>
         </div>
       </div>
 
@@ -52,6 +51,10 @@
     gap: 10px;
     font-size: 1.5rem;
     color: black;
+    margin-left: 10px;
+    width: 50px;
+    flex-shrink: 0;
+    justify-content: flex-end;
   }
 
   .left {
@@ -62,12 +65,15 @@
   }
 
   li:only-child {
-    margin: 20px 0;
     padding-bottom: 20px;
   }
+
+  li {
+    margin: 20px 0;
+  }
+
   li:not(:last-child) {
     border-bottom: 1px solid black;
-    margin: 20px 0;
     padding-bottom: 20px;
   }
 
@@ -91,6 +97,12 @@
     font-size: 1.063rem;
     word-break: break-all;
     margin-top: -2px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .creator {

@@ -4,6 +4,8 @@
   export let handleComplete;
   export let userInput;
 
+  import { updateStyles } from "../../utils/type-her-story/setting.ts";
+
   export let keyboardSound = "NONE";
 
   let hasFocus = false;
@@ -50,6 +52,8 @@
         audio = new Audio(`/typing/sound/${keyboardSound}.mp3`);
       }
     }
+
+    updateStyles();
   });
 </script>
 
@@ -78,6 +82,17 @@
         </div>
       </div>
     {/each}
+    <div class="letter">
+      <div
+        class="cha {userInput.length <= text.length - 1 ? 'placeholder' : ''}"
+        style="margin-left: 5px;margin-left: 5px;
+    display: flex;
+    height: 100%;
+    align-items: baseline;"
+      >
+        <span>↵</span>
+      </div>
+    </div>
   </div>
 
   <!-- 실제 입력을 받는 숨겨진 input -->
@@ -158,7 +173,7 @@
   }
 
   .incorrect {
-    color: red;
+    color: #851427;
   }
 
   /* 커서 깜빡임 애니메이션 */

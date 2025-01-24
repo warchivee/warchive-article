@@ -1,6 +1,7 @@
 <script lang="ts">
   //utils
   import { onMount } from "svelte";
+  import axios from "axios";
 
   import {
     updateStyles,
@@ -13,13 +14,16 @@
     completed,
   } from "../../utils/type-her-story/data.ts";
 
+  import Loader from "./Loader.svelte";
   import Snackbar from "../Snackbar.svelte";
   import List from "./List.svelte";
   import Typing from "./Typing.svelte";
   import Setting from "./Setting.svelte";
+  import Share from "./Share.svelte";
   import { loadFromLocalStorage } from "../../utils/localStorageManager.ts";
 
   let filterBookmarks = false;
+  let openShare = false;
 
   let showSnackbar = false;
   let snackbarMessage = "";
@@ -29,31 +33,20 @@
   let openList = false;
   let openSetting = false;
 
-  let datas = [
-    {
-      id: 1,
-      title: "여수의 사랑",
-      creator: "한강",
-      publisher: "출판사",
-      content:
-        "중얼거리거나 한숨을 쉬며 정적을 깨면 그 소리로 인해 더욱 내가 혼자임이 실감된다는 것을 알고 있었다. 나는 용케 침묵을 지켰다. 숨소리를 죽이며, 아무것도 생각하지 않으려 애쓰며 일했다.",
-    },
-    {
-      id: 2,
-      title: "여수의 여수의 여수의 사랑",
-      creator: "한강",
-      publisher: "출판사",
-      content:
-        "중얼거리거나 한숨을 쉬며 정적을 깨면 그 소리로 인해 더욱 내가 혼자임이 실감된다는 것을 알고 있었다. 나는 용케 침묵을 지켰다. 숨소리를 죽이며, 아무것도 생각하지 않으려 애쓰며 일했다.",
-    },
-  ];
+  let originalDatas = [];
+  let datas = [];
 
   let data;
   let history: number[] = [];
 
   let userInput = "";
 
+  let contentType = "ALL";
   let keyboardSound = 0;
+
+  function changeContentType(updated) {
+    contentType = updated;
+  }
 
   function changeKeyboardSound(updated) {
     keyboardSound = updated;
@@ -61,14 +54,14 @@
 
   function getRandomData(datas: any[]) {
     if (datas.length === history.length) {
-      history = [data.id];
+      history = [data?.id];
     }
 
     let filteredDatas = datas.filter((d) => !history.includes(d.id));
 
     const randomData =
       filteredDatas[Math.floor(Math.random() * filteredDatas.length)];
-    history.push(randomData.id);
+    history.push(randomData?.id);
 
     return randomData;
   }
@@ -76,6 +69,22 @@
   function reloadData() {
     userInput = "";
     data = getRandomData(datas);
+  }
+
+  async function getDatas() {
+    loading = true;
+
+    try {
+      const res = await axios.get(
+        "https://script.google.com/macros/s/AKfycbw9mIW9t4NcQFKaNqd2W4GdaXlayuKslqKXbgS4t4TZ7Wd9uMBvlqYTtjL2oqnhqBca/exec"
+      );
+
+      return res.data;
+    } catch (e) {
+      console.error(e);
+    } finally {
+      loading = false;
+    }
   }
 
   function handleComplete(id: number) {
@@ -131,61 +140,103 @@
     }, 3000);
   }
 
-  onMount(() => {
-    datas = datas?.map((d) => ({
+  onMount(async () => {
+    contentType = loadFromLocalStorage<string>("contentType", "ALL");
+    keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
+
+    originalDatas = await getDatas();
+
+    originalDatas = originalDatas?.map((d) => ({
       ...d,
       isBookmark: getItemStatusById(d.id)?.isBookmark || false,
       isCompleted: getItemStatusById(d.id)?.isCompleted || false,
     }));
-    data = getRandomData(datas);
+
+    datas = originalDatas?.filter(
+      (d) => contentType === "ALL" || d.type === contentType
+    );
+
+    // data = getRandomData(datas);
     updateStyles();
     loading = false;
   });
+
+  $: {
+    datas = originalDatas?.filter(
+      (d) => contentType === "ALL" || d.type === contentType
+    );
+    data = getRandomData(datas);
+  }
 </script>
 
 <div class="type-her-story container">
   <section class="content {loading ? 'hidden' : ''}">
     <div class="header">
-      <div class="content-header">
-        <div class="info">
+      {#if openShare}
+        <div class="share-content-header">
           <div class="title">
-            <a
-              href="https://www.womynarchive.com?s={data?.title}"
-              target="_blank"
-            >
-              <i class="fa-solid fa-arrow-up-right-from-square no-border"></i>
-            </a>
-
-            <h3 class="title-text">
-              「{data?.title}」
-            </h3>
+            <i class="fa-solid fa-share-nodes no-border"></i>
+            <h3 class="title-text">공유하기</h3>
           </div>
 
-          <div class="creator">{data?.creator} | {data?.publisher}</div>
-        </div>
+          <div class="control">
+            <i
+              class="fa-solid fa-x"
+              on:click={() => (openShare = false)}
+              aria-hidden="true"
+            ></i>
+          </div>
+        </div>{:else}
+        <div class="content-header">
+          <div class="info">
+            <div class="title">
+              <a
+                href="https://www.womynarchive.com?s={data?.title}"
+                target="_blank"
+              >
+                <i class="fa-solid fa-arrow-up-right-from-square no-border"></i>
+              </a>
 
-        <div class="control">
-          <!-- <Toggle /> -->
-          <i class="fa-solid fa-rotate" on:click={reloadData} aria-hidden="true"
-          ></i>
-          <i
-            class="fa-solid fa-gear"
-            on:click={() => {
-              openSetting = !openSetting;
-              openList = false;
-            }}
-            aria-hidden="true"
-          ></i>
-          <i
-            class="fa-solid fa-bars"
-            on:click={() => {
-              openList = !openList;
-              openSetting = false;
-            }}
-            aria-hidden="true"
-          ></i>
+              <h3 class="title-text">
+                「{data?.title}」
+              </h3>
+            </div>
+
+            <div class="creator">
+              {data?.creator}
+              {data?.translator ? `, ${data?.translator} 옮김` : ""}
+              {data?.publisher ? `, ${data?.publisher}` : ""}
+            </div>
+          </div>
+
+          <div class="control">
+            <!-- <Toggle /> -->
+            <i
+              class="fa-solid fa-rotate"
+              on:click={reloadData}
+              aria-hidden="true"
+            ></i>
+            <i
+              class="fa-solid fa-gear"
+              on:click={() => {
+                openSetting = !openSetting;
+                openList = false;
+                openShare = false;
+              }}
+              aria-hidden="true"
+            ></i>
+            <i
+              class="fa-solid fa-bars"
+              on:click={() => {
+                openList = !openList;
+                openSetting = false;
+                openShare = false;
+              }}
+              aria-hidden="true"
+            ></i>
+          </div>
         </div>
-      </div>
+      {/if}
 
       {#if openList}
         <div class="side-content-header">
@@ -195,7 +246,7 @@
               on:click={() => (openList = false)}
               aria-hidden="true"
             ></i>
-            <h3>필사문장 목록</h3>
+            <h3>필사 문장 목록</h3>
           </div>
           <i
             class="fa-{filterBookmarks
@@ -219,16 +270,20 @@
       {/if}
     </div>
 
-    <div class="content-body">
+    <div class="content-body {openShare ? 'share' : ''}">
       <div>
-        <Typing
-          keyboardSound={settings.keyboardSounds[keyboardSound]}
-          text={data?.content}
-          bind:userInput
-          handleComplete={() => {
-            handleComplete(data?.id);
-          }}
-        />
+        {#if openShare}
+          <Share client:load {data} />
+        {:else}
+          <Typing
+            keyboardSound={settings.keyboardSounds[keyboardSound]}
+            text={data?.content}
+            bind:userInput
+            handleComplete={() => {
+              handleComplete(data?.id);
+            }}
+          />
+        {/if}
       </div>
 
       {#if openList}
@@ -236,17 +291,24 @@
           <List
             datas={filterBookmarks ? getFilteredData(datas) : datas}
             {handleBookmark}
-            changeData={(d) => (data = d)}
+            changeData={(d) => {
+              data = d;
+              userInput = "";
+            }}
             selectedDataId={data?.id}
           />
         </div>
       {:else if openSetting}
         <div>
-          <Setting {changeKeyboardSound} />
+          <Setting {changeKeyboardSound} {changeContentType} />
         </div>
       {/if}
     </div>
   </section>
+
+  {#if loading}
+    <Loader />
+  {/if}
 
   <div class="footer">
     <div>
@@ -258,7 +320,15 @@
           on:click={() => handleBookmark(data.id)}
           aria-hidden="true"
         ></i>
-        <i class="fa-solid fa-share-nodes pad shadow"></i>
+        <i
+          class="fa-solid fa-share-nodes pad shadow"
+          aria-hidden="true"
+          on:click={() => {
+            openList = false;
+            openSetting = false;
+            openShare = !openShare;
+          }}
+        ></i>
       </div>
     </div>
 
@@ -289,11 +359,13 @@
   }
 
   .content {
+    position: static;
     visibility: visible;
   }
 
   .content.hidden {
     visibility: hidden;
+    position: absolute;
   }
 
   .header {
@@ -312,6 +384,20 @@
     border-bottom: 2px solid black;
 
     flex-wrap: wrap;
+  }
+
+  .share-content-header {
+    width: 100%;
+    min-width: 350px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+  }
+
+  .share-content-header .title {
+    gap: 10px;
   }
 
   .side-content-header {
@@ -376,27 +462,58 @@
     width: 100%;
   }
 
-  .content-body {
+  .content-body:not(.share) {
     height: 100%;
     display: flex;
     flex-direction: row;
     gap: 20px;
+
+    min-height: calc(100vh - 300px);
+    max-height: calc(100vh - 300px);
+  }
+
+  .content-body.share {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    min-height: calc(100vh - 300px);
   }
 
   .content-body div:first-child {
     min-width: 350px;
     flex: 1;
     padding: 20px 10px;
-    min-height: calc(100vh - 400px);
+
+    overflow-y: scroll;
 
     border-bottom: 2px solid black;
   }
 
+  .content-body div:first-child::-webkit-scrollbar {
+    width: 4px; /* 스크롤바 너비 조정 */
+  }
+  .content-body div:first-child::-webkit-scrollbar-thumb {
+    background-color: black; /* 스크롤바 색상 */
+    border-radius: 4px;
+  }
+
+  .content-body div:last-child:not(:only-child)::-webkit-scrollbar {
+    width: 4px; /* 스크롤바 너비 조정 */
+  }
+  .content-body div:last-child:not(:only-child)::-webkit-scrollbar-thumb {
+    background-color: black; /* 스크롤바 색상 */
+    border-radius: 4px;
+  }
+
   .content-body div:last-child:not(:only-child) {
-    min-width: 350px;
+    width: 350px;
     padding: 0 10px;
 
     border-bottom: 2px solid black;
+
+    overflow-y: scroll;
   }
 
   i {
@@ -466,12 +583,20 @@
       position: relative;
     }
 
-    .side-content-header,
-    .content-body div:last-child:not(:only-child),
-    .caption {
+    .side-content-header {
       position: absolute;
       height: 100%;
       width: 100%;
+      z-index: 3;
+      background-color: inherit;
+    }
+
+    .content-body div:last-child:not(:only-child),
+    .footer > div:last-child:not(:only-child) {
+      position: absolute;
+      width: 100%;
+      min-height: calc(100vh - 300px);
+      max-height: calc(100vh - 300px);
       z-index: 3;
       background-color: inherit;
     }

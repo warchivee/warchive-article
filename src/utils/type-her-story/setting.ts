@@ -12,12 +12,11 @@ export function updateStyles() {
   let fontStyle = loadFromLocalStorage<string>("fontStyle", "Sanserif"); // 폰트 모양
   let lineHeight = loadFromLocalStorage<number>("lineHeight", 160); // 행간 너비
   let bgColor = loadFromLocalStorage<string>("bgColor", settings.bgColors[2]); // 배경 컬러
-  let keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
-  let contentType = loadFromLocalStorage<string>("contentType", "kor");
 
   const body = document.querySelector("body");
   const typingText = document.querySelector(".highlighted-text");
 
+  const sideMenuFooter = document.querySelector(".footer");
   const sideMenuHeader = document.querySelector(".header");
   const sideMenuBody = document.querySelector(".content-body");
 
@@ -34,6 +33,7 @@ export function updateStyles() {
 
     (typingText as HTMLElement).style.lineHeight = `${lineHeight}%`;
 
+    (sideMenuFooter as HTMLElement).style.backgroundColor = bgColor;
     (sideMenuHeader as HTMLElement).style.backgroundColor = bgColor;
     (sideMenuBody as HTMLElement).style.backgroundColor = bgColor;
     body.style.backgroundColor = bgColor;
