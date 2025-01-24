@@ -164,7 +164,7 @@
       (d) => contentType === "ALL" || d.type === contentType
     );
 
-    // data = getRandomData(datas);
+    data = getRandomData(datas);
     updateStyles();
     loading = false;
   });
@@ -173,7 +173,6 @@
     datas = originalDatas?.filter(
       (d) => contentType === "ALL" || d.type === contentType
     );
-    data = getRandomData(datas);
   }
 </script>
 
