@@ -255,7 +255,7 @@
               aria-hidden="true"
             ></i>
             <i
-              class="fa-solid fa-gear"
+              class="fa-solid fa-gear pad"
               on:click={() => {
                 openSetting = !openSetting;
                 openList = false;

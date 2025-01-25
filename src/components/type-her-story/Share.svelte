@@ -191,7 +191,7 @@
     <img
       src={textColor === "white" ? "/logo.png" : "/logo-black.png"}
       width="90"
-      style="display: block; margin: 0 auto; margin-top: 13px;"
+      style="display: block; margin: 0 auto; margin-top: 20px;"
     />
   </p>
 </div>
