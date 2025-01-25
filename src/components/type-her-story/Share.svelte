@@ -185,7 +185,9 @@
     ><br /><span class="publish">
       {data?.creator ? `${data?.creator}` : ""}
       {data?.translator ? `, ${data?.translator} 옮김` : ""}
-      <span style="margin: 0 3px;">|</span>
+      {#if data?.publisher}
+        <span style="margin: 0 3px;">|</span>
+      {/if}
       {data?.publisher ? `${data?.publisher}` : ""}</span
     >
     <img
@@ -264,13 +266,15 @@
           ><br /><span class="publish">
             {data?.creator ? `${data?.creator}` : ""}
             {data?.translator ? `, ${data?.translator} 옮김` : ""}
-            <span style="margin: 0 3px;">|</span>
+            {#if data?.publisher}
+              <span style="margin: 0 3px;">|</span>
+            {/if}
             {data?.publisher ? `${data?.publisher}` : ""}</span
           >
           <img
             src={textColor === "white" ? "/logo.png" : "/logo-black.png"}
             width="90"
-            style="display: block; margin: 0 auto; margin-top: 13px;"
+            style="display: block; margin: 0 auto; margin-top: 20px;"
           />
         </p>
       </div>

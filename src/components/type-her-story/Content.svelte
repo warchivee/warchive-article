@@ -242,7 +242,9 @@
             <div class="creator {data?.type === 'ENG' ? 'no-pad' : ''}">
               {data?.creator}
               {data?.translator ? `, ${data?.translator} 옮김` : ""}
-              <span style="margin: 0 3px;">|</span>
+              {#if data?.publisher}
+                <span style="margin: 0 3px;">|</span>
+              {/if}
               {data?.publisher ? `${data?.publisher}` : ""}
             </div>
           </div>
@@ -355,22 +357,26 @@
   <div class="footer">
     <div>
       <img src="/typing/logo.svg" alt="필사 로고" />
-      <div>
-        <i
-          class="fa-{data?.isBookmark ? 'solid' : 'regular'} fa-bookmark shadow"
-          on:click={() => handleBookmark(data.id)}
-          aria-hidden="true"
-        ></i>
-        <i
-          class="fa-solid fa-share-nodes pad shadow"
-          aria-hidden="true"
-          on:click={() => {
-            openList = false;
-            openSetting = false;
-            openShare = !openShare;
-          }}
-        ></i>
-      </div>
+      {#if !loading}
+        <div>
+          <i
+            class="fa-{data?.isBookmark
+              ? 'solid'
+              : 'regular'} fa-bookmark shadow"
+            on:click={() => handleBookmark(data.id)}
+            aria-hidden="true"
+          ></i>
+          <i
+            class="fa-solid fa-share-nodes pad shadow"
+            aria-hidden="true"
+            on:click={() => {
+              openList = false;
+              openSetting = false;
+              openShare = !openShare;
+            }}
+          ></i>
+        </div>
+      {/if}
     </div>
 
     {#if openList || openSetting}
