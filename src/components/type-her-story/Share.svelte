@@ -170,7 +170,8 @@
       : contentPosition};
       --ratio: {ratio};
       --lineHeight: {lineHeight}%;
-      --bgImg: url(/typing/bg/gradients/{bgImg}.png);"
+      --bgImg: url(/typing/bg/gradients/{bgImg}.png);
+      --noPrintHeight: {ratio === '1/1' ? '350px' : '466.67px'};"
 >
   <p>
     {data?.content}
@@ -610,7 +611,7 @@
     aspect-ratio: var(--ratio);
     min-width: 350px;
     max-width: 350px;
-    height: 100%;
+    height: var(--noPrintHeight);
     content: "''";
   }
 
