@@ -170,8 +170,7 @@
       : contentPosition};
       --ratio: {ratio};
       --lineHeight: {lineHeight}%;
-      --bgImg: url(/typing/bg/gradients/{bgImg}.png);
-      --noPrintHeight: {ratio === '1/1' ? '350px' : '466.67px'};"
+      --bgImg: url(/typing/bg/gradients/{bgImg}.png);"
 >
   <p>
     {data?.content}
@@ -232,24 +231,25 @@
   </div>
 
   <div class="content">
-    <div class="preview-wrap">
-      <div
-        class="preview"
-        style="
+    <div
+      class="piew-wraprev"
+      style="
     --fontSize: {fontSize}px; 
     --font: {fontStyle === 'Sanserif'
-          ? 'Noto Sans KR, sans-serif'
-          : 'Noto Serif KR, serif'}; --textColor: {textColor}; 
+        ? 'Noto Sans KR, sans-serif'
+        : 'Noto Serif KR, serif'}; --textColor: {textColor}; 
       --titlePosition: {titlePosition};
       --contentPosition: {contentPosition === 'top'
-          ? 'flex-start'
-          : contentPosition === 'bottom'
-            ? 'flex-end'
-            : contentPosition};
+        ? 'flex-start'
+        : contentPosition === 'bottom'
+          ? 'flex-end'
+          : contentPosition};
       --ratio: {ratio};
       --lineHeight: {lineHeight}%;
-      --bgImg: url(/typing/bg/gradients/{bgImg}.png);"
-      >
+      --bgImg: url(/typing/bg/gradients/{bgImg}.png);
+      --noPrintHeight: {ratio === '1/1' ? '350px' : '466.67px'};"
+    >
+      <div class="preview">
         <p>
           {data?.content}
         </p>
