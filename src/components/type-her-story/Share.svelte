@@ -83,20 +83,6 @@
     }
   }
 
-  async function shareFacebook() {
-    isLoading = true;
-    try {
-      let image = await capturePreview();
-      const url = await uploadImage(image);
-
-      window.open(`http://www.facebook.com/sharer/sharer.php?u=${url}`);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      isLoading = false;
-    }
-  }
-
   async function shareTwitter() {
     isLoading = true;
     try {
@@ -501,8 +487,6 @@
     <i class="fa-brands fa-x-twitter" on:click={shareTwitter} aria-hidden="true"
     ></i>
     <i class="fa-solid fa-comment" on:click={shareKakao} aria-hidden="true"></i>
-    <i class="fa-brands fa-facebook" on:click={shareFacebook} aria-hidden="true"
-    ></i>
   </div>
 </div>
 

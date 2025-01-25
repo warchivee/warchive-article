@@ -84,21 +84,29 @@ const imageUrl = `https://i.ibb.co/${id}/${id2}.jpg`;
           padding: 10px;
         }
       }
+
+      a {
+        text-decoration-line: none;
+      }
+
+      section {
+        min-height: 350px;
+      }
     </style>
   </head>
   <body>
     <Header />
     <main>
       <div class="header">
-        <div class="title">
-          필사 하러 가기
-          <a href="/type-her-story">
+        <a href="/type-her-story">
+          <div class="title">
+            필사하러 가기
             <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
+          </div>
+        </a>
       </div>
 
-      <img class="share-img" src={imageUrl} />
+      <section><img class="share-img" src={imageUrl} /></section>
 
       <div class="bottom">
         <img class="logo" src="/typing/logo.svg" alt="필사 로고" />
