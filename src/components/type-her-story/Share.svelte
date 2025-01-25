@@ -37,7 +37,7 @@
 
     try {
       const canvas = await html2canvas(element, { useCORS: true });
-      const imageDataUrl = canvas.toDataURL("image/png");
+      const imageDataUrl = canvas.toDataURL("image/jpeg");
 
       return imageDataUrl;
     } catch (error) {
@@ -50,7 +50,7 @@
   async function uploadImage(image) {
     const formData = new FormData();
 
-    formData.append("image", image?.replace("data:image/png;base64,", ""));
+    formData.append("image", image?.replace("data:image/jpeg;base64,", ""));
 
     const response = await axios.post(
       `https://api.imgbb.com/1/upload?key=${import.meta.env.PUBLIC_IMGBB_API_KEY}`,
@@ -74,19 +74,13 @@
       // 다운로드 링크 생성 및 자동 클릭
       const link = document.createElement("a");
       link.href = image;
-      link.download = `${data.title} - ${data.creator}.png`;
+      link.download = `${data.title} - ${data.creator}.jpg`;
       link.click();
     } catch (e) {
       console.error(e);
     } finally {
       isLoading = false;
     }
-  }
-
-  function shareLink() {
-    navigator.clipboard.writeText(`${window.location.href}`);
-
-    openSnackbar();
   }
 
   async function shareFacebook() {
@@ -120,30 +114,37 @@
   }
 
   async function shareKakao() {
-    let image = await capturePreview();
-    const url = await uploadImage(image);
+    isLoading = true;
+    try {
+      let image = await capturePreview();
+      const url = await uploadImage(image);
 
-    Kakao.Share.sendDefault({
-      objectType: "feed",
-      content: {
-        title: "Type Her Story - Warchive",
-        description: `${data?.title && data?.creator ? data?.title + ", " : ""}${data?.creator || ""}`,
-        imageUrl: `${url}`,
-        link: {
-          mobileWebUrl: `${window.location.href}`,
-          webUrl: `${window.location.href}`,
-        },
-      },
-      buttons: [
-        {
-          title: "자세히 보기",
+      await Kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: "Type Her Story - Warchive",
+          description: `${data?.title && data?.creator ? data?.title + ", " : ""}${data?.creator || ""}`,
+          imageUrl: `${url}`,
           link: {
             mobileWebUrl: `${window.location.href}`,
             webUrl: `${window.location.href}`,
           },
         },
-      ],
-    });
+        buttons: [
+          {
+            title: "자세히 보기",
+            link: {
+              mobileWebUrl: `${window.location.href}`,
+              webUrl: `${window.location.href}`,
+            },
+          },
+        ],
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      isLoading = false;
+    }
   }
 
   onMount(() => {

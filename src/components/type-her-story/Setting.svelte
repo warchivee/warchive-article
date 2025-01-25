@@ -13,7 +13,7 @@
   let fontStyle = loadFromLocalStorage<string>("fontStyle", "Sanserif"); // 폰트 모양
   let lineHeight = loadFromLocalStorage<number>("lineHeight", 160); // 행간 너비
   let bgColor = loadFromLocalStorage<string>("bgColor", "#FDFCF9"); // 배경 컬러
-  let keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
+  let keyboardSound = loadFromLocalStorage<number>("keyboardSound", 1);
   let contentType = loadFromLocalStorage<string>("contentType", "ALL");
 
   export let changeContentType;

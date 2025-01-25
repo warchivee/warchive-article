@@ -167,7 +167,7 @@
     mediaQuery.addEventListener("change", updateMobile);
 
     contentType = loadFromLocalStorage<string>("contentType", "ALL");
-    keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
+    keyboardSound = loadFromLocalStorage<number>("keyboardSound", 1);
 
     originalDatas = await getDatas();
 
