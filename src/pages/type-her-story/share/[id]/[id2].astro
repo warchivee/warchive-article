@@ -1,0 +1,22 @@
+---
+const { id, id2 } = Astro.params;
+
+// id와 id2를 사용하여 파일 또는 데이터 처리
+const imageUrl = `https://i.ibb.co/${id}/${id2}.jpg`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta property="og:title" content="Check out this image!" />
+    <meta property="og:description" content="A cool image created by a user." />
+    <meta property="og:image" content={imageUrl} />
+    <meta
+      property="og:url"
+      content={`http://localhost:4321/type-her-story/share/${id}/${id2}`}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Image Share</title>
+  </head>
+  <body> </body>
+</html>

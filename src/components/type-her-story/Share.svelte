@@ -101,7 +101,14 @@
     isLoading = true;
     try {
       let image = await capturePreview();
-      const url = await uploadImage(image);
+      const imgUrl = await uploadImage(image);
+
+      const ids = imgUrl
+        ?.replace("https://i.ibb.co/", "")
+        ?.replace(".jpg", "")
+        ?.split("/");
+
+      const url = window.location.href + "/share/" + ids[0] + "/" + ids[1];
 
       window.open(
         `https://twitter.com/intent/tweet?text=${data?.title && data?.creator ? data?.title + ", " : ""}${data?.creator || ""}&hashtags=와카이브,여성서사,TypeHerStory&url=${url}`
