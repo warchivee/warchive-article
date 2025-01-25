@@ -1,0 +1,118 @@
+---
+import BaseHead from "../../../../components/BaseHead.astro";
+import Header from "../../../../components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../../../consts";
+const { id, id2 } = Astro.params;
+
+// id와 id2를 사용하여 파일 또는 데이터 처리
+const imageUrl = `https://i.ibb.co/${id}/${id2}.jpg`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title={SITE_TITLE}
+      description={SITE_DESCRIPTION}
+      image={imageUrl}
+    />
+
+    <style>
+      body {
+        background: #fdfcf9;
+      }
+
+      main {
+        margin: 0 auto;
+        padding: 2rem;
+        max-width: 1200px;
+      }
+
+      footer {
+        font-weight: 500;
+        font-size: 14px;
+        margin: 30px 0;
+        color: gray;
+      }
+
+      img.logo {
+        width: 200px;
+        height: auto;
+      }
+
+      img.share-img {
+        width: 100%;
+        max-width: 600px;
+        min-width: 350px;
+
+        margin: 30px;
+      }
+
+      .bottom {
+        border-top: 2px solid black;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 10px;
+      }
+
+      .header {
+        color: black;
+        font-size: 1.1rem;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 10px;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        height: 63.38px;
+      }
+
+      .title {
+        font-family: var(--font-content);
+        letter-spacing: -1.5px;
+        font-weight: bold;
+      }
+
+      i {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+      @media (max-width: 420px) {
+        main {
+          padding: 10px;
+        }
+      }
+
+      a {
+        text-decoration-line: none;
+      }
+
+      section {
+        min-height: 350px;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="header">
+        <a href="/type-her-story">
+          <div class="title">
+            필사하러 가기
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <section><img class="share-img" src={imageUrl} /></section>
+
+      <div class="bottom">
+        <img class="logo" src="/typing/logo.svg" alt="필사 로고" />
+      </div>
+
+      <footer>Copyright © 2025 Warchive. All rights reserved.</footer>
+    </main>
+  </body>
+</html>

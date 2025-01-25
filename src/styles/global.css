@@ -6,6 +6,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Orbit&family=Song+Myung&family=Sunflower:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&display=swap');
+
 @import "reset.css";
 
 :root {
@@ -21,6 +24,7 @@
 
   --font-title: "Nunito Sans KR", sans-serif;
   --font-content: "Noto Sans KR", sans-serif;
+  --font-highlight: "Montserrat", serif;
   --font-quote: "Gowun Dodum", sans-serif;
 
   --color-black: #020202;
@@ -48,7 +52,7 @@
   color: var(--font-content);
   font-size: var(--font-content);
   line-height: 1.7;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   box-sizing: border-box;
   text-align: left;
   font-family: var(--font-content);
@@ -81,7 +85,7 @@ p,
 li,
 .caption {
   font-family: var(--font-content);
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   line-height: 180%;
   color: var(--color-text);
   text-align: justify;
@@ -136,4 +140,8 @@ li {
   clip-path: inset(50%);
   /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
+}
+
+.color-picker div.color {
+  border: 1.5px solid black;
 }

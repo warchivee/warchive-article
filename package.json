@@ -19,6 +19,8 @@
     "@astrojs/svelte": "^5.2.0",
     "@emailjs/browser": "^4.3.3",
     "astro": "^4.5.8",
+    "axios": "^1.7.9",
+    "html2canvas": "^1.4.1",
     "qs": "^6.12.2",
     "svelte": "^4.2.12",
     "typescript": "^5.4.3",

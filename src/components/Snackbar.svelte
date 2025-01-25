@@ -1,15 +1,15 @@
 <script>
   export let message = "";
+  export let position = "bottom";
 </script>
 
-<div class="snackbar">
+<div class="snackbar {position}">
   {message}
 </div>
 
 <style>
   .snackbar {
     position: fixed;
-    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--color-black);
@@ -18,5 +18,19 @@
     padding: 10px 20px;
     border-radius: 5px;
     z-index: 999;
+    min-width: 250px;
+    text-align: center;
+  }
+
+  .snackbar.bottom {
+    bottom: 20px;
+  }
+
+  .snackbar.top {
+    top: 20px;
+  }
+
+  .snackbar.center {
+    top: 50%;
   }
 </style>

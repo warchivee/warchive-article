@@ -26,4 +26,7 @@ export default defineConfig({
   ],
   output: "server",
   adapter: netlify(),
+  redirects: {
+    '/type-her-story/share': '/type-her-story'
+  }
 });
