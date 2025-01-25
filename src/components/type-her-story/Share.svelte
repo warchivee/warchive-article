@@ -232,7 +232,7 @@
 
   <div class="content">
     <div
-      class="piew-wraprev"
+      class="preview-wrap"
       style="
     --fontSize: {fontSize}px; 
     --font: {fontStyle === 'Sanserif'

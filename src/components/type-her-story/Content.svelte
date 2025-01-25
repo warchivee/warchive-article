@@ -459,6 +459,10 @@
     min-width: 0;
   }
 
+  .share-content-header .title {
+    align-items: center;
+  }
+
   .side-content-header i {
     color: black;
     font-size: 1.1rem;
