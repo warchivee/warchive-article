@@ -248,6 +248,7 @@
     height: 100%;
     overflow-y: scroll;
     padding: 20px 0;
+    font-size: 1rem;
   }
 
   /* 각 컨트롤 */
@@ -284,7 +285,7 @@
   .control-box button {
     width: 60px;
     height: 100%;
-    font-size: 25px;
+    font-size: 1.3rem;
     font-weight: 300;
     border: none;
     background: transparent;

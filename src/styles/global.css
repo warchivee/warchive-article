@@ -52,7 +52,7 @@
   color: var(--font-content);
   font-size: var(--font-content);
   line-height: 1.7;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   box-sizing: border-box;
   text-align: left;
   font-family: var(--font-content);
@@ -85,7 +85,7 @@ p,
 li,
 .caption {
   font-family: var(--font-content);
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   line-height: 180%;
   color: var(--color-text);
   text-align: justify;

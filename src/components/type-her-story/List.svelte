@@ -49,19 +49,20 @@
   .buttons {
     display: flex;
     gap: 10px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: black;
-    margin-left: 10px;
-    width: 50px;
+    margin-left: 15px;
+    width: 45px;
     flex-shrink: 0;
     justify-content: flex-end;
   }
 
   .left {
     display: grid;
-    grid-template-columns: 50px 1fr;
-    column-gap: 10px;
+    grid-template-columns: 37px 1fr;
+    column-gap: 20px;
     cursor: pointer;
+    align-items: center;
   }
 
   li:only-child {
@@ -82,7 +83,7 @@
     font-optical-sizing: auto;
     font-weight: 600;
     font-style: normal;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: black;
     text-align: left;
   }
@@ -94,7 +95,8 @@
 
   .title {
     color: black;
-    font-size: 1.063rem;
+    font-size: 0.9rem;
+    font-weight: 400;
     word-break: break-all;
     margin-top: -2px;
 

@@ -2,6 +2,7 @@
   //utils
   import { onMount } from "svelte";
   import axios from "axios";
+  import { writable } from "svelte/store";
 
   import {
     updateStyles,
@@ -20,7 +21,10 @@
   import Typing from "./Typing.svelte";
   import Setting from "./Setting.svelte";
   import Share from "./Share.svelte";
+
   import { loadFromLocalStorage } from "../../utils/localStorageManager.ts";
+
+  let isMobile = false;
 
   let filterBookmarks = false;
   let openShare = false;
@@ -149,6 +153,19 @@
   }
 
   onMount(async () => {
+    const mediaQuery = window.matchMedia("(max-width: 784px)");
+
+    // 상태 업데이트 함수
+    const updateMobile = () => {
+      isMobile = mediaQuery.matches; // matches가 true이면 close = true
+    };
+
+    // 초기 상태 설정
+    updateMobile();
+
+    // 리스너 등록
+    mediaQuery.addEventListener("change", updateMobile);
+
     contentType = loadFromLocalStorage<string>("contentType", "ALL");
     keyboardSound = loadFromLocalStorage<number>("keyboardSound", 0);
 
@@ -166,7 +183,13 @@
 
     data = getRandomData(datas);
     updateStyles();
+
     loading = false;
+
+    // 컴포넌트 언마운트 시 리스너 제거
+    return () => {
+      mediaQuery.removeEventListener("change", updateMobile);
+    };
   });
 
   $: {
@@ -219,7 +242,8 @@
             <div class="creator {data?.type === 'ENG' ? 'no-pad' : ''}">
               {data?.creator}
               {data?.translator ? `, ${data?.translator} 옮김` : ""}
-              {data?.publisher ? `, ${data?.publisher}` : ""}
+              <span style="margin: 0 3px;">|</span>
+              {data?.publisher ? `${data?.publisher}` : ""}
             </div>
           </div>
 
@@ -308,6 +332,10 @@
             changeData={(d) => {
               data = d;
               userInput = "";
+
+              if (isMobile) {
+                openList = false;
+              }
             }}
             selectedDataId={data?.id}
           />
@@ -431,10 +459,14 @@
     min-width: 0;
   }
 
-  .side-content-header i,
+  .side-content-header i {
+    color: black;
+    font-size: 1.1rem;
+  }
+
   .title h3 {
     color: black;
-    font-size: 1.25rem;
+    font-size: 1.063rem;
   }
 
   .side-content-header i {
@@ -447,7 +479,8 @@
 
   .info {
     float: left;
-    width: calc(100% - 116px);
+    width: calc(100% - 126px);
+    margin-right: 10px;
   }
 
   .title-text {
@@ -467,8 +500,12 @@
 
   .creator {
     color: black;
-    font-size: 0.938rem;
+    font-size: 0.8rem;
     padding-left: 1.8rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .creator.no-pad {
@@ -485,8 +522,8 @@
     flex-direction: row;
     gap: 20px;
 
-    min-height: calc(100vh - 300px);
-    max-height: calc(100vh - 300px);
+    min-height: calc(100vh - 350px);
+    max-height: calc(100vh - 350px);
   }
 
   .content-body.share {
@@ -495,7 +532,7 @@
     flex-direction: row;
     gap: 20px;
 
-    min-height: calc(100vh - 300px);
+    min-height: calc(100vh - 350px);
   }
 
   .content-body div:first-child {
@@ -612,8 +649,8 @@
     .footer > div:last-child:not(:only-child) {
       position: absolute;
       width: 100%;
-      min-height: calc(100vh - 300px);
-      max-height: calc(100vh - 300px);
+      min-height: calc(100vh - 350px);
+      max-height: calc(100vh - 350px);
       z-index: 3;
       background-color: inherit;
     }

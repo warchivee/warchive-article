@@ -2,22 +2,20 @@
   import axios from "axios";
   import Snackbar from "../Snackbar.svelte";
   import { onMount } from "svelte";
-  import ColorPicker, { ChromeVariant } from "svelte-awesome-color-picker";
 
   import Loader from "./Loader.svelte";
 
-  import { toPng, toJpeg } from "html-to-image";
+  import html2canvas from "html2canvas";
 
   export let data;
 
-  let fontSize = 16;
+  let fontSize = 20;
   let fontStyle = "Sanserif";
-  let bgColor = "#fdfcf9"; // 기본 배경색
-  let textColor = "#000000";
+  let textColor = "black";
   let titlePosition = "left";
+  let contentPosition = "top";
   let ratio = "1/1";
-  let lineHeight = "160";
-
+  let lineHeight = 160;
   let bgImg = 1;
 
   let showSnackbar = false;
@@ -32,70 +30,16 @@
   }
 
   async function capturePreview() {
-    const element = document.querySelector(".preview");
+    const element = document.querySelector(".preview.print");
     if (!element) return alert("Preview element not found!");
 
     isLoading = true; // 로딩 시작
 
     try {
-      // 이미지 데이터를 캡처
-      let imageDataUrl = await toPng(element);
+      const canvas = await html2canvas(element, { useCORS: true });
+      const imageDataUrl = canvas.toDataURL("image/png");
 
-      // 이미지 생성
-      const img = new Image();
-      img.src = imageDataUrl;
-
-      return new Promise((resolve, reject) => {
-        img.onload = function () {
-          // 캡처된 이미지의 원본 크기
-          const originalWidth = img.width;
-          const originalHeight = img.height;
-
-          // 비율에 맞춰서 크기 변경
-          let newWidth, newHeight;
-
-          if (ratio === "1/1") {
-            // 1:1 비율 (정사각형)
-            newWidth = 800;
-            newHeight = 800;
-          } else if (ratio === "3/4") {
-            // 3:4 비율
-            newWidth = 800;
-            newHeight = (800 * 4) / 3;
-          } else {
-            // 비율이 잘못된 경우, 원본 크기 그대로 사용
-            newWidth = originalWidth;
-            newHeight = originalHeight;
-          }
-
-          // 크기 변경된 이미지 생성
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-
-          canvas.width = newWidth;
-          canvas.height = newHeight;
-
-          // 캔버스에 이미지를 그리기
-          ctx.drawImage(
-            img,
-            0,
-            0,
-            originalWidth,
-            originalHeight,
-            0,
-            0,
-            newWidth,
-            newHeight
-          );
-
-          // 변경된 이미지의 DataURL 반환
-          resolve(canvas.toDataURL());
-        };
-
-        img.onerror = function (error) {
-          reject("Error loading the image.");
-        };
-      });
+      return imageDataUrl;
     } catch (error) {
       console.error("Error capturing the preview:", error);
     } finally {
@@ -183,7 +127,7 @@
       objectType: "feed",
       content: {
         title: "Type Her Story - Warchive",
-        description: `${data?.title}, ${data?.creator || ""}`,
+        description: `${data?.title && data?.creator ? data?.title + ", " : ""}${data?.creator || ""}`,
         imageUrl: `${url}`,
         link: {
           mobileWebUrl: `${window.location.href}`,
@@ -211,6 +155,47 @@
   });
 </script>
 
+<div
+  class="preview print"
+  style="
+    --fontSize: {fontSize}px; 
+    --font: {fontStyle === 'Sanserif'
+    ? 'Noto Sans KR, sans-serif'
+    : 'Noto Serif KR, serif'}; --textColor: {textColor}; 
+      --titlePosition: {titlePosition};
+      --contentPosition: {contentPosition === 'top'
+    ? 'flex-start'
+    : contentPosition === 'bottom'
+      ? 'flex-end'
+      : contentPosition};
+      --ratio: {ratio};
+      --lineHeight: {lineHeight}%;
+      --bgImg: url(/typing/bg/gradients/{bgImg}.png);"
+>
+  <p>
+    {data?.content}
+  </p>
+  <p class="info">
+    <strong class="title">
+      <span style="margin-left: -20px;">「</span>{data?.title && data?.creator
+        ? data?.title
+        : !data?.title && data?.creator
+          ? data?.creator
+          : ""}<span style="margin-right: -20px;">」</span></strong
+    ><br /><span class="publish">
+      {data?.creator ? `${data?.creator}` : ""}
+      {data?.translator ? `, ${data?.translator} 옮김` : ""}
+      <span style="margin: 0 3px;">|</span>
+      {data?.publisher ? `${data?.publisher}` : ""}</span
+    >
+    <img
+      src={textColor === "white" ? "/logo.png" : "/logo-black.png"}
+      width="90"
+      style="display: block; margin: 0 auto; margin-top: 13px;"
+    />
+  </p>
+</div>
+
 <div class="container">
   {#if isLoading}
     <div class="loading"><Loader /></div>
@@ -226,7 +211,7 @@
         bind:group={ratio}
       />
       <label for="ratio1">
-        <div>1 : 1</div>
+        <div class="ratio1">1 : 1</div>
         <div>기본형</div>
       </label>
     </div>
@@ -239,54 +224,62 @@
         bind:group={ratio}
       />
       <label for="ratio2">
-        <div>3 : 4</div>
+        <div class="ratio3">3 : 4</div>
         <div>세로형</div>
       </label>
     </div>
   </div>
 
   <div class="content">
-    <div
-      class="preview"
-      style="
-    --bgColor: {bgColor}; 
+    <div class="preview-wrap">
+      <div
+        class="preview"
+        style="
     --fontSize: {fontSize}px; 
     --font: {fontStyle === 'Sanserif'
-        ? 'Noto Sans KR, sans-serif'
-        : 'Noto Serif KR, serif'}; --textColor: {textColor}; 
+          ? 'Noto Sans KR, sans-serif'
+          : 'Noto Serif KR, serif'}; --textColor: {textColor}; 
       --titlePosition: {titlePosition};
+      --contentPosition: {contentPosition === 'top'
+          ? 'flex-start'
+          : contentPosition === 'bottom'
+            ? 'flex-end'
+            : contentPosition};
       --ratio: {ratio};
       --lineHeight: {lineHeight}%;
       --bgImg: url(/typing/bg/gradients/{bgImg}.png);"
-    >
-      <p>
-        {data?.content}
-      </p>
-      <p class="info">
-        <strong class="title">
-          「{data?.title && data?.creator
-            ? data?.title
-            : !data?.title && data?.creator
-              ? data?.creator
-              : ""}」</strong
-        ><br /><span class="publish">
-          {data?.creator ? `${data?.creator}` : ""}
-          {data?.translator ? `, ${data?.translator} 옮김` : ""}
-          {data?.publisher ? `, ${data?.publisher}` : ""}</span
-        >
-        <img
-          src="/logo.png"
-          width="60"
-          style="display: block; margin: 0 auto; margin-top: 10px;"
-        />
-      </p>
+      >
+        <p>
+          {data?.content}
+        </p>
+        <p class="info">
+          <strong class="title">
+            <span style="margin-left: -20px;">「</span>{data?.title &&
+            data?.creator
+              ? data?.title
+              : !data?.title && data?.creator
+                ? data?.creator
+                : ""}<span style="margin-right: -20px;">」</span></strong
+          ><br /><span class="publish">
+            {data?.creator ? `${data?.creator}` : ""}
+            {data?.translator ? `, ${data?.translator} 옮김` : ""}
+            <span style="margin: 0 3px;">|</span>
+            {data?.publisher ? `${data?.publisher}` : ""}</span
+          >
+          <img
+            src={textColor === "white" ? "/logo.png" : "/logo-black.png"}
+            width="90"
+            style="display: block; margin: 0 auto; margin-top: 13px;"
+          />
+        </p>
+      </div>
     </div>
 
     <div class="control-panel">
       <!-- 배경 -->
       <div class="control">
         <label>배경</label>
-        <div class="color-group">
+        <div class="bg-group">
           {#each [1, 2, 3, 4, 5, 6] as index}
             <label>
               <input
@@ -296,8 +289,8 @@
                 bind:group={bgImg}
               />
               <span
-                class="color-option"
-                style="background-image: url(/typing/bg/gradients/{index}.png); background-size: cover;"
+                class="bg-option"
+                style="background-image: url(/typing/bg/gradients/{index}.png); background-size: cover; background-position: center;"
               ></span>
             </label>
           {/each}
@@ -306,14 +299,25 @@
 
       <div class="control">
         <label>글자색</label>
-        <ColorPicker
-          bind:hex={textColor}
-          components={ChromeVariant}
-          sliderDirection="horizontal"
-          position="responsive"
-          textInputModes={["hex"]}
-          label=""
-        />
+        <div class="toggle-group">
+          <input
+            type="radio"
+            name="textColor"
+            id="black"
+            value="black"
+            bind:group={textColor}
+          />
+          <label for="black" class:active={textColor === "black"}> BLACK</label>
+
+          <input
+            type="radio"
+            name="textColor"
+            id="white"
+            value="white"
+            bind:group={textColor}
+          />
+          <label for="white" class:active={textColor === "white"}> WHITE</label>
+        </div>
       </div>
 
       <!-- 폰트 모양 -->
@@ -343,38 +347,77 @@
       </div>
 
       <!-- 제목 위치 -->
+
       <div class="control">
         <label>제목 위치</label>
         <div class="toggle-group">
           <input
             type="radio"
-            name="fontStyle"
-            id="left"
+            name="titlePosition"
+            id="t-left"
             value="left"
             bind:group={titlePosition}
           />
-          <label for="left" class:active={titlePosition === "left"}>LEFT</label>
+          <label for="t-left" class:active={titlePosition === "left"}
+            >LEFT</label
+          >
 
           <input
             type="radio"
-            name="fontStyle"
-            id="center"
+            name="titlePosition"
+            id="t-center"
             value="center"
             bind:group={titlePosition}
           />
-          <label for="center" class:active={titlePosition === "center"}>
+          <label for="t-center" class:active={titlePosition === "center"}>
             CENTER
           </label>
 
           <input
             type="radio"
-            name="fontStyle"
-            id="right"
+            name="titlePosition"
+            id="t-right"
             value="right"
             bind:group={titlePosition}
           />
-          <label for="right" class:active={titlePosition === "right"}
+          <label for="t-right" class:active={titlePosition === "right"}
             >RIGHT</label
+          >
+        </div>
+      </div>
+
+      <div class="control">
+        <label>본문 위치</label>
+        <div class="toggle-group">
+          <input
+            type="radio"
+            name="contentPosition"
+            id="left"
+            value="left"
+            bind:group={contentPosition}
+          />
+          <label for="left" class:active={contentPosition === "top"}>TOP</label>
+
+          <input
+            type="radio"
+            name="contentPosition"
+            id="center"
+            value="center"
+            bind:group={contentPosition}
+          />
+          <label for="center" class:active={contentPosition === "center"}>
+            CENTER
+          </label>
+
+          <input
+            type="radio"
+            name="contentPosition"
+            id="bottom"
+            value="bottom"
+            bind:group={contentPosition}
+          />
+          <label for="bottom" class:active={contentPosition === "bottom"}
+            >BOTTOM</label
           >
         </div>
       </div>
@@ -465,6 +508,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    font-size: 1rem;
   }
 
   .container .content {
@@ -480,6 +524,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 100px;
   }
 
@@ -508,8 +553,7 @@
     font-weight: light;
     font-size: 1rem;
     font-family: var(--font-highlight);
-    width: 50px;
-    height: 50px;
+
     border: 2px solid black;
     border-radius: 8px;
 
@@ -518,8 +562,18 @@
     justify-content: center;
   }
 
+  .ratio1 {
+    width: 45px;
+    aspect-ratio: 1/1;
+  }
+
+  .ratio3 {
+    width: 45px;
+    aspect-ratio: 3/4;
+  }
+
   .ratio input[type="radio"] + label div:last-child {
-    font-size: 1.063rem;
+    font-size: 0.9rem;
     font-weight: bold;
   }
 
@@ -528,17 +582,19 @@
   }
 
   .preview {
-    background-color: var(--bgColor);
+    width: 600px;
+    position: absolute;
+    top: 0;
+
+    background-color: transparent;
     background-image: var(--bgImg);
     background-size: cover;
 
-    padding: 20px;
-    border-radius: 15px;
+    padding: 30px;
+    padding-bottom: 15px;
     text-align: left;
-    width: 100%;
-    max-width: 350px;
-    min-width: 350px;
-    border: 2px solid black;
+
+    /* border: 2px solid black; */
 
     display: flex;
     flex-direction: column;
@@ -548,6 +604,26 @@
     overflow: hidden;
   }
 
+  .preview-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    min-width: 350px;
+    max-width: 350px;
+    height: 100%;
+    content: "''";
+  }
+
+  .preview.print {
+    top: 0;
+    left: -99999px;
+  }
+
+  .preview:not(.print) {
+    transform: scale(calc(350 / 600));
+    transform-origin: top left;
+  }
+
   .preview p {
     color: var(--textColor);
     font-family: var(--font);
@@ -555,6 +631,8 @@
   }
 
   .preview p:first-child {
+    display: flex;
+    align-items: var(--contentPosition);
     font-size: var(--fontSize);
     flex: 1;
     line-height: var(--lineHeight);
@@ -564,23 +642,25 @@
 
   .preview p:last-child {
     text-align: var(--titlePosition);
-    line-height: 100%;
+    line-height: 140%;
+    padding: 15px 0;
   }
 
   .preview .title {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     font-weight: bold;
+    margin: 0 10px;
   }
 
   .preview .publish {
-    font-size: 0.8rem;
-    margin: 0 10px;
+    font-size: 1rem;
   }
 
   /* 전체 패널 */
   .control-panel {
     flex: 1;
     width: 100%;
+    min-width: 350px;
     font-family: var(--font-highlight);
     color: #000;
     height: 100%;
@@ -604,7 +684,7 @@
     font-family: var(--font-content);
   }
 
-  .control > div:not(.color-group) {
+  .control > div:not(.bg-group) {
     width: 100%;
     max-width: 300px;
     display: flex;
@@ -692,7 +772,7 @@
   }
 
   /* 색상 선택 */
-  .color-group {
+  .bg-group {
     display: flex;
     gap: 10px;
     width: 100%;
@@ -702,34 +782,34 @@
     flex-wrap: wrap;
   }
 
-  .color-group label {
+  .bg-group label {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .color-group input[type="radio"] {
+  .bg-group input[type="radio"] {
     appearance: none;
     -webkit-appearance: none; /* Safari 호환 */
   }
 
-  .color-option {
-    width: 50px;
-    height: 50px;
-    border-radius: 11px;
+  .bg-option {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
     cursor: pointer;
     display: inline-block;
-    border: 1.5px solid gray;
+    border: 2px solid gray;
   }
 
-  .color-group input[type="radio"]:checked + .color-option {
-    border: 1.5px solid #000;
+  .bg-group input[type="radio"]:checked + .bg-option {
+    border: 2px solid #000;
   }
 
   .buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     width: 100%;
   }
 </style>
