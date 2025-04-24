@@ -85,6 +85,12 @@ p {
 }
 .prose p {
   margin-bottom: 2em;
+
+  @media (max-width: 700px) {
+    font-size: 98%;
+    line-height: 174%;
+    letter-spacing: -1.6px;
+  }
 }
 textarea {
   width: 100%;
