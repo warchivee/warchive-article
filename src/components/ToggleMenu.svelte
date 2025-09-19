@@ -65,6 +65,9 @@
       <a class="sub menu-item" href="/type-her-story" target="_self"
         >Type Her Story</a
       >
+      <a class="sub menu-item" href="/receipt-her-story" target="_self"
+        >Receipt Her Story</a
+      >
       <hr class="menu-hr" />
       <a href="https://www.womynarchive.com/" target="_blank">
         <img src="/android-icon-36x36.png" alt="와카이브 로고" />

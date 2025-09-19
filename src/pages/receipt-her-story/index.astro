@@ -1,0 +1,63 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Content from "../../components/receipt-her-story/Content.svelte";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+    <style>
+      @font-face {
+        font-family: "Galmuri14";
+        src: url("/fonts/Galmuri14.woff2") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "KODE39";
+        src: url("/fonts/KODE39.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      body {
+        background: #fbfbfb;
+        display: flex;
+        flex-direction: column;
+
+        --receipt-font-family: "Galmuri14", monospace;
+      }
+
+      main {
+        flex: 1;
+        margin: 0 auto;
+        padding: 20px 0;
+        width: 100%;
+        max-width: 420px;
+      }
+
+      footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        color: black;
+        font-size: 0.7rem;
+        font-family: var(--receipt-font-family);
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main class="receipt-her-story">
+      <Content client:load />
+    </main>
+    <footer>Copyright © 2025 Warchive. All rights reserved.</footer>
+  </body>
+</html>
