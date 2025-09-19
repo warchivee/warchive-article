@@ -2723,7 +2723,7 @@
             "season": "하반기",
             "period": "",
             "title": "네트워킹 파티 및 토크 콘서트 주최",
-            "details": "서울여대 학우 대상 네트워킹 파티와 페미니즘을 주제로 하는 토크콘서트 'nn년생 우리들의 이어달리기' 주최",
+            "details": "교내 학우 대상 네트워킹 파티와 페미니즘을 주제로 하는 토크콘서트 'nn년생 우리들의 이어달리기' 주최",
             "extraLink": "",
             "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_15.jpg"
           },
@@ -2741,7 +2741,7 @@
             "season": "하반기",
             "period": "",
             "title": "소리내어 아니 에르노 읽기",
-            "details": "서울여대 학우를 대상으로 여성들의 임파워링을 목적으로 하는 LMG어학원 이민경 작가님의 '소리내어 읽기' 아니 에르노 편 진행",
+            "details": "교내 학우를 대상으로 여성들의 임파워링을 목적으로 하는 LMG어학원 이민경 작가님의 '소리내어 읽기' 아니 에르노 편 진행",
             "extraLink": ""
           },
           {
@@ -2801,7 +2801,7 @@
             "season": "하반기",
             "period": "",
             "title": "무소의 뿔 가을 소풍 with 여성서사",
-            "details": "서울여대 학우들과 여성 서사 콘텐츠를 주제로 한 네트워킹 행사 진행",
+            "details": "교내 학우들과 여성 서사 콘텐츠를 주제로 한 네트워킹 행사 진행",
             "extraLink": "",
             "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_21.jpg"
           },
@@ -2810,7 +2810,7 @@
             "season": "하반기",
             "period": "",
             "title": "페미니즘 공개 스터디",
-            "details": "서울여대 학우를 대상으로 2회에 걸쳐 페미니즘의 역사와 갈래, 래디컬 페미니즘에 관한 논의를 주제로 공개 스터디 진행",
+            "details": "교내 학우를 대상으로 2회에 걸쳐 페미니즘의 역사와 갈래, 래디컬 페미니즘에 관한 논의를 주제로 공개 스터디 진행",
             "extraLink": "",
             "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_22.jpg"
           },
@@ -2908,6 +2908,140 @@
             "details": "동덕여대 SIREN, 덕성여대 RADIUS, 성신여대 Dear.Sisters, GPS, RADSBOS, 이화여대 RAD-E와 함께 여성주의 동아리 연합 MT 참여",
             "extraLink": "",
             "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_29.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "08",
+            "title": "디지털 성범죄 연대 가이드 배포",
+            "details": "디지털 성범죄 피해자 연대 수칙 강연을 바탕으로 디지털 성범죄 연대 가이드 제작 후 배포",
+            "extraLink": "https://www.instagram.com/p/C_UvAAIR2I6/?igsh=MTRsZ295ZzNhYW4ycg==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_30.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "09",
+            "title": "교제폭력 스터디",
+            "details": "교제폭력의 유형, 대처방안, 필요한 법안 등에 대해 스터디 진행",
+            "extraLink": "https://www.instagram.com/p/C_nnxDLT5nZ/?igsh=MXJ0NzdxaHZvY2NieA=="
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "09",
+            "title": "딥페이크 성착취 엄벌촉구시위' 연대 화력 여대 대항전",
+            "details": "덕성, 동덕, 서울, 성신, 숙명 5개 학교 여대 연합으로 '딥페이크 성착취 엄벌 촉구 시위' 에 대한 학우들의 관심과 참여를 유도하고자 연대 화력 여대 대항전을 공동 개최",
+            "extraLink": "https://www.instagram.com/p/C_uktFAz9z3/?img_index=2&igsh=MXZ6MmFzN3A2YWJz",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_31.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "09 - 10",
+            "title": "독서 스터디 '레즈비언 혁명'",
+            "details": "래디컬 페미니즘의 주요 의제 중 하나인 레즈비어니즘에 대해 4회에 걸친 독서 스터디 진행",
+            "extraLink": "https://www.instagram.com/p/C_6zwSDTHKs/?igsh=MWRoandjdDBuNXQxeA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_32.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "09",
+            "title": "대자보 '서울여대는 당신의 룸살롱이 아니다 - 독어독문학과 C 교수의 성범죄를 규탄하며'",
+            "details": "피해자에 연대하고 학교의 안일한 교내 성범죄 대처 규탄을 위해 서울여자대학교 독어독문학과 C 교수의 성추행 사건 공론화",
+            "extraLink": "https://www.instagram.com/p/DAR3kPJzNSe/?igsh=NnZhMjlvZjU2a3E2",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_33.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "10",
+            "title": "교내 성폭력 및 대처 미흡 규탄 시위",
+            "details": "독어독문학과 C 교수의 성범죄를 비롯한 서울여자대학교 내 지속적으로 발생하는 교수들의 성범죄와 학교의 온정적인 대처를 규탄하는 시위 주최",
+            "extraLink": "https://www.instagram.com/p/DBi-IrgTZ_N/?img_index=7&igsh=MTlsMGl1ZXJtNXIzbA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_34.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "11",
+            "title": "토크 콘서트 '무페미도에서 살아남기' ",
+            "details": "9개 업계의 직장인 멘토분을 초빙하여 면접, 입사, 퇴사, 승진, 직장 내 범죄 대응 등 다양한 상황에 대한 멘토의 경험, 조언 공유와 참가자 간의 네트워킹을 유발. 여러 여성주의 기업과 제휴를 통한 협찬품 증정",
+            "extraLink": "",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_35.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "11",
+            "title": "교내 성범죄 역고소 사건 피고소인 명예훼손 무죄 촉구 연대 집회 및 교내 행진",
+            "details": "피고소인의 불송치 결정을 위한 노원경찰서 앞 집회와 본교의 대책 수립을 촉구하는 교내 행진 개최",
+            "extraLink": "http://swupress.swu.ac.kr/news/articleView.html?idxno=12573",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_36.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "12",
+            "title": "교내 성추행 사건 수사 협조 및 대책 수립 촉구 기자회견",
+            "details": "학교의 피고소인 개인정보 유출 및 비상대책위원회의 소극적 대안을 규탄하는 기자회견 주최",
+            "extraLink": "",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_37.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "03",
+            "title": "독서 스터디 '우리에겐 언어가 필요하다: 입이 트이는 페미니즘'",
+            "details": "무소의 뿔 부원 대상 '우리에겐 언어가 필요하다: 입이 트이는 페미니즘' 독서 스터디 진행",
+            "extraLink": "https://www.instagram.com/p/DILJEpERxRX/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_38.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "04",
+            "title": "젠더는 해롭다' 독서 스터디",
+            "details": "도서 '젠더는 해롭다' 를 중심으로 트랜스젠더리즘, 레즈비언 페미니즘, 차별금지법 등 다양한 주제에 대해 의견을 나누며 래디컬 페미니스트로서 입장과 생각을 다시금 정립",
+            "extraLink": "https://www.instagram.com/p/DJT0gN-zc-v/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_39.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "04",
+            "title": "레즈비언 가시화의 날 교내 이벤트 주최",
+            "details": "레즈비언 가시화의 날을 기념하는 교내 이벤트 진행",
+            "extraLink": "https://www.instagram.com/p/DIQZnZMRaCR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_40.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "05",
+            "title": "연대 활동의 모든 것' 워크숍",
+            "details": "독문과 C교수 성추행 사건을 중심으로 연대활동의 구체적인 방법, 대응 타임라인을 살펴보는 워크숍 진행",
+            "extraLink": "https://www.instagram.com/p/DKliy8hxPoR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_41.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "05",
+            "title": "여성혐오폭력 규탄 공동행동",
+            "details": "미아역 여성혐오 살인사건 규탄 시위 참가",
+            "extraLink": "https://www.instagram.com/p/DJwLg90ztTC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_42.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "05",
+            "title": "민주 없는 민주 동덕' 3차 시위 참여",
+            "details": "민주 없는 민주 동덕' 에 연대 및 참가하여 고소가 취하된 학생들에 대한 수사를 강경하게 이어가는 서울 경찰청, 여전히 학생들의 요구를 무시하는 동덕여대 이사진을 규탄",
+            "extraLink": "https://www.instagram.com/p/DKJ2qNGRBp4/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+            "image": "riu\\images\\SEOUL_W\\MUSO_PPUL\\image_43.jpg"
           }
         ]
       }
@@ -2965,7 +3099,7 @@
             "year": "2024",
             "season": "하반기",
             "period": "10",
-            "title": "호주 여자 축구의 MTF 트랜스젠더 선수 이슈에 관한 외신 뉴스 기사 번역",
+            "title": "호주 여자 축구 MTF 트랜스젠더 선수 이슈에 관한 외신 뉴스 기사 번역",
             "details": "Womens Football Team with FIVE Trans-Idendified Males Won Grand Final 기사 번역",
             "extraLink": "https://reduxx.info/australia-womens-football-team-with-five-trans-identified-males-win-grand-final-amid-high-security-camera-bans/",
             "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_5.jpg"
@@ -2984,7 +3118,7 @@
             "season": "하반기",
             "period": "10",
             "title": "카드뉴스 '미스 여군에서 딥페이크까지: 군대 내 여성 대상화의 역사'",
-            "details": "국군의 날 특집으로 미스 여군 선발대회, 딥페이크 여성 군인 성착취물 등을 살펴보며 군대 내의 여성 대상화 비판",
+            "details": "국군의 날 특집으로 미스 여군 선발대회, 딥페이크 여성 군인 성착취물 등 군대 내의 여성 대상화 비판",
             "extraLink": "",
             "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_7.jpg"
           },
@@ -3005,6 +3139,133 @@
             "details": "딥페이크 성착취 엄벌 촉구를 위해 연대체로 참여",
             "extraLink": "",
             "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_9.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "10",
+            "title": "여성인권 관련 외신 뉴스기사 번역 '트렌스젠더 선수들의 여성 선수 파이 뺏기'\n",
+            "details": " '트렌스젠더 선수들의 여성 선수 파이 뺏기'\n외신 뉴스 기사 번역 후 게시물 작성",
+            "extraLink": "https://www.instagram.com/p/DAkI_cvzkU4/?img_index=1",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_10.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "10",
+            "title": "제 1회 한여름 정기 토론회 진행\n'여성에게 가해 행위를 한 페미니스트 여성 스피커'",
+            "details": "여성에게 가해 행위를 한 페미니스트 여성 스피커'\n를 주제로 발제 후 토론 및 후기 게시물 작성 ",
+            "extraLink": "https://www.instagram.com/p/DDVl1KqyGsd/?img_index=1",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_11.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "10",
+            "title": "지혜복 교사 복직 및 학내 성폭력 규탄 집회 참여",
+            "details": " 서울시교육청 앞에서 여성의당이 주최한 지혜복 교사의 복직 촉구 집회 참가",
+            "extraLink": "https://www.instagram.com/p/DBNZ0urz8ui/?img_index=5",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_12.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "11",
+            "title": "동덕여대 교내 시위 및 자유 발언 참여",
+            "details": "동덕여대 공학 전환 반대 교내 시위 및 자유 발언 참여 ",
+            "extraLink": {
+              "richText": [
+                {
+                  "font": {
+                    "name": "Arial"
+                  },
+                  "text": "\n\n"
+                },
+                {
+                  "font": {
+                    "name": "Arial",
+                    "color": {
+                      "argb": "FF1155CC"
+                    },
+                    "underline": true
+                  },
+                  "text": "https://www.joongang.co.kr/article/25291476"
+                }
+              ]
+            },
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_13.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "11",
+            "title": "여대 공학 전환 반대 성명문 작성",
+            "details": "여대 공학 전환 반대 성명문을 작성 및 게시하여 연대",
+            "extraLink": "https://www.instagram.com/p/DCSnImdzl8C/",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_14.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "11",
+            "title": "서울여대 교내 성범죄 규탄 시위 참여",
+            "details": "서울여대 교내 성범죄 규탄 집회 참여",
+            "extraLink": "https://www.khan.co.kr/article/202411191744001",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_15.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "12",
+            "title": "한양여자대학교 재학생 기말고사 이벤트\n'내가 생각하는 여대라서 좋은 점은?'",
+            "details": "한양여자대학교 내 재학생을 대상으로 \n'내가 생각하는 여대라서 좋은 점은?' 을 주제로 댓글 이벤트 진행하여 여성 공간의 의미와 가치를 공유",
+            "extraLink": "https://www.instagram.com/p/DDYE_eDTcA_/?img_index=1",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_16.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "12",
+            "title": "여성인권 관련 외신 뉴스기사 번역 '일본의 선택적 부부 별성 제도 도입 논의'",
+            "details": "일본의 선택적 부부 별성 제도 도입 논의'\n외신 뉴스기사 번역 후 게시물 작성",
+            "extraLink": "https://www.instagram.com/p/DD_llhcSfW6/?img_index=1",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_17.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "12",
+            "title": "민주없는 민주동덕'\n집회 참여\n",
+            "details": "동덕여자대학교 중앙 동아리에서 주최한 혜화역 '민주없는 민주동덕' 집회 참여",
+            "extraLink": "https://www.instagram.com/p/DEFLSt3SUqN/?img_index=1",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_18.jpg"
+          },
+          {
+            "year": "2024",
+            "season": "하반기",
+            "period": "12",
+            "title": "동덕여대 시위 사전검열 위헌·위법행위 공동고발 \n기자 회견 참여",
+            "details": "여성의당이 주최한 동덕여대 시위 사전검열 위헌·위법행위 공동고발 \n기자 회견 참여",
+            "extraLink": "https://www.womennews.co.kr/news/articleView.html?idxno=256501",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_19.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "1",
+            "title": "제2회 한여름 정기 토론회 진행\n'한국 가부장제 아래 부권 책임의 결여'",
+            "details": "\n'한국 가부장제 아래 부권 책임의 결여'를 주제로\n토론 진행",
+            "extraLink": "",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_20.jpg"
+          },
+          {
+            "year": "2025",
+            "season": "상반기",
+            "period": "1",
+            "title": "민주없는 민주동덕'\n2차 집회 참여",
+            "details": "국회의사당역 인근에서 진행된 '민주없는 민주동덕' 2차 집회 및 자유발언 참여",
+            "extraLink": "https://www.instagram.com/p/DF5abRFSO89/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+            "image": "riu\\images\\HANYANG_W\\MIDSUMMER\\image_21.jpg"
           }
         ]
       }
