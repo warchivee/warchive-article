@@ -1,6 +1,6 @@
 <script>
-  export let selectedYear = "";
-  export let selectedMonth = "";
+  export let selectedYear = 0;
+  export let selectedMonth = 0;
 
   const currentYear = new Date().getFullYear();
   const yearOptions = Array.from({ length: currentYear - 1900 + 1 }, (_, i) =>
@@ -10,6 +10,10 @@
   const monthOptions = Array.from({ length: 12 }, (_, i) => String(i + 1));
 
   let isOpenSelect = false;
+
+  $: if (+selectedYear === 0) {
+    selectedMonth = 0;
+  }
 
   function openSelect() {
     isOpenSelect = true;
@@ -39,19 +43,22 @@
   <div on:focusout={closeSelect}>
     <!-- svelte-ignore a11y-autofocus -->
     <select id="receipt-year" bind:value={selectedYear} autofocus>
-      <option value="">전체</option>
+      <option value={0}>전체</option>
       {#each yearOptions as year}
         <option value={year}>{year}</option>
       {/each}
     </select>
-    년
-    <select id="receipt-month" bind:value={selectedMonth}>
-      <option value="">전체</option>
-      {#each monthOptions as month}
-        <option value={month}>{month.padStart(2, "0")}</option>
-      {/each}
-    </select>
-    월
+    {#if +selectedYear !== 0}
+      년
+
+      <select id="receipt-month" bind:value={selectedMonth} autofocus>
+        <option value={0}>전체</option>
+        {#each monthOptions as month}
+          <option value={month}>{month.padStart(2, "0")}</option>
+        {/each}
+      </select>
+      월
+    {/if}
   </div>
 {/if}
 

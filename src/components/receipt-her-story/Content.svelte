@@ -7,14 +7,15 @@
   let selectedYear;
   let selectedMonth;
 
-  let works = [
-    {
+  /** example
+   {
       date: "2025-08-10",
       category: "뮤지컬",
       title: "정년이",
       rating: 0,
     },
-  ];
+   */
+  let works = [];
 </script>
 
 <ThemePicker />

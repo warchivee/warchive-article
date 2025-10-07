@@ -7,24 +7,42 @@
     if (!selectedYear && !selectedMonth) return true; // 전체보기
 
     const date = new Date(work.date);
-    const yearMatch = date.getFullYear() === +selectedYear;
-    const monthMatch = date.getMonth() + 1 === +selectedMonth;
+    const yearMatch = +date.getFullYear() === +selectedYear;
+    const monthMatch =
+      +selectedMonth === 0 ? true : +(date.getMonth() + 1) === +selectedMonth;
 
     return yearMatch && monthMatch;
   });
 
   let editingIndex = null; // 현재 날짜 편집 중인 row index
 
-  function getToday() {
-    return new Date().toISOString().slice(0, 10);
-  }
   function enableEditing() {
     editingIndex = null;
   }
+
   function addWork() {
+    const today = new Date();
+    const viewAll = +selectedYear === 0;
+
+    const sameYearAsToday = +selectedYear === today.getFullYear();
+    const sameMonthAsToday =
+      +selectedMonth === 0 || +selectedMonth === today.getMonth() + 1;
+
+    const month = String(
+      +selectedMonth === 0 ? today.getMonth() + 1 : selectedMonth
+    ).padStart(2, "0");
+
+    const date = String(
+      sameYearAsToday && sameMonthAsToday ? today.getDate() : 1
+    ).padStart(2, "0");
+
+    const d = viewAll
+      ? today.toISOString().slice(0, 10)
+      : `${selectedYear}-${month}-${date}`;
+
     works = [
       ...works,
-      { date: getToday(), category: "---", title: "--------", rating: 0 },
+      { date: d, category: "---", title: "--------", rating: 0 },
     ];
   }
 
