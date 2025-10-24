@@ -1,8 +1,17 @@
 <script>
-  function downloadImage() {
-    console.log("download");
-  }
+  import html2canvas from "html2canvas";
 
+  function downloadImage() {
+    const element = document.getElementById("receiptHerStory");
+    if (!element) return;
+
+    html2canvas(element).then((canvas) => {
+      const link = document.createElement("a");
+      link.download = "receipt-her-story.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  }
   function shareTwitter() {
     console.log("twitter");
   }
