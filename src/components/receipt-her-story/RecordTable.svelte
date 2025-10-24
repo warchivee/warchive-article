@@ -1,10 +1,12 @@
 <script>
+  import { v4 as uuid } from "uuid"; // npm install uuid 필요
+
   export let works = [];
   export let selectedYear = null;
   export let selectedMonth = null;
 
   $: filteredWorks = works.filter((work) => {
-    if (!selectedYear && !selectedMonth) return true; // 전체보기
+    if (!selectedYear && !selectedMonth) return true;
 
     const date = new Date(work.date);
     const yearMatch = +date.getFullYear() === +selectedYear;
@@ -14,10 +16,17 @@
     return yearMatch && monthMatch;
   });
 
-  let editingIndex = null; // 현재 날짜 편집 중인 row index
+  let editingId = null; // 인덱스 대신 ID로 추적
+
+  // selectedYear, selectedMonth가 바뀌면 편집모드 초기화
+  $: {
+    selectedYear;
+    selectedMonth;
+    editingId = null;
+  }
 
   function enableEditing() {
-    editingIndex = null;
+    editingId = null;
   }
 
   function addWork() {
@@ -42,13 +51,13 @@
 
     works = [
       ...works,
-      { date: d, category: "---", title: "--------", rating: 0 },
+      { id: uuid(), date: d, category: "---", title: "--------", rating: 0 },
     ];
   }
 
-  function removeWork(index) {
-    works = works.filter((_, i) => i !== index);
-    if (editingIndex === index) enableEditing();
+  function removeWork(id) {
+    works = works.filter((work) => work.id !== id);
+    if (editingId === id) enableEditing();
   }
 </script>
 
@@ -60,11 +69,10 @@
     <div>Rating</div>
   </div>
 
-  {#each filteredWorks as work, index}
+  {#each filteredWorks as work (work.id)}
     <div class="row data-row">
-      {#if editingIndex === index}
+      {#if editingId === work.id}
         <div></div>
-        <!-- input 자리 채워주는 빈 div -->
         <input
           type="date"
           bind:value={work.date}
@@ -73,10 +81,11 @@
           autofocus
         />
       {:else}
-        <div on:click={() => (editingIndex = index)} aria-hidden="true">
+        <div on:click={() => (editingId = work.id)} aria-hidden="true">
           {work.date}
         </div>
       {/if}
+
       <div
         contenteditable="true"
         class="category"
@@ -84,6 +93,7 @@
       >
         {work.category}
       </div>
+
       <div
         contenteditable="true"
         class="title"
@@ -91,6 +101,7 @@
       >
         {work.title}
       </div>
+
       <div class="star-rating">
         {#each [0, 1, 2] as i}
           <span
@@ -108,7 +119,10 @@
           >
         {/each}
       </div>
-      <button class="delete-btn" on:click={() => removeWork(index)}>[×]</button>
+
+      <button class="delete-btn" on:click={() => removeWork(work.id)}>
+        [×]
+      </button>
     </div>
   {/each}
 

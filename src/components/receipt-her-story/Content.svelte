@@ -20,7 +20,7 @@
 
 <ThemePicker />
 
-<section class="receipt black">
+<section class="receipt black" id="receiptHerStory">
   <div class="title">*WARCHIVE*</div>
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
