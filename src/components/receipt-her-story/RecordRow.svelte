@@ -1,15 +1,16 @@
 <script>
   import { onMount, onDestroy } from "svelte";
+  import { saveToLocalStorage } from "../../utils/localStorageManager";
 
   export let theme;
 
-  export let publishWatasSummary;
   export let works;
+  export let publishWatasSummary;
   export let work;
-  export let editingId = null;
 
   let dropdownRef;
   let showDropdown = false;
+  let showDatePicker = false;
   let filteredSuggestions = [];
 
   function formatDate(dateStr) {
@@ -18,8 +19,17 @@
     return `${year.slice(2)}-${month}-${day}`;
   }
 
+  function updated() {
+    if (work.action !== "ADD") {
+      work.action = "UPDATE";
+    }
+
+    saveToLocalStorage("receipt-works", works);
+  }
+
   function handleTitleInput(input) {
     work.title = input;
+    updated();
 
     if (input.length > 0) {
       filteredSuggestions = publishWatasSummary.filter((item) =>
@@ -34,18 +44,15 @@
   function selectSuggestion(suggestion) {
     work.title = suggestion.title + " - " + suggestion.creators;
     work.category = suggestion.category;
+    updated();
 
     showDropdown = false;
   }
 
-  function enableEditing() {
-    editingId = null;
-    showDropdown = false;
-  }
+  function removeWork() {
+    work.action = "DELETE";
 
-  function removeWork(id) {
-    works = works.filter((work) => work.id !== id);
-    if (editingId === id) enableEditing();
+    saveToLocalStorage("receipt-works", works);
   }
 
   function handleClickOutside(event) {
@@ -65,17 +72,17 @@
 </script>
 
 <div class="row data-row">
-  {#if editingId === work.id}
+  {#if showDatePicker}
     <div></div>
     <input
       type="date"
       bind:value={work.date}
-      on:change={enableEditing}
-      on:blur={enableEditing}
+      on:change={() => (showDatePicker = false)}
+      on:blur={() => (showDatePicker = false)}
       autofocus
     />
   {:else}
-    <div on:click={() => (editingId = work.id)} aria-hidden="true">
+    <div on:click={() => (showDatePicker = true)} aria-hidden="true">
       {formatDate(work.date)}
     </div>
   {/if}
@@ -83,7 +90,10 @@
   <div
     contenteditable="true"
     class="category"
-    on:input={(e) => (work.category = e.target.textContent)}
+    on:input={(e) => {
+      work.category = e.target.textContent;
+      updated();
+    }}
     bind:innerHTML={work.category}
   ></div>
 
@@ -114,29 +124,16 @@
         src="receipt/{rating}-{theme}.png"
         class={work.rating === rating ? `${rating} selected` : rating}
         aria-hidden="true"
-        on:click={() => (work.rating = rating)}
+        on:click={() => {
+          work.rating = rating;
+          updated();
+        }}
         alt={rating}
       />
     {/each}
-
-    <!-- {#each [0, 1, 2, 3, 4] as i}
-      <span
-        class="star {work.rating >= i + 1
-          ? 'full'
-          : work.rating >= i + 0.5
-            ? 'half'
-            : ''}"
-        on:click={(e) => {
-          const rect = e.target.getBoundingClientRect();
-          const half = e.clientX - rect.left < rect.width / 2 ? 0.5 : 1;
-          work.rating = i + half;
-        }}
-        aria-hidden="true">★</span
-      >
-    {/each} -->
   </div>
 
-  <button class="delete-btn" on:click={() => removeWork(work.id)}> [×] </button>
+  <button class="delete-btn" on:click={removeWork}> [×] </button>
 </div>
 
 <style>

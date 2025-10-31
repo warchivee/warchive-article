@@ -33,21 +33,16 @@
   }
 </script>
 
-<section>
+<div>
   {#each colors as color}
     <button
       style="background: {color.hex}7a; border-color:{color.hex}"
       on:click={() => changeTheme(color)}
     ></button>
   {/each}
-</section>
+</div>
 
 <style>
-  section {
-    width: 100%;
-    text-align: right;
-  }
-
   button {
     display: inline-block;
     margin: 5px;

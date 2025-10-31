@@ -1,6 +1,6 @@
 <script>
-  import { v4 as uuid } from "uuid";
   import RecordRow from "./RecordRow.svelte";
+  import { saveToLocalStorage } from "../../utils/localStorageManager";
 
   export let theme;
   export let publishWatasSummary;
@@ -9,6 +9,8 @@
   export let selectedMonth = null;
 
   $: filteredWorks = works.filter((work) => {
+    if (work.action === "DELETE") return false;
+
     if (!selectedYear && !selectedMonth) return true;
 
     const date = new Date(work.date);
@@ -18,15 +20,6 @@
 
     return yearMatch && monthMatch;
   });
-
-  let editingId = null; // 인덱스 대신 ID로 추적
-
-  // selectedYear, selectedMonth가 바뀌면 편집모드 초기화
-  $: {
-    selectedYear;
-    selectedMonth;
-    editingId = null;
-  }
 
   function addWork() {
     const today = new Date();
@@ -50,8 +43,16 @@
 
     works = [
       ...works,
-      { id: uuid(), date: d, category: "---", title: "--------", rating: 0 },
+      {
+        date: d,
+        category: "---",
+        title: "--------",
+        rating: "",
+        action: "ADD",
+      },
     ];
+
+    saveToLocalStorage("receipt-works", works);
   }
 </script>
 
@@ -63,14 +64,8 @@
     <div>Rating</div>
   </div>
 
-  {#each filteredWorks as work (work.id)}
-    <RecordRow
-      bind:works
-      bind:work
-      bind:editingId
-      {publishWatasSummary}
-      {theme}
-    />
+  {#each filteredWorks as work}
+    <RecordRow bind:work {publishWatasSummary} {theme} {works} />
   {/each}
 
   <button class="add-btn" on:click={addWork}>+ Add work here</button>
@@ -78,7 +73,7 @@
 
 <div class="total">
   <span>Total</span>
-  <span>{works.length} works</span>
+  <span>{works.filter((work) => work.action !== "DELETE").length} works</span>
 </div>
 
 <style>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { getData } from "../../utils/api.util";
+  import { loadFromLocalStorage } from "../../utils/localStorageManager";
   import userUtil from "../../utils/user.util";
 
   import ThemePicker from "./ThemePicker.svelte";
@@ -39,6 +40,7 @@
 
         works = datas;
       } else {
+        works = loadFromLocalStorage("receipt-works");
       }
 
       loading = false;
@@ -48,7 +50,10 @@
   });
 </script>
 
-<ThemePicker bind:theme />
+<aside>
+  <button>서버에 저장하기</button>
+  <ThemePicker bind:theme />
+</aside>
 
 <section class="receipt black" id="receiptHerStory">
   <div class="title">*WARCHIVE*</div>
@@ -100,6 +105,20 @@
   :global(main *) {
     letter-spacing: 0.5px;
     font-family: var(--receipt-font-family);
+  }
+
+  aside {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  button {
+    background-color: transparent;
+    border: 1px dashed black;
+    font-size: 0.8em;
+    cursor: pointer;
   }
 
   .receipt {
