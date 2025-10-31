@@ -1,6 +1,9 @@
 <script>
-  import { v4 as uuid } from "uuid"; // npm install uuid 필요
+  import { v4 as uuid } from "uuid";
+  import RecordRow from "./RecordRow.svelte";
 
+  export let theme;
+  export let publishWatasSummary;
   export let works = [];
   export let selectedYear = null;
   export let selectedMonth = null;
@@ -22,10 +25,6 @@
   $: {
     selectedYear;
     selectedMonth;
-    editingId = null;
-  }
-
-  function enableEditing() {
     editingId = null;
   }
 
@@ -54,11 +53,6 @@
       { id: uuid(), date: d, category: "---", title: "--------", rating: 0 },
     ];
   }
-
-  function removeWork(id) {
-    works = works.filter((work) => work.id !== id);
-    if (editingId === id) enableEditing();
-  }
 </script>
 
 <div class="table">
@@ -70,60 +64,13 @@
   </div>
 
   {#each filteredWorks as work (work.id)}
-    <div class="row data-row">
-      {#if editingId === work.id}
-        <div></div>
-        <input
-          type="date"
-          bind:value={work.date}
-          on:change={enableEditing}
-          on:blur={enableEditing}
-          autofocus
-        />
-      {:else}
-        <div on:click={() => (editingId = work.id)} aria-hidden="true">
-          {work.date}
-        </div>
-      {/if}
-
-      <div
-        contenteditable="true"
-        class="category"
-        on:input={(e) => (work.category = e.target.textContent)}
-      >
-        {work.category}
-      </div>
-
-      <div
-        contenteditable="true"
-        class="title"
-        on:input={(e) => (work.title = e.target.textContent)}
-      >
-        {work.title}
-      </div>
-
-      <div class="star-rating">
-        {#each [0, 1, 2] as i}
-          <span
-            class="star {work.rating >= i + 1
-              ? 'full'
-              : work.rating >= i + 0.5
-                ? 'half'
-                : ''}"
-            on:click={(e) => {
-              const rect = e.target.getBoundingClientRect();
-              const half = e.clientX - rect.left < rect.width / 2 ? 0.5 : 1;
-              work.rating = i + half;
-            }}
-            aria-hidden="true">★</span
-          >
-        {/each}
-      </div>
-
-      <button class="delete-btn" on:click={() => removeWork(work.id)}>
-        [×]
-      </button>
-    </div>
+    <RecordRow
+      bind:works
+      bind:work
+      bind:editingId
+      {publishWatasSummary}
+      {theme}
+    />
   {/each}
 
   <button class="add-btn" on:click={addWork}>+ Add work here</button>
@@ -154,56 +101,8 @@
     position: relative;
     display: grid;
     gap: 2px;
-    grid-template-columns: 76px 40px 1fr 45px 16px;
+    grid-template-columns: 76px 60px 1fr 45px 16px;
     align-items: center;
-  }
-
-  .data-row {
-    font-size: 0.68rem;
-    margin: 5px 0;
-    background: rgb(248, 248, 248);
-  }
-
-  .title {
-    word-break: break-word;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-  }
-
-  input[type="date"] {
-    font-family: var(--receipt-font-family);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 105px;
-  }
-
-  .star-rating {
-    display: flex;
-    cursor: pointer;
-    font-size: 0.9rem;
-    user-select: none;
-  }
-
-  .star {
-    color: #ccc;
-    position: relative;
-    width: 0.9rem;
-    text-align: center;
-  }
-
-  .star.full {
-    color: var(--receipt-theme-color);
-  }
-
-  .star.half::before {
-    content: "★";
-    color: var(--receipt-theme-color);
-    position: absolute;
-    left: 0;
-    width: 50%;
-    overflow: hidden;
   }
 
   .add-btn {
@@ -214,11 +113,6 @@
     padding: 5px 0px;
     margin-bottom: 5px;
     color: var(--receipt-theme-color);
-  }
-
-  .delete-btn {
-    all: unset;
-    cursor: pointer;
   }
 
   .total {

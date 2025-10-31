@@ -5,7 +5,7 @@
     const element = document.getElementById("receiptHerStory");
     if (!element) return;
 
-    html2canvas(element).then((canvas) => {
+    html2canvas(element, { useCORS: true, allowTaint: true }).then((canvas) => {
       const link = document.createElement("a");
       link.download = "receipt-her-story.png";
       link.href = canvas.toDataURL("image/png");

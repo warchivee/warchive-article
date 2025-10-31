@@ -1,18 +1,42 @@
 <script>
-  export let colors = ["#000000", "#e91e63", "#2196f3", "#09a11c", "#9023d5"];
+  export let theme;
+
+  const colors = [
+    {
+      hex: "#000000",
+      name: "black",
+    },
+    {
+      hex: "#e91e63",
+      name: "red",
+    },
+    {
+      hex: "#2196f3",
+      name: "blue",
+    },
+    {
+      hex: "#09a11c",
+      name: "green",
+    },
+    {
+      hex: "#9023d5",
+      name: "purple",
+    },
+  ];
 
   function changeTheme(color) {
     const receipt = document.querySelector(".receipt");
     if (!receipt) return;
+    receipt.style.setProperty("--receipt-theme-color", color.hex);
 
-    receipt.style.setProperty("--receipt-theme-color", color);
+    theme = color.name;
   }
 </script>
 
 <section>
   {#each colors as color}
     <button
-      style="background: {color}7a; border-color:{color}"
+      style="background: {color.hex}7a; border-color:{color.hex}"
       on:click={() => changeTheme(color)}
     ></button>
   {/each}

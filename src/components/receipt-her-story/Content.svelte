@@ -1,4 +1,6 @@
 <script>
+  export let publishWatasSummary;
+
   import ThemePicker from "./ThemePicker.svelte";
   import SocialShare from "./SocialShare.svelte";
   import DateFilter from "./DateFilter.svelte";
@@ -6,6 +8,8 @@
 
   let selectedYear;
   let selectedMonth;
+
+  let theme = "black";
 
   /** example
    {
@@ -18,14 +22,20 @@
   let works = [];
 </script>
 
-<ThemePicker />
+<ThemePicker bind:theme />
 
 <section class="receipt black" id="receiptHerStory">
   <div class="title">*WARCHIVE*</div>
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
 
-  <RecordTable bind:works {selectedYear} {selectedMonth} />
+  <RecordTable
+    bind:works
+    {theme}
+    {selectedYear}
+    {selectedMonth}
+    {publishWatasSummary}
+  />
 
   <div class="forms">
     <div>
