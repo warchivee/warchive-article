@@ -1,21 +1,8 @@
 ---
-import axios from "axios";
-
 import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Content from "../../components/receipt-her-story/Content.svelte";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-
-let publishWatasSummary = [];
-
-try {
-  const res = await axios.get(
-    "https://localhost:3000/api/v1/publish-wata/summary"
-  );
-  publishWatasSummary = res.data.result;
-} catch (err) {
-  console.error("Axios fetch failed:", err);
-}
 ---
 
 <!doctype html>
@@ -69,7 +56,7 @@ try {
   <body>
     <Header />
     <main class="receipt-her-story">
-      <Content client:load {publishWatasSummary} />
+      <Content client:load />
     </main>
     <footer>Copyright © 2025 Warchive. All rights reserved.</footer>
   </body>

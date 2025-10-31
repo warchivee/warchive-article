@@ -29,6 +29,9 @@ import ToggleMenu from "./ToggleMenu.svelte";
         >
       </HeaderHover>
     </div>
+    <div class="login">
+      <HeaderLink href="/login">Login</HeaderLink>
+    </div>
     <div class="social-links">
       <a href="https://www.womynarchive.com/" target="_blank">
         <img src="/logo.png" width="100" />
@@ -103,5 +106,10 @@ import ToggleMenu from "./ToggleMenu.svelte";
     .social-links {
       display: none;
     }
+  }
+
+  .login {
+    color: var(--color-white);
+    cursor: pointer;
   }
 </style>

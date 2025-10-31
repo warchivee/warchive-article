@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "set NODE_TLS_REJECT_UNAUTHORIZED=0&&set HTTPS=true&&set SSL_CRT_FILE=./cert.pem&&set SSL_KEY_FILE=./key.pem&&astro dev",
+    "dev": "set NODE_TLS_REJECT_UNAUTHORIZED=0 && astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -20,14 +20,17 @@
     "@emailjs/browser": "^4.3.3",
     "astro": "^4.5.8",
     "axios": "^1.7.9",
+    "crypto-js": "^4.2.0",
     "html2canvas": "^1.4.1",
     "qs": "^6.12.2",
     "svelte": "^4.2.12",
     "typescript": "^5.4.3",
     "urlpattern-polyfill": "^10.0.0",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.0",
+    "vite-plugin-mkcert": "^1.17.9"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "sass": "^1.72.0"
   }
 }

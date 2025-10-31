@@ -1,5 +1,7 @@
-<script>
-  export let publishWatasSummary;
+<script lang="ts">
+  import { onMount } from "svelte";
+  import { getData } from "../../utils/api.util";
+  import userUtil from "../../utils/user.util";
 
   import ThemePicker from "./ThemePicker.svelte";
   import SocialShare from "./SocialShare.svelte";
@@ -11,15 +13,39 @@
 
   let theme = "black";
 
-  /** example
-   {
-      date: "2025-08-10",
-      category: "뮤지컬",
-      title: "정년이",
-      rating: 0,
-    },
-   */
+  let loading = true;
+
   let works = [];
+
+  let publishWatasSummary = [];
+
+  onMount(async () => {
+    try {
+      loading = true;
+
+      const result = await getData<any[]>("publish-wata/summary");
+      publishWatasSummary = result;
+
+      if (userUtil.exist()) {
+        const datas = await getData<
+          {
+            id: number;
+            date: string;
+            category: string;
+            title: string;
+            rating: string;
+          }[]
+        >("receipt");
+
+        works = datas;
+      } else {
+      }
+
+      loading = false;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 </script>
 
 <ThemePicker bind:theme />
@@ -29,31 +55,35 @@
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
 
-  <RecordTable
-    bind:works
-    {theme}
-    {selectedYear}
-    {selectedMonth}
-    {publishWatasSummary}
-  />
+  {#if !loading}
+    <RecordTable
+      bind:works
+      {theme}
+      {selectedYear}
+      {selectedMonth}
+      {publishWatasSummary}
+    />
 
-  <div class="forms">
-    <div>
-      <div>Name:</div>
-      <div
-        class="name-input"
-        contenteditable="true"
-        data-placeholder="Write your name"
-        on:blur={(e) => {
-          if (/^\s*$/.test(e.target.innerText)) e.target.innerText = "";
-        }}
-      ></div>
+    <div class="forms">
+      <div>
+        <div>Name:</div>
+        <div
+          class="name-input"
+          contenteditable="true"
+          data-placeholder="Write your name"
+          on:blur={(e) => {
+            if (/^\s*$/.test(e.target.innerText)) e.target.innerText = "";
+          }}
+        >
+          {userUtil.get()?.nickname ?? ""}
+        </div>
+      </div>
+      <div>
+        <div>Record Date:</div>
+        <DateFilter bind:selectedYear bind:selectedMonth />
+      </div>
     </div>
-    <div>
-      <div>Record Date:</div>
-      <DateFilter bind:selectedYear bind:selectedMonth />
-    </div>
-  </div>
+  {/if}
 
   <div class="footer">
     <div class="thanks">THANK YOU FOR ARCHIVING HER WORLD.</div>
