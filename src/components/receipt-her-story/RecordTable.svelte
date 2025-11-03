@@ -110,6 +110,10 @@
     color: var(--receipt-theme-color);
   }
 
+  :global(.receipt.image-saved .add-btn) {
+    display: none;
+  }
+
   .total {
     display: flex;
     justify-content: space-between;

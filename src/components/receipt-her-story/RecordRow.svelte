@@ -207,10 +207,6 @@
     grid-template-columns: 60px 60px 1fr 75px;
   }
 
-  :global(.receipt.image-saved .add-btn) {
-    display: none;
-  }
-
   .dropdown {
     position: absolute;
     top: 20px;
