@@ -35,24 +35,29 @@
     }, 3000);
   }
 
+  async function loadSummaryForAutoCompleting() {
+    const result = await getData("publish-wata/summary");
+    publishWatasSummary = result;
+  }
+
+  async function loadWorks() {
+    if (userUtil.exist()) {
+      const datas = await getData("receipt");
+      works = datas;
+      saveToLocalStorage("receipt-works", datas);
+      return;
+    }
+
+    works = loadFromLocalStorage("receipt-works") || [];
+  }
+
   onMount(async () => {
     try {
       loading = true;
 
-      const result = await getData("publish-wata/summary");
-      publishWatasSummary = result;
+      await loadSummaryForAutoCompleting();
 
-      works = loadFromLocalStorage("receipt-works") || [];
-
-      if (works?.length !== 0 || !userUtil.exist()) {
-        loading = false;
-        return;
-      }
-
-      const datas = await getData("receipt");
-
-      works = datas;
-      saveToLocalStorage("receipt-works", datas);
+      await loadWorks();
 
       loading = false;
     } catch (error) {
