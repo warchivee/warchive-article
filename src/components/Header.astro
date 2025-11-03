@@ -2,6 +2,7 @@
 import BlankLink from "./BlankLink.astro";
 import HeaderLink from "./HeaderLink.astro";
 import HeaderHover from "./HeaderHover.astro";
+import LoginLink from "./LoginLink.svelte";
 import ToggleMenu from "./ToggleMenu.svelte";
 ---
 
@@ -30,7 +31,7 @@ import ToggleMenu from "./ToggleMenu.svelte";
       </HeaderHover>
     </div>
     <div class="login">
-      <HeaderLink href="/login">Login</HeaderLink>
+      <LoginLink client:load />
     </div>
     <div class="social-links">
       <a href="https://www.womynarchive.com/" target="_blank">

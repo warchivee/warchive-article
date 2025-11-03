@@ -20,7 +20,7 @@
   }
 
   function updated() {
-    if (work.action !== "ADD") {
+    if (work.action !== "CREATE") {
       work.action = "UPDATE";
     }
 
@@ -190,6 +190,18 @@
   .delete-btn {
     all: unset;
     cursor: pointer;
+  }
+
+  :global(.receipt.image-saved .delete-btn) {
+    display: none;
+  }
+
+  :global(.receipt.image-saved .row) {
+    grid-template-columns: 60px 60px 1fr 75px;
+  }
+
+  :global(.receipt.image-saved .add-btn) {
+    display: none;
   }
 
   .dropdown {

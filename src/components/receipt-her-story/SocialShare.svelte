@@ -5,13 +5,20 @@
     const element = document.getElementById("receiptHerStory");
     if (!element) return;
 
-    html2canvas(element, { useCORS: true, allowTaint: true }).then((canvas) => {
-      const link = document.createElement("a");
-      link.download = "receipt-her-story.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    });
+    element.classList.add("image-saved");
+
+    html2canvas(element, { useCORS: true, allowTaint: true })
+      .then((canvas) => {
+        const link = document.createElement("a");
+        link.download = "receipt-her-story.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      })
+      .finally(() => {
+        element.classList.remove("image-saved");
+      });
   }
+
   function shareTwitter() {
     console.log("twitter");
   }

@@ -48,7 +48,7 @@
         category: "---",
         title: "--------",
         rating: "",
-        action: "ADD",
+        action: "CREATE",
       },
     ];
 

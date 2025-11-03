@@ -1,7 +1,10 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { getData } from "../../utils/api.util";
-  import { loadFromLocalStorage } from "../../utils/localStorageManager";
+  import { getData, patchData } from "../../utils/api.util";
+  import {
+    loadFromLocalStorage,
+    saveToLocalStorage,
+  } from "../../utils/localStorageManager";
   import userUtil from "../../utils/user.util";
 
   import ThemePicker from "./ThemePicker.svelte";
@@ -27,21 +30,25 @@
       const result = await getData<any[]>("publish-wata/summary");
       publishWatasSummary = result;
 
-      if (userUtil.exist()) {
-        const datas = await getData<
-          {
-            id: number;
-            date: string;
-            category: string;
-            title: string;
-            rating: string;
-          }[]
-        >("receipt");
+      works = loadFromLocalStorage("receipt-works") || [];
 
-        works = datas;
-      } else {
-        works = loadFromLocalStorage("receipt-works");
+      if (works?.length !== 0 || !userUtil.exist()) {
+        loading = false;
+        return;
       }
+
+      const datas = await getData<
+        {
+          id: number;
+          date: string;
+          category: string;
+          title: string;
+          rating: string;
+        }[]
+      >("receipt");
+
+      works = datas;
+      saveToLocalStorage("receipt-works", datas);
 
       loading = false;
     } catch (error) {
@@ -51,44 +58,78 @@
 </script>
 
 <aside>
-  <button>서버에 저장하기</button>
+  <button
+    on:click={async () => {
+      try {
+        loading = true;
+
+        const params = loadFromLocalStorage("receipt-works")?.filter((item) => {
+          if (!item.id && item.action === "DELETE") {
+            return false;
+          }
+
+          if (!item?.action) {
+            return false;
+          }
+
+          return true;
+        });
+
+        if (!params || params?.length === 0) {
+          loading = false;
+          return;
+        }
+
+        const updated = await patchData("receipt", params);
+
+        works = updated;
+        saveToLocalStorage("receipt-works", updated);
+
+        loading = false;
+      } catch (error) {
+        console.error(error);
+      }
+    }}>서버에 저장하기</button
+  >
   <ThemePicker bind:theme />
 </aside>
 
 <section class="receipt black" id="receiptHerStory">
+  {#if loading}
+    <div class="loading"></div>
+  {/if}
+
   <div class="title">*WARCHIVE*</div>
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
 
-  {#if !loading}
-    <RecordTable
-      bind:works
-      {theme}
-      {selectedYear}
-      {selectedMonth}
-      {publishWatasSummary}
-    />
+  <RecordTable
+    bind:works
+    {theme}
+    {selectedYear}
+    {selectedMonth}
+    {publishWatasSummary}
+  />
 
-    <div class="forms">
-      <div>
-        <div>Name:</div>
-        <div
-          class="name-input"
-          contenteditable="true"
-          data-placeholder="Write your name"
-          on:blur={(e) => {
-            if (/^\s*$/.test(e.target.innerText)) e.target.innerText = "";
-          }}
-        >
-          {userUtil.get()?.nickname ?? ""}
-        </div>
-      </div>
-      <div>
-        <div>Record Date:</div>
-        <DateFilter bind:selectedYear bind:selectedMonth />
+  <div class="forms">
+    <div>
+      <div>Name:</div>
+      <div
+        class="name-input"
+        contenteditable="true"
+        data-placeholder="Write your name"
+        on:blur={(e) => {
+          if (/^\s*$/.test(e.target.innerText)) e.target.innerText = "";
+        }}
+      >
+        {userUtil.get()?.nickname ?? ""}
       </div>
     </div>
-  {/if}
+    <div>
+      <div>Record Date:</div>
+      <DateFilter bind:selectedYear bind:selectedMonth />
+    </div>
+  </div>
 
   <div class="footer">
     <div class="thanks">THANK YOU FOR ARCHIVING HER WORLD.</div>
@@ -105,6 +146,16 @@
   :global(main *) {
     letter-spacing: 0.5px;
     font-family: var(--receipt-font-family);
+  }
+
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.4;
   }
 
   aside {
