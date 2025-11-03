@@ -35,7 +35,7 @@
       filteredSuggestions = publishWatasSummary.filter((item) =>
         item.title.toLowerCase().includes(input.toLowerCase())
       );
-      showDropdown = filteredSuggestions.length > 0;
+      showDropdown = true;
     } else {
       showDropdown = false;
     }
@@ -106,6 +106,13 @@
 
   {#if showDropdown}
     <div class="dropdown" bind:this={dropdownRef}>
+      {#if filteredSuggestions.length <= 0}
+        <div class="dropdown-item">
+          <a href="https://www.womynarchive.com/"
+            >검색 결과에 없다면? ☞ 와카이브에 제보하기 ☜
+          </a>
+        </div>
+      {/if}
       {#each filteredSuggestions as suggestion}
         <div
           class="dropdown-item"
