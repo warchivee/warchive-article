@@ -80,7 +80,9 @@
           return;
         }
 
-        const updated = await patchData("receipt", params);
+        console.log(params);
+
+        const updated = await patchData("receipt/bulk", params);
 
         works = updated;
         saveToLocalStorage("receipt-works", updated);
