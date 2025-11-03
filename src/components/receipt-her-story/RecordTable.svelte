@@ -73,7 +73,7 @@
 
 <div class="total">
   <span>Total</span>
-  <span>{works.filter((work) => work.action !== "DELETE").length} works</span>
+  <span>{filteredWorks.length} works</span>
 </div>
 
 <style>
