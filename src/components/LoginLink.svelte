@@ -4,7 +4,11 @@
   const isLoggedIn = userUtil.exist();
 </script>
 
-<a href={isLoggedIn ? "/logout" : "/login"}>
+<a
+  href={isLoggedIn
+    ? "https://www.womynarchive.com"
+    : "https://www.womynarchive.com/login"}
+>
   {isLoggedIn ? "Logout" : "Login"}
 </a>
 
