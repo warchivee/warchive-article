@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import { onMount } from "svelte";
   import { getData, patchData } from "../../utils/api.util";
   import {
@@ -7,10 +7,14 @@
   } from "../../utils/localStorageManager";
   import userUtil from "../../utils/user.util";
 
+  import Snackbar from "../Snackbar.svelte";
+
   import ThemePicker from "./ThemePicker.svelte";
   import SocialShare from "./SocialShare.svelte";
   import DateFilter from "./DateFilter.svelte";
   import RecordTable from "./RecordTable.svelte";
+
+  let showSnackbar = false;
 
   let selectedYear;
   let selectedMonth;
@@ -23,11 +27,19 @@
 
   let publishWatasSummary = [];
 
+  function openSnackbar() {
+    showSnackbar = true;
+
+    setTimeout(() => {
+      showSnackbar = false;
+    }, 3000);
+  }
+
   onMount(async () => {
     try {
       loading = true;
 
-      const result = await getData<any[]>("publish-wata/summary");
+      const result = await getData("publish-wata/summary");
       publishWatasSummary = result;
 
       works = loadFromLocalStorage("receipt-works") || [];
@@ -37,15 +49,7 @@
         return;
       }
 
-      const datas = await getData<
-        {
-          id: number;
-          date: string;
-          category: string;
-          title: string;
-          rating: string;
-        }[]
-      >("receipt");
+      const datas = await getData("receipt");
 
       works = datas;
       saveToLocalStorage("receipt-works", datas);
@@ -61,6 +65,13 @@
   <button
     on:click={async () => {
       try {
+        const isLoggedIn = userUtil.exist();
+
+        if (!isLoggedIn) {
+          openSnackbar();
+          return;
+        }
+
         loading = true;
 
         const params = loadFromLocalStorage("receipt-works")?.filter((item) => {
@@ -79,8 +90,6 @@
           loading = false;
           return;
         }
-
-        console.log(params);
 
         const updated = await patchData("receipt/bulk", params);
 
@@ -143,6 +152,10 @@
 </section>
 
 <SocialShare />
+
+{#if showSnackbar}
+  <Snackbar message="로그인이 필요합니다." />
+{/if}
 
 <style>
   :global(main *) {
