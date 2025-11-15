@@ -51,6 +51,43 @@
     works = loadFromLocalStorage("receipt-works") || [];
   }
 
+  function showGuide() {
+    if (works.length > 0) return;
+    const today = new Date();
+    works = [
+      {
+        date: today.toISOString().slice(0, 10),
+        title: "+ Add work 로 작품을 추가하세요",
+        category: "게임",
+        rating: "good",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        title: "로그인하면 데이터를 동기화 할 수 있어요",
+        category: "공연/전시",
+        rating: "middle",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        title: "상단의 달력 버튼을 눌러 날짜 별로 영수증을 필터링 해보세요",
+        category: "만화",
+        rating: "bad",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        category: "서적",
+        title: "이미지를 저장해 친구들에게 공유해보세요",
+        rating: "middle",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        category: "영상",
+        title: "제목을 입력하면 와카이브에 등록된 작품이 자동완성 됩니다",
+        rating: "good",
+      },
+    ];
+  }
+
   onMount(async () => {
     try {
       loading = true;
@@ -58,6 +95,8 @@
       await loadSummaryForAutoCompleting();
 
       await loadWorks();
+
+      showGuide();
 
       loading = false;
     } catch (error) {
@@ -115,7 +154,11 @@
     <div class="loading"></div>
   {/if}
 
-  <div class="title">*WARCHIVE*</div>
+  <div class="header">
+    <div class="title">*WARCHIVE*</div>
+
+    <DateFilter bind:selectedYear bind:selectedMonth />
+  </div>
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
 
@@ -143,7 +186,15 @@
     </div>
     <div>
       <div>Record Date:</div>
-      <DateFilter bind:selectedYear bind:selectedMonth />
+      {#if selectedYear}
+        {selectedYear} 년
+      {/if}
+      {#if selectedYear && selectedMonth}
+        {selectedMonth} 월
+      {/if}
+      {#if !selectedYear && !selectedMonth}
+        All Date
+      {/if}
     </div>
   </div>
 
@@ -209,6 +260,10 @@
 
     display: flex;
     flex-direction: column;
+  }
+
+  .header {
+    position: relative;
   }
 
   .title {

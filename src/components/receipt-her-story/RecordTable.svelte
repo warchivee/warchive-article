@@ -45,8 +45,8 @@
       ...works,
       {
         date: d,
-        category: "---",
-        title: "--------",
+        category: "",
+        title: "",
         rating: "",
         action: "CREATE",
       },
