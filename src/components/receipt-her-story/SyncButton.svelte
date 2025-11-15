@@ -16,15 +16,19 @@
     }, 3000);
   }
 
+  function openPopup() {
+    const isLoggedIn = userUtil.exist();
+
+    if (!isLoggedIn) {
+      openSnackbar();
+      return;
+    }
+
+    open = true;
+  }
+
   async function onConfirm() {
     try {
-      const isLoggedIn = userUtil.exist();
-
-      if (!isLoggedIn) {
-        openSnackbar();
-        return;
-      }
-
       loading = true;
 
       const params = loadFromLocalStorage("receipt-works")?.filter((item) => {
@@ -60,7 +64,7 @@
   }
 </script>
 
-<button on:click={() => (open = true)}>데이터 동기화</button>
+<button on:click={openPopup}>데이터 동기화</button>
 {#if open}
   <div class="overlay" on:click={onCancel}>
     <div class="popup" on:click|stopPropagation>
