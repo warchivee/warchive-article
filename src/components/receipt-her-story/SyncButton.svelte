@@ -1,4 +1,5 @@
 <script>
+  import { patchData } from "../../utils/api.util";
   import userUtil from "../../utils/user.util";
   import Snackbar from "../Snackbar.svelte";
   import {

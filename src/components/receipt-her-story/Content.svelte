@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { getData, patchData } from "../../utils/api.util";
+  import { getData } from "../../utils/api.util";
   import {
     loadFromLocalStorage,
     saveToLocalStorage,
