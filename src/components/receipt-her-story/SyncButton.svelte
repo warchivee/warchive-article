@@ -1,6 +1,10 @@
 <script>
   import userUtil from "../../utils/user.util";
   import Snackbar from "../Snackbar.svelte";
+  import {
+    loadFromLocalStorage,
+    saveToLocalStorage,
+  } from "../../utils/localStorageManager";
 
   export let loading = false;
 
@@ -56,6 +60,7 @@
       loading = false;
     } catch (error) {
       console.error(error);
+      loading = false;
     }
   }
 
