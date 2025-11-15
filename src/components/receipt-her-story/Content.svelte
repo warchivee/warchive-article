@@ -52,14 +52,14 @@
       },
       {
         date: today.toISOString().slice(0, 10),
-        title: "로그인하면 데이터를 동기화 할 수 있어요",
+        title: "상단의 달력 버튼을 눌러 날짜 별로 영수증을 필터링 해보세요",
         category: "공연/전시",
         rating: "middle",
       },
       {
         date: today.toISOString().slice(0, 10),
-        title: "상단의 달력 버튼을 눌러 날짜 별로 영수증을 필터링 해보세요",
         category: "만화",
+        title: "제목을 입력하면 카테고리와 전체 제목이 자동으로 채워집니다",
         rating: "bad",
       },
       {
@@ -70,8 +70,8 @@
       },
       {
         date: today.toISOString().slice(0, 10),
+        title: "로그인하면 데이터를 동기화 할 수 있어요",
         category: "영상",
-        title: "제목을 입력하면 와카이브에 등록된 작품이 자동완성 됩니다",
         rating: "good",
       },
     ];

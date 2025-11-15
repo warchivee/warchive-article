@@ -22,7 +22,7 @@ export const reissueApi = axios.create({
   withCredentials: true,
 });
 
-const reissueToken = async () => {
+export const reissueToken = async () => {
   const response = await reissueApi.get<ApiResult<LoginResult>>("auth/reissue");
   const result = handleApiResult(response);
 

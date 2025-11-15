@@ -1,16 +1,33 @@
 <script>
+  import { onMount } from "svelte";
+  import { reissueToken } from "../utils/api.util.ts";
   import userUtil from "../utils/user.util";
 
-  const isLoggedIn = userUtil.exist();
+  function logout() {
+    userUtil.remove();
+    window.location.href = "/";
+  }
+
+  onMount(async () => {
+    if (userUtil.exist()) return;
+
+    try {
+      await reissueToken();
+    } catch (error) {
+      console.error("토큰 재발급 실패:", error);
+    }
+  });
 </script>
 
-<a
-  href={isLoggedIn
-    ? "https://www.womynarchive.com"
-    : "https://www.womynarchive.com/login"}
->
-  {isLoggedIn ? "Logout" : "Login"}
-</a>
+{#if userUtil.exist()}
+  <div on:click={logout}>Logout</div>
+{:else}
+  <a
+    href="https://www.womynarchive.com/login?rd=https://article.womynarchive.com/"
+  >
+    Login
+  </a>
+{/if}
 
 <style>
   a {
