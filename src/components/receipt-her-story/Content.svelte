@@ -105,7 +105,7 @@
       } catch (error) {
         console.error(error);
       }
-    }}>서버에 저장하기</button
+    }}>데이터 동기화</button
   >
   <ThemePicker bind:theme />
 </aside>
