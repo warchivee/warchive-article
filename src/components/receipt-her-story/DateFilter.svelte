@@ -79,6 +79,11 @@
     height: 100%;
     z-index: 999;
   }
+
+  :global(.receipt.image-saved .top-bar) {
+    display: none;
+  }
+
   .top-bar {
     position: absolute;
     right: 0;

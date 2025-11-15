@@ -7,14 +7,11 @@
   } from "../../utils/localStorageManager";
   import userUtil from "../../utils/user.util";
 
-  import Snackbar from "../Snackbar.svelte";
-
+  import SyncButton from "./SyncButton.svelte";
   import ThemePicker from "./ThemePicker.svelte";
   import SocialShare from "./SocialShare.svelte";
   import DateFilter from "./DateFilter.svelte";
   import RecordTable from "./RecordTable.svelte";
-
-  let showSnackbar = false;
 
   let selectedYear;
   let selectedMonth;
@@ -26,14 +23,6 @@
   let works = [];
 
   let publishWatasSummary = [];
-
-  function openSnackbar() {
-    showSnackbar = true;
-
-    setTimeout(() => {
-      showSnackbar = false;
-    }, 3000);
-  }
 
   async function loadSummaryForAutoCompleting() {
     const result = await getData("publish-wata/summary");
@@ -106,46 +95,7 @@
 </script>
 
 <aside>
-  <button
-    on:click={async () => {
-      try {
-        const isLoggedIn = userUtil.exist();
-
-        if (!isLoggedIn) {
-          openSnackbar();
-          return;
-        }
-
-        loading = true;
-
-        const params = loadFromLocalStorage("receipt-works")?.filter((item) => {
-          if (!item.id && item.action === "DELETE") {
-            return false;
-          }
-
-          if (!item?.action) {
-            return false;
-          }
-
-          return true;
-        });
-
-        if (!params || params?.length === 0) {
-          loading = false;
-          return;
-        }
-
-        const updated = await patchData("receipt/bulk", params);
-
-        works = updated;
-        saveToLocalStorage("receipt-works", updated);
-
-        loading = false;
-      } catch (error) {
-        console.error(error);
-      }
-    }}>데이터 동기화</button
-  >
+  <SyncButton bind:loading />
   <ThemePicker bind:theme />
 </aside>
 
@@ -209,10 +159,6 @@
 
 <SocialShare />
 
-{#if showSnackbar}
-  <Snackbar message="로그인이 필요합니다." />
-{/if}
-
 <style>
   :global(main *) {
     letter-spacing: 0.5px;
@@ -234,13 +180,6 @@
     justify-content: space-between;
     width: 100%;
     padding: 0 10px;
-  }
-
-  button {
-    background-color: transparent;
-    border: 1px dashed black;
-    font-size: 0.8em;
-    cursor: pointer;
   }
 
   .receipt {
