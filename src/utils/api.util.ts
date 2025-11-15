@@ -52,7 +52,8 @@ api.interceptors.request.use(
       try {
         await reissueToken(); // 토큰 재발급 요청
       } catch (reissueError) {
-        return Promise.reject(reissueError); // 에러 반환
+        userUtil.remove();
+        window.location.href = "/";
       }
     }
 
