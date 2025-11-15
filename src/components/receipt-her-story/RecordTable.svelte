@@ -45,8 +45,8 @@
       ...works,
       {
         date: d,
-        category: "---",
-        title: "--------",
+        category: "",
+        title: "",
         rating: "",
         action: "CREATE",
       },
@@ -108,6 +108,10 @@
     padding: 5px 0px;
     margin-bottom: 5px;
     color: var(--receipt-theme-color);
+  }
+
+  :global(.receipt.image-saved .add-btn) {
+    display: none;
   }
 
   .total {

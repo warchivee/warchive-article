@@ -27,7 +27,7 @@ const userUtil = {
   },
 
   remove: () => {
-    localStorageUtil.remove(LS_USER_KEY);
+    localStorageUtil.clearAll();
   },
 };
 

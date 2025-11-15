@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import { onMount } from "svelte";
   import { getData, patchData } from "../../utils/api.util";
   import {
@@ -7,6 +7,7 @@
   } from "../../utils/localStorageManager";
   import userUtil from "../../utils/user.util";
 
+  import SyncButton from "./SyncButton.svelte";
   import ThemePicker from "./ThemePicker.svelte";
   import SocialShare from "./SocialShare.svelte";
   import DateFilter from "./DateFilter.svelte";
@@ -23,32 +24,68 @@
 
   let publishWatasSummary = [];
 
+  async function loadSummaryForAutoCompleting() {
+    const result = await getData("publish-wata/summary");
+    publishWatasSummary = result;
+  }
+
+  async function loadWorks() {
+    if (userUtil.exist()) {
+      const datas = await getData("receipt");
+      works = datas;
+      saveToLocalStorage("receipt-works", datas);
+      return;
+    }
+
+    works = loadFromLocalStorage("receipt-works") || [];
+  }
+
+  function showGuide() {
+    if (works.length > 0) return;
+    const today = new Date();
+    works = [
+      {
+        date: today.toISOString().slice(0, 10),
+        title: "+ Add work 로 작품을 추가하세요",
+        category: "게임",
+        rating: "good",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        title: "상단의 달력 버튼을 눌러 날짜 별로 영수증을 필터링 해보세요",
+        category: "공연/전시",
+        rating: "middle",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        category: "만화",
+        title: "제목을 입력하면 카테고리와 전체 제목이 자동으로 채워집니다",
+        rating: "bad",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        category: "서적",
+        title: "이미지를 저장해 친구들에게 공유해보세요",
+        rating: "middle",
+      },
+      {
+        date: today.toISOString().slice(0, 10),
+        title: "로그인하면 데이터를 동기화 할 수 있어요",
+        category: "영상",
+        rating: "good",
+      },
+    ];
+  }
+
   onMount(async () => {
     try {
       loading = true;
 
-      const result = await getData<any[]>("publish-wata/summary");
-      publishWatasSummary = result;
+      await loadSummaryForAutoCompleting();
 
-      works = loadFromLocalStorage("receipt-works") || [];
+      await loadWorks();
 
-      if (works?.length !== 0 || !userUtil.exist()) {
-        loading = false;
-        return;
-      }
-
-      const datas = await getData<
-        {
-          id: number;
-          date: string;
-          category: string;
-          title: string;
-          rating: string;
-        }[]
-      >("receipt");
-
-      works = datas;
-      saveToLocalStorage("receipt-works", datas);
+      showGuide();
 
       loading = false;
     } catch (error) {
@@ -58,41 +95,7 @@
 </script>
 
 <aside>
-  <button
-    on:click={async () => {
-      try {
-        loading = true;
-
-        const params = loadFromLocalStorage("receipt-works")?.filter((item) => {
-          if (!item.id && item.action === "DELETE") {
-            return false;
-          }
-
-          if (!item?.action) {
-            return false;
-          }
-
-          return true;
-        });
-
-        if (!params || params?.length === 0) {
-          loading = false;
-          return;
-        }
-
-        console.log(params);
-
-        const updated = await patchData("receipt/bulk", params);
-
-        works = updated;
-        saveToLocalStorage("receipt-works", updated);
-
-        loading = false;
-      } catch (error) {
-        console.error(error);
-      }
-    }}>서버에 저장하기</button
-  >
+  <SyncButton bind:loading />
   <ThemePicker bind:theme />
 </aside>
 
@@ -101,7 +104,11 @@
     <div class="loading"></div>
   {/if}
 
-  <div class="title">*WARCHIVE*</div>
+  <div class="header">
+    <div class="title">*WARCHIVE*</div>
+
+    <DateFilter bind:selectedYear bind:selectedMonth />
+  </div>
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
 
@@ -129,7 +136,15 @@
     </div>
     <div>
       <div>Record Date:</div>
-      <DateFilter bind:selectedYear bind:selectedMonth />
+      {#if selectedYear}
+        {selectedYear} 년
+      {/if}
+      {#if selectedYear && selectedMonth}
+        {selectedMonth} 월
+      {/if}
+      {#if !selectedYear && !selectedMonth}
+        All Date
+      {/if}
     </div>
   </div>
 
@@ -167,13 +182,6 @@
     padding: 0 10px;
   }
 
-  button {
-    background-color: transparent;
-    border: 1px dashed black;
-    font-size: 0.8em;
-    cursor: pointer;
-  }
-
   .receipt {
     --receipt-theme-color: #000000;
     flex: 1;
@@ -191,6 +199,10 @@
 
     display: flex;
     flex-direction: column;
+  }
+
+  .header {
+    position: relative;
   }
 
   .title {
