@@ -20,10 +20,6 @@
   }
 
   function updated() {
-    if (work.action !== "CREATE") {
-      work.action = "UPDATE";
-    }
-
     saveToLocalStorage("receipt-works", works);
   }
 
@@ -50,9 +46,8 @@
   }
 
   function removeWork() {
-    work.action = "DELETE";
-
-    saveToLocalStorage("receipt-works", works);
+    works = works.filter((w) => w !== work);
+    updated();
   }
 
   function handleClickOutside(event) {

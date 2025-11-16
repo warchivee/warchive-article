@@ -1,5 +1,5 @@
 <script>
-  import { patchData } from "../../utils/api.util";
+  import { getData, putData } from "../../utils/api.util";
   import userUtil from "../../utils/user.util";
   import Snackbar from "../Snackbar.svelte";
   import {
@@ -7,11 +7,13 @@
     saveToLocalStorage,
   } from "../../utils/localStorageManager";
 
+  export let works;
   export let loading = false;
 
   let showSnackbar = false;
 
   let open = false;
+  let lastSyncedAt;
 
   function openSnackbar() {
     showSnackbar = true;
@@ -21,13 +23,18 @@
     }, 3000);
   }
 
-  function openPopup() {
+  async function openPopup() {
     const isLoggedIn = userUtil.exist();
 
     if (!isLoggedIn) {
       openSnackbar();
       return;
     }
+
+    const syncInfo = await getData("receipt/sync");
+    lastSyncedAt = syncInfo?.last_synced_at
+      ? new Date(syncInfo.last_synced_at)
+      : null;
 
     open = true;
   }
@@ -36,27 +43,20 @@
     try {
       loading = true;
 
-      const params = loadFromLocalStorage("receipt-works")?.filter((item) => {
-        if (!item.id && item.action === "DELETE") {
-          return false;
-        }
-
-        if (!item?.action) {
-          return false;
-        }
-
-        return true;
-      });
+      const params = loadFromLocalStorage("receipt-works");
 
       if (!params || params?.length === 0) {
         loading = false;
         return;
       }
 
-      const updated = await patchData("receipt/bulk", params);
+      const updated = await putData("receipt/sync", params);
 
-      works = updated;
-      saveToLocalStorage("receipt-works", updated);
+      works = updated.datas;
+      saveToLocalStorage("receipt-works", works);
+      saveToLocalStorage("receipt-last-synced-at", updated.last_synced_at);
+
+      open = false;
 
       loading = false;
     } catch (error) {
@@ -72,11 +72,19 @@
 
 <button on:click={openPopup}>데이터 동기화</button>
 {#if open}
-  <div class="overlay" on:click={onCancel}>
-    <div class="popup" on:click|stopPropagation>
+  <div class="overlay" on:click={onCancel} aria-hidden="true">
+    <div class="popup" on:click|stopPropagation aria-hidden="true">
       <div>
         <div><i class="fa-solid fa-triangle-exclamation"></i> 주의</div>
-        <p>현재 내용을 서버에 동기화합니다. 계속할까요?</p>
+        <p>
+          로컬 데이터를 서버로 동기화합니다. 현재 서버 데이터는 로컬 데이터로
+          덮어쓰여집니다. 계속 진행하시겠습니까?
+        </p>
+        <p class="sync">
+          마지막 동기화 시간: {lastSyncedAt
+            ? lastSyncedAt.toLocaleString("ko-KR")
+            : "동기화 한 적 없음"}
+        </p>
       </div>
 
       <div class="buttons">
@@ -134,5 +142,10 @@
   .confirm {
     background: black;
     color: white;
+  }
+
+  .sync {
+    font-size: 0.7em;
+    font-weight: bold;
   }
 </style>

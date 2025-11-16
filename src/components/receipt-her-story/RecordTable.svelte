@@ -9,8 +9,6 @@
   export let selectedMonth = null;
 
   $: filteredWorks = works.filter((work) => {
-    if (work.action === "DELETE") return false;
-
     if (!selectedYear && !selectedMonth) return true;
 
     const date = new Date(work.date);
@@ -48,7 +46,6 @@
         category: "",
         title: "",
         rating: "",
-        action: "CREATE",
       },
     ];
 
@@ -65,7 +62,7 @@
   </div>
 
   {#each filteredWorks as work}
-    <RecordRow bind:work {publishWatasSummary} {theme} {works} />
+    <RecordRow bind:work {publishWatasSummary} {theme} bind:works />
   {/each}
 
   <button class="add-btn" on:click={addWork}>+ Add work here</button>

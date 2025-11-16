@@ -29,15 +29,40 @@
     publishWatasSummary = result;
   }
 
+  async function getWorks() {
+    const datas = await getData("receipt");
+    works = datas;
+    saveToLocalStorage("receipt-works", datas);
+  }
+
   async function loadWorks() {
-    if (userUtil.exist()) {
-      const datas = await getData("receipt");
-      works = datas;
-      saveToLocalStorage("receipt-works", datas);
+    const localWorks = loadFromLocalStorage("receipt-works") || [];
+
+    if (!userUtil.exist()) {
+      works = localWorks;
       return;
     }
 
-    works = loadFromLocalStorage("receipt-works") || [];
+    // 데이터가 아예 없으면 서버 내용을 불러오기
+    if (localWorks.length <= 0) {
+      await getWorks();
+      return;
+    }
+
+    // 로컬 동기화 시간과 서버 동기화 시간이 다르면 최신 내용으로 불러오기
+    const serverSync = await getData("receipt/sync");
+    const localSyncedAt = loadFromLocalStorage("receipt-last-synced-at");
+    const serverTime = new Date(serverSync?.last_synced_at).getTime();
+    const localTime = new Date(localSyncedAt).getTime();
+
+    if (!isNaN(serverTime) && !isNaN(localTime)) {
+      if (serverTime > localTime) {
+        await getWorks();
+        return;
+      }
+    }
+
+    works = localWorks;
   }
 
   function showGuide() {
@@ -95,7 +120,7 @@
 </script>
 
 <aside>
-  <SyncButton bind:loading />
+  <SyncButton bind:loading bind:works />
   <ThemePicker bind:theme />
 </aside>
 
