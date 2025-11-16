@@ -83,7 +83,7 @@
         <p class="sync">
           마지막 동기화 시간: {lastSyncedAt
             ? lastSyncedAt.toLocaleString("ko-KR")
-            : "동기화 한 적 없음"}
+            : "동기화된 기록이 없음"}
         </p>
       </div>
 
