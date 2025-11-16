@@ -23,7 +23,7 @@
   <div on:click={logout}>Logout</div>
 {:else}
   <a
-    href="https://www.womynarchive.com/login?rd=https://article.womynarchive.com/"
+    href={`${import.meta.env.PUBLIC_LOGIN_URL}?rd=${import.meta.env.PUBLIC_LOGIN_RECIRECT_URL}`}
   >
     Login
   </a>

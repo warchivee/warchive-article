@@ -55,11 +55,9 @@
     const serverTime = new Date(serverSync?.last_synced_at).getTime();
     const localTime = new Date(localSyncedAt).getTime();
 
-    if (!isNaN(serverTime) && !isNaN(localTime)) {
-      if (serverTime > localTime) {
-        await getWorks();
-        return;
-      }
+    if (isNaN(localTime) || serverTime > localTime) {
+      await getWorks();
+      return;
     }
 
     works = localWorks;
