@@ -77,7 +77,7 @@
       <div>
         <div><i class="fa-solid fa-triangle-exclamation"></i> 주의</div>
         <p>
-          로컬 데이터를 서버로 동기화합니다. 현재 서버 데이터는 로컬 데이터로
+          로컬 데이터를 서버로 동기화합니다. 서버 데이터는 현재 로컬 데이터로
           덮어쓰여집니다. 계속 진행하시겠습니까?
         </p>
         <p class="sync">
