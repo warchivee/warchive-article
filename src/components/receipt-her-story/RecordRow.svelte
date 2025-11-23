@@ -28,13 +28,32 @@
     saveToLocalStorage("receipt-works", works);
   }
 
-  function handleTitleInput(input) {
-    work.title = input;
+  function handleTitleInput(e) {
+    let value = e.target.textContent;
+
+    // 길이 제한
+    if (value.length > 150) {
+      value = value.slice(0, 150);
+      e.target.textContent = value;
+
+      // 커서가 맨 앞으로 튀는 문제 방지
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(e.target);
+      range.collapse(false); // 끝으로 이동
+      sel.removeAllRanges();
+      sel.addRange(range);
+
+      return;
+    }
+
+    work.title = value;
     updated();
 
-    if (input.length > 0) {
+    // 필터링 & 드롭다운
+    if (value.length > 0) {
       filteredSuggestions = publishWatasSummary.filter((item) =>
-        item.title.toLowerCase().includes(input.toLowerCase())
+        item.title.toLowerCase().includes(value.toLowerCase())
       );
       showDropdown = true;
     } else {
@@ -78,6 +97,17 @@
     use:svlatepickr={options}
     placeholder="날짜선택.."
   />
+  <div class="input-saved">
+    {new Date(work.date)
+      ?.toLocaleDateString("ko-KR", {
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .replace(/\.$/, "")
+      .replace(/\./g, "/")
+      .replaceAll(" ", "")}
+  </div>
 
   <div
     contenteditable="true"
@@ -94,7 +124,7 @@
       contenteditable="true"
       class="title"
       bind:innerHTML={work.title}
-      on:input={(e) => handleTitleInput(e.target.textContent)}
+      on:input={handleTitleInput}
     ></div>
     {#if showDropdown}
       <div class="dropdown" bind:this={dropdownRef}>
@@ -198,9 +228,19 @@
   :global(.receipt.image-saved .delete-btn) {
     display: none;
   }
+  :global(.receipt.image-saved input) {
+    display: none;
+  }
 
   :global(.receipt.image-saved .row) {
     grid-template-columns: 60px 55px 1fr 60px;
+  }
+
+  :global(.input-saved) {
+    display: none;
+  }
+  :global(.receipt.image-saved .input-saved) {
+    display: block;
   }
 
   .dropdown {

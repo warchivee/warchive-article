@@ -111,6 +111,43 @@
     ];
   }
 
+  function getDateStr() {
+    if (!selectedDates || selectedDates.length === 0) {
+      return "모든 일자";
+    }
+
+    let start;
+    let end;
+
+    if (selectedDates[0]) {
+      start =
+        new Date(selectedDates[0])
+          .toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+          })
+          .replace(/\./, "년 ")
+          .replaceAll(".", "") + "월";
+    }
+
+    if (selectedDates[1]) {
+      end =
+        new Date(selectedDates[1])
+          .toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+          })
+          .replace(/\./, "년 ")
+          .replaceAll(".", "") + "월";
+    }
+
+    if (!end || start === end) {
+      return start;
+    }
+
+    return start + " ~ " + end;
+  }
+
   onMount(async () => {
     try {
       loading = true;
@@ -171,10 +208,13 @@
           use:svlatepickr={options}
         />
         {#if selectedDates}
-          <span class="reset" on:click={clearDatePicker} aria-hidden="true"
-            >×</span
+          <span
+            class="reset delete-btn"
+            on:click={clearDatePicker}
+            aria-hidden="true">×</span
           >
         {/if}
+        <div class="input-saved">{getDateStr()}</div>
       </div>
     </div>
   </div>
