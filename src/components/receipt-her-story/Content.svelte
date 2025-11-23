@@ -230,7 +230,19 @@
 
 <SocialShare />
 
+<div class="caption">
+  인터넷 캐시, 쿠키 초기화 시 영수증 내역이 초기화됩니다. 로그인 시 서버에
+  데이터를 동기화할 수 있습니다.
+</div>
+
 <style>
+  .caption {
+    margin-top: 20px;
+    color: gray;
+    font-size: 14px;
+    margin: 0 auto;
+  }
+
   :global(main *) {
     letter-spacing: 0.5px;
     font-family: var(--receipt-font-family);
