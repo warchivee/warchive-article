@@ -12,7 +12,7 @@
     if (userUtil.exist()) return;
 
     try {
-      // await reissueToken();
+      await reissueToken();
     } catch (error) {
       console.error("토큰 재발급 실패:", error);
     }
