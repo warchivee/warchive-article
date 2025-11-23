@@ -121,15 +121,17 @@
     placeholder="날짜선택.."
   />
   <div class="input-saved">
-    {new Date(work.date)
-      ?.toLocaleDateString("ko-KR", {
-        year: "2-digit",
-        month: "2-digit",
-        day: "2-digit",
-      })
-      .replace(/\.$/, "")
-      .replace(/\./g, "/")
-      .replaceAll(" ", "")}
+    {work?.date
+      ? new Date(work.date)
+          ?.toLocaleDateString("ko-KR", {
+            year: "2-digit",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .replace(/\.$/, "")
+          .replace(/\./g, "/")
+          .replaceAll(" ", "")
+      : ""}
   </div>
 
   <div
