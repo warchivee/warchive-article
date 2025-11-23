@@ -2,6 +2,27 @@
   import { onMount, onDestroy } from "svelte";
   import { saveToLocalStorage } from "../../utils/localStorageManager";
   import svlatepickr from "svelte-flatpickr-plus";
+  import blockedWords from "/public/assets/blockedWords.txt?raw";
+
+  function removeBlockedWords(str) {
+    const testStr = str ?? "";
+    try {
+      const profanityList = blockedWords
+        .split("\n")
+        .map((word) => word.replace(/\s/g, ""))
+        .filter((word) => word !== "");
+
+      if (profanityList.length === 0) return testStr;
+
+      // 비속어를 찾고 제거
+      const regexPattern = new RegExp(`${profanityList.join("|")}`, "gi");
+      const cleanedStr = testStr.replace(regexPattern, "");
+
+      return cleanedStr;
+    } catch (err) {
+      return str;
+    }
+  }
 
   export let theme;
 
@@ -30,6 +51,8 @@
 
   function handleTitleInput(e) {
     let value = e.target.textContent;
+
+    value = removeBlockedWords(value);
 
     // 길이 제한
     if (value.length > 150) {
