@@ -54,27 +54,27 @@
   async function loadWorks() {
     const localWorks = loadFromLocalStorage("receipt-works") || [];
 
-    if (!userUtil.exist()) {
-      works = localWorks;
-      return;
-    }
+    // if (!userUtil.exist()) {
+    //   works = localWorks;
+    //   return;
+    // }
 
-    // 데이터가 아예 없으면 서버 내용을 불러오기
-    if (localWorks.length <= 0) {
-      await getWorks();
-      return;
-    }
+    // // 데이터가 아예 없으면 서버 내용을 불러오기
+    // if (localWorks.length <= 0) {
+    //   await getWorks();
+    //   return;
+    // }
 
-    // 로컬 동기화 시간과 서버 동기화 시간이 다르면 최신 내용으로 불러오기
-    const serverSync = await getData("receipt/sync");
-    const localSyncedAt = loadFromLocalStorage("receipt-last-synced-at");
-    const serverTime = new Date(serverSync?.last_synced_at).getTime();
-    const localTime = new Date(localSyncedAt).getTime();
+    // // 로컬 동기화 시간과 서버 동기화 시간이 다르면 최신 내용으로 불러오기
+    // const serverSync = await getData("receipt/sync");
+    // const localSyncedAt = loadFromLocalStorage("receipt-last-synced-at");
+    // const serverTime = new Date(serverSync?.last_synced_at).getTime();
+    // const localTime = new Date(localSyncedAt).getTime();
 
-    if (isNaN(localTime) || serverTime > localTime) {
-      await getWorks();
-      return;
-    }
+    // if (isNaN(localTime) || serverTime > localTime) {
+    //   await getWorks();
+    //   return;
+    // }
 
     works = localWorks;
   }
@@ -103,11 +103,11 @@
         title: "이미지를 저장해 친구들에게 공유해보세요",
         rating: "middle",
       },
-      {
-        title: "로그인하면 데이터를 동기화 할 수 있어요",
-        category: "영상",
-        rating: "good",
-      },
+      // {
+      //   title: "로그인하면 데이터를 동기화 할 수 있어요",
+      //   category: "영상",
+      //   rating: "good",
+      // },
     ];
   }
 
@@ -231,8 +231,7 @@
 <SocialShare />
 
 <div class="caption">
-  인터넷 캐시, 쿠키 초기화 시 영수증 내역이 초기화됩니다. 로그인 시 서버에
-  데이터를 동기화할 수 있습니다.
+  인터넷 캐시, 쿠키 초기화 시 영수증 내역이 초기화됩니다.
 </div>
 
 <style>
@@ -240,7 +239,7 @@
     margin-top: 20px;
     color: gray;
     font-size: 14px;
-    margin: 0 auto;
+    text-align: center;
   }
 
   :global(main *) {
