@@ -5,44 +5,41 @@
   export let theme;
   export let publishWatasSummary;
   export let works = [];
-  export let selectedYear = null;
-  export let selectedMonth = null;
+  export let selectedDates = [];
 
   $: filteredWorks = works.filter((work) => {
-    if (!selectedYear && !selectedMonth) return true;
+    const workDate = new Date(work.date);
 
-    const date = new Date(work.date);
-    const yearMatch = +date.getFullYear() === +selectedYear;
-    const monthMatch =
-      +selectedMonth === 0 ? true : +(date.getMonth() + 1) === +selectedMonth;
+    if (!selectedDates || selectedDates.length === 0) {
+      return true;
+    }
 
-    return yearMatch && monthMatch;
+    const startYear = selectedDates[0].getFullYear();
+    const startMonth = selectedDates[0].getMonth();
+
+    const workYear = workDate.getFullYear();
+    const workMonth = workDate.getMonth();
+
+    if (selectedDates.length === 1 || selectedDates[0] == selectedDates[1]) {
+      return workYear === startYear && workMonth === startMonth;
+    } else if (selectedDates.length > 1 && selectedDates[1]) {
+      const endDate = selectedDates[1];
+      const endYear = endDate.getFullYear();
+      const endMonth = endDate.getMonth();
+
+      const workYM = workYear * 100 + workMonth;
+      const startYM = startYear * 100 + startMonth;
+      const endYM = endYear * 100 + endMonth;
+
+      return workYM >= startYM && workYM <= endYM;
+    }
   });
 
   function addWork() {
-    const today = new Date();
-    const viewAll = +selectedYear === 0;
-
-    const sameYearAsToday = +selectedYear === today.getFullYear();
-    const sameMonthAsToday =
-      +selectedMonth === 0 || +selectedMonth === today.getMonth() + 1;
-
-    const month = String(
-      +selectedMonth === 0 ? today.getMonth() + 1 : selectedMonth
-    ).padStart(2, "0");
-
-    const date = String(
-      sameYearAsToday && sameMonthAsToday ? today.getDate() : 1
-    ).padStart(2, "0");
-
-    const d = viewAll
-      ? today.toISOString().slice(0, 10)
-      : `${selectedYear}-${month}-${date}`;
-
     works = [
       ...works,
       {
-        date: d,
+        date: null,
         category: "",
         title: "",
         rating: "",
@@ -61,7 +58,7 @@
     <div>Rating</div>
   </div>
 
-  {#each filteredWorks as work}
+  {#each filteredWorks as work, i (work)}
     <RecordRow bind:work {publishWatasSummary} {theme} bind:works />
   {/each}
 

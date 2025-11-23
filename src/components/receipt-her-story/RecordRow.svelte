@@ -1,6 +1,7 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { saveToLocalStorage } from "../../utils/localStorageManager";
+  import svlatepickr from "svelte-flatpickr-plus";
 
   export let theme;
 
@@ -13,11 +14,15 @@
   let showDatePicker = false;
   let filteredSuggestions = [];
 
-  function formatDate(dateStr) {
-    if (!dateStr) return "";
-    const [year, month, day] = dateStr.split("-");
-    return `${year.slice(2)}-${month}-${day}`;
-  }
+  $: options = {
+    locale: "ko",
+    dateFormat: "y/m/d",
+    defaultDate: work?.date,
+    onChange: (date, dateStr) => {
+      work.date = date[0];
+      updated();
+    },
+  };
 
   function updated() {
     saveToLocalStorage("receipt-works", works);
@@ -67,20 +72,12 @@
 </script>
 
 <div class="row data-row">
-  {#if showDatePicker}
-    <div></div>
-    <input
-      type="date"
-      bind:value={work.date}
-      on:change={() => (showDatePicker = false)}
-      on:blur={() => (showDatePicker = false)}
-      autofocus
-    />
-  {:else}
-    <div on:click={() => (showDatePicker = true)} aria-hidden="true">
-      {formatDate(work.date)}
-    </div>
-  {/if}
+  <input
+    class="date"
+    name="date"
+    use:svlatepickr={options}
+    placeholder="날짜선택.."
+  />
 
   <div
     contenteditable="true"
@@ -92,33 +89,34 @@
     bind:innerHTML={work.category}
   ></div>
 
-  <div
-    contenteditable="true"
-    class="title"
-    bind:innerHTML={work.title}
-    on:input={(e) => handleTitleInput(e.target.textContent.trim())}
-  ></div>
-
-  {#if showDropdown}
-    <div class="dropdown" bind:this={dropdownRef}>
-      {#if filteredSuggestions.length <= 0}
-        <div class="dropdown-item">
-          <a href="https://www.womynarchive.com/"
-            >검색 결과에 없다면? ☞ 와카이브에 제보하기 ☜
-          </a>
-        </div>
-      {/if}
-      {#each filteredSuggestions as suggestion}
-        <div
-          class="dropdown-item"
-          on:click={() => selectSuggestion(suggestion)}
-          aria-hidden="true"
-        >
-          {suggestion.title} - {suggestion.creators}
-        </div>
-      {/each}
-    </div>
-  {/if}
+  <div class="title-wrap">
+    <div
+      contenteditable="true"
+      class="title"
+      bind:innerHTML={work.title}
+      on:input={(e) => handleTitleInput(e.target.textContent)}
+    ></div>
+    {#if showDropdown}
+      <div class="dropdown" bind:this={dropdownRef}>
+        {#if filteredSuggestions.length <= 0}
+          <div class="dropdown-item">
+            <a href="https://www.womynarchive.com/"
+              >검색 결과에 없다면? ☞ 와카이브에 제보하기
+            </a>
+          </div>
+        {/if}
+        {#each filteredSuggestions as suggestion}
+          <div
+            class="dropdown-item"
+            on:click={() => selectSuggestion(suggestion)}
+            aria-hidden="true"
+          >
+            {suggestion.title} - {suggestion.creators}
+          </div>
+        {/each}
+      </div>
+    {/if}
+  </div>
 
   <div class="rating">
     {#each ["bad", "middle", "good"] as rating}
@@ -142,13 +140,13 @@
   .row {
     position: relative;
     display: grid;
-    gap: 2px;
-    grid-template-columns: 60px 60px 1fr 75px 16px;
+    gap: 4px;
+    grid-template-columns: 60px 55px 1fr 60px 16px;
     align-items: center;
   }
 
   .data-row {
-    font-size: 0.68rem;
+    font-size: 0.65em;
     margin: 5px 0;
     background: rgb(248, 248, 248);
   }
@@ -160,13 +158,16 @@
     white-space: pre-wrap;
   }
 
-  input[type="date"] {
+  .title-wrap {
+    position: relative;
+  }
+
+  .date {
     font-family: var(--receipt-font-family);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 105px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 0.5em;
   }
 
   .rating {
@@ -180,8 +181,8 @@
   }
 
   .rating img {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     opacity: 0.2;
   }
 
@@ -199,12 +200,11 @@
   }
 
   :global(.receipt.image-saved .row) {
-    grid-template-columns: 60px 60px 1fr 75px;
+    grid-template-columns: 60px 55px 1fr 60px;
   }
 
   .dropdown {
     position: absolute;
-    top: 20px;
     background: white;
     border: 1px solid #ccc;
     border-radius: 8px;

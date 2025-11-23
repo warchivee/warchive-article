@@ -10,19 +10,35 @@
   import SyncButton from "./SyncButton.svelte";
   import ThemePicker from "./ThemePicker.svelte";
   import SocialShare from "./SocialShare.svelte";
-  import DateFilter from "./DateFilter.svelte";
   import RecordTable from "./RecordTable.svelte";
 
-  let selectedYear;
-  let selectedMonth;
+  import svlatepickr from "svelte-flatpickr-plus";
+
+  let datePickerElement;
+
+  let selectedDates;
+
+  const options = {
+    isMonthPicker: true,
+    mode: "range",
+    locale: "ko",
+    dateFormat: "Y년 m월",
+    onChange: (dates, dateStr) => {
+      selectedDates = dates;
+    },
+  };
 
   let theme = "black";
 
-  let loading = true;
+  let loading = false;
 
   let works = [];
 
   let publishWatasSummary = [];
+
+  function clearDatePicker() {
+    datePickerElement._flatpickr.clear();
+  }
 
   async function loadSummaryForAutoCompleting() {
     const result = await getData("publish-wata/summary");
@@ -65,34 +81,29 @@
 
   function showGuide() {
     if (works.length > 0) return;
-    const today = new Date();
+
     works = [
       {
-        date: today.toISOString().slice(0, 10),
         title: "+ Add work 로 작품을 추가하세요",
         category: "게임",
         rating: "good",
       },
       {
-        date: today.toISOString().slice(0, 10),
-        title: "상단의 달력 버튼을 눌러 날짜 별로 영수증을 필터링 해보세요",
+        title: "날짜 별로 영수증을 필터링 해보세요",
         category: "공연/전시",
         rating: "middle",
       },
       {
-        date: today.toISOString().slice(0, 10),
         category: "만화",
         title: "제목을 입력하면 카테고리와 전체 제목이 자동으로 채워집니다",
         rating: "bad",
       },
       {
-        date: today.toISOString().slice(0, 10),
         category: "서적",
         title: "이미지를 저장해 친구들에게 공유해보세요",
         rating: "middle",
       },
       {
-        date: today.toISOString().slice(0, 10),
         title: "로그인하면 데이터를 동기화 할 수 있어요",
         category: "영상",
         rating: "good",
@@ -109,10 +120,10 @@
       await loadWorks();
 
       showGuide();
-
-      loading = false;
     } catch (error) {
       console.error(error);
+    } finally {
+      loading = false;
     }
   });
 </script>
@@ -129,19 +140,11 @@
 
   <div class="header">
     <div class="title">*WARCHIVE*</div>
-
-    <DateFilter bind:selectedYear bind:selectedMonth />
   </div>
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
 
-  <RecordTable
-    bind:works
-    {theme}
-    {selectedYear}
-    {selectedMonth}
-    {publishWatasSummary}
-  />
+  <RecordTable bind:works {theme} {selectedDates} {publishWatasSummary} />
 
   <div class="forms">
     <div>
@@ -149,7 +152,7 @@
       <div
         class="name-input"
         contenteditable="true"
-        data-placeholder="Write your name"
+        data-placeholder="이름을 입력하세요"
         on:blur={(e) => {
           if (/^\s*$/.test(e.target.innerText)) e.target.innerText = "";
         }}
@@ -159,15 +162,20 @@
     </div>
     <div>
       <div>Record Date:</div>
-      {#if selectedYear}
-        {selectedYear} 년
-      {/if}
-      {#if selectedYear && selectedMonth}
-        {selectedMonth} 월
-      {/if}
-      {#if !selectedYear && !selectedMonth}
-        All Date
-      {/if}
+      <div>
+        <input
+          class="date-range-picker"
+          name="datepicker"
+          placeholder="날짜를 선택해 필터링하세요"
+          bind:this={datePickerElement}
+          use:svlatepickr={options}
+        />
+        {#if selectedDates}
+          <span class="reset" on:click={clearDatePicker} aria-hidden="true"
+            >×</span
+          >
+        {/if}
+      </div>
     </div>
   </div>
 
@@ -291,5 +299,18 @@
   .barcode .url {
     font-size: 0.7rem;
     text-align: center;
+  }
+
+  .date-range-picker {
+    width: 200px;
+    text-align: right;
+    border: none;
+  }
+
+  .reset {
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--receipt-theme-color);
+    padding: 2px 4px;
   }
 </style>
