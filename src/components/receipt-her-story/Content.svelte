@@ -13,6 +13,27 @@
   import RecordTable from "./RecordTable.svelte";
 
   import svlatepickr from "svelte-flatpickr-plus";
+  import blockedWords from "/public/assets/blockedWords.txt?raw";
+
+  function removeBlockedWords(str) {
+    const testStr = str ?? "";
+    try {
+      const profanityList = blockedWords
+        .split("\n")
+        .map((word) => word.replace(/\s/g, ""))
+        .filter((word) => word !== "");
+
+      if (profanityList.length === 0) return testStr;
+
+      // 비속어를 찾고 제거
+      const regexPattern = new RegExp(`${profanityList.join("|")}`, "gi");
+      const cleanedStr = testStr.replace(regexPattern, "");
+
+      return cleanedStr;
+    } catch (err) {
+      return str;
+    }
+  }
 
   let datePickerElement;
 
@@ -33,6 +54,8 @@
   let loading = false;
 
   let works = [];
+
+  let nickname = "";
 
   let publishWatasSummary = [];
 
@@ -190,12 +213,29 @@
         class="name-input"
         contenteditable="true"
         data-placeholder="이름을 입력하세요"
-        on:blur={(e) => {
-          if (/^\s*$/.test(e.target.innerText)) e.target.innerText = "";
+        bind:innerHTML={nickname}
+        on:input={(e) => {
+          let value = e.target.textContent;
+
+          value = removeBlockedWords(value);
+
+          // 길이 제한
+          if (value.length > 10) {
+            value = value.slice(0, 10);
+            e.target.textContent = value;
+
+            // 커서가 맨 앞으로 튀는 문제 방지
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(e.target);
+            range.collapse(false); // 끝으로 이동
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+
+          nickname = value;
         }}
-      >
-        {userUtil.get()?.nickname ?? ""}
-      </div>
+      ></div>
     </div>
     <div>
       <div>Record Date:</div>
@@ -230,15 +270,13 @@
 
 <SocialShare />
 
-<div class="caption">
-  인터넷 캐시, 쿠키 초기화 시 영수증 내역이 초기화됩니다.
-</div>
+<div class="noti">인터넷 캐시, 쿠키 초기화 시 영수증 내역이 초기화됩니다.</div>
 
 <style>
-  .caption {
+  .noti {
     margin-top: 20px;
     color: gray;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
   }
 

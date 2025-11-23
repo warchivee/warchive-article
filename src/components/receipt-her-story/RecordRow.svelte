@@ -138,7 +138,27 @@
     contenteditable="true"
     class="category"
     on:input={(e) => {
-      work.category = e.target.textContent;
+      let value = e.target.textContent;
+
+      value = removeBlockedWords(value);
+
+      // 길이 제한
+      if (value.length > 10) {
+        value = value.slice(0, 10);
+        e.target.textContent = value;
+
+        // 커서가 맨 앞으로 튀는 문제 방지
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(e.target);
+        range.collapse(false); // 끝으로 이동
+        sel.removeAllRanges();
+        sel.addRange(range);
+
+        return;
+      }
+
+      work.category = value;
       updated();
     }}
     bind:innerHTML={work.category}
@@ -180,6 +200,12 @@
         class={work.rating === rating ? `${rating} selected` : rating}
         aria-hidden="true"
         on:click={() => {
+          if (work.rating === rating) {
+            work.rating = "";
+            updated();
+            return;
+          }
+
           work.rating = rating;
           updated();
         }}
