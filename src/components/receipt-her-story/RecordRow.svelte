@@ -32,14 +32,13 @@
 
   let dropdownRef;
   let showDropdown = false;
-  let showDatePicker = false;
   let filteredSuggestions = [];
 
-  $: options = {
+  let options = {
     locale: "ko",
     dateFormat: "y/m/d",
-    defaultDate: work?.date,
-    onChange: (date, dateStr) => {
+    defaultDate: work.date,
+    onChange: (date) => {
       work.date = date[0];
       updated();
     },
@@ -173,13 +172,11 @@
     ></div>
     {#if showDropdown}
       <div class="dropdown" bind:this={dropdownRef}>
-        {#if filteredSuggestions.length <= 0}
-          <div class="dropdown-item">
-            <a href="https://www.womynarchive.com/"
-              >검색 결과에 없다면? ☞ 와카이브에 제보하기
-            </a>
-          </div>
-        {/if}
+        <div class="dropdown-item">
+          <a href="https://www.womynarchive.com/" target="_blank"
+            >검색 결과에 없다면? ☞ 와카이브에 제보하기
+          </a>
+        </div>
         {#each filteredSuggestions as suggestion}
           <div
             class="dropdown-item"
@@ -200,7 +197,7 @@
         class={work.rating === rating ? `${rating} selected` : rating}
         aria-hidden="true"
         on:click={() => {
-          if (work.rating === rating) {
+          if (work.rating !== "" && work.rating === rating) {
             work.rating = "";
             updated();
             return;

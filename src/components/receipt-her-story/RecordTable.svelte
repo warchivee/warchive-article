@@ -40,21 +40,18 @@
       }
     })
     .sort((a, b) => {
-      if (!a.date && !b.date) return 0;
-      if (!a.date) return -1;
-      if (!b.date) return 1;
-      return new Date(b.date) - new Date(a.date);
+      return new Date(b.date) ?? 0 - new Date(a.date) ?? 0;
     });
-
+  ``;
   function addWork() {
     works = [
-      ...works,
       {
         date: null,
         category: "",
         title: "",
         rating: "",
       },
+      ...works,
     ];
 
     saveToLocalStorage("receipt-works", works);
