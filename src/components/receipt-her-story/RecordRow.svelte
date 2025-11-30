@@ -40,6 +40,27 @@
     defaultDate: work.date,
     onChange: (date) => {
       work.date = date[0];
+      works = [...works].sort((a, b) => {
+        const isAIncomplete = !a.date || !a.category || !a.title || !a.rating;
+        const isBIncomplete = !b.date || !b.category || !b.title || !b.rating;
+
+        // 1) 불완전한 항목이 더 위
+        if (isAIncomplete && !isBIncomplete) return -1;
+        if (!isAIncomplete && isBIncomplete) return 1;
+
+        // 2) 둘 다 불완전하면: 날짜 없는 게 위
+        if (isAIncomplete && isBIncomplete) {
+          if (!a.date && b.date) return -1;
+          if (a.date && !b.date) return 1;
+
+          // 둘 다 날짜 없거나 둘 다 있으면 최신순
+          if (!a.date && !b.date) return 0;
+          return new Date(b.date) - new Date(a.date);
+        }
+
+        // 3) 둘 다 완전한 항목이면 날짜 최신순
+        return new Date(b.date) - new Date(a.date);
+      });
       updated();
     },
   };

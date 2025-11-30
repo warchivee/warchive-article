@@ -7,42 +7,37 @@
   export let works = [];
   export let selectedDates = [];
 
-  $: filteredWorks = works
-    .filter((work) => {
-      const workDate = new Date(work.date);
+  $: filteredWorks = works.filter((work) => {
+    const workDate = new Date(work.date);
 
-      if (!selectedDates || selectedDates.length === 0) {
-        return true;
-      }
+    if (!selectedDates || selectedDates.length === 0) {
+      return true;
+    }
 
-      if (!work.date) {
-        return true;
-      }
+    if (!work.date) {
+      return true;
+    }
 
-      const startYear = selectedDates[0].getFullYear();
-      const startMonth = selectedDates[0].getMonth();
+    const startYear = selectedDates[0].getFullYear();
+    const startMonth = selectedDates[0].getMonth();
 
-      const workYear = workDate.getFullYear();
-      const workMonth = workDate.getMonth();
+    const workYear = workDate.getFullYear();
+    const workMonth = workDate.getMonth();
 
-      if (selectedDates.length === 1 || selectedDates[0] == selectedDates[1]) {
-        return workYear === startYear && workMonth === startMonth;
-      } else if (selectedDates.length > 1 && selectedDates[1]) {
-        const endDate = selectedDates[1];
-        const endYear = endDate.getFullYear();
-        const endMonth = endDate.getMonth();
+    if (selectedDates.length === 1 || selectedDates[0] == selectedDates[1]) {
+      return workYear === startYear && workMonth === startMonth;
+    } else if (selectedDates.length > 1 && selectedDates[1]) {
+      const endDate = selectedDates[1];
+      const endYear = endDate.getFullYear();
+      const endMonth = endDate.getMonth();
 
-        const workYM = workYear * 100 + workMonth;
-        const startYM = startYear * 100 + startMonth;
-        const endYM = endYear * 100 + endMonth;
+      const workYM = workYear * 100 + workMonth;
+      const startYM = startYear * 100 + startMonth;
+      const endYM = endYear * 100 + endMonth;
 
-        return workYM >= startYM && workYM <= endYM;
-      }
-    })
-    .sort((a, b) => {
-      return new Date(b.date) ?? 0 - new Date(a.date) ?? 0;
-    });
-  ``;
+      return workYM >= startYM && workYM <= endYM;
+    }
+  });
   function addWork() {
     works = [
       {
