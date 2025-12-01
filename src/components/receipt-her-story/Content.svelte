@@ -5,6 +5,9 @@
     loadFromLocalStorage,
     saveToLocalStorage,
   } from "../../utils/localStorageManager";
+
+  import { v4 as uuidv4 } from "uuid";
+
   import userUtil from "../../utils/user.util";
 
   import SyncButton from "./SyncButton.svelte";
@@ -107,21 +110,25 @@
 
     works = [
       {
+        id: uuidv4(),
         title: "+ Add work 로 작품을 추가하세요",
         category: "게임",
         rating: "good",
       },
       {
+        id: uuidv4(),
         title: "날짜 별로 영수증을 필터링 해보세요",
         category: "공연/전시",
         rating: "middle",
       },
       {
+        id: uuidv4(),
         category: "만화",
         title: "제목을 입력하면 카테고리와 전체 제목이 자동으로 채워집니다",
         rating: "bad",
       },
       {
+        id: uuidv4(),
         category: "서적",
         title: "이미지를 저장해 친구들에게 공유해보세요",
         rating: "middle",

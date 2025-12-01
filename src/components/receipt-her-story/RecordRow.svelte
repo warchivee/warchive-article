@@ -3,6 +3,28 @@
   import { saveToLocalStorage } from "../../utils/localStorageManager";
   import svlatepickr from "svelte-flatpickr-plus";
   import blockedWords from "/public/assets/blockedWords.txt?raw";
+  import { createEventDispatcher } from "svelte";
+
+  export let theme;
+
+  export let publishWatasSummary;
+  export let work;
+
+  let dropdownRef;
+  let showDropdown = false;
+  let filteredSuggestions = [];
+
+  let options = {
+    locale: "ko",
+    dateFormat: "y/m/d",
+    defaultDate: work.date,
+    onChange: (date) => {
+      const updatedWork = { ...work, date: date[0] };
+      dispatch("update", { id: work.id, work: updatedWork });
+    },
+  };
+
+  const dispatch = createEventDispatcher();
 
   function removeBlockedWords(str) {
     const testStr = str ?? "";
@@ -22,51 +44,6 @@
     } catch (err) {
       return str;
     }
-  }
-
-  export let theme;
-
-  export let works;
-  export let publishWatasSummary;
-  export let work;
-
-  let dropdownRef;
-  let showDropdown = false;
-  let filteredSuggestions = [];
-
-  let options = {
-    locale: "ko",
-    dateFormat: "y/m/d",
-    defaultDate: work.date,
-    onChange: (date) => {
-      work.date = date[0];
-      works = [...works].sort((a, b) => {
-        const isAIncomplete = !a.date || !a.category || !a.title || !a.rating;
-        const isBIncomplete = !b.date || !b.category || !b.title || !b.rating;
-
-        // 1) 불완전한 항목이 더 위
-        if (isAIncomplete && !isBIncomplete) return -1;
-        if (!isAIncomplete && isBIncomplete) return 1;
-
-        // 2) 둘 다 불완전하면: 날짜 없는 게 위
-        if (isAIncomplete && isBIncomplete) {
-          if (!a.date && b.date) return -1;
-          if (a.date && !b.date) return 1;
-
-          // 둘 다 날짜 없거나 둘 다 있으면 최신순
-          if (!a.date && !b.date) return 0;
-          return new Date(b.date) - new Date(a.date);
-        }
-
-        // 3) 둘 다 완전한 항목이면 날짜 최신순
-        return new Date(b.date) - new Date(a.date);
-      });
-      updated();
-    },
-  };
-
-  function updated() {
-    saveToLocalStorage("receipt-works", works);
   }
 
   function handleTitleInput(e) {
@@ -90,8 +67,8 @@
       return;
     }
 
-    work.title = value;
-    updated();
+    const updatedWork = { ...work, title: value };
+    dispatch("update", { id: work.id, work: updatedWork });
 
     // 필터링 & 드롭다운
     if (value.length > 0) {
@@ -105,16 +82,18 @@
   }
 
   function selectSuggestion(suggestion) {
-    work.title = suggestion.title + " - " + suggestion.creators;
-    work.category = suggestion.category;
-    updated();
+    const updatedWork = {
+      ...work,
+      title: suggestion.title + " - " + suggestion.creators,
+      category: suggestion.category,
+    };
+    dispatch("update", { id: work.id, work: updatedWork });
 
     showDropdown = false;
   }
 
   function removeWork() {
-    works = works.filter((w) => w !== work);
-    updated();
+    dispatch("remove", { id: work.id });
   }
 
   function handleClickOutside(event) {
@@ -178,8 +157,8 @@
         return;
       }
 
-      work.category = value;
-      updated();
+      const updatedWork = { ...work, category: value };
+      dispatch("update", { id: work.id, work: updatedWork });
     }}
     bind:innerHTML={work.category}
   ></div>
@@ -219,13 +198,13 @@
         aria-hidden="true"
         on:click={() => {
           if (work.rating !== "" && work.rating === rating) {
-            work.rating = "";
-            updated();
+            const updatedWork = { ...work, rating: "" };
+            dispatch("update", { id: work.id, work: updatedWork });
             return;
           }
 
-          work.rating = rating;
-          updated();
+          const updatedWork = { ...work, rating: rating };
+          dispatch("update", { id: work.id, work: updatedWork });
         }}
         alt={rating}
       />
