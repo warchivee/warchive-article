@@ -46,41 +46,6 @@
     }
   }
 
-  function handleTitleInput(e) {
-    let value = e.target.textContent;
-
-    value = removeBlockedWords(value);
-
-    // 길이 제한
-    if (value.length > 150) {
-      value = value.slice(0, 150);
-      e.target.textContent = value;
-
-      // 커서가 맨 앞으로 튀는 문제 방지
-      const range = document.createRange();
-      const sel = window.getSelection();
-      range.selectNodeContents(e.target);
-      range.collapse(false); // 끝으로 이동
-      sel.removeAllRanges();
-      sel.addRange(range);
-
-      return;
-    }
-
-    const updatedWork = { ...work, title: value };
-    dispatch("update", { id: work.id, work: updatedWork });
-
-    // 필터링 & 드롭다운
-    if (value.length > 0) {
-      filteredSuggestions = publishWatasSummary.filter((item) =>
-        item.title.toLowerCase().includes(value.toLowerCase())
-      );
-      showDropdown = true;
-    } else {
-      showDropdown = false;
-    }
-  }
-
   function selectSuggestion(suggestion) {
     const updatedWork = {
       ...work,
@@ -133,43 +98,48 @@
       : ""}
   </div>
 
-  <div
-    contenteditable="true"
-    class="category"
-    on:input={(e) => {
-      let value = e.target.textContent;
+  <input
+    type="text"
+    maxlength="4"
+    value={work.category}
+    on:change={(e) => {
+      let value = e.target.value;
 
       value = removeBlockedWords(value);
-
-      // 길이 제한
-      if (value.length > 10) {
-        value = value.slice(0, 10);
-        e.target.textContent = value;
-
-        // 커서가 맨 앞으로 튀는 문제 방지
-        const range = document.createRange();
-        const sel = window.getSelection();
-        range.selectNodeContents(e.target);
-        range.collapse(false); // 끝으로 이동
-        sel.removeAllRanges();
-        sel.addRange(range);
-
-        return;
-      }
 
       const updatedWork = { ...work, category: value };
       dispatch("update", { id: work.id, work: updatedWork });
     }}
-    bind:innerHTML={work.category}
-  ></div>
+  />
+  <div class="category input-saved">{work.category}</div>
 
   <div class="title-wrap">
-    <div
-      contenteditable="true"
+    <textarea
       class="title"
-      bind:innerHTML={work.title}
-      on:input={handleTitleInput}
-    ></div>
+      maxlength="120"
+      on:input={(e) => {
+        // 필터링 & 드롭다운
+        let value = e.target.value;
+        if (value.length > 0) {
+          filteredSuggestions = publishWatasSummary.filter((item) =>
+            item.title.toLowerCase().includes(value.toLowerCase())
+          );
+          showDropdown = true;
+        } else {
+          showDropdown = false;
+        }
+      }}
+      on:change={(e) => {
+        let value = e.target.value;
+
+        value = removeBlockedWords(value);
+
+        const updatedWork = { ...work, title: value };
+        dispatch("update", { id: work.id, work: updatedWork });
+      }}>{work.title}</textarea
+    >
+    <div class="title input-saved">{work.title}</div>
+
     {#if showDropdown}
       <div class="dropdown" bind:this={dropdownRef}>
         <div class="dropdown-item">
@@ -273,10 +243,25 @@
     cursor: pointer;
   }
 
+  input,
+  textarea {
+    border: none;
+    background-color: transparent;
+  }
+
+  textarea {
+    width: 100%;
+    resize: none; /* 크기 조절 막기 */
+    field-sizing: content;
+  }
+
   :global(.receipt.image-saved .delete-btn) {
     display: none;
   }
   :global(.receipt.image-saved input) {
+    display: none;
+  }
+  :global(.receipt.image-saved textarea) {
     display: none;
   }
 
