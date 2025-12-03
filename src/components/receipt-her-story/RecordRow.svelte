@@ -1,30 +1,18 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { saveToLocalStorage } from "../../utils/localStorageManager";
   import svlatepickr from "svelte-flatpickr-plus";
   import blockedWords from "/public/assets/blockedWords.txt?raw";
-  import { createEventDispatcher } from "svelte";
 
   export let theme;
-
   export let publishWatasSummary;
   export let work;
+
+  export let handleUpdate;
+  export let handleRemove;
 
   let dropdownRef;
   let showDropdown = false;
   let filteredSuggestions = [];
-
-  let options = {
-    locale: "ko",
-    dateFormat: "y/m/d",
-    defaultDate: work.date,
-    onChange: (date) => {
-      const updatedWork = { ...work, date: date[0] };
-      dispatch("update", { id: work.id, work: updatedWork });
-    },
-  };
-
-  const dispatch = createEventDispatcher();
 
   function removeBlockedWords(str) {
     const testStr = str ?? "";
@@ -52,13 +40,9 @@
       title: suggestion.title + " - " + suggestion.creators,
       category: suggestion.category,
     };
-    dispatch("update", { id: work.id, work: updatedWork });
+    handleUpdate(updatedWork);
 
     showDropdown = false;
-  }
-
-  function removeWork() {
-    dispatch("remove", { id: work.id });
   }
 
   function handleClickOutside(event) {
@@ -81,7 +65,15 @@
   <input
     class="date"
     name="date"
-    use:svlatepickr={options}
+    use:svlatepickr={{
+      locale: "ko",
+      dateFormat: "y/m/d",
+      defaultDate: work.date,
+      onChange: (date) => {
+        const updatedWork = { ...work, date: date[0] };
+        handleUpdate(updatedWork);
+      },
+    }}
     placeholder="날짜선택.."
   />
   <div class="input-saved">
@@ -108,7 +100,7 @@
       value = removeBlockedWords(value);
 
       const updatedWork = { ...work, category: value };
-      dispatch("update", { id: work.id, work: updatedWork });
+      handleUpdate(updatedWork);
     }}
   />
   <div class="category input-saved">{work.category}</div>
@@ -135,7 +127,7 @@
         value = removeBlockedWords(value);
 
         const updatedWork = { ...work, title: value };
-        dispatch("update", { id: work.id, work: updatedWork });
+        handleUpdate(updatedWork);
       }}>{work.title}</textarea
     >
     <div class="title input-saved">{work.title}</div>
@@ -169,19 +161,26 @@
         on:click={() => {
           if (work.rating !== "" && work.rating === rating) {
             const updatedWork = { ...work, rating: "" };
-            dispatch("update", { id: work.id, work: updatedWork });
+            handleUpdate(updatedWork);
             return;
           }
 
           const updatedWork = { ...work, rating: rating };
-          dispatch("update", { id: work.id, work: updatedWork });
+          handleUpdate(updatedWork);
         }}
         alt={rating}
       />
     {/each}
   </div>
 
-  <button class="delete-btn" on:click={removeWork}> [×] </button>
+  <button
+    class="delete-btn"
+    on:click={() => {
+      handleRemove(work);
+    }}
+  >
+    [×]
+  </button>
 </div>
 
 <style>

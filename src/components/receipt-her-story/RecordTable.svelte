@@ -1,67 +1,51 @@
 <script>
-  import RecordRow from "./RecordRow.svelte";
   import { saveToLocalStorage } from "../../utils/localStorageManager";
 
   import { v4 as uuidv4 } from "uuid";
+  import RecordRow from "./RecordRow.svelte";
 
-  export let theme;
-  export let publishWatasSummary;
-  export let works = [];
-  export let selectedDates = [];
+  let { works, selectedDates, theme, publishWatasSummary } = $props();
 
-  $: filteredWorks = [...works]
-    .sort((a, b) => {
-      const aEmpty = !a.category && !a.title && !a.rating;
-      const bEmpty = !b.category && !b.title && !b.rating;
+  let filteredWorks = $derived(
+    works
+      .filter((work) => handleFilter(work, selectedDates))
+      .toSorted((a, b) => {
+        const aNoDate = !a.date;
+        const bNoDate = !b.date;
+        if (aNoDate && !bNoDate) return -1;
+        if (!aNoDate && bNoDate) return 1;
+        return new Date(b.date) - new Date(a.date);
+      })
+  );
 
-      const aNoDate = !a.date;
-      const bNoDate = !b.date;
+  function handleFilter(work, dates) {
+    if (!work) return;
 
-      // 1) 날짜 없는 게 위
-      if (aNoDate && !bNoDate) return -1;
-      if (!aNoDate && bNoDate) return 1;
+    const workDate = new Date(work.date);
 
-      // 2) 둘 다 날짜 없으면, 비어있는 게 위
-      if (aNoDate && bNoDate) {
-        if (aEmpty && !bEmpty) return -1;
-        if (!aEmpty && bEmpty) return 1;
-        return 0; // 둘 다 같으면 순서 유지
-      }
+    if (!dates || dates.length === 0) return true;
+    if (!work.date) return true;
 
-      // 3) 날짜 있는 항목은 최신순
-      return new Date(b.date) - new Date(a.date);
-    })
-    .filter((work) => {
-      const workDate = new Date(work.date);
+    const startYear = dates[0].getFullYear();
+    const startMonth = dates[0].getMonth();
 
-      if (!selectedDates || selectedDates.length === 0) {
-        return true;
-      }
+    const workYear = workDate.getFullYear();
+    const workMonth = workDate.getMonth();
 
-      if (!work.date) {
-        return true;
-      }
+    if (dates.length === 1 || dates[0] == dates[1]) {
+      return workYear === startYear && workMonth === startMonth;
+    } else if (dates.length > 1 && dates[1]) {
+      const endDate = dates[1];
+      const endYear = endDate.getFullYear();
+      const endMonth = endDate.getMonth();
 
-      const startYear = selectedDates[0].getFullYear();
-      const startMonth = selectedDates[0].getMonth();
+      const workYM = workYear * 100 + workMonth;
+      const startYM = startYear * 100 + startMonth;
+      const endYM = endYear * 100 + endMonth;
 
-      const workYear = workDate.getFullYear();
-      const workMonth = workDate.getMonth();
-
-      if (selectedDates.length === 1 || selectedDates[0] == selectedDates[1]) {
-        return workYear === startYear && workMonth === startMonth;
-      } else if (selectedDates.length > 1 && selectedDates[1]) {
-        const endDate = selectedDates[1];
-        const endYear = endDate.getFullYear();
-        const endMonth = endDate.getMonth();
-
-        const workYM = workYear * 100 + workMonth;
-        const startYM = startYear * 100 + startMonth;
-        const endYM = endYear * 100 + endMonth;
-
-        return workYM >= startYM && workYM <= endYM;
-      }
-    });
+      return workYM >= startYM && workYM <= endYM;
+    }
+  }
 
   function addWork() {
     works = [
@@ -78,26 +62,26 @@
     saveToLocalStorage("receipt-works", works);
   }
 
-  function handleRemove(event) {
-    const idToRemove = event.detail.id;
-
-    // 1. Array.prototype.filter()를 사용하여 해당 ID를 제외한 새 배열 생성
-    //    (id를 기반으로 하므로 인덱스 오류가 발생하지 않습니다.)
-    const updatedWorks = works.filter((w) => w.id !== idToRemove);
-
-    // 2. 새로운 배열로 works를 재할당하여 Svelte의 반응성을 트리거하고 UI를 업데이트합니다.
+  function handleRemove(updatedWork) {
+    const updatedWorks = works.filter((w) => w.id !== updatedWork.id);
     works = updatedWorks;
     saveToLocalStorage("receipt-works", works);
   }
 
-  function handleUpdate(event) {
-    const { id, work: updatedWork } = event.detail;
+  function handleUpdate(updatedWork) {
+    const index = works.findIndex((w) => w.id === updatedWork.id);
+    works[index] = updatedWork;
 
-    // 1. works 배열을 업데이트
-    works = works.map((w) => (w.id === id ? updatedWork : w));
+    const updatedWorks = works.map((w) => {
+      if (w.id === updatedWork.id) {
+        return updatedWork;
+      } else {
+        return w;
+      }
+    });
+    works = updatedWorks;
 
     saveToLocalStorage("receipt-works", works);
-    // 2. works = ... (재할당)을 했으므로 Svelte가 변경을 감지합니다.
   }
 </script>
 
@@ -109,13 +93,13 @@
     <div>Rating</div>
   </div>
 
-  {#each filteredWorks as work (work.id)}
+  {#each filteredWorks as work, i (work.id + "-" + i)}
     <RecordRow
       {work}
-      on:update={handleUpdate}
-      on:remove={handleRemove}
-      {publishWatasSummary}
+      {handleUpdate}
+      {handleRemove}
       {theme}
+      {publishWatasSummary}
     />
   {/each}
 
@@ -172,5 +156,13 @@
     font-weight: bold;
     padding: 10px 0;
     border-top: 1px dashed var(--receipt-theme-color);
+  }
+
+  .row {
+    position: relative;
+    display: grid;
+    gap: 4px;
+    grid-template-columns: 60px 55px 1fr 60px 16px;
+    align-items: center;
   }
 </style>
