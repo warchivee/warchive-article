@@ -4,19 +4,20 @@
   import { v4 as uuidv4 } from "uuid";
   import RecordRow from "./RecordRow.svelte";
 
-  let { works, selectedDates, theme, publishWatasSummary } = $props();
+  export let works;
+  export let selectedDates;
+  export let theme;
+  export let publishWatasSummary;
 
-  let filteredWorks = $derived(
-    works
-      .filter((work) => handleFilter(work, selectedDates))
-      .toSorted((a, b) => {
-        const aNoDate = !a.date;
-        const bNoDate = !b.date;
-        if (aNoDate && !bNoDate) return -1;
-        if (!aNoDate && bNoDate) return 1;
-        return new Date(b.date) - new Date(a.date);
-      })
-  );
+  $: filteredWorks = works
+    .filter((work) => handleFilter(work, selectedDates))
+    .toSorted((a, b) => {
+      const aNoDate = !a.date;
+      const bNoDate = !b.date;
+      if (aNoDate && !bNoDate) return -1;
+      if (!aNoDate && bNoDate) return 1;
+      return new Date(b.date) - new Date(a.date);
+    });
 
   function handleFilter(work, dates) {
     if (!work) return;
