@@ -4,8 +4,8 @@
   import { v4 as uuidv4 } from "uuid";
   import RecordRow from "./RecordRow.svelte";
 
-  export let works;
-  export let selectedDates;
+  export let works = [];
+  export let selectedDates = [];
   export let theme;
   export let publishWatasSummary;
 
