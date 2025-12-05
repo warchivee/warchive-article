@@ -143,7 +143,6 @@
           <div
             class="dropdown-item"
             on:click={() => selectSuggestion(suggestion)}
-            aria-hidden="true"
           >
             {suggestion.title} - {suggestion.creators}
           </div>
@@ -157,7 +156,6 @@
       <img
         src="receipt/{rating}-{theme}.png"
         class={work.rating === rating ? `${rating} selected` : rating}
-        aria-hidden="true"
         on:click={() => {
           if (work.rating !== "" && work.rating === rating) {
             const updatedWork = { ...work, rating: "" };
@@ -283,7 +281,7 @@
     width: 100%;
     max-height: 200px;
     overflow-y: scroll;
-    z-index: 10;
+    z-index: 9999;
   }
   .dropdown-item {
     padding: 6px 10px;

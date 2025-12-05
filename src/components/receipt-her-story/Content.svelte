@@ -255,11 +255,7 @@
           use:svlatepickr={options}
         />
         {#if selectedDates}
-          <span
-            class="reset delete-btn"
-            on:click={clearDatePicker}
-            aria-hidden="true">×</span
-          >
+          <span class="reset delete-btn" on:click={clearDatePicker}>×</span>
         {/if}
         <div class="input-saved">{getDateStr()}</div>
       </div>

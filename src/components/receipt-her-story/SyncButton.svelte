@@ -72,8 +72,8 @@
 
 <!-- <button on:click={openPopup}>데이터 동기화</button> -->
 {#if open}
-  <div class="overlay" on:click={onCancel} aria-hidden="true">
-    <div class="popup" on:click|stopPropagation aria-hidden="true">
+  <div class="overlay" on:click={onCancel}>
+    <div class="popup" on:click|stopPropagation>
       <div>
         <div><i class="fa-solid fa-triangle-exclamation"></i> 주의</div>
         <p>
