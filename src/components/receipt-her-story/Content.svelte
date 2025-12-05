@@ -216,33 +216,22 @@
   <div class="forms">
     <div>
       <div>Name:</div>
-      <div
+
+      <input
         class="name-input"
-        contenteditable="true"
-        data-placeholder="이름을 입력하세요"
-        bind:innerHTML={nickname}
-        on:input={(e) => {
+        type="text"
+        maxlength="10"
+        placeholder="이름을 입력하세요"
+        value={nickname}
+        on:change={(e) => {
           let value = e.target.textContent;
 
           value = removeBlockedWords(value);
 
-          // 길이 제한
-          if (value.length > 10) {
-            value = value.slice(0, 10);
-            e.target.textContent = value;
-
-            // 커서가 맨 앞으로 튀는 문제 방지
-            const range = document.createRange();
-            const sel = window.getSelection();
-            range.selectNodeContents(e.target);
-            range.collapse(false); // 끝으로 이동
-            sel.removeAllRanges();
-            sel.addRange(range);
-          }
-
           nickname = value;
         }}
-      ></div>
+      />
+      <div class="name-input input-saved">{nickname}</div>
     </div>
     <div>
       <div>Record Date:</div>
@@ -361,14 +350,7 @@
 
   .name-input {
     display: inline-block;
-    min-width: 100px;
     text-align: right;
-  }
-
-  .name-input:empty:before {
-    content: attr(data-placeholder);
-    color: #aaa;
-    pointer-events: none;
   }
 
   .footer {
