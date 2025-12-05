@@ -22,7 +22,7 @@ export const reissueApi = axios.create({
   withCredentials: true,
 });
 
-const reissueToken = async () => {
+export const reissueToken = async () => {
   const response = await reissueApi.get<ApiResult<LoginResult>>("auth/reissue");
   const result = handleApiResult(response);
 
@@ -52,7 +52,8 @@ api.interceptors.request.use(
       try {
         await reissueToken(); // 토큰 재발급 요청
       } catch (reissueError) {
-        return Promise.reject(reissueError); // 에러 반환
+        userUtil.remove();
+        window.location.href = "/";
       }
     }
 

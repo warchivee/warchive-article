@@ -12,17 +12,6 @@
     link.download = "receipt-her-story.png";
     link.href = imageDataUrl;
     link.click();
-
-    html2canvas(element, { useCORS: true, allowTaint: true })
-      .then((canvas) => {
-        const link = document.createElement("a");
-        link.download = "receipt-her-story.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      })
-      .finally(() => {
-        element.classList.remove("image-saved");
-      });
   }
 
   async function shareTwitter() {

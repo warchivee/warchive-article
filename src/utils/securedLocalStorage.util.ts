@@ -47,10 +47,11 @@ const localStorageUtil = {
   remove: (key: string) => {
     localStorage.removeItem(key);
   },
-
   clearAll: () => {
-    localStorage.removeItem(LS_USER_KEY);
-    localStorage.removeItem(LS_TOKEN_KEY);
+    localStorageUtil.remove(LS_USER_KEY);
+    localStorageUtil.remove(LS_TOKEN_KEY);
+    localStorageUtil.remove("receipt-last-synced-at");
+    localStorageUtil.remove("receipt-works");
   },
 };
 

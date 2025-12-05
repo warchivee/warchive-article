@@ -1,56 +1,86 @@
 <script>
-  import RecordRow from "./RecordRow.svelte";
   import { saveToLocalStorage } from "../../utils/localStorageManager";
 
-  export let theme;
-  export let publishWatasSummary;
+  import { v4 as uuidv4 } from "uuid";
+  import RecordRow from "./RecordRow.svelte";
+
   export let works = [];
-  export let selectedYear = null;
-  export let selectedMonth = null;
+  export let selectedDates;
+  export let theme;
+  export let publishWatasSummary = [];
 
-  $: filteredWorks = works.filter((work) => {
-    if (work.action === "DELETE") return false;
-
-    if (!selectedYear && !selectedMonth) return true;
-
-    const date = new Date(work.date);
-    const yearMatch = +date.getFullYear() === +selectedYear;
-    const monthMatch =
-      +selectedMonth === 0 ? true : +(date.getMonth() + 1) === +selectedMonth;
-
-    return yearMatch && monthMatch;
+  $: filteredWorks = [
+    ...works.filter((work) => handleFilter(work, selectedDates)),
+  ].sort((a, b) => {
+    const aNoDate = !a.date;
+    const bNoDate = !b.date;
+    if (aNoDate && !bNoDate) return -1;
+    if (!aNoDate && bNoDate) return 1;
+    return new Date(b.date) - new Date(a.date);
   });
 
+  function handleFilter(work, dates) {
+    if (!work) return;
+
+    const workDate = new Date(work.date);
+
+    if (!dates || dates.length === 0) return true;
+    if (!work.date) return true;
+
+    const startYear = dates[0].getFullYear();
+    const startMonth = dates[0].getMonth();
+
+    const workYear = workDate.getFullYear();
+    const workMonth = workDate.getMonth();
+
+    if (dates.length === 1 || dates[0] == dates[1]) {
+      return workYear === startYear && workMonth === startMonth;
+    } else if (dates.length > 1 && dates[1]) {
+      const endDate = dates[1];
+      const endYear = endDate.getFullYear();
+      const endMonth = endDate.getMonth();
+
+      const workYM = workYear * 100 + workMonth;
+      const startYM = startYear * 100 + startMonth;
+      const endYM = endYear * 100 + endMonth;
+
+      return workYM >= startYM && workYM <= endYM;
+    }
+  }
+
   function addWork() {
-    const today = new Date();
-    const viewAll = +selectedYear === 0;
-
-    const sameYearAsToday = +selectedYear === today.getFullYear();
-    const sameMonthAsToday =
-      +selectedMonth === 0 || +selectedMonth === today.getMonth() + 1;
-
-    const month = String(
-      +selectedMonth === 0 ? today.getMonth() + 1 : selectedMonth
-    ).padStart(2, "0");
-
-    const date = String(
-      sameYearAsToday && sameMonthAsToday ? today.getDate() : 1
-    ).padStart(2, "0");
-
-    const d = viewAll
-      ? today.toISOString().slice(0, 10)
-      : `${selectedYear}-${month}-${date}`;
-
     works = [
-      ...works,
       {
-        date: d,
-        category: "---",
-        title: "--------",
+        id: uuidv4(),
+        date: null,
+        category: "",
+        title: "",
         rating: "",
-        action: "CREATE",
       },
+      ...works,
     ];
+
+    saveToLocalStorage("receipt-works", works);
+  }
+
+  function handleRemove(updatedWork) {
+    const updatedWorks = works.filter((w) => w.id !== updatedWork.id);
+    works = updatedWorks;
+    saveToLocalStorage("receipt-works", works);
+  }
+
+  function handleUpdate(updatedWork) {
+    const index = works.findIndex((w) => w.id === updatedWork.id);
+    works[index] = updatedWork;
+
+    const updatedWorks = works.map((w) => {
+      if (w.id === updatedWork.id) {
+        return updatedWork;
+      } else {
+        return w;
+      }
+    });
+    works = updatedWorks;
 
     saveToLocalStorage("receipt-works", works);
   }
@@ -64,8 +94,14 @@
     <div>Rating</div>
   </div>
 
-  {#each filteredWorks as work}
-    <RecordRow bind:work {publishWatasSummary} {theme} {works} />
+  {#each filteredWorks as work, i (work.id + "-" + i)}
+    <RecordRow
+      {work}
+      {handleUpdate}
+      {handleRemove}
+      {theme}
+      {publishWatasSummary}
+    />
   {/each}
 
   <button class="add-btn" on:click={addWork}>+ Add work here</button>
@@ -110,6 +146,10 @@
     color: var(--receipt-theme-color);
   }
 
+  :global(.receipt.image-saved .add-btn) {
+    display: none;
+  }
+
   .total {
     display: flex;
     justify-content: space-between;
@@ -117,5 +157,13 @@
     font-weight: bold;
     padding: 10px 0;
     border-top: 1px dashed var(--receipt-theme-color);
+  }
+
+  .row {
+    position: relative;
+    display: grid;
+    gap: 4px;
+    grid-template-columns: 60px 55px 1fr 60px 16px;
+    align-items: center;
   }
 </style>

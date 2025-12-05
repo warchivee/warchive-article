@@ -1,58 +1,48 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { saveToLocalStorage } from "../../utils/localStorageManager";
+  import svlatepickr from "svelte-flatpickr-plus";
+  import blockedWords from "/public/assets/blockedWords.txt?raw";
 
   export let theme;
-
-  export let works;
   export let publishWatasSummary;
   export let work;
 
+  export let handleUpdate;
+  export let handleRemove;
+
   let dropdownRef;
   let showDropdown = false;
-  let showDatePicker = false;
   let filteredSuggestions = [];
 
-  function formatDate(dateStr) {
-    if (!dateStr) return "";
-    const [year, month, day] = dateStr.split("-");
-    return `${year.slice(2)}-${month}-${day}`;
-  }
+  function removeBlockedWords(str) {
+    const testStr = str ?? "";
+    try {
+      const profanityList = blockedWords
+        .split("\n")
+        .map((word) => word.replace(/\s/g, ""))
+        .filter((word) => word !== "");
 
-  function updated() {
-    if (work.action !== "CREATE") {
-      work.action = "UPDATE";
-    }
+      if (profanityList.length === 0) return testStr;
 
-    saveToLocalStorage("receipt-works", works);
-  }
+      // 비속어를 찾고 제거
+      const regexPattern = new RegExp(`${profanityList.join("|")}`, "gi");
+      const cleanedStr = testStr.replace(regexPattern, "");
 
-  function handleTitleInput(input) {
-    work.title = input;
-    updated();
-
-    if (input.length > 0) {
-      filteredSuggestions = publishWatasSummary.filter((item) =>
-        item.title.toLowerCase().includes(input.toLowerCase())
-      );
-      showDropdown = true;
-    } else {
-      showDropdown = false;
+      return cleanedStr;
+    } catch (err) {
+      return str;
     }
   }
 
   function selectSuggestion(suggestion) {
-    work.title = suggestion.title + " - " + suggestion.creators;
-    work.category = suggestion.category;
-    updated();
+    const updatedWork = {
+      ...work,
+      title: suggestion.title + " - " + suggestion.creators,
+      category: suggestion.category,
+    };
+    handleUpdate(updatedWork);
 
     showDropdown = false;
-  }
-
-  function removeWork() {
-    work.action = "DELETE";
-
-    saveToLocalStorage("receipt-works", works);
   }
 
   function handleClickOutside(event) {
@@ -72,88 +62,136 @@
 </script>
 
 <div class="row data-row">
-  {#if showDatePicker}
-    <div></div>
-    <input
-      type="date"
-      bind:value={work.date}
-      on:change={() => (showDatePicker = false)}
-      on:blur={() => (showDatePicker = false)}
-      autofocus
-    />
-  {:else}
-    <div on:click={() => (showDatePicker = true)} aria-hidden="true">
-      {formatDate(work.date)}
-    </div>
-  {/if}
-
-  <div
-    contenteditable="true"
-    class="category"
-    on:input={(e) => {
-      work.category = e.target.textContent;
-      updated();
+  <input
+    class="date"
+    name="date"
+    use:svlatepickr={{
+      locale: "ko",
+      dateFormat: "y/m/d",
+      defaultDate: work.date,
+      onChange: (date) => {
+        const updatedWork = { ...work, date: date[0] };
+        handleUpdate(updatedWork);
+      },
     }}
-    bind:innerHTML={work.category}
-  ></div>
+    placeholder="날짜선택.."
+  />
+  <div class="input-saved">
+    {work?.date
+      ? new Date(work.date)
+          ?.toLocaleDateString("ko-KR", {
+            year: "2-digit",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .replace(/\.$/, "")
+          .replace(/\./g, "/")
+          .replaceAll(" ", "")
+      : ""}
+  </div>
 
-  <div
-    contenteditable="true"
-    class="title"
-    bind:innerHTML={work.title}
-    on:input={(e) => handleTitleInput(e.target.textContent.trim())}
-  ></div>
+  <input
+    type="text"
+    maxlength="4"
+    value={work.category}
+    on:change={(e) => {
+      let value = e.target.value;
 
-  {#if showDropdown}
-    <div class="dropdown" bind:this={dropdownRef}>
-      {#if filteredSuggestions.length <= 0}
+      value = removeBlockedWords(value);
+
+      const updatedWork = { ...work, category: value };
+      handleUpdate(updatedWork);
+    }}
+  />
+  <div class="category input-saved">{work.category}</div>
+
+  <div class="title-wrap">
+    <textarea
+      class="title"
+      maxlength="120"
+      on:input={(e) => {
+        // 필터링 & 드롭다운
+        let value = e.target.value;
+        if (value.length > 0) {
+          filteredSuggestions = publishWatasSummary.filter((item) =>
+            item.title.toLowerCase().includes(value.toLowerCase())
+          );
+          showDropdown = true;
+        } else {
+          showDropdown = false;
+        }
+      }}
+      on:change={(e) => {
+        let value = e.target.value;
+
+        value = removeBlockedWords(value);
+
+        const updatedWork = { ...work, title: value };
+        handleUpdate(updatedWork);
+      }}>{work.title}</textarea
+    >
+    <div class="title input-saved">{work.title}</div>
+
+    {#if showDropdown}
+      <div class="dropdown" bind:this={dropdownRef}>
         <div class="dropdown-item">
-          <a href="https://www.womynarchive.com/"
-            >검색 결과에 없다면? ☞ 와카이브에 제보하기 ☜
+          <a href="https://www.womynarchive.com/" target="_blank"
+            >검색 결과에 없다면? ☞ 와카이브에 제보하기
           </a>
         </div>
-      {/if}
-      {#each filteredSuggestions as suggestion}
-        <div
-          class="dropdown-item"
-          on:click={() => selectSuggestion(suggestion)}
-          aria-hidden="true"
-        >
-          {suggestion.title} - {suggestion.creators}
-        </div>
-      {/each}
-    </div>
-  {/if}
+        {#each filteredSuggestions as suggestion}
+          <div
+            class="dropdown-item"
+            on:click={() => selectSuggestion(suggestion)}
+          >
+            {suggestion.title} - {suggestion.creators}
+          </div>
+        {/each}
+      </div>
+    {/if}
+  </div>
 
   <div class="rating">
     {#each ["bad", "middle", "good"] as rating}
       <img
         src="receipt/{rating}-{theme}.png"
         class={work.rating === rating ? `${rating} selected` : rating}
-        aria-hidden="true"
         on:click={() => {
-          work.rating = rating;
-          updated();
+          if (work.rating !== "" && work.rating === rating) {
+            const updatedWork = { ...work, rating: "" };
+            handleUpdate(updatedWork);
+            return;
+          }
+
+          const updatedWork = { ...work, rating: rating };
+          handleUpdate(updatedWork);
         }}
         alt={rating}
       />
     {/each}
   </div>
 
-  <button class="delete-btn" on:click={removeWork}> [×] </button>
+  <button
+    class="delete-btn"
+    on:click={() => {
+      handleRemove(work);
+    }}
+  >
+    [×]
+  </button>
 </div>
 
 <style>
   .row {
     position: relative;
     display: grid;
-    gap: 2px;
-    grid-template-columns: 60px 60px 1fr 75px 16px;
+    gap: 4px;
+    grid-template-columns: 60px 55px 1fr 60px 16px;
     align-items: center;
   }
 
   .data-row {
-    font-size: 0.68rem;
+    font-size: 0.65em;
     margin: 5px 0;
     background: rgb(248, 248, 248);
   }
@@ -165,13 +203,16 @@
     white-space: pre-wrap;
   }
 
-  input[type="date"] {
+  .title-wrap {
+    position: relative;
+  }
+
+  .date {
     font-family: var(--receipt-font-family);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 105px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 0.5em;
   }
 
   .rating {
@@ -185,8 +226,8 @@
   }
 
   .rating img {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     opacity: 0.2;
   }
 
@@ -199,28 +240,48 @@
     cursor: pointer;
   }
 
+  input,
+  textarea {
+    border: none;
+    background-color: transparent;
+  }
+
+  textarea {
+    width: 100%;
+    resize: none; /* 크기 조절 막기 */
+    field-sizing: content;
+  }
+
   :global(.receipt.image-saved .delete-btn) {
+    display: none;
+  }
+  :global(.receipt.image-saved input) {
+    display: none;
+  }
+  :global(.receipt.image-saved textarea) {
     display: none;
   }
 
   :global(.receipt.image-saved .row) {
-    grid-template-columns: 60px 60px 1fr 75px;
+    grid-template-columns: 60px 55px 1fr 60px;
   }
 
-  :global(.receipt.image-saved .add-btn) {
+  :global(.input-saved) {
     display: none;
+  }
+  :global(.receipt.image-saved .input-saved) {
+    display: block;
   }
 
   .dropdown {
     position: absolute;
-    top: 20px;
     background: white;
     border: 1px solid #ccc;
     border-radius: 8px;
     width: 100%;
     max-height: 200px;
     overflow-y: scroll;
-    z-index: 10;
+    z-index: 9999;
   }
   .dropdown-item {
     padding: 6px 10px;

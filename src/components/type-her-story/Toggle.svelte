@@ -3,7 +3,6 @@
 
   function toggleButton(event) {
     const isToggled = event.target.checked;
-    console.log(`Toggle 상태: ${isToggled}`);
   }
 </script>
 

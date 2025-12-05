@@ -1,98 +1,202 @@
-<script lang="ts">
+<script>
   import { onMount } from "svelte";
-  import { getData, patchData } from "../../utils/api.util";
+  import { getData } from "../../utils/api.util";
   import {
     loadFromLocalStorage,
     saveToLocalStorage,
   } from "../../utils/localStorageManager";
+
+  import { v4 as uuidv4 } from "uuid";
+
   import userUtil from "../../utils/user.util";
 
+  import SyncButton from "./SyncButton.svelte";
   import ThemePicker from "./ThemePicker.svelte";
   import SocialShare from "./SocialShare.svelte";
-  import DateFilter from "./DateFilter.svelte";
   import RecordTable from "./RecordTable.svelte";
 
-  let selectedYear;
-  let selectedMonth;
+  import svlatepickr from "svelte-flatpickr-plus";
+  import blockedWords from "/public/assets/blockedWords.txt?raw";
+
+  function removeBlockedWords(str) {
+    const testStr = str ?? "";
+    try {
+      const profanityList = blockedWords
+        .split("\n")
+        .map((word) => word.replace(/\s/g, ""))
+        .filter((word) => word !== "");
+
+      if (profanityList.length === 0) return testStr;
+
+      // 비속어를 찾고 제거
+      const regexPattern = new RegExp(`${profanityList.join("|")}`, "gi");
+      const cleanedStr = testStr.replace(regexPattern, "");
+
+      return cleanedStr;
+    } catch (err) {
+      return str;
+    }
+  }
+
+  let datePickerElement;
+
+  let selectedDates;
+
+  const options = {
+    isMonthPicker: true,
+    mode: "range",
+    locale: "ko",
+    dateFormat: "Y년 m월",
+    onChange: (dates, dateStr) => {
+      selectedDates = dates;
+    },
+  };
 
   let theme = "black";
 
-  let loading = true;
+  let loading = false;
 
   let works = [];
 
+  let nickname = "";
+
   let publishWatasSummary = [];
+
+  function clearDatePicker() {
+    datePickerElement._flatpickr.clear();
+  }
+
+  async function loadSummaryForAutoCompleting() {
+    const result = await getData("publish-wata/summary");
+    publishWatasSummary = result;
+  }
+
+  async function getWorks() {
+    const datas = await getData("receipt");
+    works = datas;
+    saveToLocalStorage("receipt-works", datas);
+  }
+
+  async function loadWorks() {
+    const localWorks = loadFromLocalStorage("receipt-works") || [];
+
+    // if (!userUtil.exist()) {
+    //   works = localWorks;
+    //   return;
+    // }
+
+    // // 데이터가 아예 없으면 서버 내용을 불러오기
+    // if (localWorks.length <= 0) {
+    //   await getWorks();
+    //   return;
+    // }
+
+    // // 로컬 동기화 시간과 서버 동기화 시간이 다르면 최신 내용으로 불러오기
+    // const serverSync = await getData("receipt/sync");
+    // const localSyncedAt = loadFromLocalStorage("receipt-last-synced-at");
+    // const serverTime = new Date(serverSync?.last_synced_at).getTime();
+    // const localTime = new Date(localSyncedAt).getTime();
+
+    // if (isNaN(localTime) || serverTime > localTime) {
+    //   await getWorks();
+    //   return;
+    // }
+
+    works = localWorks;
+  }
+
+  function showGuide() {
+    if (works.length > 0) return;
+
+    works = [
+      {
+        id: uuidv4(),
+        title: "+ Add work 로 작품을 추가하세요",
+        category: "게임",
+        rating: "good",
+      },
+      {
+        id: uuidv4(),
+        title: "날짜 별로 영수증을 필터링 해보세요",
+        category: "공연/전시",
+        rating: "middle",
+      },
+      {
+        id: uuidv4(),
+        category: "만화",
+        title: "제목을 입력하면 카테고리와 전체 제목이 자동으로 채워집니다",
+        rating: "bad",
+      },
+      {
+        id: uuidv4(),
+        category: "서적",
+        title: "이미지를 저장해 친구들에게 공유해보세요",
+        rating: "middle",
+      },
+      // {
+      //   title: "로그인하면 데이터를 동기화 할 수 있어요",
+      //   category: "영상",
+      //   rating: "good",
+      // },
+    ];
+  }
+
+  function getDateStr() {
+    if (!selectedDates || selectedDates.length === 0) {
+      return "모든 일자";
+    }
+
+    let start;
+    let end;
+
+    if (selectedDates[0]) {
+      start =
+        new Date(selectedDates[0])
+          .toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+          })
+          .replace(/\./, "년 ")
+          .replaceAll(".", "") + "월";
+    }
+
+    if (selectedDates[1]) {
+      end =
+        new Date(selectedDates[1])
+          .toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+          })
+          .replace(/\./, "년 ")
+          .replaceAll(".", "") + "월";
+    }
+
+    if (!end || start === end) {
+      return start;
+    }
+
+    return start + " ~ " + end;
+  }
 
   onMount(async () => {
     try {
       loading = true;
 
-      const result = await getData<any[]>("publish-wata/summary");
-      publishWatasSummary = result;
+      await loadSummaryForAutoCompleting();
 
-      works = loadFromLocalStorage("receipt-works") || [];
+      await loadWorks();
 
-      if (works?.length !== 0 || !userUtil.exist()) {
-        loading = false;
-        return;
-      }
-
-      const datas = await getData<
-        {
-          id: number;
-          date: string;
-          category: string;
-          title: string;
-          rating: string;
-        }[]
-      >("receipt");
-
-      works = datas;
-      saveToLocalStorage("receipt-works", datas);
-
-      loading = false;
+      showGuide();
     } catch (error) {
       console.error(error);
+    } finally {
+      loading = false;
     }
   });
 </script>
 
 <aside>
-  <button
-    on:click={async () => {
-      try {
-        loading = true;
-
-        const params = loadFromLocalStorage("receipt-works")?.filter((item) => {
-          if (!item.id && item.action === "DELETE") {
-            return false;
-          }
-
-          if (!item?.action) {
-            return false;
-          }
-
-          return true;
-        });
-
-        if (!params || params?.length === 0) {
-          loading = false;
-          return;
-        }
-
-        console.log(params);
-
-        const updated = await patchData("receipt/bulk", params);
-
-        works = updated;
-        saveToLocalStorage("receipt-works", updated);
-
-        loading = false;
-      } catch (error) {
-        console.error(error);
-      }
-    }}>서버에 저장하기</button
-  >
+  <SyncButton bind:loading bind:works />
   <ThemePicker bind:theme />
 </aside>
 
@@ -101,17 +205,13 @@
     <div class="loading"></div>
   {/if}
 
-  <div class="title">*WARCHIVE*</div>
+  <div class="header">
+    <div class="title">*WARCHIVE*</div>
+  </div>
 
   <div class="subtitle">RECEIPT FOR WOMEN'S STORIES</div>
 
-  <RecordTable
-    bind:works
-    {theme}
-    {selectedYear}
-    {selectedMonth}
-    {publishWatasSummary}
-  />
+  <RecordTable bind:works {theme} {selectedDates} {publishWatasSummary} />
 
   <div class="forms">
     <div>
@@ -119,17 +219,46 @@
       <div
         class="name-input"
         contenteditable="true"
-        data-placeholder="Write your name"
-        on:blur={(e) => {
-          if (/^\s*$/.test(e.target.innerText)) e.target.innerText = "";
+        data-placeholder="이름을 입력하세요"
+        bind:innerHTML={nickname}
+        on:input={(e) => {
+          let value = e.target.textContent;
+
+          value = removeBlockedWords(value);
+
+          // 길이 제한
+          if (value.length > 10) {
+            value = value.slice(0, 10);
+            e.target.textContent = value;
+
+            // 커서가 맨 앞으로 튀는 문제 방지
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(e.target);
+            range.collapse(false); // 끝으로 이동
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+
+          nickname = value;
         }}
-      >
-        {userUtil.get()?.nickname ?? ""}
-      </div>
+      ></div>
     </div>
     <div>
       <div>Record Date:</div>
-      <DateFilter bind:selectedYear bind:selectedMonth />
+      <div>
+        <input
+          class="date-range-picker"
+          name="datepicker"
+          placeholder="날짜를 선택해 필터링하세요"
+          bind:this={datePickerElement}
+          use:svlatepickr={options}
+        />
+        {#if selectedDates}
+          <span class="reset delete-btn" on:click={clearDatePicker}>×</span>
+        {/if}
+        <div class="input-saved">{getDateStr()}</div>
+      </div>
     </div>
   </div>
 
@@ -144,7 +273,16 @@
 
 <SocialShare />
 
+<div class="noti">인터넷 캐시, 쿠키 초기화 시 영수증 내역이 초기화됩니다.</div>
+
 <style>
+  .noti {
+    margin-top: 20px;
+    color: gray;
+    font-size: 12px;
+    text-align: center;
+  }
+
   :global(main *) {
     letter-spacing: 0.5px;
     font-family: var(--receipt-font-family);
@@ -167,13 +305,6 @@
     padding: 0 10px;
   }
 
-  button {
-    background-color: transparent;
-    border: 1px dashed black;
-    font-size: 0.8em;
-    cursor: pointer;
-  }
-
   .receipt {
     --receipt-theme-color: #000000;
     flex: 1;
@@ -191,6 +322,10 @@
 
     display: flex;
     flex-direction: column;
+  }
+
+  .header {
+    position: relative;
   }
 
   .title {
@@ -256,5 +391,18 @@
   .barcode .url {
     font-size: 0.7rem;
     text-align: center;
+  }
+
+  .date-range-picker {
+    width: 200px;
+    text-align: right;
+    border: none;
+  }
+
+  .reset {
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--receipt-theme-color);
+    padding: 2px 4px;
   }
 </style>

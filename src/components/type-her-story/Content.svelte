@@ -396,6 +396,8 @@
   .caption {
     color: gray;
     font-size: 14px;
+    margin-top: 30px;
+    text-align: center;
   }
 
   .container {
