@@ -58,7 +58,7 @@
 
   let works = [];
 
-  let nickname = "";
+  $: nickname = "";
 
   let publishWatasSummary = [];
 
@@ -224,14 +224,14 @@
         placeholder="이름을 입력하세요"
         value={nickname}
         on:change={(e) => {
-          let value = e.target.textContent;
+          let value = e.target.value;
 
           value = removeBlockedWords(value);
 
           nickname = value;
         }}
       />
-      <div class="name-input input-saved">{nickname}</div>
+      <div class="input-saved">{nickname}</div>
     </div>
     <div>
       <div>Record Date:</div>
@@ -349,7 +349,7 @@
   }
 
   .name-input {
-    display: inline-block;
+    border: none;
     text-align: right;
   }
 
